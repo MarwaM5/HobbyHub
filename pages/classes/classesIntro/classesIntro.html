@@ -1,0 +1,226 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Classes & Events — HobbyHub</title>
+  <meta name="description" content="Discover fun classes, creative training and inspiring events on HobbyHub.">
+
+  <!-- Enable reveal animations only when JavaScript is available -->
+  <script>document.documentElement.classList.add("js");</script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../../shared/css/base.css">
+  <link rel="stylesheet" href="../../../shared/css/components.css">
+  <link rel="stylesheet" href="../../../shared/css/layout.css">
+  <link rel="stylesheet" href="../../../shared/css/motion.css">
+  <link rel="stylesheet" href="classesIntro.css">
+</head>
+
+<body data-page="classesIntro" data-root="../../../">
+
+  <div id="hhNavbar"></div>
+
+  <main>
+    <!-- HERO -->
+    <section class="classesHero">
+      <div class="hhContainer">
+        <div class="row align-items-center g-4 g-lg-5">
+          <div class="col-12 col-lg-7">
+            <span class="classesEyebrow">
+              <span aria-hidden="true">✦</span> Learn something you love
+            </span>
+
+            <h1 class="classesHeroTitle">
+              Your next favorite
+              <span>thing starts here.</span>
+            </h1>
+
+            <p class="classesHeroText">
+              Turn your curiosity into a skill. Explore fun classes,
+              hands-on training and inspiring events designed to help
+              you learn, create and connect with others.
+            </p>
+
+            <div class="classesHeroActions">
+              <a class="hhBtn hhBtnPrimary hhBtnLg" data-route="signup"
+                 id="btnClassesSignup">
+                Start your journey
+              </a>
+
+              <a class="hhBtn hhBtnOutline hhBtnLg"
+                 href="#classExperiences" id="btnExploreExperiences">
+                Explore the possibilities
+              </a>
+            </div>
+
+            <div class="classesHeroNote">
+              <span aria-hidden="true">🌱</span>
+              <span>New to a hobby? You're welcome here.</span>
+            </div>
+          </div>
+
+          <div class="col-12 col-lg-5">
+            <div class="classesHeroArt" aria-label="Creative hobby illustrations">
+              <div class="artNote artNoteTop">Make time for you ✨</div>
+              <div class="artCircle artCircleOne"></div>
+              <div class="artCircle artCircleTwo"></div>
+
+              <div class="artTile artTileMain">
+                <span class="artEmoji" aria-hidden="true">🎨</span>
+                <span class="artTileLabel">Create something</span>
+                <span class="artTileSub">Your way, your pace.</span>
+              </div>
+
+              <div class="artTile artTilePhoto">
+                <span aria-hidden="true">📷</span>
+                <small>Capture moments</small>
+              </div>
+
+              <div class="artTile artTileMusic">
+                <span aria-hidden="true">🎸</span>
+                <small>Find your rhythm</small>
+              </div>
+
+              <div class="artTile artTilePlant" aria-hidden="true">🌿</div>
+
+              <span class="artSpark artSparkOne" aria-hidden="true">✳</span>
+              <span class="artSpark artSparkTwo" aria-hidden="true">✦</span>
+              <div class="artNote artNoteBottom">Little steps, big joy.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE TYPES -->
+    <section class="hhSection" id="classExperiences">
+      <div class="hhContainer">
+        <div class="hhSectionHead text-center reveal">
+          <span class="hhBadge">Find your kind of experience</span>
+          <h2 class="hhSectionTitle mt-3">There’s more than one way to learn.</h2>
+          <p class="hhSectionSub classesSectionIntro">
+            Choose an experience that fits your interests, your schedule
+            and the way you like to learn.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-12 col-md-4 reveal">
+            <article class="experienceCard experienceClass">
+              <div class="experienceIcon" aria-hidden="true">🧩</div>
+              <span class="experienceLabel">LEARN AT YOUR PACE</span>
+              <h3>Classes</h3>
+              <p>
+                Build a new skill step by step, from beginner-friendly
+                lessons to creative projects.
+              </p>
+              <span class="experienceTag">Learn something new</span>
+            </article>
+          </div>
+
+          <div class="col-12 col-md-4 reveal" style="--delay: 120ms">
+            <article class="experienceCard experienceEvent">
+              <div class="experienceIcon" aria-hidden="true">🎉</div>
+              <span class="experienceLabel">MAKE IT A DAY</span>
+              <h3>Events</h3>
+              <p>
+                Get out, try something different and enjoy activities
+                with people who share your interests.
+              </p>
+              <span class="experienceTag">Meet & experience</span>
+            </article>
+          </div>
+
+          <div class="col-12 col-md-4 reveal" style="--delay: 240ms">
+            <article class="experienceCard experienceTraining">
+              <div class="experienceIcon" aria-hidden="true">🚀</div>
+              <span class="experienceLabel">GROW YOUR SKILLS</span>
+              <h3>Training</h3>
+              <p>
+                Practice hands-on, explore useful techniques and feel
+                more confident doing what you enjoy.
+              </p>
+              <span class="experienceTag">Practice & improve</span>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="classesHowSection">
+      <div class="hhContainer">
+        <div class="hhSectionHead text-center reveal">
+          <span class="hhBadge">Simple by design</span>
+          <h2 class="hhSectionTitle mt-3">From “I’m curious” to “I did it!”</h2>
+          <p class="hhSectionSub classesSectionIntro">
+            Getting started with something new can be easier than you think.
+          </p>
+        </div>
+
+        <div class="row g-4 howSteps">
+          <div class="col-12 col-md-4 reveal">
+            <article class="howStep">
+              <div class="howStepNumber">01</div>
+              <div class="howStepIcon" aria-hidden="true">🔎</div>
+              <h3>Find your interest</h3>
+              <p>Explore activities across different hobbies and categories.</p>
+            </article>
+          </div>
+
+          <div class="col-12 col-md-4 reveal" style="--delay: 120ms">
+            <article class="howStep">
+              <div class="howStepNumber">02</div>
+              <div class="howStepIcon" aria-hidden="true">🗓️</div>
+              <h3>Choose your experience</h3>
+              <p>Find a class, event or training opportunity that suits you.</p>
+            </article>
+          </div>
+
+          <div class="col-12 col-md-4 reveal" style="--delay: 240ms">
+            <article class="howStep">
+              <div class="howStepNumber">03</div>
+              <div class="howStepIcon" aria-hidden="true">🌟</div>
+              <h3>Learn and enjoy</h3>
+              <p>Take the first step, practice and celebrate your progress.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIGN-UP CTA -->
+    <section class="classesCtaSection">
+      <div class="hhContainer">
+        <div class="classesCta reveal">
+          <div class="classesCtaDecor" aria-hidden="true">✿</div>
+          <span class="classesCtaEyebrow">YOUR NEXT CHAPTER STARTS HERE</span>
+          <h2>Make room for something you love.</h2>
+          <p>
+            Create your HobbyHub account and get ready to explore
+            classes, discover events and make your free time more meaningful.
+          </p>
+          <a class="hhBtn hhBtnWhite hhBtnLg" data-route="signup"
+             id="btnClassesCtaSignup">
+            Join HobbyHub →
+          </a>
+          <span class="classesCtaFootnote">A little curiosity can go a long way. 🌼</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="hhFooter"></div>
+  <div id="hhModals"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../../../shared/js/data.js"></script>
+  <script src="../../../shared/js/dataService.js"></script>
+  <script src="../../../shared/js/utils.js"></script>
+  <script src="../../../shared/js/components.js"></script>
+  <script src="classesIntro.js"></script>
+</body>
+</html>

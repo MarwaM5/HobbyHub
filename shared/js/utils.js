@@ -5,7 +5,7 @@ const routes = {
   home: "pages/home/home.html",
   discover: "pages/hobbyDiscovery/hobbyDiscovery.html",
   quiz: "pages/quiz/quiz.html",
-  classes: "pages/classes/classes.html",
+  classes: "pages/classes/classesIntro/classesIntro.html",
   groups: "pages/communities/communities.html",
   journey: "pages/journeyIntro/journeyIntro.html",
   ai: "pages/aiIntro/aiIntro.html",
