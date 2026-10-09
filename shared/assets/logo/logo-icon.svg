@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 64" width="48" height="64" role="img" aria-label="HobbyHub logo icon">
+  <path d="M19 22 C18 38 14 52 13 63" fill="none" stroke="#7DA477" stroke-width="3" stroke-linecap="round"/>
+  <path d="M15 50 C9 34 22 24 41 27 C39 42 28 52 15 50 Z" fill="#7DA477"/>
+  <circle cx="15" cy="13" r="12" fill="#E8704F"/>
+</svg>

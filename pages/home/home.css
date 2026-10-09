@@ -1,0 +1,80 @@
+/* home.css | ستايل صفحة الهوم فقط (الألوان والخطوط من shared/css/base.css) */
+
+/* ===== HERO: بياخد كل الشاشة (ناقص ارتفاع الـ navbar) ===== */
+.hero { position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center;
+  min-height: calc(100vh - var(--navH));        /* احتياط للمتصفحات القديمة */
+  min-height: calc(100svh - var(--navH)); }     /* الارتفاع الحقيقي (حتى على الموبايل) */
+.heroMedia { position: absolute; inset: 0; z-index: -1; background: linear-gradient(135deg, #FFF1E6 0%, #FBE3DA 50%, #FCE9D9 100%); }
+.heroMedia video, .heroMedia img { width: 100%; height: 100%; object-fit: cover; }
+.heroBlob { position: absolute; border-radius: 50%; animation: blobDrift 14s ease-in-out infinite alternate; }
+.heroBlob1 { width: 440px; height: 440px; top: -140px; right: -90px; background: var(--hhSecondary); opacity: .28; }
+.heroBlob2 { width: 320px; height: 320px; bottom: -100px; right: 26%; background: var(--hhSuccess); opacity: .22; animation-delay: -4s; }
+.heroBlob3 { width: 240px; height: 240px; bottom: 10%; left: -70px; background: var(--hhPrimary); opacity: .16; animation-delay: -8s; }
+.heroBubbles { position: absolute; inset: 0; pointer-events: none; }
+.heroBubble { position: absolute; display: grid; place-items: center; width: var(--s, 72px); height: var(--s, 72px); border-radius: 50%; background: rgba(255, 255, 255, .78); box-shadow: var(--shadowSoft); font-size: calc(var(--s, 72px) * .48); animation: floatY var(--t, 6s) ease-in-out infinite; animation-delay: var(--d, 0s); }
+
+.heroContent { position: relative; padding-block: 3rem 5rem; }
+.heroEyebrow { font-family: var(--fontAccent); font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 700; color: var(--hhPrimary); margin-bottom: .75rem; }
+.heroTitle { max-width: 15em; font-size: clamp(2.2rem, 5.4vw, 4.4rem); font-weight: 800; letter-spacing: -.025em; }
+.heroMark { background: linear-gradient(transparent 62%, rgba(246, 161, 90, .55) 62%) no-repeat left / 0% 100%; animation: markDraw 1s .9s var(--ease) forwards; }
+.heroText { max-width: 36em; margin-top: 1.25rem; font-size: clamp(1rem, 1.6vw, 1.15rem); font-weight: 600; }
+.heroActions { display: flex; flex-wrap: wrap; gap: .85rem; margin-top: 2rem; }
+.heroScroll { position: absolute; left: 50%; bottom: 1.5rem; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--hhMuted); }
+.heroScroll:hover { color: var(--hhPrimary); }
+.heroScrollArrow { font-size: 1.2rem; animation: bounceDown 1.6s ease-in-out infinite; }
+
+@media (max-width: 767.98px) {                  /* موبايل: فقاعات أقل */
+  .heroBubble:nth-child(n+4) { display: none; }
+  .heroBubble { opacity: .7; }
+}
+
+/* ===== EXPLORE BY CATEGORY ===== */
+.catCard { position: relative; display: flex; flex-direction: column; gap: .9rem; height: 100%; overflow: hidden; padding: 1.5rem 1.6rem; border: 1px solid var(--hhBorder); border-radius: var(--radiusCard); color: var(--hhText); transition: transform .3s var(--ease), box-shadow .3s var(--ease); }
+.catCard:hover { transform: translateY(-6px); box-shadow: var(--shadowHover); color: var(--hhText); }
+.catCardTop { display: flex; align-items: center; gap: .8rem; }
+.catCardDot { width: 24px; height: 24px; border-radius: 50%; background: var(--hhPrimary); transition: transform .35s var(--ease); }
+.tintOrange .catCardDot { background: var(--hhSecondary); }
+.tintGreen .catCardDot { background: var(--hhSuccess); }
+.catCard:hover .catCardDot { transform: scale(1.35); }
+.catCardName { font-size: 1.05rem; font-weight: 800; }
+.catCardHobbies { font-size: .8rem; color: var(--hhMuted); }
+.catCardLink { margin-top: .6rem; font-size: .8rem; font-weight: 800; color: var(--hhPrimary); }
+.catCardArrow { display: inline-block; transition: transform .3s var(--ease); }
+.catCard:hover .catCardArrow { transform: translateX(6px); }
+.catCardEmoji { position: absolute; right: 1rem; bottom: .2rem; font-size: 4.5rem; opacity: .18; transition: transform .45s var(--ease), opacity .3s; }   /* لمسة مرحة */
+.catCard:hover .catCardEmoji { transform: rotate(-12deg) scale(1.15); opacity: .35; }
+
+/* ===== HOW IT WORKS ===== */
+.stepCard { position: relative; display: block; height: 100%; padding: 1.6rem 1.5rem 2.6rem; color: var(--hhText); }
+.stepCard:hover { color: var(--hhText); }
+.stepCardNum { font-size: .75rem; font-weight: 800; color: var(--hhPrimary); }
+.stepCardTitle { margin: .6rem 0 .5rem; font-size: 1.1rem; font-weight: 800; }
+.stepCardText { font-size: .85rem; color: var(--hhMuted); }
+.stepCardArrow { position: absolute; right: 1.25rem; bottom: 1rem; color: var(--hhPrimary); font-weight: 800; opacity: 0; transform: translateX(-8px); transition: opacity .3s, transform .3s var(--ease); }
+.stepCard:hover .stepCardArrow { opacity: 1; transform: none; }
+
+/* ===== QUIZ BANNER ===== */
+.quizBanner { position: relative; overflow: hidden; padding: clamp(1.75rem, 4vw, 2.75rem); border: 1px solid var(--hhBorder); border-radius: 22px; background: var(--hhTintPink); }
+.quizBanner::after { content: ""; position: absolute; right: -60px; top: -60px; width: 240px; height: 240px; border-radius: 50%; background: rgba(246, 161, 90, .22); }
+.quizBannerSpark { position: absolute; right: 8%; top: 18%; z-index: 1; font-size: 2.4rem; animation: floatY 5s ease-in-out infinite; }
+.quizBannerTitle { position: relative; z-index: 1; font-size: clamp(1.3rem, 2.6vw, 1.7rem); font-weight: 800; }
+.quizBannerText { position: relative; z-index: 1; max-width: 42em; margin: .75rem 0 1.5rem; color: var(--hhMuted); font-size: .92rem; }
+.quizBanner .hhBtn { position: relative; z-index: 1; }
+
+/* ===== FEATURED ===== */
+.featCard { display: flex; flex-direction: column; gap: .9rem; height: 100%; padding: 1rem 1rem 1.2rem; color: var(--hhText); }
+.featCard:hover { color: var(--hhText); }
+.featCardImage { display: block; height: 120px; border-radius: 12px; background: linear-gradient(100deg, #FAD6C6 30%, #FDE6DA 50%, #FAD6C6 70%) 0 0 / 200% 100%; animation: shimmer 3s linear infinite; }   /* مكان الصورة */
+.featCardTitle { padding-inline: .25rem; font-size: .95rem; font-weight: 800; }
+.featCardRow { display: flex; justify-content: space-between; align-items: center; padding-inline: .25rem; }
+.featCardMeta { font-size: .78rem; color: var(--hhMuted); }
+.featCardView { font-size: .78rem; font-weight: 800; color: var(--hhPrimary); }
+
+/* ===== PANELS (Community + AI) ===== */
+.panel { height: 100%; padding: clamp(1.5rem, 3vw, 2.25rem); border: 1px solid var(--hhBorder); border-radius: 22px; transition: transform .3s var(--ease), box-shadow .3s var(--ease); }
+.panel:hover { transform: translateY(-4px); box-shadow: var(--shadowSoft); }
+.panelTitle { font-size: 1.35rem; font-weight: 800; }
+.panelText { margin: .75rem 0 1.5rem; max-width: 34em; font-size: .88rem; color: var(--hhMuted); }
+
+/* ===== FAQ ===== */
+#faq .hhSectionHead { margin-bottom: 1.25rem; }

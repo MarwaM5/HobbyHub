@@ -1,0 +1,21 @@
+/* motion.css | كل الحركات المشتركة. القاعدة: حركة مميزة وحدة بكل صفحة + hover خفيف. */
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+@keyframes floatY { 0%, 100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-18px) rotate(3deg); } }
+@keyframes blobDrift { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(40px, -30px) scale(1.12); } }
+@keyframes markDraw { to { background-size: 100% 100%; } }
+@keyframes bounceDown { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+/* حركة بتشتغل أول ما تفتح الصفحة */
+.animFadeUp { animation: fadeUp .9s var(--ease) both; animation-delay: var(--delay, 0s); }
+
+/* حركة بتظهر لما ننزل ونوصل للعنصر. كلاس "js" بيتضاف على <html> من أول الصفحة، فلو الـ JS ما اشتغل المحتوى يضل ظاهر */
+html.js .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s var(--ease), transform .7s var(--ease); transition-delay: var(--delay, 0ms); }
+html.js .reveal.isVisible { opacity: 1; transform: none; }
+
+/* لمن بيفضلوا بدون حركة */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  html.js .reveal { opacity: 1; transform: none; }
+}

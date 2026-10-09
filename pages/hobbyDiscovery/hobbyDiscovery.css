@@ -1,0 +1,512 @@
+/* hobbyDiscovery.css | Creative styling for the public Hobby Discovery landing page.
+   Uses HobbyHub's shared design tokens; no video or signature animation is added yet. */
+
+/* ===== HERO ===== */
+.discoveryHero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  min-height: clamp(340px, 34vw, 440px);
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 84% 15%, rgba(246, 161, 90, .35) 0 10%, transparent 10.5%),
+    radial-gradient(ellipse at 73% 100%, rgba(125, 164, 119, .24) 0 18%, transparent 18.5%),
+    linear-gradient(115deg, #E6EEE2 0%, #F7EBDD 48%, #FBE3DA 100%);
+}
+
+.discoveryHero::before,
+.discoveryHero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+.discoveryHero::before {
+  width: clamp(230px, 30vw, 390px);
+  aspect-ratio: 1;
+  right: -7%;
+  bottom: -48%;
+  border: 1px solid rgba(237, 112, 82, .24);
+  box-shadow:
+    0 0 0 22px rgba(237, 112, 82, .045),
+    0 0 0 48px rgba(237, 112, 82, .035);
+}
+
+.discoveryHero::after {
+  width: clamp(110px, 14vw, 185px);
+  aspect-ratio: 1;
+  left: 47%;
+  top: -32%;
+  background: rgba(255, 255, 255, .38);
+  box-shadow: 0 18px 55px rgba(51, 46, 42, .05);
+}
+
+.discoveryHeroMedia {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(230, 238, 226, .95) 0%, rgba(230, 238, 226, .78) 43%, rgba(230, 238, 226, .12) 100%);
+}
+
+/* Static decorative shapes only. The final video/animation will be added later. */
+.discoveryBlob {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.discoveryBlobOne {
+  width: clamp(170px, 23vw, 300px);
+  aspect-ratio: 1;
+  right: 9%;
+  top: -36%;
+  background: var(--hhPrimary);
+  opacity: .22;
+}
+
+.discoveryBlobTwo {
+  width: clamp(130px, 17vw, 220px);
+  aspect-ratio: 1;
+  left: 11%;
+  bottom: -47%;
+  background: #fffaf4;
+  opacity: .88;
+  box-shadow: 0 12px 40px rgba(51, 46, 42, .05);
+}
+
+.discoveryBlobThree {
+  width: 82px;
+  height: 82px;
+  right: 34%;
+  bottom: 7%;
+  background: var(--hhSecondary);
+  opacity: .28;
+}
+
+.discoveryDoodle {
+  position: absolute;
+  color: rgba(51, 46, 42, .16);
+  font-size: 5.5rem;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.discoveryDoodleOne { right: 26%; top: 17%; transform: rotate(14deg); }
+.discoveryDoodleTwo { right: 12%; bottom: 12%; font-size: 3.7rem; color: rgba(237, 112, 82, .36); }
+
+.discoveryHeroContent {
+  position: relative;
+  padding-block: clamp(3.25rem, 6vw, 5rem);
+}
+
+.discoveryEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  width: fit-content;
+  margin-bottom: 1rem;
+  padding: .42rem .85rem;
+  border: 1px solid rgba(237, 112, 82, .25);
+  border-radius: var(--radiusPill);
+  background: rgba(255, 255, 255, .7);
+  color: var(--hhPrimaryDark);
+  font-family: var(--fontAccent);
+  font-size: 1.45rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.discoveryEyebrow::before {
+  content: "✦";
+  color: var(--hhSecondary);
+  font-family: var(--fontBody);
+  font-size: .9rem;
+}
+
+.discoveryHeroTitle {
+  position: relative;
+  max-width: 12em;
+  font-size: clamp(2.35rem, 4.6vw, 4rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -.045em;
+  text-wrap: balance;
+}
+
+.discoveryHeroTitle::after {
+  content: "";
+  display: block;
+  width: clamp(88px, 11vw, 145px);
+  height: 7px;
+  margin-top: .75rem;
+  border-radius: var(--radiusPill);
+  background: linear-gradient(90deg, var(--hhPrimary), var(--hhSecondary));
+  transform: rotate(-1.5deg);
+}
+
+.discoveryHeroText {
+  max-width: 43rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.75rem;
+  color: var(--hhMuted);
+  font-size: clamp(1rem, 1.45vw, 1.13rem);
+  font-weight: 600;
+  line-height: 1.8;
+}
+
+.discoveryHero .hhBtn {
+  min-width: 150px;
+  border-radius: var(--radiusPill);
+  box-shadow: 0 8px 0 rgba(217, 90, 59, .12);
+}
+
+.discoveryHero .hhBtn::after {
+  content: "↗";
+  margin-left: .25rem;
+  font-size: 1rem;
+  transition: transform .25s var(--ease);
+}
+
+.discoveryHero .hhBtn:hover::after { transform: translate(3px, -2px); }
+
+/* ===== HOW DISCOVERY HELPS ===== */
+.discoveryHelp {
+  position: relative;
+  padding-top: clamp(3rem, 5vw, 4.25rem);
+  padding-bottom: clamp(2.75rem, 4vw, 3.5rem);
+}
+
+.discoveryHelp::before {
+  content: "A LITTLE ABOUT YOU";
+  display: block;
+  width: fit-content;
+  margin: 0 auto 1rem;
+  padding: .32rem .75rem;
+  border-radius: var(--radiusPill);
+  background: var(--hhTintGreen);
+  color: #587653;
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .13em;
+}
+
+.discoveryHelp .hhSectionHead {
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.discoveryHelp .hhSectionTitle {
+  letter-spacing: -.035em;
+}
+
+.discoveryHelp .hhSectionSub {
+  max-width: 42rem;
+  line-height: 1.75;
+}
+
+.discoveryInfoCard {
+  position: relative;
+  isolation: isolate;
+  height: 100%;
+  min-height: 190px;
+  overflow: hidden;
+  padding: 1.45rem 1.4rem 1.35rem;
+  border-radius: 20px;
+  background: #fff;
+  transition: transform .28s var(--ease), box-shadow .28s var(--ease), border-color .28s var(--ease);
+}
+
+.discoveryInfoCard::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 105px;
+  height: 105px;
+  right: -38px;
+  bottom: -43px;
+  border-radius: 42% 58% 60% 40%;
+  background: var(--cardTint, var(--hhTintPink));
+  transform: rotate(-14deg);
+  transition: transform .35s var(--ease), border-radius .35s var(--ease);
+}
+
+.discoveryInfoCard::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1.35rem;
+  width: 42px;
+  height: 4px;
+  border-radius: 0 0 6px 6px;
+  background: var(--cardAccent, var(--hhPrimary));
+}
+
+.discoveryInfoCard:nth-child(1) { --cardTint: var(--hhTintPink); --cardAccent: var(--hhPrimary); }
+.discoveryInfoCard:nth-child(2) { --cardTint: var(--hhTintOrange); --cardAccent: var(--hhSecondary); }
+.discoveryInfoCard:nth-child(3) { --cardTint: var(--hhTintGreen); --cardAccent: var(--hhSuccess); }
+.discoveryInfoCard:nth-child(4) { --cardTint: #FBE3DA; --cardAccent: var(--hhPrimary); }
+
+.discoveryInfoCard:hover {
+  transform: translateY(-6px) rotate(-.35deg);
+  border-color: rgba(237, 112, 82, .42);
+  box-shadow: var(--shadowHover);
+}
+
+.discoveryInfoCard:hover::before {
+  transform: rotate(8deg) scale(1.16);
+  border-radius: 58% 42% 40% 60%;
+}
+
+.discoveryInfoIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 1rem;
+  border: 4px solid rgba(255, 255, 255, .8);
+  border-radius: 15px 15px 15px 5px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 800;
+  box-shadow: 0 5px 14px rgba(51, 46, 42, .09);
+}
+
+.discoveryIconPrimary { background: var(--hhPrimary); }
+.discoveryIconSecondary { background: var(--hhSecondary); }
+.discoveryIconGreen { background: var(--hhSuccess); }
+
+.discoveryInfoCard h3 {
+  margin-bottom: .55rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
+
+.discoveryInfoCard p {
+  max-width: 17rem;
+  color: var(--hhMuted);
+  font-size: .84rem;
+  line-height: 1.75;
+}
+
+/* ===== SAMPLE RESULTS ===== */
+.discoveryResultsSection {
+  padding: .5rem 0 1.5rem;
+}
+
+.discoveryResultsPanel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(1.6rem, 3.5vw, 2.4rem);
+  border: 1px solid rgba(237, 112, 82, .12);
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(246, 161, 90, .18) 0 14%, transparent 14.3%),
+    linear-gradient(120deg, #FCE9D9 0%, #FCEFE4 62%, #FBE3DA 100%);
+}
+
+.discoveryResultsPanel::after {
+  content: "✿";
+  position: absolute;
+  z-index: -1;
+  right: 2.5%;
+  bottom: -2.6rem;
+  color: rgba(237, 112, 82, .12);
+  font-size: clamp(7rem, 14vw, 12rem);
+  line-height: 1;
+  transform: rotate(-15deg);
+}
+
+.discoveryResultsPanel h2,
+.discoveryCtaPanel h2 {
+  font-size: clamp(1.35rem, 2.2vw, 1.65rem);
+  font-weight: 800;
+  letter-spacing: -.03em;
+}
+
+.discoveryPanelText,
+.discoveryCtaPanel > p {
+  max-width: 44rem;
+  margin-top: .65rem;
+  color: var(--hhMuted);
+  font-size: .9rem;
+  line-height: 1.75;
+}
+
+.discoverySampleGrid {
+  margin-top: 1.5rem;
+  max-width: 930px;
+}
+
+.discoverySampleCard {
+  position: relative;
+  height: 100%;
+  min-height: 88px;
+  overflow: hidden;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(241, 223, 208, .95);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .94);
+  box-shadow: 0 4px 0 rgba(51, 46, 42, .025);
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s;
+}
+
+.discoverySampleCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: var(--sampleAccent, var(--hhPrimary));
+}
+
+#sampleDrawing { --sampleAccent: var(--hhPrimary); }
+#samplePhotography { --sampleAccent: var(--hhSecondary); }
+#sampleCrafts { --sampleAccent: var(--hhSuccess); }
+
+.discoverySampleCard::after {
+  content: "✦";
+  position: absolute;
+  top: .7rem;
+  right: .85rem;
+  color: var(--sampleAccent, var(--hhPrimary));
+  font-size: 1.1rem;
+  opacity: .6;
+}
+
+.discoverySampleCard:hover {
+  transform: translateY(-4px) rotate(-.4deg);
+  border-color: rgba(237, 112, 82, .38);
+  box-shadow: var(--shadowSoft);
+}
+
+.discoverySampleCard h3 {
+  padding-right: 1.4rem;
+  font-size: .94rem;
+  font-weight: 800;
+}
+
+.discoverySampleCard p {
+  display: inline-flex;
+  align-items: center;
+  margin-top: .55rem;
+  padding: .2rem .55rem;
+  border-radius: var(--radiusPill);
+  background: var(--hhTintPink);
+  color: var(--hhPrimaryDark);
+  font-size: .72rem;
+  font-weight: 800;
+}
+
+#samplePhotography p { background: var(--hhTintOrange); color: #A85F20; }
+#sampleCrafts p { background: var(--hhTintGreen); color: #587653; }
+
+/* ===== SIGN-UP CTA ===== */
+.discoveryCtaSection {
+  padding: .5rem 0 clamp(3rem, 5vw, 4rem);
+}
+
+.discoveryCtaPanel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(1.6rem, 3.5vw, 2.4rem);
+  border: 1px solid rgba(237, 112, 82, .13);
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at 94% 12%, rgba(255, 255, 255, .52) 0 9%, transparent 9.4%),
+    linear-gradient(112deg, #FBE3DA 0%, #FBE7DF 54%, #F8D9CB 100%);
+}
+
+.discoveryCtaPanel::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 190px;
+  height: 190px;
+  right: 4%;
+  bottom: -125px;
+  border: 20px solid rgba(237, 112, 82, .09);
+  border-radius: 50%;
+  box-shadow: 0 0 0 20px rgba(246, 161, 90, .07);
+}
+
+.discoveryCtaPanel::after {
+  content: "♥";
+  position: absolute;
+  z-index: -1;
+  right: 9%;
+  top: 16%;
+  color: rgba(237, 112, 82, .17);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  transform: rotate(12deg);
+}
+
+.discoveryCtaPanel h2,
+.discoveryCtaPanel > p,
+.discoveryCtaActions {
+  position: relative;
+  z-index: 1;
+}
+
+.discoveryCtaActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+  margin-top: 1.15rem;
+}
+
+.discoveryCtaActions .hhBtn {
+  min-width: 112px;
+  border-radius: var(--radiusPill);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 767.98px) {
+  .discoveryHero {
+    min-height: 360px;
+    background:
+      radial-gradient(ellipse at 92% 5%, rgba(246, 161, 90, .28) 0 12%, transparent 12.5%),
+      linear-gradient(135deg, #E6EEE2 0%, #F7EBDD 65%, #FBE3DA 100%);
+  }
+
+  .discoveryHeroMedia {
+    background: linear-gradient(90deg, rgba(230, 238, 226, .95), rgba(230, 238, 226, .64));
+  }
+
+  .discoveryDoodleOne { right: 8%; top: 9%; font-size: 3.7rem; }
+  .discoveryDoodleTwo { right: 9%; bottom: 8%; font-size: 2.7rem; }
+  .discoveryHeroTitle { max-width: 10.5em; }
+  .discoveryInfoCard { min-height: 175px; }
+  .discoveryResultsPanel::after { right: -1%; bottom: -1.5rem; }
+  .discoveryCtaPanel::after { right: 5%; top: 7%; }
+}
+
+@media (max-width: 575.98px) {
+  .discoveryHero { min-height: 390px; }
+  .discoveryHeroContent { padding-block: 3rem; }
+  .discoveryHeroTitle { font-size: clamp(2.2rem, 10vw, 3rem); }
+  .discoveryHeroText { max-width: 34rem; font-size: .98rem; }
+  .discoveryInfoCard { min-height: 150px; padding: 1.2rem; }
+  .discoveryInfoIcon { margin-bottom: .75rem; }
+  .discoveryResultsPanel,
+  .discoveryCtaPanel { border-radius: 21px; }
+  .discoveryCtaPanel::after { opacity: .45; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .discoveryInfoCard,
+  .discoveryInfoCard::before,
+  .discoverySampleCard,
+  .discoveryHero .hhBtn::after {
+    transition: none;
+  }
+}

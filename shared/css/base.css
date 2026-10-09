@@ -1,0 +1,50 @@
+/* base.css | الأساسيات: الخطوط + الألوان (variables) + reset. كل الصفحات بتربطه أول. */
+
+/* Inter للنص (نفس تصميمك) + Caveat خط يدوي للتفاصيل المرحة */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Caveat:wght@600;700&display=swap');
+
+:root {
+  /* الألوان الأساسية (نفس صفحة Settings بالأدمن) */
+  --hhPrimary: #ED7052;
+  --hhPrimaryDark: #D95A3B;     /* للـ hover */
+  --hhSecondary: #F6A15A;
+  --hhBg: #FFF8F1;
+  --hhText: #332E2A;
+  --hhMuted: #6B5F57;
+  --hhBorder: #F1DFD0;
+  --hhSuccess: #7DA477;
+  --hhWarning: #E0A63A;
+  --hhError: #C8503E;
+  --hhInfo: #5B8FA8;
+  /* خلفيات ناعمة للكروت */
+  --hhTintPink: #FBE3DA;
+  --hhTintOrange: #FCE9D9;
+  --hhTintGreen: #E6EEE2;
+  /* الخطوط */
+  --fontBody: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fontAccent: 'Caveat', cursive;
+  /* الأشكال والظلال */
+  --radiusBtn: 10px;
+  --radiusCard: 18px;
+  --radiusPill: 999px;
+  --shadowSoft: 0 6px 24px rgba(237, 112, 82, 0.10);
+  --shadowHover: 0 16px 36px rgba(237, 112, 82, 0.20);
+  /* مقاسات عامة */
+  --navH: 76px;                 /* ارتفاع الـ navbar (الهيرو بيعتمد عليه) */
+  --containerMax: 1240px;
+  --ease: cubic-bezier(0.22, 0.8, 0.3, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--navH) + 8px); }
+
+body { margin: 0; font-family: var(--fontBody); background: var(--hhBg); color: var(--hhText); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+img, svg, video { max-width: 100%; }
+h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: 700; line-height: 1.2; color: var(--hhText); }
+p { margin: 0; }
+a { color: var(--hhPrimary); text-decoration: none; }
+a:hover { color: var(--hhPrimaryDark); }
+:focus-visible { outline: 3px solid rgba(237, 112, 82, 0.45); outline-offset: 3px; border-radius: 6px; }
+::selection { background: var(--hhTintPink); }

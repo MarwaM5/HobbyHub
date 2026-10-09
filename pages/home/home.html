@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HobbyHub — Discover • Learn • Connect • Grow</title>
+  <meta name="description" content="Find a hobby that feels like you. Discover hobbies, join classes, connect with communities and track your progress.">
+
+  <!-- كلاس "js" على <html>: بيخلي حركات الظهور (reveal) تشتغل فقط إذا الـ JS شغال -->
+  <script>document.documentElement.classList.add('js');</script>
+
+  <!-- 1) Bootstrap  2) ملفاتنا المشتركة (الترتيب مهم)  3) ستايل الهوم  4) أنميشن الهوم -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../shared/css/base.css">
+  <link rel="stylesheet" href="../../shared/css/components.css">
+  <link rel="stylesheet" href="../../shared/css/layout.css">
+  <link rel="stylesheet" href="../../shared/css/motion.css">
+  <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="animation/homeAnimation.css">
+</head>
+
+<!-- data-root = المسافة من هالصفحة لجذر المشروع -->
+<body data-page="home" data-root="../../">
+
+  <div id="hhNavbar"></div>
+
+  <main>
+
+    <!-- ===== HERO: بياخد كل الشاشة ===== -->
+    <header class="hero" id="hero">
+      <!-- ===== HERO ANIMATION START: لاحقاً بنلصق هون HTML الأنميشن (مكانه heroAnimationSlot) ===== -->
+      <div class="heroMedia" id="heroAnimationSlot" aria-hidden="true">
+        <!-- ديكور مؤقت بالـ CSS لحد ما نحط الأنميشن الحقيقي -->
+        <span class="heroBlob heroBlob1"></span>
+        <span class="heroBlob heroBlob2"></span>
+        <span class="heroBlob heroBlob3"></span>
+        <div class="heroBubbles">
+          <span class="heroBubble" style="top:16%; right:14%; --s:92px; --t:6.5s; --d:-1s">🎨</span>
+          <span class="heroBubble" style="top:42%; right:30%; --s:68px; --t:5.5s; --d:-3s">🎸</span>
+          <span class="heroBubble" style="top:62%; right:10%; --s:84px; --t:7s; --d:-2s">📷</span>
+          <span class="heroBubble" style="top:24%; right:36%; --s:60px; --t:6s; --d:-4s">🥾</span>
+          <span class="heroBubble" style="top:74%; right:34%; --s:72px; --t:7.5s; --d:-5s">🍳</span>
+          <span class="heroBubble" style="top:10%; right:50%; --s:56px; --t:5s; --d:-2.5s">♟️</span>
+        </div>
+      </div>
+      <!-- ===== HERO ANIMATION END ===== -->
+
+      <div class="hhContainer heroContent">
+        <p class="heroEyebrow animFadeUp" style="--delay:.1s">Find a hobby that feels like you.</p>
+        <h1 class="heroTitle animFadeUp" style="--delay:.25s">
+          Discover something new. <span class="heroMark">Learn something fun.</span> Grow at your own pace.
+        </h1>
+        <p class="heroText animFadeUp" style="--delay:.4s">
+          HobbyHub brings discovery, learning, communities and personal progress together in one place.
+        </p>
+        <div class="heroActions animFadeUp" style="--delay:.55s">
+          <a class="hhBtn hhBtnPrimary hhBtnLg" id="btnHeroQuiz" data-route="quiz">Take the Hobby Quiz</a>
+          <a class="hhBtn hhBtnOutline hhBtnLg" id="btnHeroHow" href="#howItWorks">See how it works</a>
+        </div>
+      </div>
+
+      <a class="heroScroll" id="btnScrollDown" href="#explore" aria-label="Scroll to categories">
+        <span>Scroll</span>
+        <span class="heroScrollArrow" aria-hidden="true">↓</span>
+      </a>
+    </header>
+
+    <!-- ===== EXPLORE BY CATEGORY (بيتعبى من home.js) ===== -->
+    <section class="hhSection" id="explore">
+      <div class="hhContainer">
+        <div class="hhSectionHead reveal">
+          <h2 class="hhSectionTitle">Explore by Category</h2>
+          <p class="hhSectionSub">Pick a starting point and discover hobbies you might love.</p>
+        </div>
+        <div class="row g-4" id="categoryGrid"></div>
+      </div>
+    </section>
+
+    <!-- ===== HOW HOBBYHUB WORKS (بيتعبى من home.js) ===== -->
+    <section class="hhSection pt-0" id="howItWorks">
+      <div class="hhContainer">
+        <div class="hhSectionHead reveal">
+          <h2 class="hhSectionTitle">How HobbyHub Works</h2>
+          <p class="hhSectionSub">A simple journey from curiosity to progress.</p>
+        </div>
+        <div class="row g-4" id="stepsGrid"></div>
+      </div>
+    </section>
+
+    <!-- ===== QUIZ BANNER ===== -->
+    <section class="pb-5" id="quizBannerSection">
+      <div class="hhContainer">
+        <div class="quizBanner reveal">
+          <span class="quizBannerSpark" aria-hidden="true">✨</span>
+          <h2 class="quizBannerTitle">Not sure what hobby is right for you?</h2>
+          <p class="quizBannerText">Take our quick Hobby Discovery quiz and get hobby matches based on your interests, time and activity style.</p>
+          <a class="hhBtn hhBtnPrimary hhBtnLg" id="btnBannerQuiz" data-route="quiz">Discover my hobbies</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FEATURED (بيتعبى من home.js) ===== -->
+    <section class="hhSection" id="featured">
+      <div class="hhContainer">
+        <div class="hhSectionHead reveal">
+          <h2 class="hhSectionTitle">Featured Classes, Events &amp; Training</h2>
+          <p class="hhSectionSub">Learn something practical and meet people with similar interests.</p>
+        </div>
+        <div class="row g-4" id="featuredGrid"></div>
+      </div>
+    </section>
+
+    <!-- ===== COMMUNITY + AI PANELS ===== -->
+    <section class="pb-5" id="panels">
+      <div class="hhContainer">
+        <div class="row g-4">
+          <div class="col-12 col-lg-6 reveal">
+            <div class="panel tintGreen">
+              <h2 class="panelTitle">Join a Hobby Community</h2>
+              <p class="panelText">Ask questions, share tips and learn from people who enjoy the same hobbies.</p>
+              <a class="hhBtn hhBtnOutline" id="btnPanelGroups" data-route="groups">Explore Groups</a>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6 reveal" style="--delay:120ms">
+            <div class="panel tintOrange">
+              <h2 class="panelTitle">Need an idea for your hobby?</h2>
+              <p class="panelText">Use the AI Hobby Generator to turn your hobby, level and available time into an activity idea.</p>
+              <a class="hhBtn hhBtnPrimary" id="btnPanelAi" data-route="ai">Try AI Generator</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ (بيتعبى من home.js) ===== -->
+    <section class="hhSection pt-4" id="faq">
+      <div class="hhContainer">
+        <div class="hhSectionHead reveal">
+          <h2 class="hhSectionTitle">Frequently Asked Questions</h2>
+        </div>
+        <div class="accordion hhAccordion reveal" id="faqAccordion"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="hhFooter"></div>
+  <div id="hhModals"></div>
+
+  <!-- السكريبتات (الترتيب مهم): Bootstrap ← data ← dataService ← utils ← components ← سكريبت الصفحة ← أنميشن الصفحة -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../../shared/js/data.js"></script>
+  <script src="../../shared/js/dataService.js"></script>
+  <script src="../../shared/js/utils.js"></script>
+  <script src="../../shared/js/components.js"></script>
+  <script src="home.js"></script>
+  <script src="animation/homeAnimation.js"></script>
+</body>
+</html>
