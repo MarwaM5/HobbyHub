@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FFF8F1">
+  <title>Log in | HobbyHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../shared/css/base.css" rel="stylesheet">
+  <link href="../../shared/css/components.css" rel="stylesheet">
+  <link href="../../shared/css/layout.css" rel="stylesheet">
+  <link href="login.css" rel="stylesheet">
+</head>
+<body data-page="login" data-root="../../">
+  <div id="hhNavbar"></div>
+
+  <main class="loginPage">
+    <div class="loginShell">
+      <section class="loginFormPanel" aria-labelledby="loginTitle">
+        <a class="loginBackLink" id="btnBackHome" data-route="home" href="../../pages/home/home.html">
+          <span aria-hidden="true">←</span> Back to Home
+        </a>
+
+        <div class="loginFormInner">
+          <div class="loginMobileMark" aria-hidden="true">
+            <span class="loginMarkIcon">✿</span>
+          </div>
+          <p class="loginEyebrow">WELCOME BACK</p>
+          <h1 id="loginTitle">Good to see you again<span class="loginTitleDot">.</span></h1>
+          <p class="loginIntro">One account for discovering, learning and growing.</p>
+
+          <form id="loginForm" novalidate>
+            <div class="loginFieldGroup">
+              <label for="loginEmail" class="loginLabel">Email address</label>
+              <div class="loginInputWrap">
+                <span class="loginInputIcon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4.5 7 7.5 6 7.5-6"/></svg>
+                </span>
+                <input id="loginEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required aria-describedby="emailError">
+              </div>
+              <small class="loginError" id="emailError" aria-live="polite"></small>
+            </div>
+
+            <div class="loginFieldGroup">
+              <div class="loginLabelRow">
+                <label for="loginPassword" class="loginLabel">Password</label>
+                <button class="loginTextButton" type="button" id="btnForgotPassword">Forgot password?</button>
+              </div>
+              <div class="loginInputWrap">
+                <span class="loginInputIcon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><rect x="4.5" y="10" width="15" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><path d="M12 14v2"/></svg>
+                </span>
+                <input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required aria-describedby="passwordError">
+                <button class="loginShowPassword" type="button" id="btnTogglePassword" aria-label="Show password" aria-pressed="false">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>
+                </button>
+              </div>
+              <small class="loginError" id="passwordError" aria-live="polite"></small>
+            </div>
+
+            <div class="loginNotice" id="loginNotice" role="status" aria-live="polite" hidden></div>
+            <button class="hhBtn hhBtnPrimary loginSubmit" id="btnLogin" type="submit">
+              <span>Log in</span><span class="loginSubmitArrow" aria-hidden="true">→</span>
+            </button>
+          </form>
+
+          <p class="loginSignupPrompt">New to HobbyHub? <a id="linkCreateAccount" data-route="signup" href="../../pages/signup/signup.html">Create an account</a></p>
+          <p class="loginPrivacyNote"><span aria-hidden="true">✦</span> Your next chapter starts with a little curiosity.</p>
+        </div>
+      </section>
+
+      <aside class="loginVisualPanel" aria-label="Discover what you love with HobbyHub">
+        <div class="loginVisualGlow loginGlowOne"></div>
+        <div class="loginVisualGlow loginGlowTwo"></div>
+        <div class="loginVisualTop">
+          <span class="loginMiniPill"><span class="loginMiniDot"></span> YOUR SPACE TO GROW</span>
+          <span class="loginSparkle" aria-hidden="true">✳</span>
+        </div>
+
+        <div class="loginVisualContent">
+          <div class="loginOrbitScene" aria-hidden="true">
+            <div class="loginOrbit orbitOuter"></div>
+            <div class="loginOrbit orbitInner"></div>
+            <div class="loginOrbitCenter">
+              <span class="loginCenterFlower">✿</span>
+              <span class="loginCenterLabel">your next<br>favorite thing</span>
+            </div>
+            <span class="loginFloatIcon floatPaint">✎</span>
+            <span class="loginFloatIcon floatMusic">♫</span>
+            <span class="loginFloatIcon floatLeaf">♧</span>
+            <span class="loginFloatIcon floatStar">✦</span>
+            <span class="loginOrbitDot dotPeach"></span>
+            <span class="loginOrbitDot dotGreen"></span>
+          </div>
+          <p class="loginHandwritten">A little time for you</p>
+          <h2>Make room for<br><em>what makes you, you.</em></h2>
+          <p class="loginVisualCopy">Pick up where you left off, find a new interest, and keep growing at your own pace.</p>
+        </div>
+
+        <div class="loginVisualBottom">
+          <div class="loginAvatarStack" aria-hidden="true"><span>J</span><span>M</span><span>A</span><span>+</span></div>
+          <p><strong>Find your people.</strong><br><span>Grow around what you love.</span></p>
+          <span class="loginBottomLeaf" aria-hidden="true">❋</span>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div id="hhFooter"></div>
+  <div id="hhModals"></div>
+
+  <div class="loginDialogBackdrop" id="forgotDialog" hidden>
+    <section class="loginForgotDialog" role="dialog" aria-modal="true" aria-labelledby="forgotTitle">
+      <button type="button" class="loginDialogClose" id="btnCloseForgot" aria-label="Close dialog">×</button>
+      <span class="loginForgotIcon" aria-hidden="true">✉</span>
+      <p class="loginEyebrow">PASSWORD HELP</p>
+      <h2 id="forgotTitle">Forgot your password?</h2>
+      <p>Enter the email you use for HobbyHub. In the full version, we’ll send you a reset link.</p>
+      <form id="forgotForm" novalidate>
+        <label for="forgotEmail" class="loginLabel">Email address</label>
+        <input id="forgotEmail" type="email" autocomplete="email" placeholder="you@example.com" required>
+        <small class="loginError" id="forgotError" aria-live="polite"></small>
+        <div class="loginNotice" id="forgotNotice" role="status" aria-live="polite" hidden></div>
+        <button class="hhBtn hhBtnPrimary loginSubmit" type="submit">Continue <span aria-hidden="true">→</span></button>
+      </form>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../../shared/js/data.js"></script>
+  <script src="../../shared/js/dataService.js"></script>
+  <script src="../../shared/js/utils.js"></script>
+  <script src="../../shared/js/components.js"></script>
+  <script src="login.js"></script>
+</body>
+</html>

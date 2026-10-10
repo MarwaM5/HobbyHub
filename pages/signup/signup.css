@@ -1,0 +1,136 @@
+/* Sign up page: shares HobbyHub tokens and visual language with Login. */
+.signupPage { padding: clamp(1.25rem, 3vw, 3rem) 1rem clamp(3rem, 5vw, 5rem); }
+.signupShell { width: min(1160px, 100%); margin-inline: auto; display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(370px, .88fr); overflow: hidden; border: 1px solid rgba(241,223,208,.95); border-radius: 28px; background: #fff; box-shadow: 0 24px 70px rgba(90,57,37,.08); animation: signupEnter .55s var(--ease) both; }
+.signupFormPanel { padding: clamp(1.4rem, 3vw, 2.6rem); display: flex; flex-direction: column; }
+.signupBackLink { align-self: flex-start; display: inline-flex; align-items: center; gap: .55rem; color: var(--hhMuted); font-size: .84rem; font-weight: 600; transition: color .2s, transform .2s; }
+.signupBackLink:hover { color: var(--hhPrimary); transform: translateX(-2px); }
+.signupBackLink span { font-size: 1.15rem; }
+.signupFormInner { width: min(440px, 100%); margin: auto; padding-block: 1.6rem .5rem; }
+.signupMobileMark { display: none; }
+.signupEyebrow { color: var(--hhPrimaryDark); font-size: .64rem; font-weight: 800; letter-spacing: .13em; margin-bottom: .65rem; }
+.signupFormInner h1 { max-width: 420px; font-size: clamp(1.9rem, 3vw, 2.45rem); line-height: 1.12; letter-spacing: -.055em; }
+.signupFormInner h1 span { color: var(--hhPrimaryDark); }
+.signupIntro { color: var(--hhMuted); font-size: .86rem; line-height: 1.65; margin: .7rem 0 1.25rem; max-width: 410px; }
+.signupFieldGroup { margin-bottom: .8rem; }
+.signupLabel { display: block; color: var(--hhText); font-size: .78rem; font-weight: 750; margin-bottom: .38rem; }
+.signupInputWrap { min-width: 0; display: flex; align-items: center; border: 1px solid #EADDD2; border-radius: 11px; background: #FFFEFC; transition: border-color .2s, box-shadow .2s, background .2s; }
+.signupInputWrap:focus-within { border-color: var(--hhPrimary); box-shadow: 0 0 0 4px rgba(237,112,82,.11); background: #fff; }
+.signupInputWrap.hasError { border-color: var(--hhError); background: #FFF9F8; }
+.signupInputWrap.hasError:focus-within { box-shadow: 0 0 0 4px rgba(200,80,62,.1); }
+.signupInputIcon { width: 42px; flex: 0 0 42px; display: grid; place-items: center; color: #9A8B80; }
+.signupInputIcon svg, .signupShowPassword svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.65; stroke-linecap: round; stroke-linejoin: round; }
+.signupInputWrap input { width: 100%; min-width: 0; height: 45px; padding: .65rem .55rem .65rem 0; border: 0; outline: 0; background: transparent; color: var(--hhText); font: inherit; font-size: .82rem; }
+.signupInputWrap input::placeholder { color: #B4A79E; }
+.signupShowPassword { border: 0; background: transparent; color: #8B7E75; padding: .65rem .75rem; display: grid; place-items: center; }
+.signupShowPassword:hover { color: var(--hhPrimaryDark); }
+.signupError { display: block; color: var(--hhError); font-size: .7rem; margin-top: .22rem; min-height: 0; line-height: 1.4; }
+.signupPasswordHelp { display: flex; align-items: center; gap: .55rem; margin-top: .4rem; color: var(--hhMuted); font-size: .68rem; }
+.signupStrengthTrack { flex: 0 0 76px; height: 4px; border-radius: 999px; background: #F0E7DF; overflow: hidden; }
+.signupStrengthTrack span { display: block; width: 0; height: 100%; border-radius: inherit; background: var(--hhError); transition: width .25s, background .25s; }
+.signupPasswordRules { list-style: none; display: flex; flex-wrap: wrap; gap: .25rem .7rem; margin: .42rem 0 0; padding: 0; color: #93857A; font-size: .65rem; }
+.signupPasswordRules li { display: flex; align-items: center; gap: .25rem; }
+.signupPasswordRules li span { font-size: .8rem; line-height: 1; }
+.signupPasswordRules li.isMet { color: #52774C; }
+.signupPasswordRules li.isMet span { font-weight: 800; }
+.signupTermsGroup { display: flex; align-items: flex-start; gap: .6rem; margin-top: .35rem; }
+.signupTermsGroup input { appearance: none; width: 17px; height: 17px; flex: 0 0 17px; margin: .13rem 0 0; border: 1.5px solid #D7C7BA; border-radius: 5px; background: #fff; cursor: pointer; transition: background .18s, border-color .18s, box-shadow .18s; }
+.signupTermsGroup input:checked { border-color: var(--hhPrimary); background: var(--hhPrimary); box-shadow: inset 0 0 0 3px #fff; }
+.signupTermsGroup input:focus-visible { outline: 3px solid rgba(237,112,82,.35); outline-offset: 2px; }
+.signupTermsGroup input[aria-invalid="true"] { border-color: var(--hhError); }
+.signupTermsGroup label { color: var(--hhMuted); font-size: .69rem; line-height: 1.55; }
+.signupTermsGroup label a { color: var(--hhPrimaryDark); font-weight: 750; text-decoration: underline; text-underline-offset: 2px; }
+.signupTermsError { margin-left: 1.6rem; }
+.signupFormAlert { border-radius: 10px; background: var(--hhTintGreen); color: #476543; font-size: .78rem; line-height: 1.5; padding: .75rem .85rem; margin: .7rem 0 .2rem; }
+.signupFormAlert.isError { background: #FBE7E4; color: #9E3F32; }
+.signupFormAlert[hidden] { display: none !important; }
+.signupSubmit { width: 100%; min-height: 48px; margin-top: .8rem; display: flex; justify-content: space-between; align-items: center; padding-inline: 1.05rem 1.2rem; border-radius: 11px; box-shadow: 0 8px 18px rgba(217,90,59,.14); }
+.signupSubmit span:last-child { font-size: 1.2rem; transition: transform .2s; }
+.signupSubmit:hover span:last-child { transform: translateX(3px); }
+.signupButtonHint { text-align: center; margin-top: .55rem; color: #9B8D82; font-size: .65rem; }
+.signupLoginPrompt { text-align: center; color: var(--hhMuted); font-size: .78rem; margin-top: 1.15rem; }
+.signupLoginPrompt a { color: var(--hhPrimaryDark); font-weight: 800; margin-left: .2rem; }
+.signupLoginPrompt a:hover { text-decoration: underline; }
+
+/* Static, CSS-built illustration area. The dedicated animation phase can enhance this later. */
+.signupVisualPanel { position: relative; isolation: isolate; overflow: hidden; min-height: 100%; padding: 1.8rem clamp(1.4rem, 2.7vw, 2.35rem) 1.5rem; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(145deg,#FCE9D9 0%,#FBE3DA 52%,#F8D7C7 100%); }
+.signupVisualPanel::before { content: ""; position: absolute; z-index: -1; width: 460px; height: 460px; border: 1px solid rgba(237,112,82,.13); border-radius: 50%; top: 17%; left: 8%; }
+.signupVisualPanel::after { content: ""; position: absolute; z-index: -1; width: 340px; height: 340px; border: 1px dashed rgba(237,112,82,.2); border-radius: 50%; top: 25%; left: 20%; }
+.signupVisualGlow { position: absolute; z-index: -1; border-radius: 50%; }
+.signupVisualGlowOne { width: 220px; height: 220px; top: -75px; right: -60px; background: rgba(255,255,255,.4); }
+.signupVisualGlowTwo { width: 180px; height: 180px; bottom: -65px; left: -60px; background: rgba(125,164,119,.13); }
+.signupVisualTop { display: flex; align-items: center; justify-content: space-between; gap: .6rem; }
+.signupVisualPill { display: inline-flex; align-items: center; gap: .45rem; border: 1px solid rgba(255,255,255,.85); background: rgba(255,255,255,.52); border-radius: 999px; padding: .48rem .7rem; color: #8C5A45; font-size: .55rem; font-weight: 800; letter-spacing: .08em; }
+.signupVisualPill span { width: 7px; height: 7px; border-radius: 50%; background: var(--hhSuccess); }
+.signupVisualSparkle { font-size: 1.55rem; color: var(--hhPrimary); }
+.signupVisualMain { text-align: center; padding-block: .7rem 1rem; }
+.signupIllustration { width: min(270px,100%); aspect-ratio: 1; position: relative; display: grid; place-items: center; margin: 0 auto .2rem; }
+.signupIllustrationOrbit { position: absolute; border: 1px solid rgba(237,112,82,.27); border-radius: 50%; }
+.signupOrbitOne { inset: 3%; transform: rotate(-23deg) scaleY(.82); }
+.signupOrbitTwo { inset: 15%; border-style: dashed; transform: rotate(22deg) scaleY(.83); }
+.signupIllustrationCenter { width: 132px; height: 132px; border-radius: 42% 58% 56% 44% / 47% 42% 58% 53%; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: .15rem; color: #fff; background: linear-gradient(145deg,var(--hhPrimary),var(--hhSecondary)); box-shadow: 0 18px 40px rgba(217,90,59,.22); transform: rotate(-5deg); }
+.signupIllustrationCenter span { font-size: 2.7rem; line-height: 1; }
+.signupIllustrationCenter small { font-size: .65rem; font-weight: 700; line-height: 1.25; }
+.signupFloatingIcon { position: absolute; width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.9); border-radius: 15px; background: rgba(255,255,255,.78); box-shadow: 0 8px 20px rgba(109,71,49,.08); color: var(--hhPrimaryDark); font-size: 1.4rem; }
+.signupFloatArt { top: 14%; left: 10%; transform: rotate(-12deg); }
+.signupFloatMusic { top: 12%; right: 9%; background: #E6EEE2; color: #58794F; transform: rotate(10deg); }
+.signupFloatLeaf { bottom: 15%; left: 9%; background: #FFF8F1; color: #6E9565; transform: rotate(12deg); }
+.signupFloatStar { bottom: 12%; right: 8%; background: #FFF0C8; color: #BA8B2B; transform: rotate(-8deg); }
+.signupTinyDot { position: absolute; width: 10px; height: 10px; border-radius: 50%; }
+.signupDotOne { top: 31%; right: 3%; background: #F6A15A; }
+.signupDotTwo { bottom: 31%; left: 3%; background: #7DA477; }
+.signupHandwritten { font-family: var(--fontAccent); font-size: 1.45rem; color: #A55B43; margin-bottom: .2rem; transform: rotate(-2deg); }
+.signupVisualMain h2 { font-size: clamp(1.75rem,2.5vw,2.25rem); letter-spacing: -.045em; line-height: 1.14; }
+.signupVisualMain h2 em { color: var(--hhPrimaryDark); font-family: var(--fontAccent); font-size: 1.12em; font-weight: 700; }
+.signupVisualCopy { max-width: 330px; margin: .8rem auto 0; color: #785D50; font-size: .82rem; line-height: 1.75; }
+.signupVisualBottom { display: flex; align-items: center; gap: .75rem; padding-top: 1rem; border-top: 1px solid rgba(154,94,65,.16); }
+.signupVisualBadge { width: 35px; height: 35px; flex: 0 0 35px; display: grid; place-items: center; border-radius: 12px; background: rgba(255,255,255,.65); color: var(--hhPrimaryDark); }
+.signupVisualBottom p { color: #74594C; font-size: .68rem; line-height: 1.5; }
+.signupVisualBottom p strong { color: #4F4038; font-size: .76rem; }
+.signupBottomPlant { margin-left: auto; font-size: 1.6rem; color: #7DA477; }
+@keyframes signupEnter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 991.98px) {
+  .signupShell { grid-template-columns: minmax(0,1fr) minmax(310px,.85fr); }
+  .signupFormPanel { padding: 1.4rem; }
+  .signupVisualPanel { padding-inline: 1.25rem; }
+  .signupIllustration { width: 235px; }
+  .signupIllustrationCenter { width: 115px; height: 115px; }
+  .signupFloatingIcon { width: 39px; height: 39px; border-radius: 13px; }
+  .signupPasswordRules { gap: .25rem .5rem; }
+}
+@media (max-width: 767.98px) {
+  .signupPage { padding: 1rem .75rem 2.5rem; }
+  .signupShell { display: flex; flex-direction: column; min-height: 0; border-radius: 22px; }
+  .signupFormPanel { padding: 1.2rem clamp(1rem,5vw,1.8rem) 1.4rem; }
+  .signupFormInner { padding-block: 1.6rem .3rem; }
+  .signupMobileMark { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 15px; background: var(--hhTintPink); color: var(--hhPrimary); margin-bottom: 1rem; }
+  .signupMobileMark span { font-size: 1.7rem; line-height: 1; }
+  .signupFormInner h1 { font-size: clamp(1.8rem,7vw,2.25rem); }
+  .signupIntro { margin-bottom: 1.1rem; }
+  .signupVisualPanel { min-height: 440px; padding: 1.35rem 1.2rem 1.2rem; }
+  .signupIllustration { width: 220px; }
+  .signupVisualMain { padding-block: .3rem .8rem; }
+  .signupVisualMain h2 { font-size: 1.8rem; }
+}
+@media (max-width: 380px) {
+  .signupFormPanel { padding-inline: .9rem; }
+  .signupPasswordRules { flex-direction: column; gap: .25rem; }
+  .signupVisualPill { font-size: .48rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .signupShell, .signupInputWrap, .signupSubmit, .signupSubmit span:last-child { animation: none !important; transition: none !important; }
+}
+
+/* Readability refinements requested during signup review */
+.signupLabel { font-size: .84rem; }
+.signupInputWrap input { font-size: .88rem; }
+.signupError { font-size: .78rem; line-height: 1.5; }
+.signupPasswordHelp { font-size: .76rem; color: #66574D; }
+.signupPasswordRules { gap: .38rem .85rem; color: #66574D; font-size: .75rem; line-height: 1.45; }
+.signupPasswordRules li span { display: inline-grid; place-items: center; width: 15px; height: 15px; font-size: .85rem; }
+.signupPasswordRules li.isMet { color: #41663B; font-weight: 650; }
+.signupButtonHint { font-size: .72rem; color: #75665B; }
+.signupTermsGroup label { font-size: .76rem; }
+.signupLoginPrompt { font-size: .84rem; }
+@media (max-width: 767.98px) {
+  .signupPasswordRules { font-size: .75rem; }
+}
