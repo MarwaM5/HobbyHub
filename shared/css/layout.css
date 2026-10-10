@@ -42,3 +42,9 @@
 .hhFooterList a:hover { color: var(--hhPrimary); padding-left: 4px; }
 .hhFooterBottom { margin-top: clamp(2rem, 4vw, 3rem); padding-block: 1.25rem; border-top: 1px solid var(--hhBorder); text-align: right; font-size: .75rem; font-weight: 700; color: var(--hhMuted); }
 @media (max-width: 767.98px) { .hhFooterBottom { text-align: center; } }
+
+/* Shared logged-in shell alignment: reserve a consistent title column so the top navigation does not drift by page title length. */
+.hhUserHeader .hhUserPageHeading{flex:0 0 220px;min-width:0;}
+.hhUserHeader .hhUserTopNav{min-width:0;}
+@media(max-width:1200px){.hhUserHeader .hhUserPageHeading{flex-basis:190px;}}
+@media(max-width:1050px){.hhUserHeader .hhUserPageHeading{flex:1 1 auto;}}

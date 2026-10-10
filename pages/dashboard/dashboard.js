@@ -12,7 +12,7 @@ async function renderDashboardNextSteps() {
     <article class="hhNextStepCard hhTint-${item.tint}" id="${item.id}" data-dashboard-card-id="${item.id}">
       <div class="hhNextStepCardTop"><span class="hhNextStepCardIcon" aria-hidden="true">${item.icon}</span><span class="hhCardArrow" aria-hidden="true">↗</span></div>
       <h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.description)}</p>
-      <a class="hhTextAction" id="${item.id}Action" href="${buildUrl(item.route, "?u=1")}">${escapeHtml(item.action)} <span aria-hidden="true">→</span></a>
+      <a class="hhTextAction" id="${item.id}Action" href="${buildUrl(item.route === "discover" ? "discoveryFlow" : item.route, "?u=1")}">${escapeHtml(item.action)} <span aria-hidden="true">→</span></a>
     </article>`).join("");
 }
 

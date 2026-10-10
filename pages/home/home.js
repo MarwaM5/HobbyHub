@@ -71,6 +71,16 @@ async function initHome() {
   mountSharedUi({ active: null });                                  // الهوم ما إلها زر نشط بالـ navbar
   await Promise.all([renderCategories(), renderSteps(), renderFeatured(), renderFaq()]);
   applyRoutes(document);                                            // روابط data-route (زر الكويز مثلاً)
+  // Guests must sign in before opening the internal discovery quiz.
+  document.querySelectorAll('[data-route="quiz"]').forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      const destination = isLoggedIn()
+        ? buildUrl("quiz", "?u=1")
+        : buildUrl("login");
+      window.location.href = destination;
+    });
+  });
   initReveal();                                                     // حركة الظهور عند النزول
 }
 

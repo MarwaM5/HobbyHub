@@ -239,6 +239,52 @@
 }
 
 
+/* Shared user-shell header alignment: keep top navigation anchored consistently across Dashboard, Discovery and Quiz. */
+.hhUserHeader {
+  display: grid;
+  grid-template-columns: minmax(205px, 245px) minmax(0, 1fr) 46px;
+  align-items: center;
+  column-gap: clamp(.75rem, 1.5vw, 1.25rem);
+}
+.hhUserPageHeading {
+  min-width: 0;
+  width: 100%;
+}
+.hhUserPageHeading h1,
+.hhUserPageHeading p {
+  overflow-wrap: anywhere;
+}
+.hhUserTopNav {
+  min-width: 0;
+  width: 100%;
+  flex: initial;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: clamp(.25rem, .55vw, .55rem);
+}
+.hhUserTopNav .hhPill {
+  flex: 0 0 auto;
+  padding-inline: clamp(.55rem, .85vw, 1rem) !important;
+}
+.hhUserAvatar {
+  justify-self: end;
+}
+@media (max-width: 1199.98px) {
+  .hhUserHeader {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .hhUserPageHeading { flex: 1 1 auto; width: auto; }
+  .hhUserTopNav {
+    order: 3;
+    flex: 1 0 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  .hhUserAvatar { flex: 0 0 46px; }
+}
+
 /* Keep the approved Dashboard heading colors while retaining hover effects */
 .hhUserPageHeading h1 {
   color: #ed7052;

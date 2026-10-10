@@ -102,7 +102,7 @@ document.addEventListener("click", (event) => {
 function renderUserSidebar(active = "dashboard") {
   const items = [
     ["dashboard", "Dashboard", "▦", "dashboard"],
-    ["discover", "Hobby Discovery", "✦", "discover"],
+    ["discover", "Hobby Discovery", "✦", "discoveryFlow"],
     ["classesBrowse", "Classes | Events | Trainings", "▤", "classesBrowse"],
     ["groups", "Communities", "♧", "groups"],
     ["journeyApp", "My Journey", "↗", "journeyApp"],
@@ -125,7 +125,7 @@ function renderUserSidebar(active = "dashboard") {
 }
 
 function renderUserHeader(options = {}) {
-  const links = [["discover", "Discover", "discover"], ["classesBrowse", "Classes", "classesBrowse"], ["groups", "Groups", "groups"], ["journeyApp", "Journey", "journeyApp"], ["aiApp", "AI", "aiApp"]];
+  const links = [["discover", "Discover", "discoveryFlow"], ["classesBrowse", "Classes", "classesBrowse"], ["groups", "Groups", "groups"], ["journeyApp", "Journey", "journeyApp"], ["aiApp", "AI", "aiApp"]];
   return `
     <header class="hhUserHeader">
       <div class="hhUserPageHeading"><h1>${options.title || "Dashboard"}</h1><p>${options.subtitle || "Your HobbyHub overview"}</p></div>

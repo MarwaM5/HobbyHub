@@ -17,39 +17,41 @@ const categories = [
   { id: "gamesMind", name: "Games & Mind", emoji: "♟️", tint: "green" }
 ];
 
-// جدول الهوايات (كل هواية تابعة لكاتيجوري عن طريق categoryId)
+// جدول الهوايات (بيانات تجريبية قابلة للاستبدال لاحقاً ببيانات الـ backend).
+// quizProfile: قيم التفضيلات بالترتيب المقابل لأبعاد الأسئلة؛ القيم 0..n-1.
+// هذه قيم mock معقولة لأغراض العرض، وليست بيانات علمية عن الهوايات.
 const hobbies = [
-  { id: "drawing", name: "Drawing", categoryId: "creative" },
-  { id: "calligraphy", name: "Calligraphy", categoryId: "creative" },
-  { id: "photography", name: "Photography", categoryId: "creative" },
-  { id: "pottery", name: "Pottery", categoryId: "creative" },
-  { id: "crochet", name: "Crochet", categoryId: "creative" },
-  { id: "tatreez", name: "Tatreez", categoryId: "creative" },
-  { id: "accessoriesHandicrafts", name: "Accessories & Handicrafts", categoryId: "creative" },
-  { id: "guitar", name: "Guitar", categoryId: "musicDance" },
-  { id: "oud", name: "Oud", categoryId: "musicDance" },
-  { id: "singing", name: "Singing", categoryId: "musicDance" },
-  { id: "piano", name: "Piano", categoryId: "musicDance" },
-  { id: "dabke", name: "Dabke", categoryId: "musicDance" },
-  { id: "modernDance", name: "Modern Dance", categoryId: "musicDance" },
-  { id: "hiking", name: "Hiking", categoryId: "outdoorAdventure" },
-  { id: "camping", name: "Camping", categoryId: "outdoorAdventure" },
-  { id: "snorkeling", name: "Snorkeling", categoryId: "outdoorAdventure" },
-  { id: "windsurfing", name: "Windsurfing", categoryId: "outdoorAdventure" },
-  { id: "cycling", name: "Cycling", categoryId: "outdoorAdventure" },
-  { id: "football", name: "Football", categoryId: "sportsFitness" },
-  { id: "running", name: "Running", categoryId: "sportsFitness" },
-  { id: "swimming", name: "Swimming", categoryId: "sportsFitness" },
-  { id: "tennis", name: "Tennis", categoryId: "sportsFitness" },
-  { id: "padel", name: "Padel", categoryId: "sportsFitness" },
-  { id: "cooking", name: "Cooking", categoryId: "foodHome" },
-  { id: "bakingDesserts", name: "Baking & Desserts", categoryId: "foodHome" },
-  { id: "homeGardening", name: "Home Gardening", categoryId: "foodHome" },
-  { id: "coffeeBrewing", name: "Coffee Brewing", categoryId: "foodHome" },
-  { id: "chess", name: "Chess", categoryId: "gamesMind" },
-  { id: "tawleh", name: "Tawleh", categoryId: "gamesMind" },
-  { id: "reading", name: "Reading", categoryId: "gamesMind" },
-  { id: "groupBoardGames", name: "Group Board Games", categoryId: "gamesMind" }
+  { id: "drawing", name: "Drawing", categoryId: "creative", emoji: "✏️", tags: ["Indoor", "Solo", "Low cost"], quizProfile: { environment: 0, social: 0, activityType: 0, time: 1, cost: 0, energy: 0, competitive: 2, purpose: 1, equipment: 0, learning: 3, learningCurve: 1, weekend: 0 } },
+  { id: "calligraphy", name: "Calligraphy", categoryId: "creative", emoji: "🖋️", tags: ["Indoor", "Creative", "Low cost"], quizProfile: { environment: 0, social: 0, activityType: 0, time: 1, cost: 0, energy: 0, competitive: 2, purpose: 1, equipment: 1, learning: 1, learningCurve: 2, weekend: 0 } },
+  { id: "photography", name: "Photography", categoryId: "creative", emoji: "📷", tags: ["Creative", "Flexible", "Skill-building"], quizProfile: { environment: 2, social: 1, activityType: 2, time: 2, cost: 2, energy: 1, competitive: 2, purpose: 4, equipment: 2, learning: 1, learningCurve: 1, weekend: 0 } },
+  { id: "pottery", name: "Pottery", categoryId: "creative", emoji: "🏺", tags: ["Hands-on", "Indoor", "Creative"], quizProfile: { environment: 0, social: 1, activityType: 0, time: 2, cost: 2, energy: 1, competitive: 2, purpose: 1, equipment: 1, learning: 0, learningCurve: 2, weekend: 0 } },
+  { id: "crochet", name: "Crochet", categoryId: "creative", emoji: "🧶", tags: ["Relaxing", "Indoor", "Low cost"], quizProfile: { environment: 0, social: 0, activityType: 3, time: 1, cost: 0, energy: 0, competitive: 2, purpose: 0, equipment: 1, learning: 3, learningCurve: 1, weekend: 0 } },
+  { id: "tatreez", name: "Tatreez", categoryId: "creative", emoji: "🪡", tags: ["Crafts", "Cultural", "Skill-building"], quizProfile: { environment: 0, social: 1, activityType: 0, time: 2, cost: 1, energy: 0, competitive: 2, purpose: 1, equipment: 1, learning: 3, learningCurve: 2, weekend: 0 } },
+  { id: "accessoriesHandicrafts", name: "Accessories & Handicrafts", categoryId: "creative", emoji: "📿", tags: ["Hands-on", "Creative", "Flexible"], quizProfile: { environment: 0, social: 1, activityType: 0, time: 1, cost: 1, energy: 1, competitive: 2, purpose: 1, equipment: 1, learning: 3, learningCurve: 1, weekend: 0 } },
+  { id: "guitar", name: "Guitar", categoryId: "musicDance", emoji: "🎸", tags: ["Music", "Skill-building", "Indoor"], quizProfile: { environment: 0, social: 1, activityType: 2, time: 2, cost: 2, energy: 1, competitive: 2, purpose: 4, equipment: 1, learning: 0, learningCurve: 2, weekend: 5 } },
+  { id: "oud", name: "Oud", categoryId: "musicDance", emoji: "🪕", tags: ["Music", "Cultural", "Skill-building"], quizProfile: { environment: 0, social: 1, activityType: 2, time: 2, cost: 2, energy: 1, competitive: 2, purpose: 1, equipment: 2, learning: 0, learningCurve: 2, weekend: 5 } },
+  { id: "singing", name: "Singing", categoryId: "musicDance", emoji: "🎤", tags: ["Music", "Expressive", "Social"], quizProfile: { environment: 2, social: 2, activityType: 2, time: 1, cost: 0, energy: 1, competitive: 1, purpose: 3, equipment: 0, learning: 2, learningCurve: 1, weekend: 5 } },
+  { id: "piano", name: "Piano", categoryId: "musicDance", emoji: "🎹", tags: ["Music", "Indoor", "Skill-building"], quizProfile: { environment: 0, social: 0, activityType: 2, time: 2, cost: 3, energy: 0, competitive: 2, purpose: 4, equipment: 2, learning: 0, learningCurve: 2, weekend: 5 } },
+  { id: "dabke", name: "Dabke", categoryId: "musicDance", emoji: "🕺", tags: ["Dance", "Cultural", "Group"], quizProfile: { environment: 2, social: 2, activityType: 1, time: 2, cost: 0, energy: 2, competitive: 1, purpose: 3, equipment: 0, learning: 2, learningCurve: 1, weekend: 5 } },
+  { id: "modernDance", name: "Modern Dance", categoryId: "musicDance", emoji: "💃", tags: ["Dance", "Active", "Expressive"], quizProfile: { environment: 0, social: 2, activityType: 1, time: 2, cost: 1, energy: 2, competitive: 1, purpose: 1, equipment: 0, learning: 2, learningCurve: 1, weekend: 5 } },
+  { id: "hiking", name: "Hiking", categoryId: "outdoorAdventure", emoji: "🥾", tags: ["Outdoor", "Active", "Adventure"], quizProfile: { environment: 1, social: 1, activityType: 1, time: 2, cost: 0, energy: 2, competitive: 2, purpose: 2, equipment: 1, learning: 3, learningCurve: 1, weekend: 1 } },
+  { id: "camping", name: "Camping", categoryId: "outdoorAdventure", emoji: "🏕️", tags: ["Outdoor", "Adventure", "Social"], quizProfile: { environment: 1, social: 2, activityType: 3, time: 3, cost: 2, energy: 1, competitive: 2, purpose: 0, equipment: 2, learning: 3, learningCurve: 1, weekend: 1 } },
+  { id: "snorkeling", name: "Snorkeling", categoryId: "outdoorAdventure", emoji: "🤿", tags: ["Outdoor", "Water", "Adventure"], quizProfile: { environment: 1, social: 1, activityType: 1, time: 2, cost: 2, energy: 2, competitive: 2, purpose: 2, equipment: 2, learning: 0, learningCurve: 1, weekend: 1 } },
+  { id: "windsurfing", name: "Windsurfing", categoryId: "outdoorAdventure", emoji: "🏄", tags: ["Outdoor", "Water", "Active"], quizProfile: { environment: 1, social: 1, activityType: 1, time: 2, cost: 3, energy: 2, competitive: 1, purpose: 2, equipment: 2, learning: 0, learningCurve: 2, weekend: 1 } },
+  { id: "cycling", name: "Cycling", categoryId: "outdoorAdventure", emoji: "🚴", tags: ["Outdoor", "Fitness", "Flexible"], quizProfile: { environment: 1, social: 1, activityType: 1, time: 2, cost: 1, energy: 2, competitive: 1, purpose: 2, equipment: 1, learning: 3, learningCurve: 1, weekend: 1 } },
+  { id: "football", name: "Football", categoryId: "sportsFitness", emoji: "⚽", tags: ["Team sport", "Active", "Competitive"], quizProfile: { environment: 2, social: 2, activityType: 1, time: 2, cost: 0, energy: 2, competitive: 0, purpose: 2, equipment: 1, learning: 2, learningCurve: 1, weekend: 2 } },
+  { id: "running", name: "Running", categoryId: "sportsFitness", emoji: "🏃", tags: ["Fitness", "Outdoor", "Flexible"], quizProfile: { environment: 1, social: 0, activityType: 1, time: 1, cost: 0, energy: 2, competitive: 1, purpose: 2, equipment: 0, learning: 3, learningCurve: 0, weekend: 2 } },
+  { id: "swimming", name: "Swimming", categoryId: "sportsFitness", emoji: "🏊", tags: ["Fitness", "Water", "Active"], quizProfile: { environment: 2, social: 1, activityType: 1, time: 2, cost: 1, energy: 2, competitive: 1, purpose: 2, equipment: 1, learning: 0, learningCurve: 1, weekend: 2 } },
+  { id: "tennis", name: "Tennis", categoryId: "sportsFitness", emoji: "🎾", tags: ["Sport", "Skill-building", "Competitive"], quizProfile: { environment: 2, social: 1, activityType: 1, time: 2, cost: 2, energy: 2, competitive: 0, purpose: 4, equipment: 2, learning: 0, learningCurve: 2, weekend: 2 } },
+  { id: "padel", name: "Padel", categoryId: "sportsFitness", emoji: "🏓", tags: ["Sport", "Social", "Active"], quizProfile: { environment: 2, social: 2, activityType: 1, time: 2, cost: 2, energy: 2, competitive: 1, purpose: 3, equipment: 2, learning: 2, learningCurve: 1, weekend: 2 } },
+  { id: "cooking", name: "Cooking", categoryId: "foodHome", emoji: "🥘", tags: ["At home", "Creative", "Practical"], quizProfile: { environment: 0, social: 1, activityType: 0, time: 1, cost: 1, energy: 1, competitive: 2, purpose: 4, equipment: 1, learning: 3, learningCurve: 1, weekend: 3 } },
+  { id: "bakingDesserts", name: "Baking & Desserts", categoryId: "foodHome", emoji: "🧁", tags: ["At home", "Creative", "Skill-building"], quizProfile: { environment: 0, social: 1, activityType: 0, time: 2, cost: 1, energy: 0, competitive: 2, purpose: 1, equipment: 1, learning: 0, learningCurve: 1, weekend: 3 } },
+  { id: "homeGardening", name: "Home Gardening", categoryId: "foodHome", emoji: "🪴", tags: ["At home", "Nature", "Relaxing"], quizProfile: { environment: 0, social: 0, activityType: 3, time: 2, cost: 1, energy: 1, competitive: 2, purpose: 0, equipment: 1, learning: 3, learningCurve: 1, weekend: 3 } },
+  { id: "coffeeBrewing", name: "Coffee Brewing", categoryId: "foodHome", emoji: "☕", tags: ["At home", "Hands-on", "Relaxing"], quizProfile: { environment: 0, social: 1, activityType: 2, time: 1, cost: 1, energy: 0, competitive: 2, purpose: 4, equipment: 1, learning: 3, learningCurve: 1, weekend: 3 } },
+  { id: "chess", name: "Chess", categoryId: "gamesMind", emoji: "♟️", tags: ["Strategy", "Indoor", "Skill-building"], quizProfile: { environment: 0, social: 1, activityType: 2, time: 1, cost: 0, energy: 0, competitive: 0, purpose: 4, equipment: 0, learning: 1, learningCurve: 2, weekend: 4 } },
+  { id: "tawleh", name: "Tawleh", categoryId: "gamesMind", emoji: "🎲", tags: ["Strategy", "Social", "Indoor"], quizProfile: { environment: 0, social: 2, activityType: 3, time: 1, cost: 0, energy: 0, competitive: 0, purpose: 3, equipment: 0, learning: 2, learningCurve: 1, weekend: 4 } },
+  { id: "reading", name: "Reading", categoryId: "gamesMind", emoji: "📚", tags: ["Quiet", "Indoor", "Low cost"], quizProfile: { environment: 0, social: 0, activityType: 3, time: 1, cost: 0, energy: 0, competitive: 2, purpose: 0, equipment: 0, learning: 1, learningCurve: 0, weekend: 4 } },
+  { id: "groupBoardGames", name: "Group Board Games", categoryId: "gamesMind", emoji: "🎲", tags: ["Games", "Social", "Strategy"], quizProfile: { environment: 0, social: 2, activityType: 3, time: 1, cost: 0, energy: 0, competitive: 1, purpose: 3, equipment: 1, learning: 2, learningCurve: 0, weekend: 4 } }
 ];
 
 // جدول الأنشطة (class / event / training). priceJod = 0 يعني مجاني. isFeatured = الأدمن علّم عليه
@@ -88,3 +90,7 @@ const dashboardRecentActivity = [
   { id: "recentQuestion", title: "Answered a question", detail: "Drawing Community", time: "Yesterday", icon: "↗", tint: "pink" },
   { id: "recentEnrollment", title: "Enrolled", detail: "Photography Basics", time: "3 days ago", icon: "+", tint: "orange" }
 ];
+
+
+// Hobby Discovery quiz questions: content is data-driven so questions can be maintained independently of UI.
+const hobbyQuizQuestions = [{'id': 'q01', 'dimension': 'environment', 'question': 'Where do you like to spend your time?', 'options': [{'id': 'q1a1', 'label': 'Indoors, in a cozy space', 'value': 0}, {'id': 'q1a2', 'label': 'Outside in nature', 'value': 1}, {'id': 'q1a3', 'label': 'A mix of both', 'value': 2}]}, {'id': 'q02', 'dimension': 'social', 'question': 'How do you prefer to enjoy an activity?', 'options': [{'id': 'q2a1', 'label': 'On my own', 'value': 0}, {'id': 'q2a2', 'label': 'With one friend', 'value': 1}, {'id': 'q2a3', 'label': 'In a group', 'value': 2}]}, {'id': 'q03', 'dimension': 'activityType', 'question': 'What kind of activity sounds best?', 'options': [{'id': 'q3a1', 'label': 'Creating things', 'value': 0}, {'id': 'q3a2', 'label': 'Being active', 'value': 1}, {'id': 'q3a3', 'label': 'Learning new skills', 'value': 2}, {'id': 'q3a4', 'label': 'Relaxing activities', 'value': 3}]}, {'id': 'q04', 'dimension': 'time', 'question': 'How much time can you spend on a hobby each week?', 'options': [{'id': 'q4a1', 'label': 'Less than 2 hours', 'value': 0}, {'id': 'q4a2', 'label': '2–4 hours', 'value': 1}, {'id': 'q4a3', 'label': '5–8 hours', 'value': 2}, {'id': 'q4a4', 'label': '8+ hours', 'value': 3}]}, {'id': 'q05', 'dimension': 'cost', 'question': 'What monthly budget feels comfortable?', 'options': [{'id': 'q5a1', 'label': 'Almost free', 'value': 0}, {'id': 'q5a2', 'label': 'Up to 15 JOD', 'value': 1}, {'id': 'q5a3', 'label': '15–40 JOD', 'value': 2}, {'id': 'q5a4', 'label': '40+ JOD', 'value': 3}]}, {'id': 'q06', 'dimension': 'energy', 'question': 'What pace suits you best?', 'options': [{'id': 'q6a1', 'label': 'Calm and relaxing', 'value': 0}, {'id': 'q6a2', 'label': 'Moderately active', 'value': 1}, {'id': 'q6a3', 'label': 'Very active', 'value': 2}]}, {'id': 'q07', 'dimension': 'competitive', 'question': 'How do you feel about competition?', 'options': [{'id': 'q7a1', 'label': 'I love it', 'value': 0}, {'id': 'q7a2', 'label': 'A little competition is fun', 'value': 1}, {'id': 'q7a3', 'label': 'Not interested in competition', 'value': 2}]}, {'id': 'q08', 'dimension': 'purpose', 'question': 'What would you like from a hobby?', 'options': [{'id': 'q8a1', 'label': 'Relax and recharge', 'value': 0}, {'id': 'q8a2', 'label': 'Express myself', 'value': 1}, {'id': 'q8a3', 'label': 'Stay fit', 'value': 2}, {'id': 'q8a4', 'label': 'Meet people', 'value': 3}, {'id': 'q8a5', 'label': 'Build a skill', 'value': 4}]}, {'id': 'q09', 'dimension': 'equipment', 'question': 'How do you feel about equipment?', 'options': [{'id': 'q9a1', 'label': 'I prefer no special equipment', 'value': 0}, {'id': 'q9a2', 'label': 'A few things are fine', 'value': 1}, {'id': 'q9a3', 'label': 'I’m happy to invest', 'value': 2}]}, {'id': 'q10', 'dimension': 'learning', 'question': 'How do you learn best?', 'options': [{'id': 'q10a1', 'label': 'With a teacher', 'value': 0}, {'id': 'q10a2', 'label': 'Videos and self-study', 'value': 1}, {'id': 'q10a3', 'label': 'Group practice', 'value': 2}, {'id': 'q10a4', 'label': 'Trial and error', 'value': 3}]}, {'id': 'q11', 'dimension': 'learningCurve', 'question': 'How patient are you with a slow start?', 'options': [{'id': 'q11a1', 'label': 'I like quick wins', 'value': 0}, {'id': 'q11a2', 'label': 'I’m happy to improve gradually', 'value': 1}, {'id': 'q11a3', 'label': 'I enjoy a long challenge', 'value': 2}]}, {'id': 'q12', 'dimension': 'weekend', 'question': 'What sounds like your ideal free weekend?', 'options': [{'id': 'q12a1', 'label': 'Make something in a studio', 'value': 0}, {'id': 'q12a2', 'label': 'Explore a trail or beach', 'value': 1}, {'id': 'q12a3', 'label': 'Play on a court or track', 'value': 2}, {'id': 'q12a4', 'label': 'Spend time in a kitchen or garden', 'value': 3}, {'id': 'q12a5', 'label': 'Play games with friends', 'value': 4}, {'id': 'q12a6', 'label': 'Enjoy music or a stage', 'value': 5}]}];
