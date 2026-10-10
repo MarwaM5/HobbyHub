@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Explore a Category | HobbyHub</title>
+  <meta name="description" content="Explore hobbies, find classes and connect with people who love what you love on HobbyHub.">
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../shared/css/base.css">
+  <link rel="stylesheet" href="../../shared/css/components.css">
+  <link rel="stylesheet" href="../../shared/css/layout.css">
+  <link rel="stylesheet" href="../../shared/css/motion.css">
+  <link rel="stylesheet" href="category.css">
+</head>
+<body data-page="category" data-root="../../">
+  <div id="hhNavbar"></div>
+  <main class="categoryPage" id="categoryPage">
+    <section class="categoryHero">
+      <div class="categoryHeroGlow glowOne"></div><div class="categoryHeroGlow glowTwo"></div>
+      <div class="hhContainer categoryHeroInner">
+        <div class="categoryHeroCopy reveal">
+          <a class="categoryBack" data-route="home" href="#"><span aria-hidden="true">←</span> Back to all categories</a>
+          <span class="categoryEyebrow"><span class="eyebrowDot"></span> EXPLORE YOUR INTERESTS</span>
+          <h1 id="categoryTitle">Creative <span class="titleSpark" aria-hidden="true">✳</span></h1>
+          <p class="categoryHeroDescription" id="categoryDescription">Make room for imagination. Try something with your hands, find your style, and let small ideas become something wonderful.</p>
+          <div class="categoryHeroStats"><span><strong id="hobbyCount">7</strong> hobbies to explore</span><i aria-hidden="true"></i><span>Start wherever you are</span></div>
+          <a class="hhBtn hhBtnPrimary hhBtnLg categoryHeroButton" href="#hobbyCollection">Find your next hobby <span aria-hidden="true">↘</span></a>
+        </div>
+        <div class="categoryHeroArt reveal" style="--delay:140ms" aria-label="Playful illustration celebrating hobbies" role="img">
+          <div class="artHalo haloOuter"></div><div class="artHalo haloInner"></div>
+          <div class="artPaper artPaperBack"><span>little by little</span><i>✳</i></div>
+          <div class="artPaper artPaperFront"><span class="artPaperLabel">YOUR NEXT CHAPTER</span><strong id="artTitle">Make<br>something<br><em>you love.</em></strong><div class="artPaperSwatches"><b></b><b></b><b></b><b></b></div></div>
+          <div class="artSticker stickerMain" id="artEmoji">🎨</div><div class="artSticker stickerSmall">✦</div><div class="artDoodle doodleOne">〰</div><div class="artDoodle doodleTwo">✳</div>
+          <div class="artFloatingNote"><span id="artNoteIcon">🖌️</span><span><strong id="artNoteTitle">Make time to make</strong><small>One small try is enough.</small></span></div>
+        </div>
+      </div>
+      <div class="categoryHeroBottom"><span>CURIOUS LOOKS GOOD ON YOU</span><span class="heroBottomLine"></span><span>01 — 06</span></div>
+    </section>
+
+    <section class="categoryHobbies hhSection" id="hobbyCollection">
+      <div class="hhContainer">
+        <div class="categorySectionHeader reveal">
+          <div><span class="hhBadge" id="collectionBadge">The creative collection</span><h2 class="hhSectionTitle">A little something <span>for you.</span></h2><p class="hhSectionSub">Browse what sparks your curiosity. You don’t need experience — just a little interest.</p></div>
+        </div>
+        <div class="hobbyGrid row g-3 g-lg-4" id="hobbyGrid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="categoryCtaSection">
+      <div class="hhContainer"><div class="categoryCta reveal"><div class="ctaDecor ctaDecorOne">✳</div><div class="ctaDecor ctaDecorTwo">✦</div><div class="categoryCtaCopy"><span class="categoryEyebrow">STILL EXPLORING?</span><h2>Your next favourite thing might be one question away.</h2><p>Find hobbies that fit your interests, time and the way you like to spend your days.</p><a class="hhBtn hhBtnWhite hhBtnLg categoryQuizButton" data-route="discover" href="#">Take the Hobby Quiz <span aria-hidden="true">→</span></a></div><div class="ctaMiniArt" aria-hidden="true"><div class="ctaSun">☀</div><div class="ctaPlant">🌱</div><div class="ctaMiniNote">start small<br><strong>grow happy</strong></div></div></div></div>
+    </section>
+  </main>
+  <div id="hhFooter"></div><div id="hhModals"></div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../../shared/js/data.js"></script>
+  <script src="../../shared/js/dataService.js"></script>
+  <script src="../../shared/js/utils.js"></script>
+  <script src="../../shared/js/components.js"></script>
+  <script src="category.js"></script>
+</body>
+</html>

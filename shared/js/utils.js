@@ -8,7 +8,7 @@ const routes = {
   classes: "pages/classes/classesIntro/classesIntro.html",
   groups: "pages/communities/introCommunities/introCommunities.html",
   journey: "pages/journey/introJourney/journeyIntro.html",
-  ai: "pages/aiIntro/aiIntro.html",
+  ai: "pages/ai/introAI/aiIntro.html",
   category: "pages/category/category.html",
   activity: "pages/activity/activity.html",
   login: "pages/login/login.html",
