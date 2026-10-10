@@ -675,3 +675,13 @@
     transform: none;
   }
 }
+
+
+/* Shared intro-page hero sizing: aligned with Communities / Groups */
+@media (min-width: 576px) {
+  .classesHero { min-height: 544px; padding-block: clamp(2.5rem, 5vw, 4.8rem); display: flex; align-items: center; }
+  .classesHero .classesHeroArt { min-height: 390px; }
+}
+@media (max-width: 575.98px) {
+  .classesHero { min-height: 0; padding-block: 2.5rem; }
+}

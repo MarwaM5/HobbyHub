@@ -510,3 +510,12 @@
     transition: none;
   }
 }
+
+
+/* Shared intro-page hero sizing: aligned with Communities / Groups */
+@media (min-width: 576px) {
+  .discoveryHero { min-height: 544px; }
+}
+@media (max-width: 575.98px) {
+  .discoveryHero { min-height: 390px; }
+}
