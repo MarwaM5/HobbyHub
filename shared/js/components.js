@@ -98,13 +98,62 @@ document.addEventListener("click", (event) => {
   }
 });
 
-// بتركّب الأجزاء المشتركة بأماكنها: #hhNavbar و #hhFooter و #hhModals
+// الشريط الجانبي الخاص بصفحات المستخدم المسجل دخوله.
+function renderUserSidebar(active = "dashboard") {
+  const items = [
+    ["dashboard", "Dashboard", "▦", "dashboard"],
+    ["discover", "Hobby Discovery", "✦", "discover"],
+    ["classesBrowse", "Classes | Events | Trainings", "▤", "classesBrowse"],
+    ["groups", "Communities", "♧", "groups"],
+    ["journeyApp", "My Journey", "↗", "journeyApp"],
+    ["aiApp", "AI Generator", "✧", "aiApp"]
+  ];
+  const links = items.map(([key, label, icon, route]) => `
+    <a class="hhUserNavLink ${active === key ? "isActive" : ""}" id="userNav${key}" href="${buildUrl(route, "?u=1")}" ${active === key ? 'aria-current="page"' : ""}>
+      <span class="hhUserNavIcon" aria-hidden="true">${icon}</span><span>${label}</span>
+    </a>`).join("");
+  return `
+    <aside class="hhUserSidebar" id="hhUserSidebar" aria-label="User navigation">
+      <div class="hhUserSidebarBrand">${renderLogo("hhUserLogo")}</div>
+      <nav class="hhUserNav">${links}</nav>
+      <div class="hhUserAccount">
+        <p class="hhUserAccountLabel">ACCOUNT</p>
+        <a class="hhUserNavLink" id="userNavProfile" href="${buildUrl("dashboard", "?u=1#profile")}"><span class="hhUserNavIcon" aria-hidden="true">○</span><span>Profile</span></a>
+        <a class="hhUserNavLink" id="userNavLogout" href="${buildUrl("home")}"><span class="hhUserNavIcon" aria-hidden="true">↪</span><span>Log out</span></a>
+      </div>
+    </aside>`;
+}
+
+function renderUserHeader(options = {}) {
+  const links = [["discover", "Discover", "discover"], ["classesBrowse", "Classes", "classesBrowse"], ["groups", "Groups", "groups"], ["journeyApp", "Journey", "journeyApp"], ["aiApp", "AI", "aiApp"]];
+  return `
+    <header class="hhUserHeader">
+      <div class="hhUserPageHeading"><h1>${options.title || "Dashboard"}</h1><p>${options.subtitle || "Your HobbyHub overview"}</p></div>
+      <nav class="hhUserTopNav" aria-label="Quick navigation">${links.map(([key, label, route]) => `<a class="hhPill ${options.active === key ? "isActive" : ""}" id="userTop${key}" href="${buildUrl(route, "?u=1")}">${label}</a>`).join("")}</nav>
+      <a class="hhUserAvatar" href="${buildUrl("dashboard", "?u=1#profile")}" aria-label="User profile">${escapeHtml((currentUser.name || "M").charAt(0).toUpperCase())}</a>
+    </header>`;
+}
+
+function renderUserFooter() {
+  return renderFooter();
+}
+
+// بتركّب الأجزاء المشتركة بأماكنها. صفحات الزوار بتحتفظ بالـ navbar العام.
 function mountSharedUi(options = {}) {
   const navbarSlot = document.getElementById("hhNavbar");
   const footerSlot = document.getElementById("hhFooter");
   const modalsSlot = document.getElementById("hhModals");
-  if (navbarSlot) navbarSlot.innerHTML = renderNavbar(options.active || null);
-  if (footerSlot) footerSlot.innerHTML = renderFooter();
+  if (options.userApp) {
+    const sidebarSlot = document.getElementById("hhUserSidebarSlot");
+    const headerSlot = document.getElementById("hhUserHeaderSlot");
+    if (sidebarSlot) sidebarSlot.innerHTML = renderUserSidebar(options.active || "dashboard");
+    if (headerSlot) headerSlot.innerHTML = renderUserHeader(options);
+    if (footerSlot) footerSlot.innerHTML = renderUserFooter();
+    if (navbarSlot) navbarSlot.innerHTML = "";
+  } else {
+    if (navbarSlot) navbarSlot.innerHTML = renderNavbar(options.active || null);
+    if (footerSlot) footerSlot.innerHTML = renderFooter();
+  }
   if (modalsSlot) modalsSlot.innerHTML = renderLoginModal();
   applyRoutes(document);
 }

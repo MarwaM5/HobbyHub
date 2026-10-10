@@ -2,6 +2,10 @@
 
 // أسماء الصفحات ومساراتها من جذر المشروع. لو غيّرنا مسار صفحة بنغيّره من هون بس
 const routes = {
+  dashboard: "pages/dashboard/dashboard.html",
+  classesBrowse: "pages/classes/classesBrowse/classesBrowse.html",
+  journeyApp: "pages/journey/introJourney/journeyIntro.html",
+  aiApp: "pages/ai/introAI/aiIntro.html",
   home: "pages/home/home.html",
   discover: "pages/hobbyDiscovery/hobbyDiscovery.html",
   quiz: "pages/quiz/quiz.html",

@@ -20,3 +20,7 @@ async function getFeaturedActivities() { return activities.filter((activity) => 
 async function getFaqs() { return faqs; }
 
 async function getCurrentUser() { return currentUser; }
+
+
+async function getDashboardNextSteps() { return dashboardNextSteps; }
+async function getDashboardRecentActivity() { return dashboardRecentActivity; }

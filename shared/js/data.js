@@ -74,3 +74,17 @@ const faqs = [
   { id: "faq3", question: "How does Hobby Discovery work?", answer: "You answer a short quiz about your interests, free time, budget and activity style. We match your answers to hobbies and show your top matches with simple next steps." },
   { id: "faq4", question: "Can I join more than one hobby community?", answer: "Yes. Join as many communities as you like and manage them any time from the Communities page." }
 ];
+
+
+// بيانات واجهة الداشبورد التجريبية (لا يتم حفظ أي شيء في المتصفح)
+const dashboardNextSteps = [
+  { id: "dashboardDiscover", title: "Discover", description: "Find a hobby that feels like you.", action: "Take quiz", route: "discover", icon: "✦", tint: "pink" },
+  { id: "dashboardLearning", title: "Continue learning", description: "You have 2 active enrollments.", action: "View classes", route: "classesBrowse", icon: "↗", tint: "orange" },
+  { id: "dashboardJourney", title: "Keep growing", description: "Your ‘First Song’ goal is at 50%.", action: "Open journey", route: "journeyApp", icon: "♧", tint: "green" }
+];
+
+const dashboardRecentActivity = [
+  { id: "recentMilestone", title: "Completed milestone", detail: "Learn basic chords", time: "Today", icon: "✓", tint: "green" },
+  { id: "recentQuestion", title: "Answered a question", detail: "Drawing Community", time: "Yesterday", icon: "↗", tint: "pink" },
+  { id: "recentEnrollment", title: "Enrolled", detail: "Photography Basics", time: "3 days ago", icon: "+", tint: "orange" }
+];
