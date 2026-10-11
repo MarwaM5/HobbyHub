@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Generator — HobbyHub</title>
+  <meta name="description" content="Create a practical hobby activity idea that fits your level, time and tools.">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../../shared/css/base.css">
+  <link rel="stylesheet" href="../../../shared/css/components.css">
+  <link rel="stylesheet" href="../../../shared/css/layout.css">
+  <link rel="stylesheet" href="../../../shared/css/motion.css">
+  <link rel="stylesheet" href="../../dashboard/dashboard.css">
+  <link rel="stylesheet" href="aiGenerator.css">
+</head>
+<body data-page="aiGenerator" data-root="../../../">
+  <div id="hhNavbar"></div>
+  <div class="hhUserApp">
+    <div id="hhUserSidebarSlot"></div>
+    <div class="hhUserMain">
+      <div id="hhUserHeaderSlot"></div>
+      <main class="aiGeneratorPage">
+        <section class="aiGenHero" aria-labelledby="aiGenTitle">
+          <div class="aiGenHeroCopy">
+            <p class="aiGenEyebrow"><span aria-hidden="true">✦</span> YOUR NEXT LITTLE ADVENTURE</p>
+            <h2 id="aiGenTitle">A little spark can become <em>something amazing.</em></h2>
+            <p>Tell us what you love, what you have, and how much time you’ve got. We’ll help you find a small idea worth trying.</p>
+            <div class="aiGenHeroNotes"><span>✧ Ideas that fit your life</span><span>✧ Start small, grow naturally</span></div>
+          </div>
+          <div class="aiGenHeroArt" aria-hidden="true">
+            <span class="aiGenOrbit aiGenOrbitA"></span><span class="aiGenOrbit aiGenOrbitB"></span>
+            <div class="aiGenSparkCard"><span class="aiGenSparkIcon">✦</span><span class="aiGenMiniLabel">YOUR IDEA IS GROWING</span><div class="aiGenSeed">✧</div><strong>Curiosity → creativity</strong><small>One tiny step at a time</small></div>
+            <span class="aiGenFloat aiGenFloatA">✳</span><span class="aiGenFloat aiGenFloatB">♡</span><span class="aiGenFloat aiGenFloatC">✦</span>
+          </div>
+        </section>
+
+        <div class="aiGenSectionIntro">
+          <div><p class="aiGenEyebrow">MAKE IT YOURS</p><h2>What sounds fun today?</h2><p>There’s no perfect answer. Choose what feels right for you.</p></div>
+          <span class="aiGenStepPill"><span>01</span> Your vibe, your idea</span>
+        </div>
+
+        <div class="aiGenWorkspace">
+          <section class="aiGenFormCard" aria-labelledby="aiGenFormTitle">
+            <div class="aiGenCardHeading"><div><span class="aiGenCardIcon">✎</span><div><p class="aiGenEyebrow">A FEW LITTLE DETAILS</p><h3 id="aiGenFormTitle">Build your idea</h3></div></div><span class="aiGenTinyBadge">Made around you</span></div>
+            <form id="aiGeneratorForm">
+              <div class="aiGenField">
+                <label for="aiHobby">What hobby are you in the mood for?</label>
+                <select id="aiHobby" name="hobby" required><option value="">Choose a hobby</option></select>
+                <small>Pick something you enjoy — or want to explore.</small>
+              </div>
+              <fieldset class="aiGenField">
+                <legend>What’s your experience level?</legend>
+                <div class="aiGenChoiceGrid aiGenLevelChoices">
+                  <label class="aiGenChoice isSelected"><input type="radio" name="level" value="Beginner" checked><span class="aiGenChoiceIcon">🌱</span><span><b>Beginner</b><small>Just starting</small></span><i>✓</i></label>
+                  <label class="aiGenChoice"><input type="radio" name="level" value="Some experience"><span class="aiGenChoiceIcon">🌿</span><span><b>Some experience</b><small>Learning as I go</small></span><i>✓</i></label>
+                  <label class="aiGenChoice"><input type="radio" name="level" value="Confident"><span class="aiGenChoiceIcon">🌳</span><span><b>Confident</b><small>Ready for a challenge</small></span><i>✓</i></label>
+                </div>
+              </fieldset>
+              <div class="aiGenField">
+                <label for="aiTime">How much time do you have?</label>
+                <div class="aiGenTimeGrid">
+                  <label class="aiGenTimeChoice isSelected"><input type="radio" name="time" value="15 minutes"><span>⚡</span><b>15 min</b><small>A tiny break</small></label>
+                  <label class="aiGenTimeChoice"><input type="radio" name="time" value="30 minutes" checked><span>⏳</span><b>30 min</b><small>A little session</small></label>
+                  <label class="aiGenTimeChoice"><input type="radio" name="time" value="1 hour"><span>☀️</span><b>1 hour</b><small>Time to explore</small></label>
+                </div>
+              </div>
+              <div class="aiGenField">
+                <label for="aiTools">What tools or materials do you have?</label>
+                <div class="aiGenInputWrap"><span aria-hidden="true">🧰</span><input id="aiTools" name="tools" type="text" placeholder="e.g. phone, pencil, paper, guitar"></div>
+                <small>Keep it simple. Everyday things count, too.</small>
+              </div>
+              <button class="hhBtn hhBtnPrimary aiGenSubmit" id="btnGenerateIdeas" type="submit"><span class="aiGenButtonSpark" aria-hidden="true">✦</span> Generate ideas <span aria-hidden="true">→</span></button>
+              <p class="aiGenFormFoot"><span aria-hidden="true">✧</span> Demo mode: ideas are sample suggestions, not live AI results.</p>
+            </form>
+          </section>
+
+          <section class="aiGenPreviewCard" aria-labelledby="aiGenPreviewTitle">
+            <div class="aiGenPreviewTop"><div><p class="aiGenEyebrow">YOUR IDEA BOARD</p><h3 id="aiGenPreviewTitle">A little inspiration, coming up.</h3></div><span class="aiGenPowered"><span>✦</span> AI powered</span></div>
+            <div class="aiGenPreviewCanvas" id="aiGenPreviewCanvas" aria-live="polite">
+              <div class="aiGenEmptyArt" aria-hidden="true"><span class="aiGenEmptyOrbit"></span><span class="aiGenEmptySpark sparkA">✦</span><span class="aiGenEmptySpark sparkB">✳</span><div class="aiGenEmptyBlob"><span>✧</span></div><div class="aiGenEmptyNote">your next<br><b>little idea</b></div></div>
+              <h4 class="aiGenEmptyTitle">Your next little idea starts here.</h4>
+              <p class="aiGenEmptyText">Choose your hobby, level, time and tools, then let’s find a small project you can actually enjoy.</p>
+              <div class="aiGenPreviewHints"><span>🌱 Beginner friendly</span><span>⏱️ Your time</span><span>🧰 Your tools</span></div>
+            </div>
+            <div class="aiGenPreviewActions"><button type="button" class="hhBtn hhBtnOutline" id="btnSaveIdea" disabled>♡ Save idea</button><button type="button" class="aiGenRegenerate" id="btnRegenerateIdea" disabled>↻ Try another</button></div>
+            <div class="aiGenPreviewFoot"><span aria-hidden="true">💡</span><p><b>Small is still progress.</b><br>Your idea doesn’t need to be perfect to be worth trying.</p></div>
+          </section>
+        </div>
+        <div class="aiGenToast" id="aiGenToast" role="status" aria-live="polite"></div>
+      </main>
+      <div id="hhFooter"></div>
+    </div>
+  </div>
+  <div id="hhModals"></div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../../../shared/js/data.js"></script>
+  <script src="../../../shared/js/dataService.js"></script>
+  <script src="../../../shared/js/utils.js"></script>
+  <script src="../../../shared/js/components.js"></script>
+  <script src="aiGenerator.js"></script>
+</body>
+</html>
