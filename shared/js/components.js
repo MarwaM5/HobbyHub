@@ -118,7 +118,7 @@ function renderUserSidebar(active = "dashboard") {
       <nav class="hhUserNav">${links}</nav>
       <div class="hhUserAccount">
         <p class="hhUserAccountLabel">ACCOUNT</p>
-        <a class="hhUserNavLink" id="userNavProfile" href="${buildUrl("dashboard", "?u=1#profile")}"><span class="hhUserNavIcon" aria-hidden="true">○</span><span>Profile</span></a>
+        <a class="hhUserNavLink ${active === "profile" ? "isActive" : ""}" id="userNavProfile" href="${buildUrl("profile", "?u=1")}" ${active === "profile" ? 'aria-current="page"' : ""}><span class="hhUserNavIcon" aria-hidden="true">○</span><span>Profile</span></a>
         <a class="hhUserNavLink" id="userNavLogout" href="${buildUrl("home")}"><span class="hhUserNavIcon" aria-hidden="true">↪</span><span>Log out</span></a>
       </div>
     </aside>`;
@@ -130,7 +130,7 @@ function renderUserHeader(options = {}) {
     <header class="hhUserHeader">
       <div class="hhUserPageHeading"><h1>${options.title || "Dashboard"}</h1><p>${options.subtitle || "Your HobbyHub overview"}</p></div>
       <nav class="hhUserTopNav" aria-label="Quick navigation">${links.map(([key, label, route]) => `<a class="hhPill ${options.active === key ? "isActive" : ""}" id="userTop${key}" href="${buildUrl(route, "?u=1")}">${label}</a>`).join("")}</nav>
-      <a class="hhUserAvatar" href="${buildUrl("dashboard", "?u=1#profile")}" aria-label="User profile">${escapeHtml((currentUser.name || "M").charAt(0).toUpperCase())}</a>
+      <a class="hhUserAvatar" href="${buildUrl("profile", "?u=1")}" aria-label="User profile">${escapeHtml((currentUser.name || "M").charAt(0).toUpperCase())}</a>
     </header>`;
 }
 
