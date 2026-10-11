@@ -1,0 +1,22 @@
+(function(){
+ const loggedIn=isLoggedIn();document.body.classList.toggle("hasUserSession",loggedIn);
+ if(!loggedIn){const shell=document.querySelector(".hhUserApp"),main=document.querySelector(".hhUserMain");if(shell)shell.classList.remove("hhUserApp");if(main)main.classList.remove("hhUserMain");const side=document.getElementById("hhUserSidebarSlot"),head=document.getElementById("hhUserHeaderSlot");if(side)side.remove();if(head)head.remove();}
+ mountSharedUi({userApp:loggedIn,active:loggedIn?"classesBrowse":"classes",title:"Checkout",subtitle:"Complete your activity enrollment"});
+ const params=new URLSearchParams(location.search),id=params.get("id"),a=activities.find(x=>x.id===id&&(x.status||"published")==="published");
+ const form=document.getElementById("checkoutForm"),success=document.getElementById("checkoutSuccess");
+ if(!loggedIn){document.querySelector(".coLayout").innerHTML='<section class="coLoginRequired"><span>🌱</span><h2>Log in to continue</h2><p>You need an account to enroll in an activity.</p><button class="hhBtn hhBtnPrimary" id="coLoginBtn">Log in or sign up</button></section>';document.getElementById("coLoginBtn").addEventListener("click",showLoginModal);return;}
+ if(!a||Number(a.priceJod||0)<=0){document.querySelector(".coLayout").innerHTML='<section class="coLoginRequired"><span>✦</span><h2>Checkout isn’t needed</h2><p>This activity is free or unavailable. Go back to browse experiences.</p><a class="hhBtn hhBtnPrimary" href="'+buildUrl('classesBrowse','?u=1')+'">Browse classes</a></section>';return;}
+ document.getElementById("coActivityTitle").textContent=a.title;document.getElementById("coActivityMeta").textContent=`${a.type} · ${a.sessions||a.duration} · ${a.delivery}`;document.getElementById("coTotal").textContent=`JOD ${Number(a.priceJod).toFixed(2)}`;
+ const detailsUrl=buildUrl("activityDetails","?id="+encodeURIComponent(a.id)+"&u=1");document.getElementById("checkoutBack").href=detailsUrl;document.getElementById("coBackToActivity").addEventListener("click",()=>location.href=detailsUrl);
+ const cardholder=document.getElementById("cardholderName"),cardNumber=document.getElementById("cardNumber"),city=document.getElementById("city"),expiry=document.getElementById("expiry"),cvv=document.getElementById("cvv");
+ cardNumber.addEventListener("input",e=>{const digits=e.target.value.replace(/\D/g,"").slice(0,19);e.target.value=digits.replace(/(.{4})/g,"$1 ").trim();});
+ expiry.addEventListener("input",e=>{let v=e.target.value.replace(/\D/g,"").slice(0,4);if(v.length>2)v=v.slice(0,2)+" / "+v.slice(2);e.target.value=v;});
+ cvv.addEventListener("input",e=>e.target.value=e.target.value.replace(/\D/g,"").slice(0,4));
+ const validateExpiry=()=>{const digits=expiry.value.replace(/\D/g,"");if(!/^\d{4}$/.test(digits)){expiry.setCustomValidity("Enter expiry as MM / YY.");return;}const month=Number(digits.slice(0,2)),year=2000+Number(digits.slice(2));const now=new Date(),currentMonth=now.getFullYear()*12+now.getMonth(),expiryMonth=year*12+(month-1);expiry.setCustomValidity(month<1||month>12||expiryMonth<currentMonth?"Enter a valid expiry date that has not passed.":"");};
+ expiry.addEventListener("input",validateExpiry);expiry.addEventListener("change",validateExpiry);
+ cardholder.addEventListener("input",()=>cardholder.setCustomValidity(/^[A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ .’'-]{1,79}$/.test(cardholder.value.trim())?"":"Enter the cardholder name using letters and spaces."));
+ city.addEventListener("input",()=>city.setCustomValidity(/^[A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ .'-]{1,59}$/.test(city.value.trim())?"":"Enter a valid city name."));
+ cardNumber.addEventListener("input",()=>{const digits=cardNumber.value.replace(/\D/g,"");cardNumber.setCustomValidity(digits.length>=13&&digits.length<=19?"":"Enter a card number containing 13 to 19 digits.");});
+ cvv.addEventListener("input",()=>cvv.setCustomValidity(/^\d{3,4}$/.test(cvv.value)?"":"Enter a 3 or 4 digit security code."));
+ form.addEventListener("submit",e=>{e.preventDefault();form.classList.add("was-validated");validateExpiry();if(!form.checkValidity()){form.reportValidity();return;}form.hidden=true;document.getElementById("orderSummary").hidden=true;success.hidden=false;});
+})();

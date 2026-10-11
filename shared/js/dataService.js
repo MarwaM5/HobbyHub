@@ -24,3 +24,7 @@ async function getCurrentUser() { return currentUser; }
 
 async function getDashboardNextSteps() { return dashboardNextSteps; }
 async function getDashboardRecentActivity() { return dashboardRecentActivity; }
+
+// Classes, events and trainings (mock data for the front-end phase).
+async function getActivities() { return activities; }
+async function getActivityById(id) { return activities.find((activity) => activity.id === id) || null; }
