@@ -3,27 +3,50 @@ const journeyGoals = [
   { id:"goalFirstSong", hobby:"Guitar", title:"Play my first full song", emoji:"🎸", progress:68, milestonesDone:3, milestonesTotal:4, accent:"#ed7052", end:"#f6a15a", tint:"#fbe3da" },
   { id:"goalPhotoPortfolio", hobby:"Photography", title:"Build a 10 photo portfolio", emoji:"📸", progress:35, milestonesDone:2, milestonesTotal:6, accent:"#7da477", end:"#a8c59b", tint:"#e6eee2" }
 ];
+function readTransientGoal(){
+  const params=new URLSearchParams(window.location.search);
+  const raw=params.get("savedGoal");
+  if(!raw)return null;
+  try{
+    const goal=JSON.parse(raw);
+    if(!goal || !goal.id || !goal.title || !Array.isArray(goal.milestones))return null;
+    goal.progress=goal.milestones.length?Math.round(goal.milestones.filter(m=>m.done).length/goal.milestones.length*100):0;
+    goal.milestonesDone=goal.milestones.filter(m=>m.done).length;
+    goal.milestonesTotal=goal.milestones.length;
+    goal.accent="#ed7052";goal.end="#f6a15a";goal.tint="#fbe3da";
+    return goal;
+  }catch(error){return null;}
+}
 function renderJourneyGoals(){
   const grid=document.getElementById("journeyGoalsGrid");
-  grid.innerHTML=journeyGoals.map((goal)=>`
-    <article class="journeyGoalCard" id="${goal.id}" data-goal-id="${goal.id}" style="--goalAccent:${goal.accent};--goalEnd:${goal.end};--goalTint:${goal.tint};--progress:${goal.progress}%">
+  const savedGoal=readTransientGoal();
+  const goals=savedGoal?[...journeyGoals,savedGoal]:journeyGoals;
+  grid.innerHTML=goals.map((goal)=>{
+    const detailPayload=savedGoal&&goal.id===savedGoal.id
+      ? "&goalData="+encodeURIComponent(JSON.stringify(savedGoal))
+      : "";
+    return `
+    <article class="journeyGoalCard" id="${escapeHtml(goal.id)}" data-goal-id="${escapeHtml(goal.id)}" style="--goalAccent:${goal.accent};--goalEnd:${goal.end};--goalTint:${goal.tint};--progress:${goal.progress}%">
       <div class="journeyGoalTop">
-        <div class="journeyGoalIcon" aria-hidden="true">${goal.emoji}</div>
+        <div class="journeyGoalIcon" aria-hidden="true">${escapeHtml(goal.emoji||"🌱")}</div>
         <div class="journeyGoalInfo"><p class="journeyGoalHobby">${escapeHtml(goal.hobby)} journey</p><h3>${escapeHtml(goal.title)}</h3></div>
       </div>
       <div class="journeyGoalProgress">
         <div class="journeyProgressLabels"><span>You're making progress</span><strong>${goal.progress}%</strong></div>
         <div class="journeyProgressTrack" role="progressbar" aria-label="${escapeHtml(goal.title)} progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${goal.progress}"><div class="journeyProgressFill"></div></div>
       </div>
-      <div class="journeyGoalFoot"><span class="journeyMilestoneHint">✓ ${goal.milestonesDone} of ${goal.milestonesTotal} milestones complete</span><a class="journeyViewBtn" href="${buildUrl("journeyGoal","?id="+encodeURIComponent(goal.id)+"&u=1")}" data-goal-view="${goal.id}">View goal <span aria-hidden="true">→</span></a></div>
-    </article>`).join("");
-  document.getElementById("journeyGoalCount").textContent=`${journeyGoals.length} goals`;
+      <div class="journeyGoalFoot"><span class="journeyMilestoneHint">✓ ${goal.milestonesDone} of ${goal.milestonesTotal} milestones complete</span><a class="journeyViewBtn" href="${buildUrl("journeyGoal","?id="+encodeURIComponent(goal.id)+"&u=1"+detailPayload)}">View goal <span aria-hidden="true">→</span></a></div>
+    </article>`;
+  }).join("");
+  document.getElementById("journeyGoalCount").textContent=`${goals.length} goals`;
 }
 function initMyJourney(){
   if(!isLoggedIn()){window.location.href=buildUrl("login");return;}
   mountSharedUi({userApp:true,active:"journeyApp",title:"My Journey",subtitle:"Your goals, milestones & notes"});
   applyRoutes(document);
   renderJourneyGoals();
+  const params=new URLSearchParams(window.location.search);
+  if(params.has("savedGoal"))window.history.replaceState({},document.title,window.location.pathname+"?u=1");
   initReveal();
 }
 initMyJourney();

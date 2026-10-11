@@ -15,6 +15,7 @@
   const toast=document.getElementById("aiGenToast");
   let generatedIndex=0;
   let currentIdea=null;
+  let currentInputs=null;
   let toastTimeout=null;
 
   const ideaBank={
@@ -81,6 +82,7 @@
     if(!hobbySelect.value){hobbySelect.focus();showToast("Choose a hobby first, and your idea will be on its way.");return}
     const inputs={hobby:hobbySelect.value,level:getSelected("level"),time:getSelected("time"),tools:document.getElementById("aiTools").value.trim()};
     currentIdea=chooseIdea(inputs.hobby);
+    currentInputs=inputs;
     renderIdea(currentIdea,inputs);
     saveButton.innerHTML="♡ Save idea";
     showToast("Your little idea is ready. Make it your own!");
@@ -89,9 +91,29 @@
   form.addEventListener("submit",event=>{event.preventDefault();generateIdea()});
   regenerateButton.addEventListener("click",()=>{if(!currentIdea)return;generateIdea()});
   saveButton.addEventListener("click",()=>{
-    if(!currentIdea)return;
-    saveButton.innerHTML="✓ Saved for now";
-    showToast("Idea saved for this demo session only — it won’t persist after refresh.");
+    if(!currentIdea || !currentInputs)return;
+    const selectedHobby=hobbySelect.options[hobbySelect.selectedIndex];
+    const goal={
+      id:"goalAi"+Date.now().toString(36),
+      hobby:selectedHobby?.textContent||"Hobby",
+      title:currentIdea.title,
+      description:currentIdea.description,
+      emoji:currentIdea.emoji||"🌱",
+      progress:0,
+      milestones:(currentIdea.steps||[]).map((step,index)=>({
+        id:"aiStep"+(index+1),
+        text:step[0]+(step[1]?" — "+step[1]:""),
+        done:false
+      })),
+      notes:[]
+    };
+    if(!goal.milestones.length){
+      showToast("Generate an idea with steps before saving it as a goal.");
+      return;
+    }
+    // Pass the demo goal through the next page URL only; no browser storage or backend.
+    const query="?u=1&savedGoal="+encodeURIComponent(JSON.stringify(goal));
+    window.location.href=buildUrl("myJourney",query);
   });
   renderHobbies();
   updateChoiceStyles();
