@@ -59,7 +59,7 @@ function renderHobbyCard(hobby, index, categoryId) {
     <div class="hobbyCardTop"><span class="hobbyIcon" aria-hidden="true">${visual[0]}</span><span class="hobbyIndex">${String(index + 1).padStart(2, "0")}</span></div>
     <h3>${escapeHtml(hobby.name)}</h3><p class="hobbyCardDescription">${escapeHtml(visual[1])}</p>
     <div class="hobbyTags">${tags.map(tag => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
-    <div class="hobbyCardActions"><a class="hobbyActionPrimary" href="${buildUrl("classes", "?hobby=" + encodeURIComponent(hobby.id))}" aria-label="See classes for ${escapeHtml(hobby.name)}">See classes <span aria-hidden="true">↗</span></a><a class="hobbyActionSecondary" href="${buildUrl("groups")}" aria-label="Explore communities for ${escapeHtml(hobby.name)}">Community <span aria-hidden="true">→</span></a></div>
+    <div class="hobbyCardActions"><a class="hobbyActionPrimary" href="${buildUrl("classes", "?hobby=" + encodeURIComponent(hobby.id))}" aria-label="See classes for ${escapeHtml(hobby.name)}">See classes <span aria-hidden="true">↗</span></a><a class="hobbyActionSecondary" href="${buildUrl("communityFeed", "?id=" + encodeURIComponent(hobby.id))}" aria-label="Explore the ${escapeHtml(hobby.name)} community">Community <span aria-hidden="true">→</span></a></div>
   </article></div>`;
 }
 

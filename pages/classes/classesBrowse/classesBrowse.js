@@ -12,7 +12,7 @@
   const hobby=hobbies.find(h=>h.id===a.hobbyId), cat=cats.find(c=>c.id===(a.categoryId||(hobby&&hobby.categoryId)));
   const spots=Math.max(0,Number(a.seats||0));
   return `<article class="cbCard reveal" data-activity-id="${escapeHtml(a.id)}">
-   <div class="cbCardVisual ${cat?'tint-'+cat.tint:''}"><span class="cbActivityIcon">${escapeHtml(a.emoji||(hobby&&hobby.emoji)||'✦')}</span><span class="cbType">${escapeHtml(a.type||'Class')}</span>${a.delivery==="Online (Zoom)"?'<span class="cbOnline">● Online</span>':''}<span class="cbVisualOrb" aria-hidden="true"></span></div>
+   <div class="cbCardVisual ${cat?'tint-'+cat.tint:''}"><span class="cbActivityIcon">${escapeHtml(a.emoji||(hobby&&hobby.emoji)||'✦')}</span><span class="cbType">${escapeHtml(a.type||'Class')}</span>${String(a.delivery||"").toLowerCase().startsWith("online")?'<span class="cbOnline">● Online</span>':'<span class="cbInPerson">⌂ In person</span>'}<span class="cbVisualOrb" aria-hidden="true"></span></div>
    <div class="cbCardBody"><div class="cbMetaLine"><span>${escapeHtml(cat?cat.name:'Hobby')}</span><span class="cbLevel">${escapeHtml(a.level||'All levels')}</span></div><h4>${escapeHtml(a.title)}</h4><p class="cbOrganizer">${escapeHtml(a.organizer||'HobbyHub partner')}</p><div class="cbCardFacts"><span>◷ ${escapeHtml(a.duration||a.sessions||'Flexible')}</span><span class="cbSpots">● ${spots} spots left</span></div><div class="cbCardBottom"><strong class="${Number(a.priceJod||0)===0?'isFree':''}">${formatPrice(Number(a.priceJod||0))}</strong><a class="hhBtn hhBtnOutline cbView" href="${buildUrl('activityDetails','?id='+encodeURIComponent(a.id)+(loggedIn?'&u=1':''))}" data-activity-id="${escapeHtml(a.id)}">View <span aria-hidden="true">↗</span></a></div></div>
   </article>`;
  }

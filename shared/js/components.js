@@ -14,7 +14,7 @@ function renderLogo(extraClass = "") {
 
 // الـ Navbar للزائر. active = اسم الصفحة الحالية لتظليل زرها
 function renderNavbar(active = null) {
-  const links = [["discover", "Discover"], ["classes", "Classes"], ["groups", "Groups"], ["journey", "Journey"], ["ai", "AI"]];
+  const links = [["discover", "Discover"], ["classes", "Classes"], ["groupsIntro", "Groups"], ["journey", "Journey"], ["ai", "AI"]];
   const pills = links.map(([key, label]) => `
         <li class="nav-item">
           <a class="nav-link hhPill ${active === key ? "isActive" : ""}" id="nav${label}" href="${buildUrl(key)}">${label}</a>

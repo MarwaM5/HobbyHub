@@ -1,6 +1,6 @@
 /* introCommunities.js | Communities public introduction page */
 function initCommunitiesIntro() {
-  mountSharedUi({ active: "groups" });
+  mountSharedUi({ active: "groupsIntro" });
   applyRoutes(document);
   initReveal();
 }
