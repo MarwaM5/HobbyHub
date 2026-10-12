@@ -24,28 +24,116 @@
   --fontBody: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --fontAccent: 'Caveat', cursive;
   /* الأشكال والظلال */
-  --radiusBtn: 10px;
-  --radiusCard: 18px;
+  --radiusBtn: 14px;
+  --radiusCard: 22px;
   --radiusPill: 999px;
   --shadowSoft: 0 6px 24px rgba(237, 112, 82, 0.10);
   --shadowHover: 0 16px 36px rgba(237, 112, 82, 0.20);
   /* مقاسات عامة */
-  --navH: 76px;                 /* ارتفاع الـ navbar (الهيرو بيعتمد عليه) */
-  --containerMax: 2000px;           /* أقصى عرض (شاشات عادية بتاخد العرض كامل) */
-  --pagePadX: clamp(1rem, 4vw, 4.5rem);  /* الهامش الجانبي: بيكبر مع الشاشة وبيصغر عالموبايل */
+  --navH: 92px;                 /* ارتفاع الـ navbar (الهيرو بيعتمد عليه) */
+  --containerMax: 1440px;           /* أقصى عرض (شاشات عادية بتاخد العرض كامل) */
+  --pagePadX: clamp(1.25rem, 3.5vw, 3.5rem);  /* الهامش الجانبي: بيكبر مع الشاشة وبيصغر عالموبايل */
+  /* Shared rhythm: all feature pages use the same canvas and spacing. */
+  --hhAppBg: #FFFAF5; /* Light warm cream canvas, coordinated with the shared shell. */
+  --hhSidebarWidth: 270px;
+  --hhPageMax: 1440px;
+  --hhPageGutter: clamp(1.25rem, 2.8vw, 2.75rem);
+  --hhPageSpace: clamp(2rem, 3vw, 3rem);
+  --hhHeroPad: clamp(1.75rem, 3vw, 2.75rem);
+  --hhHeroRadius: 28px;
+  --hhHeroMin: 300px;
+  --hhFeatureHero: linear-gradient(115deg, var(--hhBg), var(--hhTintPink) 58%, var(--hhTintGreen));
   --ease: cubic-bezier(0.22, 0.8, 0.3, 1);
 }
-
-*, *::before, *::after { box-sizing: border-box; }
-
-html { scroll-behavior: smooth; scroll-padding-top: calc(var(--navH) + 8px); }
-
-body { margin: 0; font-family: var(--fontBody); background: var(--hhBg); color: var(--hhText); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-
-img, svg, video { max-width: 100%; }
-h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: 700; line-height: 1.2; color: var(--hhText); }
-p { margin: 0; }
-a { color: var(--hhPrimary); text-decoration: none; }
-a:hover { color: var(--hhPrimaryDark); }
-:focus-visible { outline: 3px solid rgba(237, 112, 82, 0.45); outline-offset: 3px; border-radius: 6px; }
-::selection { background: var(--hhTintPink); }
+* {
+  box-sizing: border-box;
+}
+*::before {
+  box-sizing: border-box;
+}
+*::after {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--navH) + 8px);
+}
+body {
+  margin: 0;
+  font-family: var(--fontBody);
+  font-size: 1rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  background: var(--hhBg);
+  color: var(--hhText);
+}
+img {
+  max-width: 100%;
+}
+svg {
+  max-width: 100%;
+}
+video {
+  max-width: 100%;
+}
+h1 {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--hhText);
+}
+h2 {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--hhText);
+}
+h3 {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--hhText);
+}
+h4 {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--hhText);
+}
+h5 {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--hhText);
+}
+h6 {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--hhText);
+}
+p {
+  margin: 0;
+}
+a {
+  text-decoration: none;
+  color: var(--hhPrimary);
+}
+a:hover {
+  color: var(--hhPrimaryDark);
+}
+:focus-visible {
+  outline: 3px solid rgba(237, 112, 82, 0.45);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+::selection {
+  background: var(--hhTintPink);
+}
+/* Form typography inherits the same readable body font, including native controls. */
+button, input, select, textarea { font-family: var(--fontBody); }
+input, select, textarea { font-size: 1rem; }
+input::placeholder, textarea::placeholder { color: var(--hhMuted); opacity: 1; }
+textarea { line-height: 1.7; }
+@media (max-width: 767.98px) {
+  :root { --hhSidebarWidth: 0px; --hhPageGutter: 1rem; --hhPageSpace: 1.5rem; --hhHeroPad: 1.5rem; --hhHeroRadius: 22px; --hhHeroMin: 0px; }}

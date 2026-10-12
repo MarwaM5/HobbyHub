@@ -1,369 +1,492 @@
-/* Logged-in dashboard layout and page styling */
-.hhUserApp { min-height: 100vh; background: #fffdfb; }
-.hhUserSidebar { position: fixed; inset: 0 auto 0 0; z-index: 1040; display: flex; flex-direction: column; width: 230px; padding: 1.5rem 1rem 1.2rem; background: #fff; border-right: 1px solid var(--hhBorder); }
-.hhUserSidebarBrand { padding: 0 .45rem 2.2rem; }
-.hhUserLogo { gap: .45rem; }
-.hhUserLogo .hhLogoIcon { width: 40px; height: 40px; }
-.hhUserLogo .hhLogoName { font-size: 1.3rem; }
-.hhUserLogo .hhLogoTag { font-size: .43rem; }
-.hhUserNav { display: grid; gap: .38rem; }
-.hhUserNavLink { display: flex; align-items: center; gap: .78rem; min-height: 44px; padding: .7rem .78rem; border-radius: 11px; color: #6b625d; font-size: .83rem; font-weight: 600; line-height: 1.35; transition: background .2s, color .2s; }
-.hhUserNavLink:hover { color: var(--hhPrimaryDark); background: #fff5ef; }
-.hhUserNavLink.isActive { color: var(--hhPrimaryDark); background: #fce8df; font-weight: 750; }
-.hhUserNavIcon { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 25px; width: 25px; height: 25px; border-radius: 8px; font-size: 1rem; color: var(--hhPrimary); background: #fff; }
-.hhUserNavLink.isActive .hhUserNavIcon { background: #fff8f3; }
-.hhUserAccount { margin-top: auto; padding-top: 1.3rem; border-top: 1px solid #f3e8df; }
-.hhUserAccountLabel { padding: 0 .8rem .6rem; color: #a1968f; font-size: .66rem; font-weight: 800; letter-spacing: .13em; }
-.hhUserMain { min-height: 100vh; margin-left: 230px; display: flex; flex-direction: column; }
-.hhUserHeader { position: sticky; top: 0; z-index: 1020; display: flex; align-items: center; gap: 1.5rem; min-height: 94px; padding: 1rem clamp(1.25rem, 3vw, 3rem); background: rgba(255,255,255,.94); border-bottom: 1px solid #f2e7df; backdrop-filter: blur(12px); }
-.hhUserPageHeading { min-width: 180px; }
-.hhUserPageHeading h1 { font-size: 1.35rem; font-weight: 800; letter-spacing: -.035em; }
-.hhUserPageHeading p { margin-top: .28rem; color: var(--hhMuted); font-size: .78rem; }
-.hhUserTopNav { display: flex; align-items: center; justify-content: center; flex: 1; gap: .45rem; }
-.hhUserTopNav .hhPill { padding: .42rem .95rem !important; font-size: .74rem; white-space: nowrap; }
-.hhUserAvatar { display: inline-flex; flex: 0 0 42px; align-items: center; justify-content: center; width: 42px; height: 42px; border: 3px solid #fff; border-radius: 50%; background: #f9dce4; box-shadow: 0 0 0 1px #f1cbd6; color: #8d4e61; font-size: 1rem; font-weight: 800; }
-.hhUserAvatar:hover { color: #8d4e61; }
-.hhDashboardContent { width: 100%; max-width: 1500px; margin: 0 auto; padding: 2.25rem clamp(1.25rem, 3vw, 3rem) 3rem; flex: 1; }
-.hhDashboardGreeting { position: relative; display: flex; align-items: center; justify-content: space-between; min-height: 145px; padding: 1.5rem 1.9rem; overflow: hidden; border: 1px solid #f5e1d2; border-radius: 20px; background: linear-gradient(110deg, #fff7ef 0%, #fffaf5 62%, #fce8dc 100%); }
-.hhEyebrow { margin-bottom: .55rem; color: var(--hhPrimaryDark); font-size: .66rem; font-weight: 800; letter-spacing: .13em; }
-.hhDashboardGreeting h2 { font-size: clamp(1.35rem, 2vw, 1.85rem); font-weight: 800; letter-spacing: -.04em; }
-.hhDashboardGreeting h2 span:first-child { color: var(--hhPrimaryDark); }
-.hhDashboardGreeting p:last-child { margin-top: .55rem; color: var(--hhMuted); font-size: .9rem; }
-.hhGreetingDecoration { position: relative; display: flex; align-items: center; justify-content: center; width: 155px; height: 100px; color: var(--hhPrimary); font-size: 2.6rem; }
-.hhGreetingDecoration span { position: absolute; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 18px; background: rgba(255,255,255,.75); transform: rotate(-12deg); }
-.hhGreetingDecoration span:nth-child(2) { margin: 2.5rem 0 0 4rem; color: #7da477; font-size: 2rem; transform: rotate(12deg); }
-.hhGreetingDecoration span:nth-child(3) { margin: -2.5rem 0 0 4.8rem; color: #e5a2b3; font-size: 1.7rem; transform: rotate(16deg); }
-.hhNextStepBanner { display: flex; align-items: center; gap: 1.15rem; margin-top: 1.25rem; padding: 1.3rem 1.5rem; border-radius: 18px; background: #f9e5de; }
-.hhNextStepIcon { display: grid; place-items: center; flex: 0 0 50px; width: 50px; height: 50px; border-radius: 15px; background: #fff8f3; color: var(--hhPrimary); font-size: 1.5rem; }
-.hhNextStepCopy { flex: 1; }
-.hhNextStepCopy .hhEyebrow { margin-bottom: .28rem; }
-.hhNextStepCopy h2 { font-size: 1.05rem; font-weight: 800; }
-.hhNextStepCopy p { margin-top: .35rem; color: #6f625a; font-size: .79rem; }
-.hhNextStepBanner .hhBtn { flex-shrink: 0; border-radius: 999px; padding: .78rem 1.2rem; font-size: .8rem; }
-.hhDashboardSection, .hhRecentSection { margin-top: 2.15rem; }
-.hhDashboardSectionHead { display: flex; align-items: end; justify-content: space-between; margin-bottom: 1rem; }
-.hhDashboardSectionHead .hhEyebrow { margin-bottom: .28rem; }
-.hhDashboardSectionHead h2 { font-size: 1.22rem; font-weight: 800; letter-spacing: -.025em; }
-.hhNextStepsGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
-.hhNextStepCard { min-height: 205px; padding: 1.2rem 1.25rem; border: 1px solid var(--hhBorder); border-radius: 17px; background: #fff; transition: transform .2s, box-shadow .2s; }
-.hhNextStepCard:hover { transform: translateY(-3px); box-shadow: var(--shadowSoft); }
-.hhTint-pink { --cardTint: #fbe5e3; --cardAccent: #c86f6b; }
-.hhTint-orange { --cardTint: #fcebd9; --cardAccent: #c98045; }
-.hhTint-green { --cardTint: #e8f0e5; --cardAccent: #668d60; }
-.hhNextStepCardTop { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
-.hhNextStepCardIcon { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 13px; background: var(--cardTint); color: var(--cardAccent); font-size: 1.35rem; }
-.hhCardArrow { color: #ad9d94; font-size: 1rem; }
-.hhNextStepCard h3 { font-size: .96rem; font-weight: 800; }
-.hhNextStepCard > p { min-height: 2.6rem; margin-top: .4rem; color: var(--hhMuted); font-size: .78rem; }
-.hhTextAction { display: inline-flex; align-items: center; gap: .45rem; margin-top: .75rem; color: var(--hhPrimaryDark); font-size: .78rem; font-weight: 800; }
-.hhTextAction:hover { color: var(--hhText); }
-.hhRecentCard { overflow: hidden; border: 1px solid var(--hhBorder); border-radius: 17px; background: #fff; }
-.hhRecentItem { display: flex; align-items: center; gap: .9rem; padding: 1rem 1.2rem; }
-.hhRecentItem + .hhRecentItem { border-top: 1px solid #f4eae3; }
-.hhRecentIcon { display: grid; place-items: center; flex: 0 0 40px; width: 40px; height: 40px; border-radius: 13px; color: var(--cardAccent); background: var(--cardTint); font-weight: 800; }
-.hhRecentCopy { flex: 1; }
-.hhRecentCopy h3 { font-size: .82rem; font-weight: 750; }
-.hhRecentCopy p { margin-top: .15rem; color: var(--hhMuted); font-size: .76rem; }
-.hhRecentItem time { color: #9b8e85; font-size: .72rem; white-space: nowrap; }
-.hhUserFooter { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.2rem clamp(1.25rem, 3vw, 3rem); border-top: 1px solid #f2e7df; background: #fff; }
-.hhUserFooterLinks { display: flex; flex-wrap: wrap; gap: .9rem; }
-.hhUserFooterLinks a, .hhUserFooter p { color: #8c7e75; font-size: .69rem; }
-.hhUserFooterLinks a:hover { color: var(--hhPrimaryDark); }
-@media (max-width: 1200px) { .hhUserTopNav { gap: .3rem; } .hhUserTopNav .hhPill { padding-inline: .65rem !important; } .hhUserPageHeading { min-width: 155px; } }
-@media (max-width: 1050px) { .hhUserSidebar { width: 205px; padding-inline: .75rem; } .hhUserMain { margin-left: 205px; } .hhUserTopNav { display: none; } .hhUserHeader { justify-content: space-between; } }
-@media (max-width: 767.98px) { .hhUserSidebar { position: static; width: 100%; padding: .8rem 1rem; border-right: 0; border-bottom: 1px solid var(--hhBorder); } .hhUserSidebarBrand { padding: 0 0 .8rem; } .hhUserNav { display: flex; gap: .35rem; overflow-x: auto; padding-bottom: .25rem; } .hhUserNavLink { flex: 0 0 auto; min-height: 38px; padding: .55rem .7rem; font-size: .75rem; } .hhUserNavIcon { flex-basis: 20px; width: 20px; height: 20px; } .hhUserAccount { display: flex; align-items: center; gap: .3rem; margin-top: .5rem; padding-top: .5rem; } .hhUserAccountLabel { padding: 0 .4rem; } .hhUserAccount .hhUserNavLink { min-height: 34px; } .hhUserMain { margin-left: 0; } .hhUserHeader { position: static; min-height: 76px; padding: 1rem 1.1rem; } .hhUserPageHeading h1 { font-size: 1.15rem; } .hhUserPageHeading p { font-size: .72rem; } .hhDashboardContent { padding: 1.25rem 1rem 2rem; } .hhDashboardGreeting { min-height: 130px; padding: 1.25rem; } .hhGreetingDecoration { width: 65px; transform: scale(.7); margin-right: -.5rem; } .hhDashboardGreeting p:last-child { max-width: 350px; font-size: .8rem; } .hhNextStepBanner { align-items: flex-start; flex-wrap: wrap; padding: 1rem; } .hhNextStepIcon { flex-basis: 40px; width: 40px; height: 40px; } .hhNextStepCopy { flex-basis: calc(100% - 60px); } .hhNextStepBanner .hhBtn { margin-left: 3.2rem; } .hhNextStepsGrid { grid-template-columns: 1fr; } .hhNextStepCard { min-height: 0; } .hhNextStepCard > p { min-height: 0; } .hhUserFooter { align-items: flex-start; flex-direction: column; } }
-@media (prefers-reduced-motion: reduce) { .hhNextStepCard, .hhUserNavLink { transition: none; } .hhNextStepCard:hover { transform: none; } }
 
-
-/* ===== Dashboard visual polish: richer CSS, no JS animation ===== */
-.hhUserSidebar {
-  background: linear-gradient(180deg, #fff 0%, #fffaf6 100%);
-  border-right-color: #f0d9ca;
-  box-shadow: 8px 0 32px rgba(92, 57, 39, .035);
-}
-.hhUserSidebarBrand { padding-bottom: 2rem; }
-.hhUserNav { gap: .55rem; }
-.hhUserNavLink {
-  min-height: 49px;
-  padding: .78rem .9rem;
-  border-radius: 14px;
-  font-size: .91rem;
-  gap: .85rem;
-}
-.hhUserNavLink.isActive {
-  background: linear-gradient(105deg, #fbe1d7 0%, #fff0e7 100%);
-  box-shadow: inset 3px 0 0 #ed7052;
-}
-.hhUserNavIcon {
-  flex-basis: 29px;
-  width: 29px;
-  height: 29px;
-  border-radius: 10px;
-  font-size: 1.08rem;
-}
-.hhUserHeader {
-  background: rgba(255, 248, 241, .94);
-  border-bottom: 1px solid #f1dfd0;
-  box-shadow: 0 5px 24px rgba(92, 57, 39, .035);
-  gap: 1.25rem;
-}
-.hhUserPageHeading h1 {
-  font-size: clamp(1.4rem, 1.8vw, 1.75rem);
-  margin-bottom: .2rem;
-}
-.hhUserPageHeading p { font-size: .9rem; }
-.hhUserTopNav { gap: .55rem; }
-.hhUserTopNav .hhPill {
-  padding: .55rem 1.12rem !important;
-  font-size: .82rem;
-  border-width: 1.5px;
-  background: rgba(255,255,255,.9);
-}
-.hhUserTopNav .hhPill:hover,
-.hhUserTopNav .hhPill.isActive {
-  background: #fbe5dc;
-  color: #b64e35 !important;
-}
-.hhUserAvatar {
-  flex-basis: 46px;
-  width: 46px;
-  height: 46px;
-  font-size: 1.08rem;
-  background: linear-gradient(145deg, #f8dbe4, #fce9ef);
-  box-shadow: 0 0 0 4px rgba(237,112,82,.08);
-}
 .hhDashboardContent {
+  margin: 0 auto;
+  flex: 1;
   padding-top: clamp(2rem, 3vw, 3rem);
   padding-bottom: 4rem;
+  width: 100%;
+  max-width: var(--hhPageMax);
+  margin-inline: auto;
+  padding: var(--hhPageSpace) var(--hhPageGutter) calc(var(--hhPageSpace) * 1.5);
+  min-width: 0;
 }
 .hhDashboardGreeting {
-  min-height: 178px;
-  padding: clamp(1.6rem, 3vw, 2.5rem);
-  border-radius: 26px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  min-height: var(--hhHeroMin);
+  padding: var(--hhHeroPad);
+  border-radius: var(--hhHeroRadius);
+  border: 1px solid #f5e1d2;
   background:
     radial-gradient(circle at 88% 16%, rgba(246,161,90,.18) 0 7%, transparent 7.3%),
     radial-gradient(circle at 96% 92%, rgba(125,164,119,.12) 0 10%, transparent 10.3%),
     linear-gradient(115deg, #fff5eb 0%, #fffaf6 52%, #fce5db 100%);
   box-shadow: 0 12px 36px rgba(177, 103, 69, .07);
 }
-.hhDashboardGreeting .hhEyebrow,
-.hhNextStepCopy .hhEyebrow,
-.hhDashboardSectionHead .hhEyebrow { font-size: .74rem; letter-spacing: .16em; }
-.hhDashboardGreeting h2 {
-  font-size: clamp(1.65rem, 2.4vw, 2.35rem);
-  line-height: 1.2;
+.hhEyebrow {
+  margin-bottom: .55rem;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: .13em;
+  color: var(--hhPrimaryDark);
 }
-.hhDashboardGreeting p:last-child { font-size: 1rem; max-width: 600px; line-height: 1.65; }
-.hhGreetingDecoration { width: 190px; height: 120px; }
+.hhDashboardGreeting h2 {
+  font-weight: 800;
+  letter-spacing: -.035em;
+  font-size: clamp(1.85rem,2.8vw,2.75rem);
+  line-height: 1.25;
+}
+.hhDashboardGreeting h2 span:first-child {
+  color: var(--hhPrimaryDark);
+}
+.hhDashboardGreeting p:last-child {
+  margin-top: .55rem;
+  font-size: 1rem;
+  max-width: 600px;
+  line-height: 1.65;
+  color: var(--hhMuted);
+}
+.hhGreetingDecoration {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem;
+  width: 190px;
+  height: 120px;
+  color: var(--hhPrimary);
+}
 .hhGreetingDecoration span {
-  width: 64px; height: 64px; border-radius: 22px;
+  position: absolute;
+  display: grid;
+  place-items: center;
+  transform: rotate(-12deg);
+  width: 64px;
+  height: 64px;
+  border-radius: 22px;
+  background: rgba(255,255,255,.75);
   box-shadow: 0 8px 24px rgba(115, 72, 51, .08);
 }
+.hhGreetingDecoration span:nth-child(2) {
+  margin: 2.5rem 0 0 4rem;
+  font-size: 2rem;
+  transform: rotate(12deg);
+  color: #7da477;
+}
+.hhGreetingDecoration span:nth-child(3) {
+  margin: -2.5rem 0 0 4.8rem;
+  font-size: 1.7rem;
+  transform: rotate(16deg);
+  color: #e5a2b3;
+}
 .hhNextStepBanner {
+  display: flex;
+  align-items: center;
   position: relative;
-  gap: 1.4rem;
   margin-top: 1.6rem;
-  padding: clamp(1.35rem, 2.5vw, 2rem);
-  border: 1px solid #f3d4c6;
   border-radius: 24px;
+  padding: 1.5rem;
+  gap: 1.25rem;
   background: linear-gradient(110deg, #fbe6de 0%, #fff0e7 62%, #f8e6e9 100%);
+  border: 1px solid #f3d4c6;
   box-shadow: 0 12px 30px rgba(177, 103, 69, .06);
 }
 .hhNextStepIcon {
-  flex-basis: 62px; width: 62px; height: 62px;
-  border-radius: 20px; font-size: 1.8rem;
+  display: grid;
+  place-items: center;
+  flex: 0 0 50px;
+  flex-basis: 62px;
+  width: 62px;
+  height: 62px;
+  border-radius: 20px;
+  font-size: 1.8rem;
+  transition: transform .24s ease;
+  background: #fff8f3;
+  color: var(--hhPrimary);
   box-shadow: 0 6px 18px rgba(177, 103, 69, .09);
 }
-.hhNextStepCopy h2 {
-  font-size: clamp(1.35rem, 2vw, 1.8rem);
-  line-height: 1.3;
+.hhNextStepCopy {
+  flex: 1;
 }
-.hhNextStepCopy p:not(.hhEyebrow) { font-size: .98rem; line-height: 1.65; }
+.hhNextStepCopy .hhEyebrow {
+  margin-bottom: .28rem;
+}
+.hhNextStepCopy h2 {
+  font-weight: 800;
+  font-size: 1.25rem;
+  line-height: 1.4;
+}
+.hhNextStepCopy p {
+  margin-top: .35rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #6f625a;
+}
 .hhNextStepBanner .hhBtn {
+  flex-shrink: 0;
+  border-radius: 999px;
   flex: 0 0 auto;
-  min-height: 50px;
   padding: .95rem 1.55rem;
-  font-size: .98rem;
+  min-height: 48px;
+  font-size: .95rem;
   box-shadow: 0 8px 20px rgba(206, 86, 58, .18);
 }
-.hhDashboardSection { margin-top: clamp(2.5rem, 4vw, 3.5rem); }
-.hhDashboardSectionHead { margin-bottom: 1.4rem; }
-.hhDashboardSectionHead h2 { font-size: clamp(1.55rem, 2vw, 1.9rem); letter-spacing: -.03em; }
-.hhNextStepsGrid { gap: 1.15rem; }
+.hhDashboardSection {
+  margin-top: 2.15rem;
+}
+.hhRecentSection {
+  margin-top: 2.15rem;
+}
+.hhDashboardSectionHead {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 1.4rem;
+}
+.hhDashboardSectionHead .hhEyebrow {
+  margin-bottom: .28rem;
+}
+.hhDashboardSectionHead h2 {
+  font-weight: 800;
+  font-size: clamp(1.55rem, 2vw, 1.9rem);
+  letter-spacing: -.03em;
+}
+.hhNextStepsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
 .hhNextStepCard {
-  min-height: 245px;
-  padding: 1.45rem;
   border-radius: 22px;
-  box-shadow: 0 7px 24px rgba(76, 54, 42, .045);
   transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  padding: 1.6rem;
+  min-height: 235px;
+  border: 1px solid var(--hhBorder);
+  background: #fff;
+  box-shadow: 0 7px 24px rgba(76, 54, 42, .045);
 }
 .hhNextStepCard:hover {
   transform: translateY(-5px);
   box-shadow: 0 16px 36px rgba(76, 54, 42, .095);
 }
-.hhNextStepCardIcon {
-  width: 54px; height: 54px; border-radius: 17px;
-  font-size: 1.55rem;
+.hhTint-pink {
+  --cardTint: #fbe5e3;
+  --cardAccent: #c86f6b;
 }
-.hhCardArrow { width: 36px; height: 36px; font-size: 1.1rem; }
-.hhNextStepCard h3 { margin-top: 1.2rem; font-size: 1.2rem; line-height: 1.35; }
-.hhNextStepCard p { margin-top: .55rem; font-size: .96rem; line-height: 1.65; }
-.hhTextAction { display: inline-flex; align-items: center; gap: .5rem; margin-top: 1.1rem; font-size: .94rem; font-weight: 800; }
-.hhTextAction span { transition: transform .2s ease; }
-.hhTextAction:hover span { transform: translateX(4px); }
-.hhRecentSection { margin-top: clamp(2.5rem, 4vw, 3.5rem); }
+.hhTint-orange {
+  --cardTint: #fcebd9;
+  --cardAccent: #c98045;
+}
+.hhTint-green {
+  --cardTint: #e8f0e5;
+  --cardAccent: #668d60;
+}
+.hhNextStepCardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.hhNextStepCardIcon {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 17px;
+  font-size: 1.55rem;
+  background: var(--cardTint);
+  color: var(--cardAccent);
+}
+.hhCardArrow {
+  width: 36px;
+  height: 36px;
+  font-size: 1.1rem;
+  color: #ad9d94;
+}
+.hhNextStepCard h3 {
+  font-weight: 800;
+  margin-top: 1.2rem;
+  line-height: 1.35;
+  font-size: 1.2rem;
+}
+.hhNextStepCard>p {
+  min-height: 2.6rem;
+  margin-top: .4rem;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--hhMuted);
+}
+.hhTextAction {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: 1.1rem;
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--hhPrimaryDark);
+}
+.hhTextAction:hover {
+  color: var(--hhText);
+}
 .hhRecentCard {
+  overflow: hidden;
   padding: .45rem 1.35rem;
   border-radius: 22px;
+  border: 1px solid var(--hhBorder);
+  background: #fff;
   box-shadow: 0 8px 28px rgba(76, 54, 42, .045);
 }
-.hhRecentItem { gap: 1rem; padding: 1.15rem .25rem; }
-.hhRecentIcon { width: 48px; height: 48px; border-radius: 16px; font-size: 1.2rem; }
-.hhRecentCopy h3 { font-size: 1rem; }
-.hhRecentCopy p { margin-top: .25rem; font-size: .9rem; line-height: 1.5; }
-.hhRecentItem time { font-size: .82rem; white-space: nowrap; }
-@media (max-width: 1199.98px) {
-  .hhUserHeader { flex-wrap: wrap; }
-  .hhUserTopNav { order: 3; flex-basis: 100%; justify-content: flex-start; flex-wrap: wrap; }
-}
-@media (max-width: 767.98px) {
-  .hhDashboardGreeting { min-height: 0; padding: 1.5rem; }
-  .hhGreetingDecoration { width: 90px; transform: scale(.72); transform-origin: right center; }
-  .hhNextStepBanner { align-items: flex-start; flex-wrap: wrap; }
-  .hhNextStepCopy { min-width: calc(100% - 80px); }
-  .hhNextStepBanner .hhBtn { width: 100%; }
-  .hhNextStepsGrid { gap: 1rem; }
-  .hhNextStepCard { min-height: 0; padding: 1.25rem; }
-  .hhRecentItem { align-items: flex-start; flex-wrap: wrap; }
-  .hhRecentItem time { margin-left: 64px; }
-}
-
-
-/* Shared user-shell header alignment: keep top navigation anchored consistently across Dashboard, Discovery and Quiz. */
-.hhUserHeader {
-  display: grid;
-  grid-template-columns: minmax(205px, 245px) minmax(0, 1fr) 46px;
+.hhRecentItem {
+  display: flex;
   align-items: center;
-  column-gap: clamp(.75rem, 1.5vw, 1.25rem);
+  transition: background-color .2s ease;
+  padding: 1.3rem;
+  gap: 1rem;
 }
-.hhUserPageHeading {
+.hhRecentItem+.hhRecentItem {
+  border-top: 1px solid #f4eae3;
+}
+.hhRecentIcon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 40px;
+  font-weight: 800;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  font-size: 1.2rem;
+  transition: transform .22s ease, box-shadow .22s ease;
+  color: var(--cardAccent);
+  background: var(--cardTint);
+}
+.hhRecentCopy {
+  flex: 1;
+}
+.hhRecentCopy h3 {
+  font-weight: 750;
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+.hhRecentCopy p {
+  margin-top: .25rem;
+  line-height: 1.5;
+  font-size: .95rem;
+  color: var(--hhMuted);
+}
+.hhRecentItem time {
+  font-size: 0.9rem;
+  white-space: nowrap;
+  color: #9b8e85;
+}
+
+
+@media (max-width: 767.98px) {
+.hhDashboardContent {
+  padding: var(--hhPageSpace) var(--hhPageGutter) calc(var(--hhPageSpace) * 1.5);
+  width: 100%;
+  max-width: var(--hhPageMax);
+  margin-inline: auto;
   min-width: 0;
+}
+.hhDashboardGreeting {
+  min-height: var(--hhHeroMin);
+  padding: var(--hhHeroPad);
+  border-radius: var(--hhHeroRadius);
+}
+.hhGreetingDecoration {
+  width: 65px;
+  transform: scale(.7);
+  margin-right: -.5rem;
+}
+.hhDashboardGreeting p:last-child {
+  max-width: 350px;
+  font-size: 1rem;
+}
+.hhNextStepBanner {
+  align-items: flex-start;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+.hhNextStepIcon {
+  flex-basis: 40px;
+  width: 40px;
+  height: 40px;
+}
+.hhNextStepCopy {
+  flex-basis: calc(100% - 60px);
+}
+.hhNextStepBanner .hhBtn {
+  margin-left: 3.2rem;
+}
+.hhNextStepsGrid {
+  grid-template-columns: 1fr;
+}
+.hhNextStepCard {
+  min-height: 0;
+}
+.hhNextStepCard>p {
+  min-height: 0;
+}}
+@media (prefers-reduced-motion: reduce) {
+.hhNextStepCard {
+  transition: none;
+}
+.hhNextStepCard:hover {
+  transform: none;
+}}
+.hhDashboardGreeting .hhEyebrow {
+  font-size: 1rem;
+  letter-spacing: .16em;
+}
+.hhNextStepCopy .hhEyebrow {
+  font-size: 1rem;
+  letter-spacing: .16em;
+}
+.hhDashboardSectionHead .hhEyebrow {
+  font-size: 1rem;
+  letter-spacing: .16em;
+}
+.hhNextStepCopy p:not(.hhEyebrow) {
+  font-size: 1rem;
+  line-height: 1.65;
+}
+.hhDashboardSection {
+  margin-top: clamp(2.5rem, 4vw, 3.5rem);
+}
+.hhNextStepCard p {
+  margin-top: .55rem;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+.hhTextAction span {
+  transition: transform .2s ease;
+}
+.hhTextAction:hover span {
+  transform: translateX(4px);
+}
+.hhRecentSection {
+  margin-top: clamp(2.5rem, 4vw, 3.5rem);
+}
+
+@media (max-width: 767.98px) {
+.hhDashboardGreeting {
+  min-height: var(--hhHeroMin);
+  padding: var(--hhHeroPad);
+  border-radius: var(--hhHeroRadius);
+}
+.hhGreetingDecoration {
+  width: 90px;
+  transform: scale(.72);
+  transform-origin: right center;
+}
+.hhNextStepBanner {
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.hhNextStepCopy {
+  min-width: calc(100% - 80px);
+}
+.hhNextStepBanner .hhBtn {
   width: 100%;
 }
-.hhUserPageHeading h1,
-.hhUserPageHeading p {
-  overflow-wrap: anywhere;
+.hhNextStepsGrid {
+  gap: 1rem;
 }
-.hhUserTopNav {
-  min-width: 0;
-  width: 100%;
-  flex: initial;
-  justify-content: center;
-  flex-wrap: nowrap;
-  gap: clamp(.25rem, .55vw, .55rem);
+.hhNextStepCard {
+  min-height: 0;
+  padding: 1.25rem;
 }
-.hhUserTopNav .hhPill {
-  flex: 0 0 auto;
-  padding-inline: clamp(.55rem, .85vw, 1rem) !important;
+.hhRecentItem {
+  align-items: flex-start;
+  flex-wrap: wrap;
 }
-.hhUserAvatar {
-  justify-self: end;
-}
-@media (max-width: 1199.98px) {
-  .hhUserHeader {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  .hhUserPageHeading { flex: 1 1 auto; width: auto; }
-  .hhUserTopNav {
-    order: 3;
-    flex: 1 0 100%;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-  }
-  .hhUserAvatar { flex: 0 0 46px; }
-}
-
-/* Keep the approved Dashboard heading colors while retaining hover effects */
-.hhUserPageHeading h1 {
-  color: #ed7052;
-  background: linear-gradient(100deg, #d95d40 0%, #ed7052 52%, #c98a48 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.hhUserPageHeading p {
-  color: #8c6d60;
-}
-
-
+.hhRecentItem time {
+  margin-left: 64px;
+}}
 /* Hover motion only — preserve all current colors, typography, spacing, and sizing */
-.hhDashboardGreeting,
-.hhNextStepBanner,
+.hhDashboardGreeting {
+  transition: transform .24s ease, box-shadow .24s ease, border-color .24s ease;
+  border: 1px solid #f5e1d2;
+  background:
+    radial-gradient(circle at 88% 16%, rgba(246,161,90,.18) 0 7%, transparent 7.3%),
+    radial-gradient(circle at 96% 92%, rgba(125,164,119,.12) 0 10%, transparent 10.3%),
+    linear-gradient(115deg, #fff5eb 0%, #fffaf6 52%, #fce5db 100%);
+  box-shadow: 0 12px 36px rgba(177, 103, 69, .07);
+}
+.hhNextStepBanner {
+  transition: transform .24s ease, box-shadow .24s ease, border-color .24s ease;
+  background: linear-gradient(110deg, #fbe6de 0%, #fff0e7 62%, #f8e6e9 100%);
+  border: 1px solid #f3d4c6;
+  box-shadow: 0 12px 30px rgba(177, 103, 69, .06);
+}
 .hhRecentCard {
   transition: transform .24s ease, box-shadow .24s ease, border-color .24s ease;
+  border: 1px solid var(--hhBorder);
+  background: #fff;
+  box-shadow: 0 8px 28px rgba(76, 54, 42, .045);
 }
-
 .hhDashboardGreeting:hover {
   transform: translateY(-3px);
   box-shadow: 0 16px 34px rgba(177, 103, 69, .12);
   border-color: #efc7b5;
 }
-
 .hhNextStepBanner:hover {
   transform: translateY(-3px);
   box-shadow: 0 14px 30px rgba(177, 103, 69, .12);
   border-color: #edc3b1;
 }
-
-.hhNextStepIcon {
-  transition: transform .24s ease;
-}
-
 .hhNextStepBanner:hover .hhNextStepIcon {
   transform: rotate(-5deg) scale(1.05);
 }
-
 .hhRecentCard:hover {
   transform: translateY(-3px);
   box-shadow: 0 14px 30px rgba(76, 54, 42, .09);
   border-color: #efcdbd;
 }
-
-.hhRecentItem {
-  transition: background-color .2s ease;
-}
-
 .hhRecentItem:hover {
   background-color: #fff9f5;
 }
-
-.hhRecentIcon {
-  transition: transform .22s ease, box-shadow .22s ease;
-}
-
 .hhRecentItem:hover .hhRecentIcon {
   transform: scale(1.07) rotate(-3deg);
   box-shadow: 0 5px 14px rgba(76, 54, 42, .09);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hhDashboardGreeting,
-  .hhNextStepBanner,
-  .hhRecentCard,
-  .hhNextStepIcon,
-  .hhRecentItem,
-  .hhRecentIcon {
-    transition: none;
-  }
-
-  .hhDashboardGreeting:hover,
-  .hhNextStepBanner:hover,
-  .hhRecentCard:hover,
-  .hhNextStepBanner:hover .hhNextStepIcon,
-  .hhRecentItem:hover .hhRecentIcon {
-    transform: none;
-  }
+.hhDashboardGreeting {
+  transition: none;
 }
+.hhNextStepBanner {
+  transition: none;
+}
+.hhRecentCard {
+  transition: none;
+}
+.hhNextStepIcon {
+  transition: none;
+}
+.hhRecentItem {
+  transition: none;
+}
+.hhRecentIcon {
+  transition: none;
+}
+.hhDashboardGreeting:hover {
+  transform: none;
+}
+.hhNextStepBanner:hover {
+  transform: none;
+}
+.hhRecentCard:hover {
+  transform: none;
+}
+.hhNextStepBanner:hover .hhNextStepIcon {
+  transform: none;
+}
+.hhRecentItem:hover .hhRecentIcon {
+  transform: none;
+}}/* Page layout refinements — shared tokens, unchanged markup and behavior. */
+@media (max-width: 1100px) { .hhNextStepsGrid { grid-template-columns: 1fr; } .hhNextStepBanner { flex-wrap: wrap; } .hhNextStepBanner .hhBtn { margin-left: 0; }}
+@media (max-width: 480px) { .hhDashboardGreeting { align-items: flex-start; gap: 1rem; } .hhGreetingDecoration { display: none; } .hhRecentItem { flex-wrap: wrap; } .hhRecentItem time { margin-left: 3.5rem; }}

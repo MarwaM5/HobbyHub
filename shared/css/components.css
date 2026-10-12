@@ -1,53 +1,189 @@
-/* components.css | مكونات صغيرة بنعيد استخدامها: أزرار، كروت، شارات، accordion، modal */
 
+/* components.css | مكونات صغيرة بنعيد استخدامها: أزرار، كروت، شارات، accordion، modal */
 /* ----- الأزرار ----- */
 .hhBtn {
-  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
-  padding: .75rem 1.6rem; border: 1.5px solid transparent; border-radius: var(--radiusBtn);
-  font-family: var(--fontBody); font-size: .95rem; font-weight: 700; line-height: 1.2;
-  cursor: pointer; text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  font-family: var(--fontBody);
+  font-weight: 700;
+  line-height: 1.2;
+  cursor: pointer;
+  text-decoration: none;
   transition: transform .25s var(--ease), box-shadow .25s var(--ease), background-color .25s, color .25s;
+  min-height: 48px;
+  font-size: 1rem;
+  padding: .85rem 1.5rem;
+  border-radius: var(--radiusBtn);
+  border: 1.5px solid transparent;
 }
-.hhBtn:hover { transform: translateY(-2px); box-shadow: var(--shadowHover); }
-.hhBtn:active { transform: translateY(0); }
-.hhBtnPrimary { background: var(--hhPrimary); color: #fff; }
-.hhBtnPrimary:hover { background: var(--hhPrimaryDark); color: #fff; }
-.hhBtnOutline { background: #fff; color: var(--hhText); border-color: var(--hhPrimary); }
-.hhBtnOutline:hover { background: var(--hhTintPink); color: var(--hhText); }
-.hhBtnWhite { background: #fff; color: var(--hhText); border-color: var(--hhBorder); }
-.hhBtnWhite:hover { border-color: var(--hhPrimary); color: var(--hhText); }
-.hhBtnLg { padding: .95rem 2rem; font-size: 1.02rem; }
-.hhLinkBtn { background: none; border: 0; padding: .5rem; color: var(--hhMuted); font-weight: 600; cursor: pointer; }
-.hhLinkBtn:hover { color: var(--hhPrimary); }
-
+.hhBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadowHover);
+}
+.hhBtn:active {
+  transform: translateY(0);
+}
+.hhBtnPrimary {
+  background: var(--hhPrimary);
+  color: #fff;
+}
+.hhBtnPrimary:hover {
+  background: var(--hhPrimaryDark);
+  color: #fff;
+}
+.hhBtnOutline {
+  background: #fff;
+  color: var(--hhText);
+  border-color: var(--hhPrimary);
+}
+.hhBtnOutline:hover {
+  background: var(--hhTintPink);
+  color: var(--hhText);
+}
+.hhBtnWhite {
+  background: #fff;
+  color: var(--hhText);
+  border-color: var(--hhBorder);
+}
+.hhBtnWhite:hover {
+  border-color: var(--hhPrimary);
+  color: var(--hhText);
+}
+.hhBtnLg {
+  padding: .95rem 2rem;
+  min-height: 54px;
+  font-size: 1.05rem;
+}
+.hhLinkBtn {
+  padding: .5rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  color: var(--hhMuted);
+}
+.hhLinkBtn:hover {
+  color: var(--hhPrimary);
+}
 /* ----- الكروت ----- */
-.hhCard { background: #fff; border: 1px solid var(--hhBorder); border-radius: var(--radiusCard); transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s; }
-.hhCardHover:hover { transform: translateY(-6px); box-shadow: var(--shadowHover); border-color: var(--hhPrimary); }
-
+.hhCard {
+  border-radius: var(--radiusCard);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s;
+  background: #fff;
+  border: 1px solid var(--hhBorder);
+}
+.hhCardHover:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadowHover);
+  border-color: var(--hhPrimary);
+}
 /* ----- خلفيات ملونة ناعمة ----- */
-.tintPink { background: var(--hhTintPink); }
-.tintOrange { background: var(--hhTintOrange); }
-.tintGreen { background: var(--hhTintGreen); }
-
+.tintPink {
+  background: var(--hhTintPink);
+}
+.tintOrange {
+  background: var(--hhTintOrange);
+}
+.tintGreen {
+  background: var(--hhTintGreen);
+}
 /* ----- عناوين الأقسام ----- */
-.hhSection { padding-block: clamp(3rem, 7vw, 5.5rem); }
-.hhSectionHead { margin-bottom: clamp(1.5rem, 3vw, 2.25rem); }
-.hhSectionTitle { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; letter-spacing: -.01em; }
-.hhSectionSub { margin-top: .5rem; color: var(--hhMuted); font-size: .95rem; }
-
-.hhBadge { display: inline-block; padding: .25rem .8rem; border-radius: var(--radiusPill); background: var(--hhTintPink); color: var(--hhPrimaryDark); font-size: .75rem; font-weight: 700; }
-
+.hhSection {
+  padding-block: clamp(3rem, 7vw, 5.5rem);
+}
+.hhSectionHead {
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+.hhSectionTitle {
+  font-weight: 800;
+  font-size: clamp(1.8rem,3vw,2.5rem);
+  letter-spacing: -.025em;
+}
+.hhSectionSub {
+  margin-top: .5rem;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  max-width: 65ch;
+  color: var(--hhMuted);
+}
+.hhBadge {
+  display: inline-block;
+  border-radius: var(--radiusPill);
+  font-weight: 700;
+  padding: .4rem .85rem;
+  font-size: .9rem;
+  background: var(--hhTintPink);
+  color: var(--hhPrimaryDark);
+}
 /* ----- الـ Accordion (FAQ) فوق Bootstrap ----- */
-.hhAccordion .accordion-item { background: #fff; border: 1px solid var(--hhBorder); border-radius: var(--radiusCard) !important; margin-bottom: 1rem; overflow: hidden; }
-.hhAccordion .accordion-button { background: #fff; color: var(--hhText); font-weight: 700; font-size: .95rem; padding: 1.25rem 1.5rem; box-shadow: none; }
-.hhAccordion .accordion-button:not(.collapsed) { background: #fff; color: var(--hhText); }
-.hhAccordion .accordion-button::after { background-image: none; content: '+'; color: var(--hhPrimary); font-size: 1.4rem; font-weight: 600; line-height: 1; width: auto; height: auto; transform: none; }
-.hhAccordion .accordion-button:not(.collapsed)::after { content: '\2212'; transform: none; }
-.hhAccordion .accordion-body { padding: 0 1.5rem 1.4rem; color: var(--hhMuted); font-size: .92rem; }
-
+.hhAccordion .accordion-item {
+  border-radius: var(--radiusCard) !important;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--hhBorder);
+}
+.hhAccordion .accordion-button {
+  font-weight: 700;
+  padding: 1.4rem 1.6rem;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  background: #fff;
+  color: var(--hhText);
+  box-shadow: none;
+}
+.hhAccordion .accordion-button:not(.collapsed) {
+  background: #fff;
+  color: var(--hhText);
+}
+.hhAccordion .accordion-button::after {
+  content: '+';
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1;
+  width: auto;
+  height: auto;
+  transform: none;
+  background-image: none;
+  color: var(--hhPrimary);
+}
+.hhAccordion .accordion-button:not(.collapsed)::after {
+  content: '\2212';
+  transform: none;
+}
+.hhAccordion .accordion-body {
+  padding: 0 1.5rem 1.4rem;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--hhMuted);
+}
 /* ----- الـ Modal (الصندوق اللي بيطلع فوق الصفحة) ----- */
-.hhModal .modal-content { border: 0; border-radius: 24px; background: var(--hhBg); box-shadow: 0 30px 80px rgba(51, 46, 42, .25); }
-.hhModalIcon { font-size: 2.6rem; line-height: 1; margin-bottom: .75rem; }
-.hhModalTitle { font-size: 1.35rem; font-weight: 800; margin-bottom: .6rem; }
-.hhModalText { color: var(--hhMuted); font-size: .92rem; margin-bottom: 1.5rem; }
-.hhModal .hhBtn { width: 100%; margin-bottom: .75rem; }
+.hhModal .modal-content {
+  border-radius: 24px;
+  border: 0;
+  background: var(--hhBg);
+  box-shadow: 0 30px 80px rgba(51, 46, 42, .25);
+}
+.hhModalIcon {
+  font-size: 2.6rem;
+  line-height: 1;
+  margin-bottom: .75rem;
+}
+.hhModalTitle {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-bottom: .6rem;
+}
+.hhModalText {
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--hhMuted);
+}
+.hhModal .hhBtn {
+  width: 100%;
+  margin-bottom: .75rem;
+}/* Page layout refinements — shared tokens, unchanged markup and behavior. */
+.hhBtn:disabled { cursor: default; }

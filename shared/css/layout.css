@@ -1,50 +1,464 @@
-/* layout.css | هيكل الموقع: الحاوية، اللوغو، الـ navbar، الـ footer */
 
-.hhContainer { width: 100%; max-width: var(--containerMax); margin-inline: auto; padding-inline: var(--pagePadX); }
-
-/* ----- اللوغو ----- */
-.hhLogo { display: inline-flex; align-items: center; gap: .6rem; text-decoration: none; }
-.hhLogoIcon { height: 54px; width: auto; }
-.hhLogoText { display: flex; flex-direction: column; line-height: 1; }
-.hhLogoName { font-size: 1.75rem; font-weight: 800; letter-spacing: -.02em; background: linear-gradient(90deg, var(--hhPrimary), var(--hhSecondary)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.hhLogoTag { margin-top: .3rem; font-size: .58rem; color: var(--hhMuted); white-space: nowrap; }
-.hhLogoFooter .hhLogoIcon { height: 64px; }
-.hhLogoFooter .hhLogoName { font-size: 2.1rem; }
-
-/* ----- الـ Navbar ----- */
-#hhNavbar { position: sticky; top: 0; z-index: 1030; }      /* ثابت فوق وإحنا بننزل */
-.hhNavbar { min-height: var(--navH); padding-block: .5rem; background: rgba(255, 248, 241, .92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--hhBorder); }
-.hhNavbar .navbar-brand { margin: 0; padding: 0; }
-.hhNavPills { gap: .6rem; }
-.hhNavActions { gap: .75rem; }
-.hhNavActions .hhBtn { padding: .55rem 1.5rem; font-size: .88rem; }
-/* أزرار التنقل على شكل حبة */
-.hhPill { display: inline-block; padding: .45rem 1.5rem !important; border: 1.5px solid var(--hhPrimary); border-radius: var(--radiusPill); background: #fff; color: var(--hhText) !important; font-size: .82rem; font-weight: 700; transition: background-color .25s, transform .25s var(--ease), box-shadow .25s; }
-.hhPill:hover { background: var(--hhTintPink); transform: translateY(-2px); box-shadow: var(--shadowSoft); }
-.hhPill.isActive { background: var(--hhTintPink); }
-/* الهمبرغر (3 شحطات) بلون الموقع */
-.hhNavbar .navbar-toggler { border: 1.5px solid var(--hhPrimary); border-radius: var(--radiusBtn); padding: .45rem .6rem; }
-.hhNavbar .navbar-toggler:focus { box-shadow: 0 0 0 .2rem rgba(237, 112, 82, .25); }
-.hhNavbar .navbar-toggler-icon { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23ED7052' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2.6' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); }
-/* شاشات صغيرة: القائمة بتنزل عامودياً */
-@media (max-width: 991.98px) {
-  .hhNavbar .navbar-collapse { padding: 1rem 0 .5rem; }
-  .hhNavPills { align-items: stretch; text-align: center; margin-bottom: 1rem; }
-  .hhNavActions { flex-direction: column; }
-  .hhNavActions .hhBtn { width: 100%; }
+/* Shared public and member layout. Keep all navigation dimensions here. */
+.hhContainer {
+  width: 100%;
+  max-width: var(--containerMax);
+  margin-inline: auto;
+  padding-inline: var(--pagePadX);
 }
+/* Navigation and footer span the available width without changing page content. */
+.hhNavbar > .hhContainer,
+.hhFooter > .hhContainer {
+  max-width: none;
+}
+/* Brand */
+.hhLogo {
+  display: inline-flex;
+  align-items: center;
+  gap: .75rem;
+  text-decoration: none;
+}
+.hhLogoIcon {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+}
+.hhLogoText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+.hhLogoName {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -.025em;
+  background: linear-gradient(90deg, var(--hhPrimary), var(--hhSecondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hhLogoTag {
+  margin-top: .45rem;
+  font-size: .68rem;
+  line-height: 1.4;
+  white-space: nowrap;
+  color: var(--hhMuted);
+}
+.hhLogoFooter .hhLogoIcon {
+  width: 60px;
+  height: 60px;
+}
+.hhLogoFooter .hhLogoName {
+  font-size: 2rem;
+}
+/* Public navigation: equal side columns keep the five links in the true center. */
+#hhNavbar {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+}
+.hhNavbar {
+  min-height: var(--navH);
+  padding-block: .9rem;
+  background: rgba(255, 248, 241, .92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--hhBorder);
+}
+.hhNavbar .navbar-brand {
+  margin: 0;
+  padding: 0;
+}
+.hhNavPills {
+  gap: .55rem;
+  align-items: center;
+}
+.hhNavActions {
+  gap: .65rem;
+  justify-content: flex-end;
+}
+.hhNavActions .hhBtn {
+  min-height: 46px;
+  padding: .7rem 1.05rem;
+  font-size: .95rem;
+  white-space: nowrap;
+}
+.hhPill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: .65rem 1.25rem !important;
+  border-radius: var(--radiusPill);
+  font-size: .95rem;
+  font-weight: 700;
+  line-height: 1.35;
+  white-space: nowrap;
+  transition: background-color .2s, box-shadow .2s;
+  border: 1.5px solid var(--hhPrimary);
+  background: #fff;
+  color: var(--hhText) !important;
+}
+.hhPill:hover {
+  background: var(--hhTintPink);
+  box-shadow: var(--shadowSoft);
+}
+.hhPill.isActive {
+  background: var(--hhTintPink);
+}
+.hhNavbar .navbar-toggler {
+  border-radius: 12px;
+  padding: .6rem .7rem;
+  border: 1.5px solid var(--hhPrimary);
+}
+.hhNavbar .navbar-toggler:focus {
+  box-shadow: 0 0 0 .2rem rgba(237, 112, 82, .25);
+}
+.hhNavbar .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23ED7052' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2.6' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+@media (min-width: 1200px) {
+  .hhNavbar > .hhContainer { display: grid !important; grid-template-columns: minmax(220px,1fr) auto minmax(220px,1fr); align-items: center; gap: 1rem; }
+  .hhNavbar .navbar-collapse { display: contents !important; }
+  .hhNavbar .hhNavPills { margin-inline: 0 !important; justify-content: center; }}
+@media (max-width: 1199.98px) {
+  .hhNavbar .navbar-toggler { display: block; }
+  .hhNavbar .navbar-collapse { flex-basis: 100%; width: 100%; padding: 1.25rem 0 .35rem; }
+  .hhNavbar .navbar-collapse:not(.show):not(.collapsing) { display: none !important; }
+  .hhNavbar .navbar-collapse.show { display: block !important; }
+  .hhNavbar .navbar-nav { flex-direction: column; align-items: stretch; text-align: center; margin-bottom: 1rem; }
+  .hhNavbar .hhNavActions { justify-content: center; }
+  .hhNavbar .hhNavActions .hhBtn { flex: 1; max-width: 260px; }}
+/* A visible border and breathing room separate every page from its footer. */
+.hhFooter {
+  padding-top: clamp(2.75rem,5vw,4rem);
+  background: var(--hhBg);
+  border-top: 1px solid var(--hhBorder);
+}
+.hhFooterHeading {
+  font-size: 1rem;
+  font-weight: 800;
+  margin-bottom: 1.1rem;
+}
+.hhFooterList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: .7rem;
+}
+.hhFooterList a {
+  display: inline-block;
+  padding-block: .2rem;
+  font-size: .95rem;
+  line-height: 1.5;
+  transition: color .2s;
+  color: var(--hhMuted);
+}
+.hhFooterList a:hover {
+  color: var(--hhPrimary);
+}
+.hhFooterBottom {
+  margin-top: clamp(2rem,4vw,3rem);
+  padding-block: 1.5rem;
+  text-align: right;
+  font-size: .9rem;
+  font-weight: 600;
+  border-top: 1px solid var(--hhBorder);
+  color: var(--hhMuted);
+}
+/* Member shell: same canvas, sidebar and header on all feature pages. */
+.hhUserApp {
+  min-height: 100vh;
+  background: var(--hhAppBg);
+}
+.hhUserSidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 1040;
+  display: flex;
+  flex-direction: column;
+  width: var(--hhSidebarWidth);
+  padding: 1.8rem 1.15rem 1.3rem;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #fff 0%, #fffaf6 100%);
+  border-right: 1px solid var(--hhBorder);
+  border-right-color: #f0d9ca;
+  box-shadow: 8px 0 32px rgba(92, 57, 39, .035);
+}
+.hhUserSidebarBrand {
+  padding: 0 .55rem 2.1rem;
+}
+.hhUserLogo {
+  gap: .65rem;
+}
+.hhUserLogo .hhLogoIcon {
+  width: 44px;
+  height: 44px;
+}
+.hhUserLogo .hhLogoName {
+  font-size: 1.5rem;
+}
+.hhUserLogo .hhLogoTag {
+  font-size: .59rem;
+}
+.hhUserNav {
+  display: grid;
+  gap: .65rem;
+}
+.hhUserNavLink {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  min-height: 56px;
+  padding: .85rem .9rem;
+  border-radius: 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.45;
+  text-decoration: none;
+  transition: background-color .2s, color .2s;
+  color: #6b625d;
+}
+.hhUserNavLink:hover {
+  color: var(--hhPrimaryDark);
+  background: #fff5ef;
+}
+.hhUserNavLink.isActive {
+  font-weight: 700;
+  color: var(--hhPrimaryDark);
+  background: linear-gradient(105deg, #fbe1d7 0%, #fff0e7 100%);
+  box-shadow: inset 3px 0 0 #ed7052;
+}
+.hhUserNavIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  font-size: 1.15rem;
+  color: var(--hhPrimary);
+  background: #fff;
+}
+.hhUserNavLink.isActive .hhUserNavIcon {
+  background: #fff8f3;
+}
+.hhUserAccount {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f3e8df;
+}
+.hhUserAccountLabel {
+  padding: 0 .9rem .65rem;
+  font-size: .8rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  color: #a1968f;
+}
+.hhUserMain {
+  min-height: 100vh;
+  min-width: 0;
+  margin-left: var(--hhSidebarWidth);
+  display: flex;
+  flex-direction: column;
+  background: var(--hhAppBg);
+}
+.hhUserHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+  display: grid;
+  grid-template-columns: minmax(175px,1fr) auto minmax(46px,1fr);
+  align-items: center;
+  gap: 1.2rem;
+  min-height: 108px;
+  padding: 1.25rem var(--hhPageGutter);
+  background: rgba(255, 248, 241, .94);
+  border-bottom: 1px solid #f1dfd0;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 5px 24px rgba(92, 57, 39, .035);
+}
+.hhUserPageHeading {
+  min-width: 0;
+}
+.hhUserPageHeading h1 {
+  font-size: clamp(1.35rem,1.5vw,1.65rem);
+  font-weight: 800;
+  letter-spacing: -.025em;
+  line-height: 1.25;
+  color: #ed7052;
+  background: linear-gradient(100deg, #d95d40 0%, #ed7052 52%, #c98a48 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hhUserPageHeading p {
+  margin-top: .4rem;
+  font-size: .9rem;
+  line-height: 1.5;
+  color: #8c6d60;
+}
+.hhUserTopNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  min-width: 0;
+}
+.hhUserTopNav .hhPill {
+  min-height: 44px;
+  padding: .6rem .8rem !important;
+  font-size: .9rem;
+  background: rgba(255,255,255,.9);
+}
+/* Keep the current feature visible above the base member pill background. */
+.hhUserTopNav .hhPill.isActive {
+  background: var(--hhTintPink);
+}
+.hhUserTopNav .hhPill:hover {
+  background: var(--hhTintPink);
+}
+.hhUserAvatar {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  font-weight: 800;
+  border: 3px solid #fff;
+  background: linear-gradient(145deg, #f8dbe4, #fce9ef);
+  box-shadow: 0 0 0 4px rgba(237,112,82,.08);
+  color: #8d4e61;
+}
+.hhUserAvatar:hover {
+  color: #8d4e61;
+}
+.hhUserMain > main { flex: 1; min-width: 0;
+  background: transparent;
+}
+.hhUserMain > #hhFooter { margin-top: clamp(1rem,2vw,2rem); }
+.hhUserMain .hhFooter .hhContainer { padding-inline: var(--hhPageGutter); }
 
-/* ----- الـ Footer ----- */
-.hhFooter { background: var(--hhBg); border-top: 1px solid var(--hhBorder); padding-top: clamp(2.5rem, 5vw, 4rem); }
-.hhFooterHeading { font-size: .85rem; font-weight: 800; margin-bottom: 1rem; }
-.hhFooterList { list-style: none; margin: 0; padding: 0; display: grid; gap: .65rem; }
-.hhFooterList a { color: var(--hhMuted); font-size: .85rem; transition: color .2s, padding-left .2s; }
-.hhFooterList a:hover { color: var(--hhPrimary); padding-left: 4px; }
-.hhFooterBottom { margin-top: clamp(2rem, 4vw, 3rem); padding-block: 1.25rem; border-top: 1px solid var(--hhBorder); text-align: right; font-size: .75rem; font-weight: 700; color: var(--hhMuted); }
-@media (max-width: 767.98px) { .hhFooterBottom { text-align: center; } }
 
-/* Shared logged-in shell alignment: reserve a consistent title column so the top navigation does not drift by page title length. */
-.hhUserHeader .hhUserPageHeading{flex:0 0 220px;min-width:0;}
-.hhUserHeader .hhUserTopNav{min-width:0;}
-@media(max-width:1200px){.hhUserHeader .hhUserPageHeading{flex-basis:190px;}}
-@media(max-width:1050px){.hhUserHeader .hhUserPageHeading{flex:1 1 auto;}}
+
+
+@media (min-width: 768px) and (max-width: 1099.98px) {
+  :root { --hhSidebarWidth: 248px; }}
+@media (max-width: 1199.98px) {
+.hhUserHeader {
+  grid-template-columns: minmax(0,1fr) 46px;
+}
+.hhUserTopNav {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  flex-wrap: wrap;
+  padding-top: .8rem;
+}
+.hhUserAvatar {
+  grid-column: 2;
+  grid-row: 1;
+}}
+@media (max-width: 767.98px) {
+  .hhLogoIcon { width: 44px; height: 44px; }
+  .hhLogoName { font-size: 1.6rem; }
+  .hhLogoTag { font-size: .62rem; }
+.hhUserSidebar {
+  position: static;
+  width: 100%;
+  padding: 1rem;
+  overflow: visible;
+  border-right: 0;
+  border-bottom: 1px solid var(--hhBorder);
+}
+.hhUserSidebarBrand {
+  padding: .15rem .25rem 1.1rem;
+}
+.hhUserNav {
+  display: flex;
+  gap: .5rem;
+  overflow-x: auto;
+  padding: .2rem 0 .7rem;
+}
+.hhUserNavLink {
+  flex: 0 0 auto;
+  min-height: 48px;
+  padding: .65rem .85rem;
+  font-size: .95rem;
+}
+.hhUserNavIcon {
+  flex-basis: 28px;
+  width: 28px;
+  height: 28px;
+}
+.hhUserAccount {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin-top: .6rem;
+  padding-top: .8rem;
+}
+.hhUserAccountLabel {
+  padding: 0 .5rem;
+  margin: 0;
+}
+.hhUserMain {
+  margin-left: 0;
+  background: var(--hhAppBg);
+}
+.hhUserHeader {
+  position: static;
+  padding: 1.2rem 1rem;
+  gap: .9rem;
+}
+  .hhUserTopNav { gap: .45rem; }
+  .hhUserTopNav .hhPill { padding-inline: .85rem !important; }
+
+.hhFooterBottom {
+  text-align: center;
+}}
+@media (prefers-reduced-motion: reduce) {
+.hhPill {
+  transition: none;
+}
+.hhUserNavLink {
+  transition: none;
+}
+.hhFooterList a {
+  transition: none;
+}}
+/* Both footer variants share one responsive brand-and-links arrangement. */
+.hhFooter > .hhContainer > .row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem 1.5rem;
+  margin: 0;
+}
+.hhFooter > .hhContainer > .row > [class*="col-"] {
+  width: auto;
+  max-width: none;
+  min-width: 0;
+  margin-top: 0;
+  padding: 0;
+}
+.hhFooter > .hhContainer > .row > .col-lg-4 {
+  grid-column: 1 / -1;
+}
+@media (min-width: 768px) {
+  .hhFooter > .hhContainer > .row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1200px) {
+  .hhFooter > .hhContainer > .row {
+    grid-template-columns: minmax(210px, 1.6fr) repeat(4, minmax(0, 1fr));
+    column-gap: clamp(1rem, 2vw, 2.5rem);
+  }
+  .hhFooter > .hhContainer > .row > .col-lg-4 {
+    grid-column: auto;
+  }
+}

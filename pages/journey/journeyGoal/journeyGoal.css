@@ -1,3 +1,249 @@
+
 /* Goal detail page styles */
-.journeyDetailPage{width:100%;max-width:1500px;align-self:stretch;box-sizing:border-box;margin:0 auto;padding:clamp(1rem,2.5vw,2rem)}.journeyBackLink{display:inline-flex;margin-bottom:1.2rem;color:var(--hhMuted);font-size:.88rem;font-weight:700;text-decoration:none}.journeyBackLink:hover{color:var(--hhPrimary)}.journeyDetailHero{display:flex;align-items:center;justify-content:space-between;gap:2rem;padding:clamp(1.5rem,3vw,2.5rem);border:1px solid #f0dfd0;border-radius:26px;background:linear-gradient(115deg,#fff3e8,#fbe3da 55%,#e6eee2)}.jdEyebrow{margin:0 0 .55rem;color:var(--hhPrimary);font-size:.7rem;font-weight:850;letter-spacing:.15em}.journeyDetailHero h1{max-width:750px;margin:0;font-size:clamp(1.9rem,3.6vw,3rem);font-weight:850;letter-spacing:-.045em}.journeyDetailHero p:not(.jdEyebrow){max-width:680px;margin:.8rem 0 0;color:var(--hhMuted);line-height:1.7}.jdProgressCircle{flex:0 0 132px;width:132px;height:132px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:50%;background:conic-gradient(var(--hhPrimary) calc(var(--goal-progress)*1%),#f3d7c7 0);position:relative;color:var(--hhText)}.jdProgressCircle:before{content:"";position:absolute;inset:9px;border-radius:50%;background:#fffaf6}.jdProgressCircle span,.jdProgressCircle small{position:relative}.jdProgressCircle span{font-size:1.65rem;font-weight:850}.jdProgressCircle small{color:var(--hhMuted);font-size:.72rem}.journeyDetailGrid{display:grid;grid-template-columns:1.05fr .95fr;gap:1.15rem;margin-top:1.25rem}.jdPanel{padding:1.4rem;border:1px solid #f0dfd0;border-radius:22px;background:#fff;box-shadow:0 8px 25px #5b3c2a08}.jdPanelHead{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem}.jdPanelHead h2{margin:0;font-size:1.35rem;font-weight:850}.jdCount{padding:.4rem .7rem;border-radius:99px;background:#e6eee2;color:#496b43;font-size:.75rem;font-weight:800}.jdMilestones{display:grid;gap:.65rem}.jdMilestone{display:flex;align-items:center;gap:.8rem;padding:.85rem;border:1px solid #f2e6dd;border-radius:14px;background:#fffcf9;cursor:pointer;transition:background .2s,border-color .2s,transform .2s}.jdMilestone:hover{transform:translateX(3px);border-color:#e9b8a7}.jdMilestone input{width:19px;height:19px;accent-color:var(--hhSuccess);flex:0 0 auto}.jdMilestone span{font-size:.9rem;font-weight:650}.jdMilestone.isDone{background:#f0f5ed;border-color:#dce8d5}.jdMilestone.isDone span{text-decoration:line-through;color:#72816d}.jdJournalIcon{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:#fbe3da;color:var(--hhPrimary);font-size:1.4rem}.jdJournalPanel form label{display:block;margin-bottom:.4rem;color:var(--hhMuted);font-size:.8rem;font-weight:700}.jdJournalPanel textarea{width:100%;resize:vertical;padding:.8rem;border:1px solid #ead9cc;border-radius:13px;outline:none}.jdJournalPanel textarea:focus{border-color:var(--hhPrimary);box-shadow:0 0 0 3px #ed70521c}.journeyMainBtn{margin-top:.65rem;padding:.7rem 1rem;border:0;border-radius:999px;background:var(--hhPrimary);color:#fff;font-weight:800}.jdNotesList{display:grid;gap:.65rem;margin-top:1rem}.jdNote{padding:.8rem .9rem;border-left:3px solid var(--hhSuccess);border-radius:0 12px 12px 0;background:#f5f8f2}.jdNote p{margin:0;font-size:.86rem;line-height:1.55}.jdNote time{display:block;margin-top:.4rem;color:var(--hhMuted);font-size:.7rem}.jdEmptyNote{color:var(--hhMuted);font-size:.83rem}
-@media(max-width:800px){.journeyDetailGrid{grid-template-columns:1fr}}@media(max-width:520px){.journeyDetailHero{align-items:flex-start;flex-direction:column}.jdProgressCircle{align-self:center}.jdPanel{padding:1rem}}
+.journeyDetailPage {
+  width: 100%;
+  max-width: var(--hhPageMax);
+  align-self:stretch;
+  box-sizing:border-box;
+  margin:0 auto;
+  padding: var(--hhPageSpace) var(--hhPageGutter) calc(var(--hhPageSpace) * 1.5);
+  margin-inline: auto;
+  min-width: 0;
+}
+.journeyBackLink {
+  display:inline-flex;
+  margin-bottom:1.2rem;
+  font-size: 0.9rem;
+  font-weight:700;
+  text-decoration:none;
+  color:var(--hhMuted);
+}
+.journeyBackLink:hover {
+  color:var(--hhPrimary);
+}
+.journeyDetailHero {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:2rem;
+  padding: var(--hhHeroPad);
+  border-radius: var(--hhHeroRadius);
+  min-height: var(--hhHeroMin);
+  border:1px solid #f0dfd0;
+  background:linear-gradient(115deg,#fff3e8,#fbe3da 55%,#e6eee2);
+}
+.jdEyebrow {
+  margin:0 0 .55rem;
+  font-size: 0.9rem;
+  font-weight:850;
+  letter-spacing:.15em;
+  color:var(--hhPrimary);
+}
+.journeyDetailHero h1 {
+  max-width:750px;
+  margin:0;
+  font-weight:850;
+  letter-spacing: -.035em;
+  font-size: clamp(2rem,3vw,3rem);
+  line-height: 1.2;
+}
+.journeyDetailHero p:not(.jdEyebrow) {
+  max-width:680px;
+  margin:.8rem 0 0;
+  line-height:1.7;
+  color:var(--hhMuted);
+}
+.jdProgressCircle {
+  flex:0 0 132px;
+  width:132px;
+  height:132px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  position:relative;
+  background:conic-gradient(var(--hhPrimary) calc(var(--goal-progress)*1%),#f3d7c7 0);
+  color:var(--hhText);
+}
+.jdProgressCircle:before {
+  content:"";
+  position:absolute;
+  inset:9px;
+  border-radius:50%;
+  background:#fffaf6;
+}
+.jdProgressCircle span {
+  position:relative;
+}
+.jdProgressCircle small {
+  position:relative;
+  color:var(--hhMuted);
+}
+.jdProgressCircle span {
+  font-size: 1.65rem;
+  font-weight:850;
+}
+.jdProgressCircle small {
+  font-size: 0.9rem;
+  color:var(--hhMuted);
+}
+.journeyDetailGrid {
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:1.15rem;
+  margin-top:1.25rem;
+}
+.jdPanel {
+  border-radius:22px;
+  padding: clamp(1.25rem,2.4vw,2rem);
+  border:1px solid #f0dfd0;
+  background:#fff;
+  box-shadow:0 8px 25px #5b3c2a08;
+}
+.jdPanelHead {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  margin-bottom:1rem;
+}
+.jdPanelHead h2 {
+  margin:0;
+  font-size: 1.35rem;
+  font-weight:850;
+}
+.jdCount {
+  padding:.4rem .7rem;
+  border-radius:99px;
+  font-size: 0.9rem;
+  font-weight:800;
+  background:#e6eee2;
+  color:#496b43;
+}
+.jdMilestones {
+  display:grid;
+  gap:.65rem;
+}
+.jdMilestone {
+  display:flex;
+  gap:.8rem;
+  border-radius:14px;
+  cursor:pointer;
+  transition:background .2s,border-color .2s,transform .2s;
+  padding: 1rem;
+  align-items: flex-start;
+  border:1px solid #f2e6dd;
+  background:#fffcf9;
+}
+.jdMilestone:hover {
+  transform:translateX(3px);
+  border-color:#e9b8a7;
+}
+.jdMilestone input {
+  width:19px;
+  height:19px;
+  accent-color:var(--hhSuccess);
+  flex:0 0 auto;
+  margin-top: .25rem;
+}
+.jdMilestone span {
+  font-weight:650;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+.jdMilestone.isDone {
+  background:#f0f5ed;
+  border-color:#dce8d5;
+}
+.jdMilestone.isDone span {
+  text-decoration:line-through;
+  color:#72816d;
+}
+.jdJournalIcon {
+  display:grid;
+  place-items:center;
+  width:38px;
+  height:38px;
+  border-radius:12px;
+  font-size: 1.4rem;
+  background:#fbe3da;
+  color:var(--hhPrimary);
+}
+.jdJournalPanel form label {
+  display:block;
+  margin-bottom:.4rem;
+  font-size: 0.9rem;
+  font-weight:700;
+  color:var(--hhMuted);
+}
+.jdJournalPanel textarea {
+  width:100%;
+  resize:vertical;
+  padding:.8rem;
+  border-radius:13px;
+  outline:none;
+  font-size: 1rem;
+  min-height: 140px;
+  border:1px solid #ead9cc;
+}
+.jdJournalPanel textarea:focus {
+  border-color:var(--hhPrimary);
+  box-shadow:0 0 0 3px #ed70521c;
+}
+.journeyMainBtn {
+  margin-top:.65rem;
+  border-radius:999px;
+  font-weight:800;
+  min-height: 48px;
+  padding: .8rem 1.25rem;
+  font-size: 1rem;
+  border:0;
+  background:var(--hhPrimary);
+  color:#fff;
+}
+.jdNotesList {
+  display:grid;
+  gap:.65rem;
+  margin-top:1rem;
+}
+.jdNote {
+  padding:.8rem .9rem;
+  border-radius:0 12px 12px 0;
+  border-left:3px solid var(--hhSuccess);
+  background:#f5f8f2;
+}
+.jdNote p {
+  margin:0;
+  font-size: 1rem;
+  line-height:1.55;
+}
+.jdNote time {
+  display:block;
+  margin-top:.4rem;
+  font-size: 1rem;
+  color:var(--hhMuted);
+}
+.jdEmptyNote {
+  font-size: 1rem;
+  color:var(--hhMuted);
+}
+@media(max-width:800px){
+.journeyDetailGrid {
+  grid-template-columns:1fr;
+}}@media(max-width:520px){
+.journeyDetailHero {
+  align-items:flex-start;
+  flex-direction:column;
+  min-height: var(--hhHeroMin);
+  padding: var(--hhHeroPad);
+  border-radius: var(--hhHeroRadius);
+}
+.jdProgressCircle {
+  align-self:center;
+}
+.jdPanel {
+  padding:1rem;
+}}/* Page layout refinements — shared tokens, unchanged markup and behavior. */
+@media (max-width: 1100px) { .journeyDetailGrid { grid-template-columns: 1fr; }}
+@media (max-width: 600px) { .journeyDetailHero { flex-direction: column; align-items: flex-start; } .jdProgressCircle { align-self: center; } .jdPanelHead { flex-wrap: wrap; }}

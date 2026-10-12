@@ -55,7 +55,7 @@ function renderFooter() {
       <div class="hhContainer">
         <div class="row gy-4">
           <div class="col-12 col-lg-4">${renderLogo("hhLogoFooter")}</div>
-          ${renderFooterColumn("Explore", [["Discover Hobbies", buildUrl("discover")], ["Classes &amp; Events", buildUrl("classes")], ["Communities", buildUrl("groups")]])}
+          ${renderFooterColumn("Explore", [["Discover Hobbies", buildUrl(isLoggedIn() ? "discoveryFlow" : "discover", isLoggedIn() ? "?u=1" : "")], ["Classes &amp; Events", buildUrl(isLoggedIn() ? "classesBrowse" : "classes", isLoggedIn() ? "?u=1" : "")], ["Communities", buildUrl(isLoggedIn() ? "groups" : "groupsIntro", isLoggedIn() ? "?u=1" : "")]])}
           ${renderFooterColumn("About", [["About Us", buildUrl("about")], ["FAQ", buildUrl("home", "#faq")], ["Contact Us", buildUrl("contact")]])}
           ${renderFooterColumn("Legal", [["Privacy Policy", buildUrl("privacy")], ["Terms &amp; Conditions", buildUrl("terms")]])}
           ${renderFooterColumn("Follow Us", [["Instagram", "https://www.instagram.com/", true], ["LinkedIn", "https://www.linkedin.com/", true]])}

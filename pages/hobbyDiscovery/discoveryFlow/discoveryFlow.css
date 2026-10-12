@@ -1,128 +1,476 @@
+
 /* Discovery Flow landing — page-scoped styles. Shared shell/layout untouched. */
-.discoveryFlowMain{
+.discoveryFlowMain {
   direction:ltr;
   padding:0 clamp(18px,2.4vw,38px) 44px;
-  background:var(--hhBg,#fff8f1);
+  background: transparent;
   color:var(--hhText,#332e2a);
 }
-.hhDiscoveryContent{padding:clamp(18px,2.2vw,32px);}
-.discoveryFlowMain .dfHero{
+.hhDiscoveryContent {
+  padding: var(--hhPageSpace) var(--hhPageGutter) calc(var(--hhPageSpace) * 1.5);
+  width: 100%;
+  max-width: var(--hhPageMax);
+  margin-inline: auto;
+  min-width: 0;
+}
+.discoveryFlowMain .dfHero {
   direction:ltr;
-  position:relative; isolation:isolate; overflow:hidden;
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
   display:grid !important;
   grid-template-columns:minmax(0,1.02fr) minmax(360px,.98fr) !important;
   grid-template-areas:"copy art";
   align-items:center;
   gap:clamp(28px,4vw,66px);
-  min-height:560px;
-  padding:clamp(34px,4.4vw,68px);
+  min-height: var(--hhHeroMin);
+  padding: var(--hhHeroPad);
+  border-radius: var(--hhHeroRadius);
   border:1px solid rgba(237,112,82,.16);
-  border-radius:30px;
   background:
     radial-gradient(circle at 78% 18%,rgba(255,255,255,.75),transparent 25%),
     linear-gradient(118deg,#fff8f1 0%,#f8e9dc 54%,#e8efe2 100%);
   box-shadow:0 16px 40px rgba(88,61,43,.055);
 }
-.discoveryFlowMain .dfHero:before{
-  content:"";position:absolute;z-index:-1;width:410px;height:410px;
-  right:-190px;top:-245px;border:1px solid rgba(237,112,82,.22);
-  border-radius:50%;box-shadow:0 0 0 28px rgba(237,112,82,.035),0 0 0 62px rgba(237,112,82,.025);
+.discoveryFlowMain .dfHero:before {
+  content:"";
+  position:absolute;
+  z-index:-1;
+  width:410px;
+  height:410px;
+  right:-190px;
+  top:-245px;
+  border-radius:50%;
+  border:1px solid rgba(237,112,82,.22);
+  box-shadow:0 0 0 28px rgba(237,112,82,.035),0 0 0 62px rgba(237,112,82,.025);
 }
-.discoveryFlowMain .dfHeroDecor{display:none}
-.discoveryFlowMain .dfHeroCopy{grid-area:copy;position:relative;z-index:2;max-width:620px;min-width:0}
-.discoveryFlowMain .dfEyebrow{margin:0 0 14px;color:#d65e43;font-size:.78rem;font-weight:800;letter-spacing:.13em;line-height:1.4}
-.discoveryFlowMain .dfEyebrow span{color:#c9914d}
-.discoveryFlowMain .dfHero h1{max-width:620px;margin:0;color:#332e2a;font-size:clamp(2.5rem,3.55vw,4.15rem);font-weight:800;line-height:1.08;letter-spacing:-.045em}
-.discoveryFlowMain .dfHero h1 span{color:#e66c4d}
-.discoveryFlowMain .dfLead{max-width:540px;margin:22px 0 26px;color:#76645a;font-size:clamp(1.02rem,1.15vw,1.18rem);line-height:1.8}
-.discoveryFlowMain .dfHeroActions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px}
-.discoveryFlowMain .dfHeroActions .hhBtn,.discoveryFlowMain .dfBottomCta .hhBtn{
-  display:inline-flex;align-items:center;justify-content:center;gap:12px;text-decoration:none;
-  box-shadow:0 8px 18px rgba(237,112,82,.18);
+.discoveryFlowMain .dfHeroDecor {
+  display:none;
+}
+.discoveryFlowMain .dfHeroCopy {
+  grid-area:copy;
+  position:relative;
+  z-index:2;
+  max-width:620px;
+  min-width:0;
+}
+.discoveryFlowMain .dfEyebrow {
+  margin:0 0 14px;
+  font-size: 0.9rem;
+  font-weight:800;
+  letter-spacing:.13em;
+  line-height:1.4;
+  color:#d65e43;
+}
+.discoveryFlowMain .dfEyebrow span {
+  color:#c9914d;
+}
+.discoveryFlowMain .dfHero h1 {
+  max-width:620px;
+  margin:0;
+  font-weight:800;
+  letter-spacing: -.035em;
+  font-size: clamp(2rem,3vw,3rem);
+  line-height: 1.2;
+  color:#332e2a;
+}
+.discoveryFlowMain .dfHero h1 span {
+  color:#e66c4d;
+}
+.discoveryFlowMain .dfLead {
+  max-width:540px;
+  margin:22px 0 26px;
+  font-size:clamp(1.02rem,1.15vw,1.18rem);
+  line-height:1.8;
+  color:#76645a;
+}
+.discoveryFlowMain .dfHeroActions {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:14px 18px;
+}
+.discoveryFlowMain .dfHeroActions .hhBtn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  text-decoration:none;
   transition:transform .22s ease,box-shadow .22s ease;
+  box-shadow:0 8px 18px rgba(237,112,82,.18);
 }
-.discoveryFlowMain .dfHeroActions .hhBtn:hover,.discoveryFlowMain .dfBottomCta .hhBtn:hover{transform:translateY(-3px);box-shadow:0 13px 25px rgba(237,112,82,.25)}
-.discoveryFlowMain .dfOptional{color:#8a776b;font-size:.9rem}
-.discoveryFlowMain .dfOptional span{color:#d76a4c;font-size:1.2rem;vertical-align:middle}
-.discoveryFlowMain .dfTrust{display:flex;gap:9px;align-items:center;margin-top:22px;color:#7a7666;font-size:.88rem;line-height:1.5}
-.discoveryFlowMain .dfTrust span{flex:0 0 22px;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#e3eddd;color:#60845a;font-weight:800}
-.discoveryFlowMain .dfHeroArt{
-  grid-area:art;direction:ltr;position:relative;isolation:isolate;justify-self:stretch;
-  min-height:390px;display:block;align-self:stretch;
+.discoveryFlowMain .dfBottomCta .hhBtn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  text-decoration:none;
+  transition:transform .22s ease,box-shadow .22s ease;
+  box-shadow:0 8px 18px rgba(237,112,82,.18);
 }
-.discoveryFlowMain .dfArtCircle{
-  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  width:min(74%,330px);aspect-ratio:1;border-radius:50%;
+.discoveryFlowMain .dfHeroActions .hhBtn:hover {
+  transform:translateY(-3px);
+  box-shadow:0 13px 25px rgba(237,112,82,.25);
+}
+.discoveryFlowMain .dfBottomCta .hhBtn:hover {
+  transform:translateY(-3px);
+  box-shadow:0 13px 25px rgba(237,112,82,.25);
+}
+.discoveryFlowMain .dfOptional {
+  font-size: .9rem;
+  color:#8a776b;
+}
+.discoveryFlowMain .dfOptional span {
+  font-size: 1.2rem;
+  vertical-align:middle;
+  color:#d76a4c;
+}
+.discoveryFlowMain .dfTrust {
+  display:flex;
+  gap:9px;
+  align-items:center;
+  margin-top:22px;
+  font-size: 0.9rem;
+  line-height:1.5;
+  color:#7a7666;
+}
+.discoveryFlowMain .dfTrust span {
+  flex:0 0 22px;
+  display:grid;
+  place-items:center;
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  font-weight:800;
+  background:#e3eddd;
+  color:#60845a;
+}
+.discoveryFlowMain .dfHeroArt {
+  grid-area:art;
+  direction:ltr;
+  position:relative;
+  isolation:isolate;
+  justify-self:stretch;
+  display:block;
+  align-self:stretch;
+  min-height: 260px;
+}
+.discoveryFlowMain .dfArtCircle {
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:min(74%,330px);
+  aspect-ratio:1;
+  border-radius:50%;
   background:radial-gradient(circle at 35% 30%,#fffaf4 0 10%,#f7d8c6 10.5% 40%,#f3c9ae 40.5% 59%,rgba(237,112,82,.12) 60%);
   box-shadow:0 25px 55px rgba(147,94,64,.12);
 }
-.discoveryFlowMain .dfArtCard{
-  position:absolute;z-index:2;display:flex;flex-direction:column;gap:4px;min-width:165px;
-  padding:15px 17px;border:1px solid rgba(255,255,255,.95);border-radius:18px;
-  background:rgba(255,255,255,.9);box-shadow:0 15px 35px rgba(70,48,34,.12);
-  backdrop-filter:blur(8px);transition:transform .25s ease,box-shadow .25s ease;
+.discoveryFlowMain .dfArtCard {
+  position:absolute;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  padding:15px 17px;
+  border-radius:18px;
+  transition:transform .25s ease,box-shadow .25s ease;
+  min-width: 150px;
+  border:1px solid rgba(255,255,255,.95);
+  background:rgba(255,255,255,.9);
+  box-shadow:0 15px 35px rgba(70,48,34,.12);
+  backdrop-filter:blur(8px);
 }
-.discoveryFlowMain .dfArtCard:hover{box-shadow:0 20px 38px rgba(70,48,34,.17)}
-.discoveryFlowMain .dfArtCard span{font-size:1.7rem;margin-bottom:5px}
-.discoveryFlowMain .dfArtCard b{font-size:.98rem;color:#40342e}
-.discoveryFlowMain .dfArtCard small{font-size:.82rem;color:#8a776b}
-.discoveryFlowMain .dfArtCardOne{left:1%;top:13%;transform:rotate(-5deg)}
-.discoveryFlowMain .dfArtCardOne:hover{transform:translateY(-5px) rotate(-3deg)}
-.discoveryFlowMain .dfArtCardTwo{right:1%;top:36%;transform:rotate(4deg)}
-.discoveryFlowMain .dfArtCardTwo:hover{transform:translateY(-5px) rotate(2deg)}
-.discoveryFlowMain .dfArtCardThree{left:14%;bottom:7%;transform:rotate(2deg)}
-.discoveryFlowMain .dfArtCardThree:hover{transform:translateY(-5px) rotate(0)}
-.discoveryFlowMain .dfArtSpark{position:absolute;z-index:1;color:#d97651;font-size:2.2rem;animation:dfFloat 3.8s ease-in-out infinite}
-.discoveryFlowMain .dfSparkOne{right:12%;top:7%}
-.discoveryFlowMain .dfSparkTwo{left:6%;bottom:12%;animation-delay:-1.6s}
-.discoveryFlowMain .dfHow{padding:clamp(42px,5vw,70px) 0}
-.discoveryFlowMain .dfSectionHeading{text-align:center;margin-bottom:30px}
-.discoveryFlowMain .dfSectionHeading .dfEyebrow{margin-bottom:8px}
-.discoveryFlowMain .dfSectionHeading h2,.discoveryFlowMain .dfBottomCta h2{margin:0;color:#332e2a;font-size:clamp(1.9rem,2.6vw,2.65rem);font-weight:800;letter-spacing:-.03em}
-.discoveryFlowMain .dfSectionHeading>p:last-child{margin:10px 0 0;color:#857267;font-size:1.02rem}
-.discoveryFlowMain .dfSteps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
-.discoveryFlowMain .dfStepCard{position:relative;min-height:220px;padding:27px 25px;border:1px solid #f0dfd3;border-radius:22px;background:#fffdfa;box-shadow:0 7px 22px rgba(78,54,39,.045);transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease}
-.discoveryFlowMain .dfStepCard:hover{transform:translateY(-6px);border-color:#edc3b1;box-shadow:0 17px 32px rgba(78,54,39,.1)}
-.discoveryFlowMain .dfStepNumber{position:absolute;right:23px;top:22px;color:#d9c5b8;font-size:.9rem;font-weight:800;letter-spacing:.08em}
-.discoveryFlowMain .dfStepIcon{display:grid;place-items:center;width:52px;height:52px;border-radius:16px;font-size:1.6rem;margin-bottom:22px;transition:transform .22s ease}
-.discoveryFlowMain .dfStepCard:hover .dfStepIcon{transform:rotate(-6deg) scale(1.07)}
-.discoveryFlowMain .dfTintPeach{background:#fbe3d8;color:#d96749}
-.discoveryFlowMain .dfTintSage{background:#e6efdf;color:#6b8f61}
-.discoveryFlowMain .dfTintGold{background:#faedcf;color:#b98538}
-.discoveryFlowMain .dfStepCard h3{font-size:1.18rem;font-weight:800;margin:0 0 9px;color:#3c332e}
-.discoveryFlowMain .dfStepCard p{font-size:.98rem;line-height:1.7;color:#857267;margin:0}
-.discoveryFlowMain .dfBottomCta{display:flex;align-items:center;justify-content:space-between;gap:26px;padding:clamp(25px,3vw,38px);border:1px solid rgba(237,112,82,.15);border-radius:24px;background:linear-gradient(110deg,#f9e5d9,#fff5e9 58%,#eaf0e4)}
-.discoveryFlowMain .dfBottomCta h2{max-width:650px;font-size:clamp(1.55rem,2.3vw,2.15rem)}
-.discoveryFlowMain .dfBottomCta p:not(.dfEyebrow){margin:9px 0 0;color:#816e62}
-.discoveryFlowMain .dfBottomCta .hhBtn{flex-shrink:0}
+.discoveryFlowMain .dfArtCard:hover {
+  box-shadow:0 20px 38px rgba(70,48,34,.17);
+}
+.discoveryFlowMain .dfArtCard span {
+  font-size: 1.7rem;
+  margin-bottom:5px;
+}
+.discoveryFlowMain .dfArtCard b {
+  font-size: .98rem;
+  color:#40342e;
+}
+.discoveryFlowMain .dfArtCard small {
+  font-size: 0.9rem;
+  color:#8a776b;
+}
+.discoveryFlowMain .dfArtCardOne {
+  left:1%;
+  top:13%;
+  transform:rotate(-5deg);
+}
+.discoveryFlowMain .dfArtCardOne:hover {
+  transform:translateY(-5px) rotate(-3deg);
+}
+.discoveryFlowMain .dfArtCardTwo {
+  right:1%;
+  top:36%;
+  transform:rotate(4deg);
+}
+.discoveryFlowMain .dfArtCardTwo:hover {
+  transform:translateY(-5px) rotate(2deg);
+}
+.discoveryFlowMain .dfArtCardThree {
+  left:14%;
+  bottom:7%;
+  transform:rotate(2deg);
+}
+.discoveryFlowMain .dfArtCardThree:hover {
+  transform:translateY(-5px) rotate(0);
+}
+.discoveryFlowMain .dfArtSpark {
+  position:absolute;
+  z-index:1;
+  font-size: 2.2rem;
+  animation:dfFloat 3.8s ease-in-out infinite;
+  color:#d97651;
+}
+.discoveryFlowMain .dfSparkOne {
+  right:12%;
+  top:7%;
+}
+.discoveryFlowMain .dfSparkTwo {
+  left:6%;
+  bottom:12%;
+  animation-delay:-1.6s;
+}
+.discoveryFlowMain .dfHow {
+  padding:clamp(42px,5vw,70px) 0;
+}
+.discoveryFlowMain .dfSectionHeading {
+  text-align:center;
+  margin-bottom:30px;
+}
+.discoveryFlowMain .dfSectionHeading .dfEyebrow {
+  margin-bottom:8px;
+}
+.discoveryFlowMain .dfSectionHeading h2 {
+  margin:0;
+  font-size:clamp(1.9rem,2.6vw,2.65rem);
+  font-weight:800;
+  letter-spacing:-.03em;
+  color:#332e2a;
+}
+.discoveryFlowMain .dfBottomCta h2 {
+  margin:0;
+  font-size:clamp(1.9rem,2.6vw,2.65rem);
+  font-weight:800;
+  letter-spacing:-.03em;
+  color:#332e2a;
+}
+.discoveryFlowMain .dfSectionHeading>p:last-child {
+  margin:10px 0 0;
+  font-size: 1.02rem;
+  color:#857267;
+}
+.discoveryFlowMain .dfSteps {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:22px;
+}
+.discoveryFlowMain .dfStepCard {
+  position:relative;
+  min-height:220px;
+  border-radius:22px;
+  transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease;
+  padding: 1.75rem;
+  border:1px solid #f0dfd3;
+  background:#fffdfa;
+  box-shadow:0 7px 22px rgba(78,54,39,.045);
+}
+.discoveryFlowMain .dfStepCard:hover {
+  transform:translateY(-6px);
+  border-color:#edc3b1;
+  box-shadow:0 17px 32px rgba(78,54,39,.1);
+}
+.discoveryFlowMain .dfStepNumber {
+  position:absolute;
+  right:23px;
+  top:22px;
+  font-size: .9rem;
+  font-weight:800;
+  letter-spacing:.08em;
+  color:#d9c5b8;
+}
+.discoveryFlowMain .dfStepIcon {
+  display:grid;
+  place-items:center;
+  width:52px;
+  height:52px;
+  border-radius:16px;
+  font-size: 1.6rem;
+  margin-bottom:22px;
+  transition:transform .22s ease;
+}
+.discoveryFlowMain .dfStepCard:hover .dfStepIcon {
+  transform:rotate(-6deg) scale(1.07);
+}
+.discoveryFlowMain .dfTintPeach {
+  background:#fbe3d8;
+  color:#d96749;
+}
+.discoveryFlowMain .dfTintSage {
+  background:#e6efdf;
+  color:#6b8f61;
+}
+.discoveryFlowMain .dfTintGold {
+  background:#faedcf;
+  color:#b98538;
+}
+.discoveryFlowMain .dfStepCard h3 {
+  font-size: 1.18rem;
+  font-weight:800;
+  margin:0 0 9px;
+  color:#3c332e;
+}
+.discoveryFlowMain .dfStepCard p {
+  font-size: 1rem;
+  line-height:1.7;
+  margin:0;
+  color:#857267;
+}
+.discoveryFlowMain .dfBottomCta {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:26px;
+  padding:clamp(25px,3vw,38px);
+  border-radius:24px;
+  border:1px solid rgba(237,112,82,.15);
+  background:linear-gradient(110deg,#f9e5d9,#fff5e9 58%,#eaf0e4);
+}
+.discoveryFlowMain .dfBottomCta h2 {
+  max-width:650px;
+  font-size:clamp(1.55rem,2.3vw,2.15rem);
+  color:#332e2a;
+}
+.discoveryFlowMain .dfBottomCta p:not(.dfEyebrow) {
+  margin:9px 0 0;
+  color:#816e62;
+}
+.discoveryFlowMain .dfBottomCta .hhBtn {
+  flex-shrink:0;
+  box-shadow:0 8px 18px rgba(237,112,82,.18);
+}
 @keyframes dfFloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-9px) rotate(8deg)}}
 @media(max-width:1100px){
- .discoveryFlowMain .dfHero{grid-template-columns:minmax(0,1fr) minmax(310px,.9fr)!important;gap:24px;padding:32px;min-height:500px}
- .discoveryFlowMain .dfHeroArt{min-height:320px}
- .discoveryFlowMain .dfArtCard{min-width:145px;padding:13px}
+.discoveryFlowMain .dfHero {
+  grid-template-columns:minmax(0,1fr) minmax(310px,.9fr)!important;
+  gap:24px;
+  padding: var(--hhHeroPad);
+  min-height: var(--hhHeroMin);
+  border-radius: var(--hhHeroRadius);
 }
+.discoveryFlowMain .dfHeroArt {
+  min-height:320px;
+}
+.discoveryFlowMain .dfArtCard {
+  min-width:145px;
+  padding:13px;
+}}
 @media(max-width:800px){
- .discoveryFlowMain{padding-inline:16px}
- .hhDiscoveryContent{padding:16px}
- .discoveryFlowMain .dfHero{grid-template-columns:1fr!important;grid-template-areas:"copy" "art";gap:14px;padding:30px 24px;min-height:unset}
- .discoveryFlowMain .dfHeroCopy{max-width:unset}
- .discoveryFlowMain .dfHero h1{font-size:clamp(2.35rem,8vw,3.3rem)}
- .discoveryFlowMain .dfHeroArt{min-height:285px}
- .discoveryFlowMain .dfArtCircle{width:min(64%,260px)}
- .discoveryFlowMain .dfArtCard{min-width:138px;padding:12px}
- .discoveryFlowMain .dfSteps{grid-template-columns:1fr}
- .discoveryFlowMain .dfStepCard{min-height:unset}
- .discoveryFlowMain .dfBottomCta{align-items:flex-start;flex-direction:column}
+.discoveryFlowMain {
+  padding-inline:16px;
+  background: transparent;
 }
+.hhDiscoveryContent {
+  padding: var(--hhPageSpace) var(--hhPageGutter) calc(var(--hhPageSpace) * 1.5);
+  width: 100%;
+  max-width: var(--hhPageMax);
+  margin-inline: auto;
+  min-width: 0;
+}
+.discoveryFlowMain .dfHero {
+  grid-template-columns:1fr!important;
+  grid-template-areas:"copy" "art";
+  gap:14px;
+  padding: var(--hhHeroPad);
+  min-height: var(--hhHeroMin);
+  border-radius: var(--hhHeroRadius);
+}
+.discoveryFlowMain .dfHeroCopy {
+  max-width:unset;
+}
+.discoveryFlowMain .dfHero h1 {
+  font-size:clamp(2.35rem,8vw,3.3rem);
+}
+.discoveryFlowMain .dfHeroArt {
+  min-height:285px;
+}
+.discoveryFlowMain .dfArtCircle {
+  width:min(64%,260px);
+}
+.discoveryFlowMain .dfArtCard {
+  min-width:138px;
+  padding:12px;
+}
+.discoveryFlowMain .dfSteps {
+  grid-template-columns:1fr;
+}
+.discoveryFlowMain .dfStepCard {
+  min-height:unset;
+}
+.discoveryFlowMain .dfBottomCta {
+  align-items:flex-start;
+  flex-direction:column;
+}}
 @media(max-width:440px){
- .discoveryFlowMain .dfHeroArt{min-height:250px}
- .discoveryFlowMain .dfArtCardOne{left:-2%;top:10%}
- .discoveryFlowMain .dfArtCardTwo{right:-2%;top:34%}
- .discoveryFlowMain .dfArtCardThree{left:8%;bottom:4%}
- .discoveryFlowMain .dfOptional{flex-basis:100%}
+.discoveryFlowMain .dfHeroArt {
+  min-height:250px;
 }
+.discoveryFlowMain .dfArtCardOne {
+  left:-2%;
+  top:10%;
+}
+.discoveryFlowMain .dfArtCardTwo {
+  right:-2%;
+  top:34%;
+}
+.discoveryFlowMain .dfArtCardThree {
+  left:8%;
+  bottom:4%;
+}
+.discoveryFlowMain .dfOptional {
+  flex-basis:100%;
+}}
 @media(prefers-reduced-motion:reduce){
- .discoveryFlowMain .dfArtSpark{animation:none}
- .discoveryFlowMain .dfStepCard,.discoveryFlowMain .dfStepIcon,.discoveryFlowMain .dfArtCard,.discoveryFlowMain .dfHeroActions .hhBtn,.discoveryFlowMain .dfBottomCta .hhBtn{transition:none}
- .discoveryFlowMain .dfStepCard:hover,.discoveryFlowMain .dfArtCardOne:hover,.discoveryFlowMain .dfArtCardTwo:hover,.discoveryFlowMain .dfArtCardThree:hover,.discoveryFlowMain .dfHeroActions .hhBtn:hover,.discoveryFlowMain .dfBottomCta .hhBtn:hover{transform:none}
+.discoveryFlowMain .dfArtSpark {
+  animation:none;
 }
+.discoveryFlowMain .dfStepCard {
+  transition:none;
+}
+.discoveryFlowMain .dfStepIcon {
+  transition:none;
+}
+.discoveryFlowMain .dfArtCard {
+  transition:none;
+}
+.discoveryFlowMain .dfHeroActions .hhBtn {
+  transition:none;
+}
+.discoveryFlowMain .dfBottomCta .hhBtn {
+  transition:none;
+}
+.discoveryFlowMain .dfStepCard:hover {
+  transform:none;
+}
+.discoveryFlowMain .dfArtCardOne:hover {
+  transform:none;
+}
+.discoveryFlowMain .dfArtCardTwo:hover {
+  transform:none;
+}
+.discoveryFlowMain .dfArtCardThree:hover {
+  transform:none;
+}
+.discoveryFlowMain .dfHeroActions .hhBtn:hover {
+  transform:none;
+}
+.discoveryFlowMain .dfBottomCta .hhBtn:hover {
+  transform:none;
+}}/* Page layout refinements — shared tokens, unchanged markup and behavior. */
+@media (max-width: 1100px) { .discoveryFlowMain .dfHero { grid-template-columns: 1fr !important; grid-template-areas: "copy" "art"; gap: 1.5rem; } .discoveryFlowMain .dfHeroArt { width: min(100%,450px); margin-inline: auto; } .discoveryFlowMain .dfSteps { grid-template-columns: 1fr; }}
+@media (max-width: 480px) { .discoveryFlowMain .dfArtCard { min-width: 132px; padding: .75rem; } .discoveryFlowMain .dfArtCardOne { left: 0; } .discoveryFlowMain .dfArtCardTwo { right: 0; }}

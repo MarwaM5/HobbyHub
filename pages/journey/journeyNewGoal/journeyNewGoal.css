@@ -1,4 +1,408 @@
+
 /* Create Goal page styles */
-.journeyNewGoalPage{width:100%;max-width:1500px;align-self:stretch;box-sizing:border-box;margin:0 auto;padding:clamp(1rem,2.5vw,2rem)}.journeyNewBack{display:inline-flex;margin-bottom:1.1rem;color:var(--hhMuted);font-size:.87rem;font-weight:750;text-decoration:none}.journeyNewBack:hover{color:var(--hhPrimary)}.newGoalIntro{position:relative;display:flex;align-items:center;justify-content:space-between;gap:1rem;overflow:hidden;padding:clamp(1.3rem,3vw,2.2rem);border:1px solid #f0dfd0;border-radius:25px;background:linear-gradient(115deg,#fff3e8,#fbe3da 55%,#e6eee2)}.ngEyebrow{margin:0 0 .5rem;color:var(--hhPrimary);font-size:.69rem;font-weight:850;letter-spacing:.15em}.newGoalIntro h1{max-width:620px;margin:0;font-size:clamp(1.8rem,3.4vw,2.8rem);font-weight:850;letter-spacing:-.045em;line-height:1.1}.newGoalIntro h1 span{color:var(--hhPrimary);font-family:var(--fontAccent);font-size:1.08em}.newGoalIntro p:not(.ngEyebrow){max-width:620px;margin:.75rem 0 0;color:var(--hhMuted);line-height:1.65}.ngArt{position:relative;flex:0 0 130px;display:grid;place-items:center;width:130px;height:130px;border:1px dashed #e4b6a2;border-radius:50%;background:#ffffff70}.ngArt span{font-size:4.5rem;animation:ngFloat 4s ease-in-out infinite}.ngArt i,.ngArt b{position:absolute;color:var(--hhPrimary);font-size:1.5rem;font-style:normal}.ngArt i{top:5px;right:10px}.ngArt b{bottom:8px;left:8px;color:var(--hhSuccess)}
-.newGoalForm{margin-top:1.2rem;padding:clamp(1.1rem,2.8vw,2rem);border:1px solid #f0dfd0;border-radius:24px;background:#fff;box-shadow:0 12px 34px #5b3c2a08}.ngFormHead{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.35rem;padding-bottom:1rem;border-bottom:1px solid #f2e7df}.ngFormHead h2{margin:0;font-size:1.45rem;font-weight:850}.ngStepBadge{padding:.45rem .7rem;border-radius:999px;background:#fce9d9;color:#a95c37;font-size:.68rem;font-weight:850;white-space:nowrap}.ngField{margin-top:1.25rem}.ngField>label,.ngMilestoneHead label{display:block;margin-bottom:.5rem;font-size:.88rem;font-weight:800}.ngField>small{display:block;margin-top:.4rem;color:var(--hhMuted);font-size:.75rem}.ngField input,.ngField select{width:100%;min-height:48px;padding:.75rem .9rem;border:1px solid #ead9cc;border-radius:13px;background:#fffdfa;color:var(--hhText);outline:none}.ngField input:focus,.ngField select:focus{border-color:var(--hhPrimary);box-shadow:0 0 0 3px #ed70521c}.ngSuggestRow{display:flex;align-items:stretch;gap:.65rem}.ngSuggestRow input{flex:1;min-width:0}.ngAiButton{flex:0 0 auto;padding:.65rem .9rem;border:1px solid #efc5b5;border-radius:13px;background:#fff5ef;color:#a94b34;font-size:.8rem;font-weight:800;transition:transform .2s,background .2s}.ngAiButton:hover{transform:translateY(-2px);background:#fbe3da}.ngSuggestion{margin-top:.7rem;padding:.8rem .9rem;border:1px solid #dce8d5;border-radius:12px;background:#f2f7ef;color:#486541;font-size:.85rem}.ngMilestoneHead{display:flex;align-items:center;justify-content:space-between;gap:.7rem}.ngMilestoneHead span{color:var(--hhMuted);font-size:.75rem}.ngMilestones{display:grid;gap:.6rem}.ngMilestoneRow{display:flex;align-items:center;gap:.6rem}.ngMilestoneNumber{flex:0 0 30px;display:grid;place-items:center;width:30px;height:30px;border-radius:10px;background:#fce9d9;color:#a95c37;font-size:.72rem;font-weight:850}.ngMilestoneRow input{flex:1;min-width:0}.ngRemoveMilestone{flex:0 0 38px;width:38px;height:38px;border:1px solid #f0dfd0;border-radius:11px;background:#fff;color:#9b7160;font-size:1.1rem}.ngRemoveMilestone:hover{background:#fff0eb;color:#b74630}.ngAddMilestone{margin-top:.7rem;padding:.55rem .85rem;border:1px dashed #e5b5a2;border-radius:999px;background:#fffaf6;color:#ad513a;font-size:.8rem;font-weight:800}.ngFormActions{display:flex;justify-content:flex-end;align-items:center;gap:.7rem;margin-top:1.7rem;padding-top:1.2rem;border-top:1px solid #f2e7df}.ngCancelButton{padding:.75rem 1rem;border:1px solid #e9d8cc;border-radius:999px;color:var(--hhMuted);font-size:.85rem;font-weight:800;text-decoration:none}.ngCreateButton{padding:.78rem 1.15rem;border:0;border-radius:999px;background:var(--hhPrimary);color:#fff;font-size:.85rem;font-weight:850;box-shadow:0 6px 0 #c8503e20;transition:transform .2s}.ngCreateButton:hover{transform:translateY(-2px)}.ngFormFootnote{margin:1rem 0 0;text-align:right;color:var(--hhMuted);font-size:.72rem}.ngToast{position:fixed;right:1.2rem;bottom:1.2rem;z-index:1100;max-width:min(390px,calc(100vw - 2rem));padding:1rem 1.15rem;border:1px solid #dce8d5;border-radius:15px;background:#f2f7ef;color:#42653b;box-shadow:0 15px 40px #332e2a20;font-size:.88rem;font-weight:700}.ngToast[hidden],.ngSuggestion[hidden]{display:none!important}
-@keyframes ngFloat{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-6px) rotate(3deg)}}@media(max-width:620px){.newGoalIntro{align-items:flex-start}.ngArt{flex-basis:82px;width:82px;height:82px}.ngArt span{font-size:3rem}.ngSuggestRow{flex-direction:column}.ngAiButton{min-height:42px}.ngFormHead{align-items:flex-start;flex-direction:column}.ngMilestoneHead{align-items:flex-start;flex-direction:column}.ngFormActions{justify-content:stretch}.ngCancelButton,.ngCreateButton{flex:1;text-align:center}}@media(prefers-reduced-motion:reduce){.ngArt span{animation:none}}
+.journeyNewGoalPage {
+  width: 100%;
+  max-width: var(--hhPageMax);
+  align-self:stretch;
+  box-sizing:border-box;
+  margin:0 auto;
+  padding: var(--hhPageSpace) var(--hhPageGutter) calc(var(--hhPageSpace) * 1.5);
+  margin-inline: auto;
+  min-width: 0;
+}
+.journeyNewBack {
+  display:inline-flex;
+  margin-bottom:1.1rem;
+  font-size: 0.95rem;
+  font-weight:750;
+  text-decoration:none;
+  color:var(--hhMuted);
+}
+.journeyNewBack:hover {
+  color:var(--hhPrimary);
+}
+.newGoalIntro {
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  overflow:hidden;
+  padding: var(--hhHeroPad);
+  border-radius: var(--hhHeroRadius);
+  min-height: var(--hhHeroMin);
+  border:1px solid #f0dfd0;
+  background:linear-gradient(115deg,#fff3e8,#fbe3da 55%,#e6eee2);
+}
+.ngEyebrow {
+  margin:0 0 .5rem;
+  font-size: 0.9rem;
+  font-weight:850;
+  letter-spacing:.15em;
+  color:var(--hhPrimary);
+}
+.newGoalIntro h1 {
+  max-width:620px;
+  margin:0;
+  font-weight:850;
+  letter-spacing: -.035em;
+  font-size: clamp(2rem,3vw,3rem);
+  line-height: 1.2;
+}
+.newGoalIntro h1 span {
+  font-family:var(--fontAccent);
+  font-size:1.08em;
+  color:var(--hhPrimary);
+}
+.newGoalIntro p:not(.ngEyebrow) {
+  max-width:620px;
+  margin:.75rem 0 0;
+  line-height:1.65;
+  color:var(--hhMuted);
+}
+.ngArt {
+  position:relative;
+  flex:0 0 130px;
+  display:grid;
+  place-items:center;
+  width:130px;
+  height:130px;
+  border-radius:50%;
+  border:1px dashed #e4b6a2;
+  background:#ffffff70;
+}
+.ngArt span {
+  font-size: 4.5rem;
+  animation:ngFloat 4s ease-in-out infinite;
+}
+.ngArt i {
+  position:absolute;
+  font-size: 1.5rem;
+  font-style:normal;
+  color:var(--hhPrimary);
+}
+.ngArt b {
+  position:absolute;
+  font-size: 1.5rem;
+  font-style:normal;
+  color:var(--hhSuccess);
+}
+.ngArt i {
+  top:5px;
+  right:10px;
+  color:var(--hhPrimary);
+}
+.ngArt b {
+  bottom:8px;
+  left:8px;
+  color:var(--hhSuccess);
+}
+.newGoalForm {
+  margin-top:1.2rem;
+  padding:clamp(1.1rem,2.8vw,2rem);
+  border-radius:24px;
+  border:1px solid #f0dfd0;
+  background:#fff;
+  box-shadow:0 12px 34px #5b3c2a08;
+}
+.ngFormHead {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  margin-bottom:1.35rem;
+  padding-bottom:1rem;
+  flex-wrap: wrap;
+  border-bottom:1px solid #f2e7df;
+}
+.ngFormHead h2 {
+  margin:0;
+  font-size: 1.45rem;
+  font-weight:850;
+}
+.ngStepBadge {
+  padding:.45rem .7rem;
+  border-radius:999px;
+  font-size: 0.9rem;
+  font-weight:850;
+  white-space: normal;
+  background:#fce9d9;
+  color:#a95c37;
+}
+.ngField {
+  margin-top:1.25rem;
+}
+.ngField>label {
+  display:block;
+  margin-bottom:.5rem;
+  font-weight:800;
+  font-size: 1rem;
+}
+.ngMilestoneHead label {
+  display:block;
+  margin-bottom:.5rem;
+  font-weight:800;
+  font-size: 1rem;
+}
+.ngField>small {
+  display:block;
+  margin-top:.4rem;
+  font-size: 0.9rem;
+  color:var(--hhMuted);
+}
+.ngField input {
+  width:100%;
+  padding:.75rem .9rem;
+  border-radius:13px;
+  outline:none;
+  font-size: 1rem;
+  min-height: 54px;
+  border:1px solid #ead9cc;
+  background:#fffdfa;
+  color:var(--hhText);
+}
+.ngField select {
+  width:100%;
+  padding:.75rem .9rem;
+  border-radius:13px;
+  outline:none;
+  font-size: 1rem;
+  min-height: 54px;
+  border:1px solid #ead9cc;
+  background:#fffdfa;
+  color:var(--hhText);
+}
+.ngField input:focus {
+  border-color:var(--hhPrimary);
+  box-shadow:0 0 0 3px #ed70521c;
+}
+.ngField select:focus {
+  border-color:var(--hhPrimary);
+  box-shadow:0 0 0 3px #ed70521c;
+}
+.ngSuggestRow {
+  display:flex;
+  align-items:stretch;
+  gap:.65rem;
+}
+.ngSuggestRow input {
+  flex:1;
+  min-width:0;
+}
+.ngAiButton {
+  flex:0 0 auto;
+  padding:.65rem .9rem;
+  border-radius:13px;
+  font-size: 0.95rem;
+  font-weight:800;
+  transition:transform .2s,background .2s;
+  border:1px solid #efc5b5;
+  background:#fff5ef;
+  color:#a94b34;
+}
+.ngAiButton:hover {
+  transform:translateY(-2px);
+  background:#fbe3da;
+}
+.ngSuggestion {
+  margin-top:.7rem;
+  padding:.8rem .9rem;
+  border-radius:12px;
+  font-size: 0.9rem;
+  border:1px solid #dce8d5;
+  background:#f2f7ef;
+  color:#486541;
+}
+.ngMilestoneHead {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.7rem;
+}
+.ngMilestoneHead span {
+  font-size: 0.9rem;
+  color:var(--hhMuted);
+}
+.ngMilestones {
+  display:grid;
+  gap: .85rem;
+}
+.ngMilestoneRow {
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+}
+.ngMilestoneNumber {
+  flex:0 0 30px;
+  display:grid;
+  place-items:center;
+  width:30px;
+  height:30px;
+  border-radius:10px;
+  font-size: 0.9rem;
+  font-weight:850;
+  background:#fce9d9;
+  color:#a95c37;
+}
+.ngMilestoneRow input {
+  flex:1;
+  min-width:0;
+}
+.ngRemoveMilestone {
+  flex:0 0 38px;
+  width:38px;
+  border-radius:11px;
+  font-size: 1.1rem;
+  min-width: 44px;
+  height: 44px;
+  border:1px solid #f0dfd0;
+  background:#fff;
+  color:#9b7160;
+}
+.ngRemoveMilestone:hover {
+  background:#fff0eb;
+  color:#b74630;
+}
+.ngAddMilestone {
+  margin-top:.7rem;
+  padding:.55rem .85rem;
+  border-radius:999px;
+  font-size: 0.9rem;
+  font-weight:800;
+  border:1px dashed #e5b5a2;
+  background:#fffaf6;
+  color:#ad513a;
+}
+.ngFormActions {
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  gap:.7rem;
+  margin-top:1.7rem;
+  padding-top:1.2rem;
+  flex-wrap: wrap;
+  border-top:1px solid #f2e7df;
+}
+.ngCancelButton {
+  padding:.75rem 1rem;
+  border-radius:999px;
+  font-size: 0.95rem;
+  font-weight:800;
+  text-decoration:none;
+  border:1px solid #e9d8cc;
+  color:var(--hhMuted);
+}
+.ngCreateButton {
+  padding:.78rem 1.15rem;
+  border-radius:999px;
+  font-size: 0.95rem;
+  font-weight:850;
+  transition:transform .2s;
+  border:0;
+  background:var(--hhPrimary);
+  color:#fff;
+  box-shadow:0 6px 0 #c8503e20;
+}
+.ngCreateButton:hover {
+  transform:translateY(-2px);
+}
+.ngFormFootnote {
+  margin:1rem 0 0;
+  text-align:right;
+  font-size: 1rem;
+  color:var(--hhMuted);
+}
+.ngToast {
+  position:fixed;
+  right:1.2rem;
+  bottom:1.2rem;
+  z-index:1100;
+  max-width:min(390px,calc(100vw - 2rem));
+  padding:1rem 1.15rem;
+  border-radius:15px;
+  font-size: 0.9rem;
+  font-weight:700;
+  border:1px solid #dce8d5;
+  background:#f2f7ef;
+  color:#42653b;
+  box-shadow:0 15px 40px #332e2a20;
+}
+.ngToast[hidden] {
+  display:none!important;
+}
+.ngSuggestion[hidden] {
+  display:none!important;
+}
+@keyframes ngFloat{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-6px) rotate(3deg)}}@media(max-width:620px){
+.newGoalIntro {
+  align-items:flex-start;
+  min-height: var(--hhHeroMin);
+  padding: var(--hhHeroPad);
+  border-radius: var(--hhHeroRadius);
+}
+.ngArt {
+  flex-basis:82px;
+  width:82px;
+  height:82px;
+}
+.ngArt span {
+  font-size: 3rem;
+}
+.ngSuggestRow {
+  flex-direction:column;
+}
+.ngAiButton {
+  min-height:42px;
+}
+.ngFormHead {
+  align-items:flex-start;
+  flex-direction:column;
+}
+.ngMilestoneHead {
+  align-items:flex-start;
+  flex-direction:column;
+}
+.ngFormActions {
+  justify-content:stretch;
+}
+.ngCancelButton {
+  flex:1;
+  text-align:center;
+}
+.ngCreateButton {
+  flex:1;
+  text-align:center;
+}}@media(prefers-reduced-motion:reduce){
+.ngArt span {
+  animation:none;
+}}
+/* Page layout refinements — shared tokens, unchanged markup and behavior. */
+.ngCancelButton {
+  min-height: 46px;
+  font-size: .95rem;
+  border:1px solid #e9d8cc;
+  color:var(--hhMuted);
+}
+.ngCreateButton {
+  min-height: 46px;
+  font-size: .95rem;
+  border:0;
+  background:var(--hhPrimary);
+  color:#fff;
+  box-shadow:0 6px 0 #c8503e20;
+}
+.ngAiButton {
+  min-height: 46px;
+  font-size: .95rem;
+  border:1px solid #efc5b5;
+  background:#fff5ef;
+  color:#a94b34;
+}
+.ngAddMilestone {
+  min-height: 46px;
+  font-size: .95rem;
+  border:1px dashed #e5b5a2;
+  background:#fffaf6;
+  color:#ad513a;
+}
+@media (max-width: 620px) { .newGoalIntro { flex-direction: column; } .ngArt { align-self: center; flex-basis: 130px; width: 130px; height: 130px; } .ngMilestoneNumber { flex-basis: 24px; width: 24px; }}

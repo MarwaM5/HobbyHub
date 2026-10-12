@@ -1,152 +1,996 @@
-/* Category page visual system — reusable for all six categories. */
-.categoryPage { overflow: clip; }
-.categoryPage .hhContainer { width: min(100% - 48px, var(--containerMax)); margin-inline: auto; }
-.categoryHero { --category-accent: #ED7052; --category-tint: #FBE3DA; min-height: 550px; position: relative; isolation: isolate; overflow: hidden; padding: 54px 0 52px; background: radial-gradient(ellipse at 83% 38%, color-mix(in srgb, var(--category-tint) 72%, transparent) 0, transparent 37%), linear-gradient(118deg, #fffaf5 0%, var(--hhBg) 58%, #fff4e9 100%); border-bottom: 1px solid rgba(241,223,208,.7); }
-.categoryHero::before { content: ""; position: absolute; z-index: -1; width: 540px; height: 540px; border: 1px solid color-mix(in srgb, var(--category-accent) 16%, transparent); border-radius: 50%; right: -150px; top: -205px; box-shadow: 0 0 0 38px rgba(255,255,255,.22), 0 0 0 78px rgba(255,255,255,.18); }
-.categoryHeroGlow { position: absolute; z-index: -1; border-radius: 50%; filter: blur(2px); pointer-events: none; }
-.glowOne { width: 15px; height: 15px; background: var(--category-accent); opacity: .5; top: 17%; right: 39%; box-shadow: 0 0 0 10px color-mix(in srgb, var(--category-accent) 10%, transparent); }
-.glowTwo { width: 8px; height: 8px; background: #7DA477; opacity: .7; bottom: 18%; left: 47%; }
-.categoryHeroInner { display: grid; grid-template-columns: minmax(0, 1.03fr) minmax(380px, .97fr); gap: clamp(36px, 6vw, 90px); align-items: center; position: relative; z-index: 1; }
-.categoryHeroCopy { padding-block: 8px; }
-.categoryBack { display: inline-flex; align-items: center; gap: 9px; margin-bottom: 38px; color: var(--hhMuted); font-size: .83rem; font-weight: 600; transition: color .25s ease, gap .25s ease; }
-.categoryBack span { display: grid; place-items: center; width: 29px; height: 29px; border-radius: 50%; background: white; border: 1px solid var(--hhBorder); color: var(--hhPrimary); }
-.categoryBack:hover { color: var(--hhPrimary); gap: 13px; }
-.categoryEyebrow { display: flex; align-items: center; gap: 10px; color: var(--hhPrimary); font-size: .72rem; font-weight: 800; letter-spacing: .15em; }
-.eyebrowDot { width: 8px; height: 8px; border-radius: 50%; background: var(--category-accent); box-shadow: 0 0 0 5px color-mix(in srgb, var(--category-accent) 14%, transparent); }
-.categoryHero h1 { position: relative; width: fit-content; margin-top: 17px; font-size: clamp(3rem, 5.6vw, 5.4rem); font-weight: 800; letter-spacing: -.065em; line-height: .99; max-width: 100%; overflow-wrap: anywhere; }
-.titleSpark { display: inline-block; color: var(--category-accent); font-size: .42em; vertical-align: top; margin: .08em 0 0 .15em; transform: rotate(-12deg); }
-.categoryHeroDescription { max-width: 570px; margin-top: 24px; color: var(--hhMuted); font-size: clamp(1rem, 1.25vw, 1.12rem); line-height: 1.85; }
-.categoryHeroStats { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 25px; color: var(--hhMuted); font-size: .83rem; }
-.categoryHeroStats strong { color: var(--hhText); font-size: 1rem; }
-.categoryHeroStats i { width: 4px; height: 4px; border-radius: 50%; background: var(--category-accent); }
-.categoryHeroButton { margin-top: 30px; min-height: 51px; display: inline-flex; align-items: center; gap: 26px; padding-inline: 25px; box-shadow: 0 10px 22px color-mix(in srgb, var(--category-accent) 20%, transparent); }
-.categoryHeroButton span { font-size: 1.2rem; transition: transform .25s ease; }
-.categoryHeroButton:hover span { transform: translate(3px, 3px); }
-.categoryHeroArt { min-height: 405px; position: relative; display: grid; place-items: center; isolation: isolate; }
-.artHalo { position: absolute; border: 1px solid color-mix(in srgb, var(--category-accent) 20%, transparent); border-radius: 50%; aspect-ratio: 1; }
-.haloOuter { width: min(96%, 400px); transform: rotate(-13deg) scaleY(.82); border-style: dashed; }
-.haloInner { width: min(78%, 320px); background: color-mix(in srgb, var(--category-tint) 65%, transparent); border: 0; box-shadow: inset 0 0 0 1px rgba(255,255,255,.6); }
-.artPaper { position: absolute; display: flex; flex-direction: column; justify-content: space-between; border-radius: 9px; box-shadow: 0 24px 55px rgba(73,52,38,.14); }
-.artPaperBack { width: 210px; height: 258px; top: 48px; left: 13%; padding: 22px 20px; transform: rotate(-12deg); background: #e5efdf; color: #547452; font-family: var(--fontAccent); font-size: 1.35rem; }
-.artPaperBack i { font-family: var(--fontBody); align-self: flex-end; font-style: normal; font-size: 2.5rem; opacity: .6; }
-.artPaperFront { width: 230px; height: 294px; top: 37px; left: 31%; padding: 25px 24px 22px; transform: rotate(5deg); background: #fffdf9; border: 1px solid rgba(241,223,208,.85); }
-.artPaperLabel { color: var(--hhMuted); font-size: .56rem; letter-spacing: .15em; font-weight: 800; }
-.artPaperFront strong { font-size: 2.2rem; line-height: 1.02; letter-spacing: -.065em; font-weight: 800; }
-.artPaperFront em { color: var(--category-accent); font-family: var(--fontAccent); font-size: 1.15em; font-weight: 700; letter-spacing: -.025em; }
-.artPaperSwatches { display: flex; gap: 8px; }
-.artPaperSwatches b { display: block; width: 28px; height: 7px; border-radius: 10px; background: var(--category-accent); }
-.artPaperSwatches b:nth-child(2) { background: #F6A15A; width: 17px; }
-.artPaperSwatches b:nth-child(3) { background: #7DA477; width: 21px; }
-.artPaperSwatches b:nth-child(4) { background: #d9b8a4; width: 13px; }
-.artSticker { position: absolute; z-index: 2; display: grid; place-items: center; border-radius: 22px; box-shadow: 0 12px 30px rgba(73,52,38,.13); }
-.stickerMain { width: 76px; height: 76px; top: 18px; right: 10%; background: var(--category-accent); font-size: 2.25rem; transform: rotate(10deg); border: 5px solid rgba(255,255,255,.72); }
-.stickerSmall { width: 48px; height: 48px; bottom: 84px; right: 10%; background: #f8d57a; color: #9b7133; font-size: 1.6rem; transform: rotate(-12deg); }
-.artDoodle { position: absolute; color: var(--category-accent); font-weight: 700; }
-.doodleOne { top: 23px; left: 20%; font-size: 3rem; transform: rotate(-28deg); }
-.doodleTwo { top: 76px; right: 4%; font-size: 1.7rem; }
-.artFloatingNote { position: absolute; z-index: 3; right: 2%; bottom: 35px; display: flex; align-items: center; gap: 12px; max-width: 235px; padding: 13px 17px 13px 13px; background: rgba(255,255,255,.92); border: 1px solid rgba(241,223,208,.9); border-radius: 15px; box-shadow: 0 12px 32px rgba(73,52,38,.1); backdrop-filter: blur(8px); transform: rotate(-2deg); }
-.artFloatingNote > span:first-child { display: grid; place-items: center; flex: 0 0 42px; width: 42px; height: 42px; border-radius: 12px; background: var(--category-tint); font-size: 1.35rem; }
-.artFloatingNote strong,.artFloatingNote small { display: block; }
-.artFloatingNote strong { font-size: .75rem; }
-.artFloatingNote small { margin-top: 3px; color: var(--hhMuted); font-size: .64rem; }
-.categoryHeroBottom { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); width: min(100% - 48px, var(--containerMax)); display: flex; align-items: center; gap: 14px; color: #9a8c81; font-size: .62rem; font-weight: 800; letter-spacing: .13em; }
-.heroBottomLine { height: 1px; flex: 1; background: linear-gradient(90deg, var(--hhBorder), transparent); }
-.hhSection.categoryHobbies { padding: 92px 0 84px; }
-.categorySectionHeader,.activitiesHeading { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; margin-bottom: 34px; }
-.categorySectionHeader .hhSectionTitle,.activitiesHeading .hhSectionTitle { margin-top: 16px; font-size: clamp(2rem, 3.2vw, 3.05rem); letter-spacing: -.055em; }
-.categorySectionHeader .hhSectionTitle span,.activitiesHeading .hhSectionTitle span { color: var(--hhPrimary); font-family: var(--fontAccent); font-size: 1.15em; font-weight: 700; letter-spacing: -.02em; }
-.categorySectionHeader .hhSectionSub,.activitiesHeading .hhSectionSub { max-width: 610px; margin-top: 12px; color: var(--hhMuted); line-height: 1.8; }
-.collectionCounter { display: flex; flex-direction: column; align-items: flex-end; padding-bottom: 7px; color: var(--hhPrimary); }
-.collectionCounter span { font-size: 3.2rem; font-weight: 800; letter-spacing: -.08em; line-height: 1; }
-.collectionCounter small { margin-top: 8px; color: var(--hhMuted); font-size: .59rem; font-weight: 800; letter-spacing: .14em; white-space: nowrap; }
-.hobbyGrid { --bs-gutter-y: 22px; }
-.hobbyCard { height: 100%; min-height: 282px; display: flex; flex-direction: column; position: relative; overflow: hidden; padding: 23px 23px 18px; border: 1px solid var(--hhBorder); border-radius: 19px; background: rgba(255,255,255,.88); transition: transform .35s var(--ease), box-shadow .35s ease, border-color .35s ease; }
-.hobbyCard::after { content: ""; position: absolute; top: -40px; right: -38px; width: 125px; height: 125px; border-radius: 50%; background: var(--hobbyTint); opacity: .7; transition: transform .45s var(--ease); }
-.hobbyCard:hover { transform: translateY(-7px); border-color: color-mix(in srgb, var(--hobbyAccent) 42%, var(--hhBorder)); box-shadow: 0 18px 34px rgba(75,48,33,.09); }
-.hobbyCard:hover::after { transform: scale(1.18); }
-.hobbyTone-peach { --hobbyTint: #FCE5DB; --hobbyAccent: #ED7052; }.hobbyTone-lavender { --hobbyTint: #EEE6F7; --hobbyAccent: #9C7BB9; }.hobbyTone-blue { --hobbyTint: #DDEEF1; --hobbyAccent: #5B8FA8; }.hobbyTone-green { --hobbyTint: #E6EEE2; --hobbyAccent: #7DA477; }.hobbyTone-pink { --hobbyTint: #FBE3E8; --hobbyAccent: #D77E91; }.hobbyTone-yellow { --hobbyTint: #F9EFCF; --hobbyAccent: #C29A3D; }
-.hobbyCardTop { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: flex-start; }
-.hobbyIcon { display: grid; place-items: center; width: 57px; height: 57px; border-radius: 17px; background: var(--hobbyTint); font-size: 1.8rem; transition: transform .35s var(--ease); }
-.hobbyCard:hover .hobbyIcon { transform: rotate(-7deg) scale(1.06); }
-.hobbyIndex { padding-top: 5px; color: #b4a59b; font-size: .72rem; font-weight: 800; letter-spacing: .08em; }
-.hobbyCard h3 { position: relative; z-index: 1; margin-top: 19px; font-size: 1.16rem; letter-spacing: -.025em; }
-.hobbyCardDescription { position: relative; z-index: 1; margin-top: 5px; color: var(--hhMuted); font-family: var(--fontAccent); font-size: 1.16rem; }
-.hobbyTags { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
-.hobbyTags span { padding: 5px 9px; border: 1px solid #f0e6de; border-radius: 999px; color: #796d64; background: #fffaf6; font-size: .64rem; line-height: 1.2; }
-.hobbyCardActions { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 22px; }
-.hobbyActionPrimary,.hobbyActionSecondary { display: inline-flex; align-items: center; gap: 8px; font-size: .76rem; font-weight: 800; transition: gap .25s ease, color .25s ease, background .25s ease; }
-.hobbyActionPrimary { padding: 10px 13px; border-radius: 999px; background: var(--hhPrimary); color: white; }
-.hobbyActionPrimary:hover { background: var(--hhPrimaryDark); color: white; gap: 12px; }
-.hobbyActionSecondary { color: var(--hhMuted); padding-inline: 4px; }
-.hobbyActionSecondary:hover { color: var(--hhPrimary); gap: 12px; }
-.categoryCtaSection { padding: 84px 0 95px; }
-.categoryCta { position: relative; isolation: isolate; overflow: hidden; min-height: 300px; padding: clamp(30px, 5vw, 60px); display: flex; align-items: center; justify-content: space-between; gap: 35px; border-radius: 27px; color: white; background: linear-gradient(115deg, #ED7052 0%, #F0805C 55%, #F6A15A 100%); box-shadow: 0 20px 50px rgba(237,112,82,.18); }
-.categoryCta::before { content: ""; position: absolute; z-index: -1; width: 440px; height: 440px; right: 12%; top: -240px; border: 1px solid rgba(255,255,255,.2); border-radius: 50%; box-shadow: 0 0 0 38px rgba(255,255,255,.05), 0 0 0 80px rgba(255,255,255,.04); }
-.categoryCtaCopy { max-width: 650px; position: relative; z-index: 1; }
-.categoryCta .categoryEyebrow { color: rgba(255,255,255,.84); }
-.categoryCta h2 { max-width: 630px; margin-top: 13px; color: white; font-size: clamp(2rem, 3.8vw, 3.2rem); line-height: 1.1; letter-spacing: -.055em; }
-.categoryCta p { max-width: 570px; margin-top: 15px; color: rgba(255,255,255,.88); font-size: .95rem; line-height: 1.75; }
-.hhBtnDark { background: #332E2A; color: white; border: 1px solid #332E2A; }.hhBtnDark:hover { background: #211d1a; color: white; border-color: #211d1a; }
-.categoryCta .hhBtn { margin-top: 25px; display: inline-flex; align-items: center; gap: 17px; }
-.ctaMiniArt { position: relative; flex: 0 0 260px; height: 220px; }
-.ctaSun { position: absolute; top: 0; right: 30px; width: 80px; height: 80px; display: grid; place-items: center; background: #f8d57a; color: #a5782f; border-radius: 50%; font-size: 2.8rem; transform: rotate(-12deg); box-shadow: 0 0 0 12px rgba(255,255,255,.12); }
-.ctaPlant { position: absolute; left: 25px; bottom: 8px; display: grid; place-items: center; width: 130px; height: 130px; border-radius: 42% 58% 54% 46%; background: #e6eee2; font-size: 4.5rem; transform: rotate(-8deg); border: 7px solid rgba(255,255,255,.25); }
-.ctaMiniNote { position: absolute; right: 0; bottom: 17px; padding: 14px 18px; background: #fffaf4; color: var(--hhMuted); border-radius: 12px; box-shadow: 0 12px 30px rgba(87,48,33,.13); font-family: var(--fontAccent); font-size: 1.12rem; line-height: 1.05; transform: rotate(5deg); }
-.ctaMiniNote strong { color: var(--hhPrimary); font-size: 1.4rem; }
-.ctaDecor { position: absolute; color: rgba(255,255,255,.38); }.ctaDecorOne { right: 43%; top: 25px; font-size: 2.4rem; }.ctaDecorTwo { right: 8%; bottom: 30px; font-size: 1.7rem; }
-@media (max-width: 991.98px) {
-  .categoryHero { padding-top: 38px; min-height: 0; padding-bottom: 58px; }
-  .categoryHeroInner { grid-template-columns: minmax(0,1fr) minmax(290px,.82fr); gap: 22px; }
-  .categoryBack { margin-bottom: 27px; }
-  .categoryHeroArt { min-height: 360px; transform: scale(.92); transform-origin: center; }
-  .artPaperBack { left: 3%; }.artPaperFront { left: 23%; }.stickerMain { right: 1%; }.artFloatingNote { right: -3%; }
-  .hhSection.categoryHobbies { padding: 72px 0; }
-  .categoryCtaSection { padding: 70px 0; }
-  .ctaMiniArt { flex-basis: 205px; transform: scale(.85); transform-origin: center right; margin-left: -25px; }
-}
-@media (max-width: 767.98px) {
-  .categoryPage .hhContainer { width: min(100% - 32px, var(--containerMax)); }
-  .categoryHero { padding: 26px 0 55px; }
-  .categoryHeroInner { grid-template-columns: 1fr; gap: 10px; }
-  .categoryBack { margin-bottom: 27px; }
-  .categoryHero h1 { font-size: clamp(2.9rem, 13vw, 4.6rem); }
-  .categoryHeroDescription { margin-top: 17px; font-size: .96rem; }
-  .categoryHeroStats { margin-top: 19px; gap: 10px; font-size: .75rem; }
-  .categoryHeroButton { margin-top: 24px; }
-  .categoryHeroArt { min-height: 340px; width: 100%; max-width: 430px; margin: 4px auto -5px; transform: none; }
-  .artPaperBack { width: 175px; height: 220px; top: 43px; left: 11%; padding: 17px; }
-  .artPaperFront { width: 190px; height: 248px; top: 32px; left: 29%; padding: 20px; }
-  .artPaperFront strong { font-size: 1.85rem; }
-  .stickerMain { width: 62px; height: 62px; right: 6%; top: 15px; font-size: 1.8rem; border-width: 4px; }
-  .stickerSmall { right: 8%; bottom: 62px; width: 40px; height: 40px; }
-  .artFloatingNote { right: 0; bottom: 15px; padding: 10px 12px 10px 10px; }
-  .artFloatingNote > span:first-child { width: 36px; height: 36px; flex-basis: 36px; }
-  .categoryHeroBottom { width: calc(100% - 32px); bottom: 15px; font-size: .52rem; }
-  .categorySectionHeader { align-items: flex-start; flex-direction: column; gap: 20px; margin-bottom: 26px; }
-  .categorySectionHeader .hhSectionTitle { font-size: clamp(2rem, 8vw, 2.7rem); }
-  .collectionCounter { flex-direction: row; align-items: baseline; gap: 10px; }
-  .collectionCounter span { font-size: 2rem; }.collectionCounter small { margin: 0; }
-  .hobbyCard { min-height: 265px; padding: 19px; }
-  .hobbyCard h3 { font-size: 1.06rem; }
-  .hobbyTags span { font-size: .61rem; }
-  .categoryCta { padding: 30px 25px 22px; border-radius: 22px; }
-  .ctaMiniArt { display: none; }
-  .categoryCta h2 { font-size: clamp(2rem, 8vw, 2.65rem); }
-  .categoryCta p { font-size: .87rem; }
-  .ctaDecorOne { right: 10%; top: 17px; }.ctaDecorTwo { right: 7%; bottom: 20px; }
-}
-@media (max-width: 390px) {
-  .categoryHeroArt { min-height: 300px; }
-  .artPaperBack { width: 150px; height: 195px; left: 6%; }
-  .artPaperFront { width: 170px; height: 220px; left: 27%; padding: 17px; }
-  .artPaperFront strong { font-size: 1.65rem; }
-  .artFloatingNote { right: -2px; bottom: 4px; }
-  .hobbyCardActions { align-items: flex-start; flex-direction: column; gap: 12px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .categoryPage *, .categoryPage *::before, .categoryPage *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
-}
 
+/* Category page visual system — reusable for all six categories. */
+.categoryPage {
+  overflow: clip;
+}
+.categoryPage .hhContainer {
+  width: min(100% - 48px, var(--containerMax));
+  margin-inline: auto;
+}
+.categoryHero {
+  --category-accent: #ED7052;
+  --category-tint: #FBE3DA;
+  min-height: 550px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 54px 0 52px;
+  margin-top: 1.25rem;
+  border-block: 1px solid var(--hhBorder);
+  background: radial-gradient(ellipse at 83% 38%, color-mix(in srgb, var(--category-tint) 72%, transparent) 0, transparent 37%), linear-gradient(118deg, #fffaf5 0%, var(--hhBg) 58%, #fff4e9 100%);
+  border-bottom: 1px solid rgba(241,223,208,.7);
+}
+.categoryHero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 540px;
+  height: 540px;
+  border-radius: 50%;
+  right: -150px;
+  top: -205px;
+  border: 1px solid color-mix(in srgb, var(--category-accent) 16%, transparent);
+  box-shadow: 0 0 0 38px rgba(255,255,255,.22), 0 0 0 78px rgba(255,255,255,.18);
+}
+.categoryHeroGlow {
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(2px);
+  pointer-events: none;
+}
+.glowOne {
+  width: 15px;
+  height: 15px;
+  opacity: .5;
+  top: 17%;
+  right: 39%;
+  background: var(--category-accent);
+  box-shadow: 0 0 0 10px color-mix(in srgb, var(--category-accent) 10%, transparent);
+}
+.glowTwo {
+  width: 8px;
+  height: 8px;
+  opacity: .7;
+  bottom: 18%;
+  left: 47%;
+  background: #7DA477;
+}
+.categoryHeroInner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.03fr) minmax(380px, .97fr);
+  gap: clamp(36px, 6vw, 90px);
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.categoryHeroCopy {
+  padding-block: 8px;
+}
+.categoryBack {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 38px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: color .25s ease, gap .25s ease;
+  color: var(--hhMuted);
+}
+.categoryBack span {
+  display: grid;
+  place-items: center;
+  width: 29px;
+  height: 29px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid var(--hhBorder);
+  color: var(--hhPrimary);
+}
+.categoryBack:hover {
+  gap: 13px;
+  color: var(--hhPrimary);
+}
+.categoryEyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: .15em;
+  color: var(--hhPrimary);
+}
+.eyebrowDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--category-accent);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--category-accent) 14%, transparent);
+}
+.categoryHero h1 {
+  position: relative;
+  width: fit-content;
+  margin-top: 17px;
+  font-size: clamp(3rem, 5.6vw, 5.4rem);
+  font-weight: 800;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  line-height: 1.12;
+  letter-spacing: -.035em;
+}
+.titleSpark {
+  display: inline-block;
+  font-size: .42em;
+  vertical-align: top;
+  margin: .08em 0 0 .15em;
+  transform: rotate(-12deg);
+  color: var(--category-accent);
+}
+.categoryHeroDescription {
+  max-width: 570px;
+  margin-top: 24px;
+  font-size: clamp(1rem, 1.25vw, 1.12rem);
+  line-height: 1.85;
+  color: var(--hhMuted);
+}
+.categoryHeroStats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 25px;
+  font-size: 0.9rem;
+  color: var(--hhMuted);
+}
+.categoryHeroStats strong {
+  font-size: 1rem;
+  color: var(--hhText);
+}
+.categoryHeroStats i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--category-accent);
+}
+.categoryHeroButton {
+  margin-top: 30px;
+  min-height: 51px;
+  display: inline-flex;
+  align-items: center;
+  gap: 26px;
+  padding-inline: 25px;
+  box-shadow: 0 10px 22px color-mix(in srgb, var(--category-accent) 20%, transparent);
+}
+.categoryHeroButton span {
+  font-size: 1.2rem;
+  transition: transform .25s ease;
+}
+.categoryHeroButton:hover span {
+  transform: translate(3px, 3px);
+}
+.categoryHeroArt {
+  min-height: 405px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+.artHalo {
+  position: absolute;
+  border-radius: 50%;
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--category-accent) 20%, transparent);
+}
+.haloOuter {
+  width: min(96%, 400px);
+  transform: rotate(-13deg) scaleY(.82);
+  border-style: dashed;
+}
+.haloInner {
+  width: min(78%, 320px);
+  background: color-mix(in srgb, var(--category-tint) 65%, transparent);
+  border: 0;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.6);
+}
+.artPaper {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 9px;
+  box-shadow: 0 24px 55px rgba(73,52,38,.14);
+}
+.artPaperBack {
+  width: 210px;
+  height: 258px;
+  top: 48px;
+  left: 13%;
+  padding: 22px 20px;
+  transform: rotate(-12deg);
+  font-family: var(--fontAccent);
+  font-size: 1.35rem;
+  background: #e5efdf;
+  color: #547452;
+}
+.artPaperBack i {
+  font-family: var(--fontBody);
+  align-self: flex-end;
+  font-style: normal;
+  font-size: 2.5rem;
+  opacity: .6;
+}
+.artPaperFront {
+  width: 230px;
+  height: 294px;
+  top: 37px;
+  left: 31%;
+  padding: 25px 24px 22px;
+  transform: rotate(5deg);
+  background: #fffdf9;
+  border: 1px solid rgba(241,223,208,.85);
+}
+.artPaperLabel {
+  font-size: 0.8rem;
+  letter-spacing: .15em;
+  font-weight: 800;
+  color: var(--hhMuted);
+}
+.artPaperFront strong {
+  font-size: 2.2rem;
+  line-height: 1.02;
+  letter-spacing: -.035em;
+  font-weight: 800;
+}
+.artPaperFront em {
+  font-family: var(--fontAccent);
+  font-size: 1.15em;
+  font-weight: 700;
+  letter-spacing: -.025em;
+  color: var(--category-accent);
+}
+.artPaperSwatches {
+  display: flex;
+  gap: 8px;
+}
+.artPaperSwatches b {
+  display: block;
+  width: 28px;
+  height: 7px;
+  border-radius: 10px;
+  background: var(--category-accent);
+}
+.artPaperSwatches b:nth-child(2) {
+  width: 17px;
+  background: #F6A15A;
+}
+.artPaperSwatches b:nth-child(3) {
+  width: 21px;
+  background: #7DA477;
+}
+.artPaperSwatches b:nth-child(4) {
+  width: 13px;
+  background: #d9b8a4;
+}
+.artSticker {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  border-radius: 22px;
+  box-shadow: 0 12px 30px rgba(73,52,38,.13);
+}
+.stickerMain {
+  width: 76px;
+  height: 76px;
+  top: 18px;
+  right: 10%;
+  font-size: 2.25rem;
+  transform: rotate(10deg);
+  background: var(--category-accent);
+  border: 5px solid rgba(255,255,255,.72);
+}
+.stickerSmall {
+  width: 48px;
+  height: 48px;
+  bottom: 84px;
+  right: 10%;
+  font-size: 1.6rem;
+  transform: rotate(-12deg);
+  background: #f8d57a;
+  color: #9b7133;
+}
+.artDoodle {
+  position: absolute;
+  font-weight: 700;
+  color: var(--category-accent);
+}
+.doodleOne {
+  top: 23px;
+  left: 20%;
+  font-size: 3rem;
+  transform: rotate(-28deg);
+}
+.doodleTwo {
+  top: 76px;
+  right: 4%;
+  font-size: 1.7rem;
+}
+.artFloatingNote {
+  position: absolute;
+  z-index: 3;
+  right: 2%;
+  bottom: 35px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 235px;
+  padding: 13px 17px 13px 13px;
+  border-radius: 15px;
+  transform: rotate(-2deg);
+  background: rgba(255,255,255,.92);
+  border: 1px solid rgba(241,223,208,.9);
+  box-shadow: 0 12px 32px rgba(73,52,38,.1);
+  backdrop-filter: blur(8px);
+}
+.artFloatingNote>span:first-child {
+  display: grid;
+  place-items: center;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  font-size: 1.35rem;
+  background: var(--category-tint);
+}
+.artFloatingNote strong {
+  display: block;
+}
+.artFloatingNote small {
+  display: block;
+  color: var(--hhMuted);
+}
+.artFloatingNote strong {
+  font-size: 1rem;
+}
+.artFloatingNote small {
+  margin-top: 3px;
+  font-size: 1rem;
+  color: var(--hhMuted);
+}
+.categoryHeroBottom {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100% - 48px, var(--containerMax));
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: .13em;
+  color: #9a8c81;
+}
+.heroBottomLine {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, var(--hhBorder), transparent);
+}
+.hhSection.categoryHobbies {
+  padding: 92px 0 84px;
+}
+.categorySectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+  margin-bottom: 34px;
+}
+.activitiesHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+  margin-bottom: 34px;
+}
+.categorySectionHeader .hhSectionTitle {
+  margin-top: 16px;
+  font-size: clamp(2rem, 3.2vw, 3.05rem);
+  letter-spacing: -.035em;
+}
+.activitiesHeading .hhSectionTitle {
+  margin-top: 16px;
+  font-size: clamp(2rem, 3.2vw, 3.05rem);
+  letter-spacing: -.035em;
+}
+.categorySectionHeader .hhSectionTitle span {
+  font-family: var(--fontAccent);
+  font-size: 1.15em;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  color: var(--hhPrimary);
+}
+.activitiesHeading .hhSectionTitle span {
+  font-family: var(--fontAccent);
+  font-size: 1.15em;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  color: var(--hhPrimary);
+}
+.categorySectionHeader .hhSectionSub {
+  max-width: 610px;
+  margin-top: 12px;
+  line-height: 1.8;
+  color: var(--hhMuted);
+}
+.activitiesHeading .hhSectionSub {
+  max-width: 610px;
+  margin-top: 12px;
+  line-height: 1.8;
+  color: var(--hhMuted);
+}
+.collectionCounter {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-bottom: 7px;
+  color: var(--hhPrimary);
+}
+.collectionCounter span {
+  font-size: 3.2rem;
+  font-weight: 800;
+  letter-spacing: -.08em;
+  line-height: 1;
+}
+.collectionCounter small {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  white-space: nowrap;
+  color: var(--hhMuted);
+}
+.hobbyGrid {
+  --bs-gutter-y: 22px;
+}
+.hobbyCard {
+  height: 100%;
+  min-height: 282px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: transform .35s var(--ease), box-shadow .35s ease, border-color .35s ease;
+  padding: 1.75rem;
+  border-radius: var(--radiusCard);
+  border: 1px solid var(--hhBorder);
+  background: rgba(255,255,255,.88);
+}
+.hobbyCard::after {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -38px;
+  width: 125px;
+  height: 125px;
+  border-radius: 50%;
+  opacity: .7;
+  transition: transform .45s var(--ease);
+  background: var(--hobbyTint);
+}
+.hobbyCard:hover {
+  transform: translateY(-7px);
+  border-color: color-mix(in srgb, var(--hobbyAccent) 42%, var(--hhBorder));
+  box-shadow: 0 18px 34px rgba(75,48,33,.09);
+}
+.hobbyCard:hover::after {
+  transform: scale(1.18);
+}
+.hobbyTone-peach {
+  --hobbyTint: #FCE5DB;
+  --hobbyAccent: #ED7052;
+}
+.hobbyTone-lavender {
+  --hobbyTint: #EEE6F7;
+  --hobbyAccent: #9C7BB9;
+}
+.hobbyTone-blue {
+  --hobbyTint: #DDEEF1;
+  --hobbyAccent: #5B8FA8;
+}
+.hobbyTone-green {
+  --hobbyTint: #E6EEE2;
+  --hobbyAccent: #7DA477;
+}
+.hobbyTone-pink {
+  --hobbyTint: #FBE3E8;
+  --hobbyAccent: #D77E91;
+}
+.hobbyTone-yellow {
+  --hobbyTint: #F9EFCF;
+  --hobbyAccent: #C29A3D;
+}
+.hobbyCardTop {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.hobbyIcon {
+  display: grid;
+  place-items: center;
+  width: 57px;
+  height: 57px;
+  border-radius: 17px;
+  font-size: 1.8rem;
+  transition: transform .35s var(--ease);
+  background: var(--hobbyTint);
+}
+.hobbyCard:hover .hobbyIcon {
+  transform: rotate(-7deg) scale(1.06);
+}
+.hobbyIndex {
+  padding-top: 5px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  color: #b4a59b;
+}
+.hobbyCard h3 {
+  position: relative;
+  z-index: 1;
+  margin-top: 19px;
+  letter-spacing: -.025em;
+  font-size: 1.35rem;
+  line-height: 1.4;
+}
+.hobbyCardDescription {
+  position: relative;
+  z-index: 1;
+  margin-top: 5px;
+  font-family: var(--fontAccent);
+  font-size: 1.16rem;
+  color: var(--hhMuted);
+}
+.hobbyTags {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 16px;
+}
+.hobbyTags span {
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  border: 1px solid #f0e6de;
+  color: #796d64;
+  background: #fffaf6;
+}
+.hobbyCardActions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 22px;
+  flex-wrap: wrap;
+  gap: .7rem;
+}
+.hobbyActionPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  transition: gap .25s ease, color .25s ease, background .25s ease;
+  min-height: 44px;
+  font-size: .95rem;
+  background: var(--hhPrimary);
+  color: white;
+}
+.hobbyActionSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  transition: gap .25s ease, color .25s ease, background .25s ease;
+  min-height: 44px;
+  font-size: .95rem;
+  color: var(--hhMuted);
+}
+.hobbyActionPrimary {
+  padding: 10px 13px;
+  border-radius: 999px;
+  background: var(--hhPrimary);
+  color: white;
+}
+.hobbyActionPrimary:hover {
+  gap: 12px;
+  background: var(--hhPrimaryDark);
+  color: white;
+}
+.hobbyActionSecondary {
+  padding-inline: 4px;
+  color: var(--hhMuted);
+}
+.hobbyActionSecondary:hover {
+  gap: 12px;
+  color: var(--hhPrimary);
+}
+.categoryCtaSection {
+  padding: 84px 0 95px;
+}
+.categoryCta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 300px;
+  padding: clamp(30px, 5vw, 60px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 35px;
+  border-radius: 27px;
+  color: white;
+  background: linear-gradient(115deg, #ED7052 0%, #F0805C 55%, #F6A15A 100%);
+  box-shadow: 0 20px 50px rgba(237,112,82,.18);
+}
+.categoryCta::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 440px;
+  height: 440px;
+  right: 12%;
+  top: -240px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.2);
+  box-shadow: 0 0 0 38px rgba(255,255,255,.05), 0 0 0 80px rgba(255,255,255,.04);
+}
+.categoryCtaCopy {
+  max-width: 650px;
+  position: relative;
+  z-index: 1;
+}
+.categoryCta .categoryEyebrow {
+  color: rgba(255,255,255,.84);
+}
+.categoryCta h2 {
+  max-width: 630px;
+  margin-top: 13px;
+  font-size: clamp(2rem, 3.8vw, 3.2rem);
+  line-height: 1.1;
+  letter-spacing: -.035em;
+  color: white;
+}
+.categoryCta p {
+  max-width: 570px;
+  margin-top: 15px;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: rgba(255,255,255,.88);
+}
+.hhBtnDark {
+  background: #332E2A;
+  color: white;
+  border: 1px solid #332E2A;
+}
+.hhBtnDark:hover {
+  background: #211d1a;
+  color: white;
+  border-color: #211d1a;
+}
+.categoryCta .hhBtn {
+  margin-top: 25px;
+  display: inline-flex;
+  align-items: center;
+  gap: 17px;
+}
+.ctaMiniArt {
+  position: relative;
+  flex: 0 0 260px;
+  height: 220px;
+}
+.ctaSun {
+  position: absolute;
+  top: 0;
+  right: 30px;
+  width: 80px;
+  height: 80px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 2.8rem;
+  transform: rotate(-12deg);
+  background: #f8d57a;
+  color: #a5782f;
+  box-shadow: 0 0 0 12px rgba(255,255,255,.12);
+}
+.ctaPlant {
+  position: absolute;
+  left: 25px;
+  bottom: 8px;
+  display: grid;
+  place-items: center;
+  width: 130px;
+  height: 130px;
+  border-radius: 42% 58% 54% 46%;
+  font-size: 4.5rem;
+  transform: rotate(-8deg);
+  background: #e6eee2;
+  border: 7px solid rgba(255,255,255,.25);
+}
+.ctaMiniNote {
+  position: absolute;
+  right: 0;
+  bottom: 17px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-family: var(--fontAccent);
+  font-size: 1.12rem;
+  line-height: 1.05;
+  transform: rotate(5deg);
+  background: #fffaf4;
+  color: var(--hhMuted);
+  box-shadow: 0 12px 30px rgba(87,48,33,.13);
+}
+.ctaMiniNote strong {
+  font-size: 1.4rem;
+  color: var(--hhPrimary);
+}
+.ctaDecor {
+  position: absolute;
+  color: rgba(255,255,255,.38);
+}
+.ctaDecorOne {
+  right: 43%;
+  top: 25px;
+  font-size: 2.4rem;
+}
+.ctaDecorTwo {
+  right: 8%;
+  bottom: 30px;
+  font-size: 1.7rem;
+}
+@media (max-width: 991.98px) {
+.categoryHero {
+  padding-top: 38px;
+  min-height: 0;
+  padding-bottom: 58px;
+}
+.categoryHeroInner {
+  grid-template-columns: minmax(0,1fr) minmax(290px,.82fr);
+  gap: 22px;
+}
+.categoryBack {
+  margin-bottom: 27px;
+}
+.categoryHeroArt {
+  min-height: 360px;
+  transform: scale(.92);
+  transform-origin: center;
+}
+.artPaperBack {
+  left: 3%;
+}
+.artPaperFront {
+  left: 23%;
+}
+.stickerMain {
+  right: 1%;
+}
+.artFloatingNote {
+  right: -3%;
+}
+.hhSection.categoryHobbies {
+  padding: 72px 0;
+}
+.categoryCtaSection {
+  padding: 70px 0;
+}
+.ctaMiniArt {
+  flex-basis: 205px;
+  transform: scale(.85);
+  transform-origin: center right;
+  margin-left: -25px;
+}}
+@media (max-width: 767.98px) {
+.categoryPage .hhContainer {
+  width: min(100% - 32px, var(--containerMax));
+}
+.categoryHero {
+  padding: 26px 0 55px;
+}
+.categoryHeroInner {
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+.categoryBack {
+  margin-bottom: 27px;
+}
+.categoryHero h1 {
+  font-size: clamp(2.9rem, 13vw, 4.6rem);
+}
+.categoryHeroDescription {
+  margin-top: 17px;
+  font-size: 1rem;
+}
+.categoryHeroStats {
+  margin-top: 19px;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+.categoryHeroButton {
+  margin-top: 24px;
+}
+.categoryHeroArt {
+  min-height: 340px;
+  width: 100%;
+  max-width: 430px;
+  margin: 4px auto -5px;
+  transform: none;
+}
+.artPaperBack {
+  width: 175px;
+  height: 220px;
+  top: 43px;
+  left: 11%;
+  padding: 17px;
+}
+.artPaperFront {
+  width: 190px;
+  height: 248px;
+  top: 32px;
+  left: 29%;
+  padding: 20px;
+}
+.artPaperFront strong {
+  font-size: 1.85rem;
+}
+.stickerMain {
+  width: 62px;
+  height: 62px;
+  right: 6%;
+  top: 15px;
+  font-size: 1.8rem;
+  border-width: 4px;
+}
+.stickerSmall {
+  right: 8%;
+  bottom: 62px;
+  width: 40px;
+  height: 40px;
+}
+.artFloatingNote {
+  right: 0;
+  bottom: 15px;
+  padding: 10px 12px 10px 10px;
+}
+.artFloatingNote>span:first-child {
+  width: 36px;
+  height: 36px;
+  flex-basis: 36px;
+}
+.categoryHeroBottom {
+  width: calc(100% - 32px);
+  bottom: 15px;
+  font-size: 0.9rem;
+}
+.categorySectionHeader {
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 26px;
+}
+.categorySectionHeader .hhSectionTitle {
+  font-size: clamp(2rem, 8vw, 2.7rem);
+}
+.collectionCounter {
+  flex-direction: row;
+  align-items: baseline;
+  gap: 10px;
+}
+.collectionCounter span {
+  font-size: 2rem;
+}
+.collectionCounter small {
+  margin: 0;
+}
+.hobbyCard {
+  min-height: 265px;
+  padding: 19px;
+}
+.hobbyCard h3 {
+  font-size: 1.06rem;
+}
+.hobbyTags span {
+  font-size: 0.9rem;
+}
+.categoryCta {
+  padding: 30px 25px 22px;
+  border-radius: 22px;
+}
+.ctaMiniArt {
+  display: none;
+}
+.categoryCta h2 {
+  font-size: clamp(2rem, 8vw, 2.65rem);
+}
+.categoryCta p {
+  font-size: 1rem;
+}
+.ctaDecorOne {
+  right: 10%;
+  top: 17px;
+}
+.ctaDecorTwo {
+  right: 7%;
+  bottom: 20px;
+}}
+@media (max-width: 390px) {
+.categoryHeroArt {
+  min-height: 300px;
+}
+.artPaperBack {
+  width: 150px;
+  height: 195px;
+  left: 6%;
+}
+.artPaperFront {
+  width: 170px;
+  height: 220px;
+  left: 27%;
+  padding: 17px;
+}
+.artPaperFront strong {
+  font-size: 1.65rem;
+}
+.artFloatingNote {
+  right: -2px;
+  bottom: 4px;
+}
+.hobbyCardActions {
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 12px;
+}}
+@media (prefers-reduced-motion: reduce) {
+.categoryPage * {
+  animation-duration: .01ms !important;
+  animation-iteration-count: 1 !important;
+  scroll-behavior: auto !important;
+  transition-duration: .01ms !important;
+}
+.categoryPage *::before {
+  animation-duration: .01ms !important;
+  animation-iteration-count: 1 !important;
+  scroll-behavior: auto !important;
+  transition-duration: .01ms !important;
+}
+.categoryPage *::after {
+  animation-duration: .01ms !important;
+  animation-iteration-count: 1 !important;
+  scroll-behavior: auto !important;
+  transition-duration: .01ms !important;
+}}
 /* Keep the final quiz CTA light and friendly against the orange panel. */
-.categoryQuizButton { background: #fff; color: var(--hhPrimary); border: 1px solid rgba(255,255,255,.9); box-shadow: 0 8px 18px rgba(85,45,25,.10); }
-.categoryQuizButton:hover { background: #fff8f1; color: var(--hhPrimary); border-color: #fff8f1; transform: translateY(-2px); }
+.categoryQuizButton {
+  background: #fff;
+  color: var(--hhPrimary);
+  border: 1px solid rgba(255,255,255,.9);
+  box-shadow: 0 8px 18px rgba(85,45,25,.10);
+}
+.categoryQuizButton:hover {
+  transform: translateY(-2px);
+  background: #fff8f1;
+  color: var(--hhPrimary);
+  border-color: #fff8f1;
+}/* Page layout refinements — shared tokens, unchanged markup and behavior. */
+@media (max-width: 767.98px) {
+.categoryHero {
+  margin-top: .75rem;
+}}

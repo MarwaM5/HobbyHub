@@ -1,19 +1,663 @@
+
 /* Profile page — page-specific styling; shared app shell remains untouched. */
-.hhProfileContent{width:min(100% - 3rem, 1500px);margin:0 auto;padding:1.8rem 2.25rem 3rem;color:var(--hhInk,#332e2a)}
-.pfWelcome{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;min-height:205px;padding:2.1rem 2.5rem;border:1px solid #f1dfd0;border-radius:24px;background:linear-gradient(112deg,#fff4e8 0%,#fbe7dc 57%,#eaf1e4 100%);margin-bottom:1.25rem}
-.pfWelcome .hhEyebrow,.pfCardEyebrow{font-size:.68rem;font-weight:800;letter-spacing:.16em;color:#ed7052;margin-bottom:.7rem}.pfWelcome h2{font-size:clamp(1.7rem,2.4vw,2.5rem);font-weight:800;letter-spacing:-.04em;margin:0 0 .55rem}.pfWelcome h2 span{color:#ed7052}.pfWelcome p:last-child{color:#806c60;margin:0;max-width:620px}.pfWelcomeArt{width:180px;height:150px;position:relative;display:grid;place-items:center;flex-shrink:0}.pfOrb{width:100px;height:100px;display:grid;place-items:center;background:#fff;border-radius:50%;font-size:3rem;box-shadow:0 14px 34px #9e79551c;animation:pfFloat 4s ease-in-out infinite}.pfWelcomeArt:before,.pfWelcomeArt:after{content:"";position:absolute;border:1px dashed #a8bd9b;border-radius:50%;width:145px;height:145px}.pfWelcomeArt:after{width:120px;height:120px;border-color:#f6b39d}.pfWelcomeArt i{position:absolute;right:4px;top:4px;color:#ed7052;font-size:1.5rem;font-style:normal}.pfWelcomeArt b{position:absolute;left:0;bottom:10px;color:#7da477;font-size:1.3rem}
-.pfTopGrid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:1.15rem}.pfCard{background:#fff;border:1px solid #f1dfd0;border-radius:20px;padding:1.5rem;box-shadow:0 8px 28px #4c302008}.pfIdentityMain{display:flex;align-items:center;gap:1rem}.pfAvatar{width:76px;height:76px;display:grid;place-items:center;flex-shrink:0;border-radius:24px;background:linear-gradient(145deg,#f9d9dd,#f8e7ef);border:4px solid #fff4f0;box-shadow:0 0 0 1px #f2d7d5;color:#9b5667;font-size:1.9rem;font-weight:800}.pfIdentityText{min-width:0;flex:1}.pfIdentityText h2{font-size:1.35rem;font-weight:800;margin:0 0 .25rem}.pfIdentityText p{color:#89796f;margin:0 0 .5rem;font-size:.9rem;overflow-wrap:anywhere}.pfMemberBadge{display:inline-flex;align-items:center;gap:.4rem;background:#eff5ec;color:#5f8b5b;border-radius:99px;padding:.3rem .6rem;font-size:.72rem;font-weight:700}.pfMemberBadge span{width:6px;height:6px;background:#7da477;border-radius:50%}.pfEditBtn{margin-left:auto;white-space:nowrap}.pfProfileFields{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1.35rem;padding-top:1.15rem;border-top:1px solid #f3e7dd}.pfProfileFields div{display:grid;gap:.3rem;min-width:0}.pfProfileFields span{font-size:.72rem;color:#a08d80}.pfProfileFields strong{font-size:.87rem;overflow-wrap:anywhere}.pfSummary h2{font-size:1.25rem;font-weight:800;margin:0 0 1.2rem}.pfStats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem}.pfStats article{display:flex;flex-direction:column;align-items:flex-start;padding:.8rem .7rem;border:1px solid #f3e7dd;border-radius:14px;background:#fffdfa}.pfStatIcon{display:grid;place-items:center;width:30px;height:30px;border-radius:10px;background:#fde5dc;color:#ed7052;margin-bottom:.5rem}.pfStatIcon.green{background:#e9f1e5;color:#719b6d}.pfStatIcon.lilac{background:#f0e8f7;color:#9878b1}.pfStats strong{font-size:1.45rem;line-height:1.2}.pfStats article>span:last-child{font-size:.72rem;color:#8b7b70}.pfSummaryNote{margin-top:1rem;padding:.7rem .8rem;background:#f8f8f0;border-radius:12px;color:#776f56;font-size:.78rem}
-.pfSection{margin-top:2rem}.pfSectionHeading{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;margin-bottom:1rem}.pfSectionHeading .hhEyebrow{font-size:.68rem;letter-spacing:.15em;font-weight:800;color:#ed7052;margin-bottom:.45rem}.pfSectionHeading h2{font-size:1.65rem;font-weight:800;letter-spacing:-.035em;margin:0 0 .35rem}.pfSectionHeading p:last-child{margin:0;color:#8c796d;font-size:.9rem}.pfSectionHeading>.hhBtn{flex-shrink:0}.pfCount{display:inline-flex;vertical-align:middle;align-items:center;justify-content:center;min-width:28px;height:25px;padding:0 .45rem;background:#fde5dc;color:#b6533c;border-radius:99px;font-size:.72rem;letter-spacing:0}.pfHobbyGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.pfHobbyCard{display:flex;align-items:center;gap:.85rem;position:relative;overflow:hidden;padding:1rem 1.1rem;border:1px solid #f1dfd0;border-radius:17px;background:#fff}.pfHobbyCard>span{width:48px;height:48px;display:grid;place-items:center;border-radius:15px;font-size:1.45rem}.pfHobbyCard div{display:grid;gap:.15rem}.pfHobbyCard strong{font-size:.95rem}.pfHobbyCard small{color:#8c796d;font-size:.76rem}.pfHobbyCard i{margin-left:auto;font-size:1.3rem;font-style:normal;color:#e8a08c;opacity:.8}.pfHobbyPeach>span,.pfEnrollmentIcon.pfHobbyPeach{background:#fde3d9}.pfHobbyGreen>span,.pfEnrollmentIcon.pfHobbyGreen{background:#e7efe2}.pfHobbyLilac>span,.pfEnrollmentIcon.pfHobbyLilac{background:#f0e8f7}
-.pfEnrollmentsSection{padding:1.5rem;border:1px solid #f1dfd0;border-radius:21px;background:linear-gradient(180deg,#fffaf6,#fff 140px)}.pfEnrollmentList{display:grid;gap:.8rem}.pfEnrollmentCard{display:flex;align-items:center;gap:1rem;padding:1rem;border:1px solid #f1e5db;border-radius:16px;background:#fff}.pfEnrollmentIcon{width:54px;height:54px;display:grid;place-items:center;flex-shrink:0;border-radius:16px;font-size:1.55rem}.pfEnrollmentMain{min-width:0;flex:1}.pfEnrollmentTitleRow{display:flex;align-items:center;gap:.65rem;flex-wrap:wrap}.pfEnrollmentTitleRow h3{font-size:1rem;font-weight:800;margin:0}.pfStatus{display:inline-flex;align-items:center;gap:.3rem;border-radius:99px;padding:.25rem .55rem;background:#eaf3e6;color:#60865b;font-size:.68rem;font-weight:800}.pfStatus:before{content:"";width:5px;height:5px;border-radius:50%;background:#7da477}.pfEnrollmentMain>p{font-size:.8rem;color:#8c796d;margin:.4rem 0 .6rem}.pfEnrollmentMain>p span{padding:0 .2rem;color:#d3b5a4}.pfEnrollmentMeta{display:flex;gap:.8rem;flex-wrap:wrap;font-size:.72rem;color:#8e7a6d}.pfEnrollmentActions{display:flex;align-items:center;gap:.5rem;flex-shrink:0}.pfEnrollmentActions .hhBtn{font-size:.78rem;padding:.6rem .85rem;white-space:nowrap}.pfDemoHint{font-size:.72rem;color:#9b8a7f;margin:.9rem 0 0}.pfEmptyState{text-align:center;padding:2.5rem 1rem}.pfEmptyState>span{font-size:2rem}.pfEmptyState h3{font-weight:800}.pfEmptyState p{color:#8c796d}.pfEditForm{margin-top:1.25rem;padding-top:1rem;border-top:1px solid #f3e7dd;display:grid;gap:.55rem}.pfEditForm[hidden]{display:none}.pfEditForm label{font-size:.78rem;font-weight:700}.pfEditForm .form-control{border-color:#ecd9ca;border-radius:11px;padding:.7rem}.pfFormActions{display:flex;justify-content:flex-end;gap:.6rem;margin-top:.4rem}.pfFooterNudge{display:flex;align-items:center;gap:1rem;margin-top:1.25rem;padding:1.1rem 1.3rem;border:1px solid #e1e9d9;border-radius:17px;background:linear-gradient(100deg,#f0f5ec,#fff8f0)}.pfFooterNudge>span{font-size:1.8rem}.pfFooterNudge div{flex:1}.pfFooterNudge strong{font-size:.9rem}.pfFooterNudge p{font-size:.78rem;color:#84796d;margin:.2rem 0 0}.pfNudgeLink{font-size:.82rem;font-weight:800;color:#e66d50;text-decoration:none;white-space:nowrap}@keyframes pfFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-@media(max-width:1100px){.hhProfileContent{width:100%;padding:1.4rem 1.3rem 2.5rem}.pfTopGrid{grid-template-columns:1fr}.pfWelcome{min-height:180px}.pfEnrollmentCard{align-items:flex-start;flex-wrap:wrap}.pfEnrollmentActions{margin-left:calc(54px + 1rem)}}
-@media(max-width:700px){.hhProfileContent{padding:1rem .85rem 2rem}.pfWelcome{padding:1.35rem;min-height:0}.pfWelcomeArt{width:92px;height:90px;transform:scale(.72);transform-origin:center right;margin-left:-1rem}.pfIdentityMain{flex-wrap:wrap}.pfEditBtn{margin-left:0}.pfProfileFields{grid-template-columns:1fr}.pfSectionHeading{align-items:flex-start;flex-direction:column}.pfHobbyGrid{grid-template-columns:1fr}.pfEnrollmentCard{gap:.75rem}.pfEnrollmentIcon{width:44px;height:44px}.pfEnrollmentMain{flex-basis:calc(100% - 60px)}.pfEnrollmentActions{margin-left:0;width:100%;padding-left:0}.pfEnrollmentActions .hhBtn{flex:1;justify-content:center}.pfStats{gap:.4rem}.pfStats article{padding:.65rem .5rem}.pfFooterNudge{align-items:flex-start;flex-wrap:wrap}.pfNudgeLink{margin-left:3rem}}
-@media(prefers-reduced-motion:reduce){.pfOrb{animation:none}}
-
-.pfToast{position:fixed;right:1.4rem;bottom:1.4rem;z-index:2000;background:#332e2a;color:#fff;padding:.85rem 1.1rem;border-radius:13px;box-shadow:0 10px 30px #332e2a26;opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .2s,transform .2s;font-size:.85rem}.pfToast.isShown{opacity:1;transform:translateY(0)}
-
+.hhProfileContent {
+  width: 100%;
+  margin:0 auto;
+  padding: var(--hhPageSpace) var(--hhPageGutter) calc(var(--hhPageSpace) * 1.5);
+  max-width: var(--hhPageMax);
+  margin-inline: auto;
+  min-width: 0;
+  color:var(--hhInk,#332e2a);
+}
+.pfWelcome {
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  min-height: var(--hhHeroMin);
+  padding: var(--hhHeroPad);
+  border-radius: var(--hhHeroRadius);
+  margin-bottom:1.25rem;
+  border:1px solid #f1dfd0;
+  background:linear-gradient(112deg,#fff4e8 0%,#fbe7dc 57%,#eaf1e4 100%);
+}
+.pfWelcome .hhEyebrow {
+  font-size: 0.9rem;
+  font-weight:800;
+  letter-spacing:.16em;
+  margin-bottom:.7rem;
+  color:#ed7052;
+}
+.pfCardEyebrow {
+  font-size: 0.9rem;
+  font-weight:800;
+  letter-spacing:.16em;
+  margin-bottom:.7rem;
+  color:#ed7052;
+}
+.pfWelcome h2 {
+  font-weight:800;
+  letter-spacing: -.035em;
+  margin:0 0 .55rem;
+  font-size: clamp(2rem,3vw,3rem);
+  line-height: 1.2;
+}
+.pfWelcome h2 span {
+  color:#ed7052;
+}
+.pfWelcome p:last-child {
+  margin:0;
+  max-width:620px;
+  color:#806c60;
+}
+.pfWelcomeArt {
+  width:180px;
+  height:150px;
+  position:relative;
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+}
+.pfOrb {
+  width:100px;
+  height:100px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  font-size: 3rem;
+  animation:pfFloat 4s ease-in-out infinite;
+  background:#fff;
+  box-shadow:0 14px 34px #9e79551c;
+}
+.pfWelcomeArt:before {
+  content:"";
+  position:absolute;
+  border-radius:50%;
+  width:145px;
+  height:145px;
+  border:1px dashed #a8bd9b;
+}
+.pfWelcomeArt:after {
+  content:"";
+  position:absolute;
+  border-radius:50%;
+  width:145px;
+  height:145px;
+  border:1px dashed #a8bd9b;
+  border-color:#f6b39d;
+}
+.pfWelcomeArt:after {
+  width:120px;
+  height:120px;
+  border:1px dashed #a8bd9b;
+  border-color:#f6b39d;
+}
+.pfWelcomeArt i {
+  position:absolute;
+  right:4px;
+  top:4px;
+  font-size: 1.5rem;
+  font-style:normal;
+  color:#ed7052;
+}
+.pfWelcomeArt b {
+  position:absolute;
+  left:0;
+  bottom:10px;
+  font-size: 1.3rem;
+  color:#7da477;
+}
+.pfTopGrid {
+  display:grid;
+  grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);
+  gap:1.15rem;
+}
+.pfCard {
+  padding: clamp(1.4rem,2.4vw,2rem);
+  border-radius: var(--radiusCard);
+  background:#fff;
+  border:1px solid #f1dfd0;
+  box-shadow:0 8px 28px #4c302008;
+}
+.pfIdentityMain {
+  display:flex;
+  align-items:center;
+  gap:1rem;
+}
+.pfAvatar {
+  width:76px;
+  height:76px;
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+  border-radius:24px;
+  font-size: 1.9rem;
+  font-weight:800;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(145deg,#f9d9dd,#f8e7ef);
+  border:4px solid #fff4f0;
+  box-shadow:0 0 0 1px #f2d7d5;
+  color:#9b5667;
+}
+.pfIdentityText {
+  min-width:0;
+  flex:1;
+}
+.pfIdentityText h2 {
+  font-size: 1.35rem;
+  font-weight:800;
+  margin:0 0 .25rem;
+}
+.pfIdentityText p {
+  margin:0 0 .5rem;
+  font-size: 1rem;
+  overflow-wrap:anywhere;
+  color:#89796f;
+}
+.pfMemberBadge {
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  border-radius:99px;
+  padding:.3rem .6rem;
+  font-size: 0.9rem;
+  font-weight:700;
+  background:#eff5ec;
+  color:#5f8b5b;
+}
+.pfMemberBadge span {
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#7da477;
+}
+.pfEditBtn {
+  margin-left:auto;
+  white-space:nowrap;
+}
+.pfProfileFields {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  margin-top:1.35rem;
+  gap: 1.25rem;
+  padding-top: 1.5rem;
+  border-top:1px solid #f3e7dd;
+}
+.pfProfileFields div {
+  display:grid;
+  gap:.3rem;
+  min-width:0;
+}
+.pfProfileFields span {
+  font-size: 0.9rem;
+  color:#a08d80;
+}
+.pfProfileFields strong {
+  overflow-wrap:anywhere;
+  font-size: 1rem;
+}
+.pfSummary h2 {
+  font-size: 1.25rem;
+  font-weight:800;
+  margin:0 0 1.2rem;
+}
+.pfStats {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:.6rem;
+}
+.pfStats article {
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  border-radius:14px;
+  padding: 1rem .85rem;
+  gap: .25rem;
+  border:1px solid #f3e7dd;
+  background:#fffdfa;
+}
+.pfStatIcon {
+  display:grid;
+  place-items:center;
+  width:30px;
+  height:30px;
+  border-radius:10px;
+  margin-bottom:.5rem;
+  background:#fde5dc;
+  color:#ed7052;
+}
+.pfStatIcon.green {
+  background:#e9f1e5;
+  color:#719b6d;
+}
+.pfStatIcon.lilac {
+  background:#f0e8f7;
+  color:#9878b1;
+}
+.pfStats strong {
+  line-height:1.2;
+  font-size: 1.85rem;
+}
+.pfStats article>span:last-child {
+  font-size: 0.9rem;
+  color:#8b7b70;
+}
+.pfSummaryNote {
+  margin-top:1rem;
+  padding:.7rem .8rem;
+  border-radius:12px;
+  font-size: 1rem;
+  background:#f8f8f0;
+  color:#776f56;
+}
+.pfSection {
+  margin-top:2rem;
+}
+.pfSectionHeading {
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:1rem;
+  margin-bottom:1rem;
+}
+.pfSectionHeading .hhEyebrow {
+  font-size: 0.9rem;
+  letter-spacing:.15em;
+  font-weight:800;
+  margin-bottom:.45rem;
+  color:#ed7052;
+}
+.pfSectionHeading h2 {
+  font-size: 1.65rem;
+  font-weight:800;
+  letter-spacing:-.035em;
+  margin:0 0 .35rem;
+}
+.pfSectionHeading p:last-child {
+  margin:0;
+  font-size: 1rem;
+  color:#8c796d;
+}
+.pfSectionHeading>.hhBtn {
+  flex-shrink:0;
+}
+.pfCount {
+  display:inline-flex;
+  vertical-align:middle;
+  align-items:center;
+  justify-content:center;
+  min-width:28px;
+  height:25px;
+  padding:0 .45rem;
+  border-radius:99px;
+  font-size: 0.9rem;
+  letter-spacing:0;
+  background:#fde5dc;
+  color:#b6533c;
+}
+.pfHobbyGrid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:1rem;
+}
+.pfHobbyCard {
+  display:flex;
+  align-items:center;
+  gap:.85rem;
+  position:relative;
+  overflow:hidden;
+  border-radius:17px;
+  padding: 1.35rem;
+  border:1px solid #f1dfd0;
+  background:#fff;
+}
+.pfHobbyCard>span {
+  width:48px;
+  height:48px;
+  display:grid;
+  place-items:center;
+  border-radius:15px;
+  font-size: 1.45rem;
+}
+.pfHobbyCard div {
+  display:grid;
+  gap:.15rem;
+}
+.pfHobbyCard strong {
+  font-size: .95rem;
+}
+.pfHobbyCard small {
+  font-size: 0.9rem;
+  color:#8c796d;
+}
+.pfHobbyCard i {
+  margin-left:auto;
+  font-size: 1.3rem;
+  font-style:normal;
+  opacity:.8;
+  color:#e8a08c;
+}
+.pfHobbyPeach>span {
+  background:#fde3d9;
+}
+.pfEnrollmentIcon.pfHobbyPeach {
+  background:#fde3d9;
+}
+.pfHobbyGreen>span {
+  background:#e7efe2;
+}
+.pfEnrollmentIcon.pfHobbyGreen {
+  background:#e7efe2;
+}
+.pfHobbyLilac>span {
+  background:#f0e8f7;
+}
+.pfEnrollmentIcon.pfHobbyLilac {
+  background:#f0e8f7;
+}
+.pfEnrollmentsSection {
+  padding:1.5rem;
+  border-radius:21px;
+  border:1px solid #f1dfd0;
+  background:linear-gradient(180deg,#fffaf6,#fff 140px);
+}
+.pfEnrollmentList {
+  display:grid;
+  gap:.8rem;
+}
+.pfEnrollmentCard {
+  display:flex;
+  align-items:center;
+  gap:1rem;
+  border-radius:16px;
+  padding: 1.35rem;
+  border:1px solid #f1e5db;
+  background:#fff;
+}
+.pfEnrollmentIcon {
+  width:54px;
+  height:54px;
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+  border-radius:16px;
+  font-size: 1.55rem;
+}
+.pfEnrollmentMain {
+  min-width:0;
+  flex:1;
+}
+.pfEnrollmentTitleRow {
+  display:flex;
+  align-items:center;
+  gap:.65rem;
+  flex-wrap:wrap;
+}
+.pfEnrollmentTitleRow h3 {
+  font-weight:800;
+  margin:0;
+  font-size: 1.15rem;
+  line-height: 1.4;
+}
+.pfStatus {
+  display:inline-flex;
+  align-items:center;
+  gap:.3rem;
+  border-radius:99px;
+  padding:.25rem .55rem;
+  font-size: 0.9rem;
+  font-weight:800;
+  background:#eaf3e6;
+  color:#60865b;
+}
+.pfStatus:before {
+  content:"";
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#7da477;
+}
+.pfEnrollmentMain>p {
+  font-size: 1rem;
+  margin:.4rem 0 .6rem;
+  line-height: 1.7;
+  color:#8c796d;
+}
+.pfEnrollmentMain>p span {
+  padding:0 .2rem;
+  color:#d3b5a4;
+}
+.pfEnrollmentMeta {
+  display:flex;
+  gap:.8rem;
+  flex-wrap:wrap;
+  font-size: 0.9rem;
+  color:#8e7a6d;
+}
+.pfEnrollmentActions {
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  flex-shrink:0;
+  flex-wrap: wrap;
+}
+.pfEnrollmentActions .hhBtn {
+  white-space:nowrap;
+  min-height: 44px;
+  font-size: .95rem;
+  padding: .65rem 1rem;
+}
+.pfDemoHint {
+  font-size: 1rem;
+  margin:.9rem 0 0;
+  color:#9b8a7f;
+}
+.pfEmptyState {
+  text-align:center;
+  padding:2.5rem 1rem;
+}
+.pfEmptyState>span {
+  font-size: 2rem;
+}
+.pfEmptyState h3 {
+  font-weight:800;
+}
+.pfEmptyState p {
+  color:#8c796d;
+}
+.pfEditForm {
+  margin-top:1.25rem;
+  padding-top:1rem;
+  display:grid;
+  gap: .8rem;
+  border-top:1px solid #f3e7dd;
+}
+.pfEditForm[hidden] {
+  display:none;
+}
+.pfEditForm label {
+  font-size: 0.9rem;
+  font-weight:700;
+}
+.pfEditForm .form-control {
+  border-radius:11px;
+  padding:.7rem;
+  min-height: 52px;
+  font-size: 1rem;
+  border-color:#ecd9ca;
+}
+.pfFormActions {
+  display:flex;
+  justify-content:flex-end;
+  gap:.6rem;
+  margin-top:.4rem;
+}
+.pfFooterNudge {
+  display:flex;
+  align-items:center;
+  gap:1rem;
+  margin-top:1.25rem;
+  padding:1.1rem 1.3rem;
+  border-radius:17px;
+  border:1px solid #e1e9d9;
+  background:linear-gradient(100deg,#f0f5ec,#fff8f0);
+}
+.pfFooterNudge>span {
+  font-size: 1.8rem;
+}
+.pfFooterNudge div {
+  flex:1;
+}
+.pfFooterNudge strong {
+  font-size: .9rem;
+}
+.pfFooterNudge p {
+  font-size: 1rem;
+  margin:.2rem 0 0;
+  color:#84796d;
+}
+.pfNudgeLink {
+  font-size: 0.9rem;
+  font-weight:800;
+  text-decoration:none;
+  white-space:nowrap;
+  color:#e66d50;
+}@keyframes pfFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@media(max-width:1100px){
+.hhProfileContent {
+  width: 100%;
+  padding: var(--hhPageSpace) var(--hhPageGutter) calc(var(--hhPageSpace) * 1.5);
+  max-width: var(--hhPageMax);
+  margin-inline: auto;
+  min-width: 0;
+}
+.pfTopGrid {
+  grid-template-columns:1fr;
+}
+.pfWelcome {
+  min-height: var(--hhHeroMin);
+  padding: var(--hhHeroPad);
+  border-radius: var(--hhHeroRadius);
+}
+.pfEnrollmentCard {
+  align-items:flex-start;
+  flex-wrap:wrap;
+}
+.pfEnrollmentActions {
+  margin-left:calc(54px + 1rem);
+}}
+@media(max-width:700px){
+.hhProfileContent {
+  padding: var(--hhPageSpace) var(--hhPageGutter) calc(var(--hhPageSpace) * 1.5);
+  width: 100%;
+  max-width: var(--hhPageMax);
+  margin-inline: auto;
+  min-width: 0;
+}
+.pfWelcome {
+  padding: var(--hhHeroPad);
+  min-height: var(--hhHeroMin);
+  border-radius: var(--hhHeroRadius);
+}
+.pfWelcomeArt {
+  width:92px;
+  height:90px;
+  transform:scale(.72);
+  transform-origin:center right;
+  margin-left:-1rem;
+}
+.pfIdentityMain {
+  flex-wrap:wrap;
+}
+.pfEditBtn {
+  margin-left:0;
+}
+.pfProfileFields {
+  grid-template-columns:1fr;
+}
+.pfSectionHeading {
+  align-items:flex-start;
+  flex-direction:column;
+}
+.pfHobbyGrid {
+  grid-template-columns:1fr;
+}
+.pfEnrollmentCard {
+  gap:.75rem;
+}
+.pfEnrollmentIcon {
+  width:44px;
+  height:44px;
+}
+.pfEnrollmentMain {
+  flex-basis:calc(100% - 60px);
+}
+.pfEnrollmentActions {
+  margin-left:0;
+  width:100%;
+  padding-left:0;
+}
+.pfEnrollmentActions .hhBtn {
+  flex:1;
+  justify-content:center;
+}
+.pfStats {
+  gap:.4rem;
+}
+.pfStats article {
+  padding:.65rem .5rem;
+}
+.pfFooterNudge {
+  align-items:flex-start;
+  flex-wrap:wrap;
+}
+.pfNudgeLink {
+  margin-left:3rem;
+}}
+@media(prefers-reduced-motion:reduce){
+.pfOrb {
+  animation:none;
+}}
+.pfToast {
+  position:fixed;
+  right:1.4rem;
+  bottom:1.4rem;
+  z-index:2000;
+  padding:.85rem 1.1rem;
+  border-radius:13px;
+  opacity:0;
+  transform:translateY(8px);
+  pointer-events:none;
+  transition:opacity .2s,transform .2s;
+  font-size: 0.9rem;
+  background:#332e2a;
+  color:#fff;
+  box-shadow:0 10px 30px #332e2a26;
+}
+.pfToast.isShown {
+  opacity:1;
+  transform:translateY(0);
+}
 /* Profile image preview: page-local styles only */
-.pfAvatar{position:relative;overflow:hidden}
-.pfAvatarImage{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit}
-.pfAvatarImage[hidden]{display:none}
-#profileAvatarInitial[hidden]{display:none}
-#editProfilePhoto{padding:.55rem;background:#fffdfa}
+.pfAvatarImage {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:inherit;
+}
+.pfAvatarImage[hidden] {
+  display:none;
+}
+#profileAvatarInitial[hidden] {
+  display:none;
+}
+#editProfilePhoto {
+  padding:.55rem;
+  background:#fffdfa;
+}/* Page layout refinements — shared tokens, unchanged markup and behavior. */
+@media (max-width: 900px) { .pfHobbyGrid { grid-template-columns: 1fr; }}
+@media (max-width: 600px) { .pfWelcome { align-items: flex-start; flex-direction: column; gap: 1rem; } .pfWelcomeArt { align-self: center; margin: 0; transform: none; width: 150px; height: 145px; } .pfStats { grid-template-columns: 1fr; } .pfStats article { display: grid; grid-template-columns: 36px auto 1fr; align-items: center; gap: .8rem; } .pfStatIcon { margin: 0; } .pfFormActions { flex-wrap: wrap; } .pfEnrollmentsSection { padding: 1.15rem; } .pfEnrollmentActions .hhBtn { white-space: normal; }}

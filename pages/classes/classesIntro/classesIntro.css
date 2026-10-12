@@ -1,18 +1,18 @@
 
 /* classesIntro.css */
-
 /* ===== HERO ===== */
 .classesHero {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding-block: clamp(1.5rem, 3.5vw, 2.75rem);
+  margin-top: 1.25rem;
+  padding-block: clamp(3rem,5vw,4.5rem);
+  border-block: 1px solid var(--hhBorder);
   background:
     radial-gradient(ellipse at 88% 18%, rgba(246,161,90,.35) 0 9%, transparent 9.5%),
     radial-gradient(ellipse at 72% 100%, rgba(125,164,119,.22) 0 17%, transparent 17.5%),
     linear-gradient(115deg, #E6EEE2 0%, #F7EBDD 48%, #FBE3DA 100%);
 }
-
 .classesHero::before {
   content: "";
   position: absolute;
@@ -21,14 +21,13 @@
   aspect-ratio: 1;
   right: -7%;
   bottom: -48%;
-  border: 1px solid rgba(237,112,82,.24);
   border-radius: 50%;
+  pointer-events: none;
+  border: 1px solid rgba(237,112,82,.24);
   box-shadow:
     0 0 0 22px rgba(237,112,82,.045),
     0 0 0 48px rgba(237,112,82,.035);
-  pointer-events: none;
 }
-
 .classesHero::after {
   content: "";
   position: absolute;
@@ -38,10 +37,9 @@
   top: -32%;
   left: 47%;
   border-radius: 50%;
-  background: rgba(255,255,255,.38);
   pointer-events: none;
+  background: rgba(255,255,255,.38);
 }
-
 .classesEyebrow {
   display: inline-flex;
   align-items: center;
@@ -49,29 +47,26 @@
   width: fit-content;
   padding: .45rem .9rem;
   margin-bottom: 1rem;
-  border: 1px solid rgba(237,112,82,.25);
   border-radius: 50px;
-  background: rgba(255,255,255,.72);
-  color: var(--hhPrimaryDark);
   font-family: var(--fontAccent);
   font-size: 1.35rem;
   font-weight: 700;
   letter-spacing: 0;
+  border: 1px solid rgba(237,112,82,.25);
+  background: rgba(255,255,255,.72);
+  color: var(--hhPrimaryDark);
 }
-
 .classesEyebrow span {
   color: var(--hhSecondary);
 }
-
 .classesHeroTitle {
   max-width: 12em;
   font-size: clamp(2.35rem, 4.6vw, 4rem);
   font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -.045em;
+  letter-spacing: -.035em;
+  line-height: 1.15;
   text-wrap: balance;
 }
-
 .classesHeroTitle span {
   position: relative;
   z-index: 0;
@@ -79,7 +74,6 @@
   width: fit-content;
   color: var(--hhPrimary);
 }
-
 .classesHeroTitle span::after {
   content: "";
   position: absolute;
@@ -89,89 +83,78 @@
   bottom: .02em;
   height: .16em;
   border-radius: 50px;
-  background: rgba(246,161,90,.42);
   transform: rotate(-1.5deg);
+  background: rgba(246,161,90,.42);
 }
-
 .classesHeroText {
   max-width: 43rem;
   margin-top: 1rem;
   margin-bottom: 1.4rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
   color: var(--hhMuted);
-  font-size: clamp(.98rem, 1.3vw, 1.08rem);
-  line-height: 1.75;
 }
-
 .classesHeroActions {
   display: flex;
   flex-wrap: wrap;
   gap: .85rem;
   margin-top: 1.5rem;
 }
-
 .classesHero .hhBtn {
   border-radius: 50px;
-  box-shadow: 0 7px 0 rgba(217,90,59,.10);
   transition: transform .25s ease, box-shadow .25s ease;
+  box-shadow: 0 7px 0 rgba(217,90,59,.10);
 }
-
 .classesHero .hhBtn:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 20px rgba(111,69,48,.12);
 }
-
 .classesHeroNote {
   display: flex;
   align-items: center;
   gap: .6rem;
   margin-top: 1.2rem;
-  color: var(--hhMuted);
-  font-size: .84rem;
+  font-size: 1rem;
   font-weight: 600;
+  color: var(--hhMuted);
 }
-
 /* ===== HERO ILLUSTRATION ===== */
 .classesHeroArt {
   position: relative;
   min-height: 320px;
   isolation: isolate;
 }
-
 .artCircle {
   position: absolute;
   z-index: -2;
   border-radius: 50%;
 }
-
 .artCircleOne {
   top: 30px;
   left: 50%;
   width: 275px;
   height: 275px;
-  background: #F6D9C9;
   transform: translateX(-50%);
+  background: #F6D9C9;
 }
-
 .artCircleTwo {
   top: 60px;
   left: 50%;
   width: 215px;
   height: 215px;
-  border: 1.5px dashed rgba(217,90,59,.45);
   transform: translateX(-50%);
+  border: 1.5px dashed rgba(217,90,59,.45);
 }
-
 .artTile {
   position: absolute;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  border: 1px solid rgba(241,223,208,.95);
   border-radius: 22px;
+  border: 1px solid rgba(241,223,208,.95);
   background: rgba(255,255,255,.95);
   box-shadow: 0 18px 45px rgba(111,69,48,.12);
 }
-
 .artTileMain {
   top: 72px;
   left: 50%;
@@ -182,7 +165,6 @@
   text-align: center;
   transform: translateX(-50%) rotate(-4deg);
 }
-
 .artEmoji {
   display: grid;
   place-items: center;
@@ -190,21 +172,18 @@
   height: 78px;
   margin-bottom: .8rem;
   border-radius: 25px;
-  background: #FBE3DA;
   font-size: 3.1rem;
+  background: #FBE3DA;
 }
-
 .artTileLabel {
   font-size: 1.02rem;
   font-weight: 800;
 }
-
 .artTileSub {
   margin-top: .2rem;
+  font-size: 0.9rem;
   color: var(--hhMuted);
-  font-size: .77rem;
 }
-
 .artTilePhoto {
   top: 48px;
   right: 0;
@@ -212,18 +191,17 @@
   padding: .9rem 1rem;
   transform: rotate(7deg);
 }
-
-.artTilePhoto > span,
-.artTileMusic > span {
+.artTilePhoto>span {
   font-size: 2rem;
 }
-
-.artTile small {
-  color: var(--hhText);
-  font-size: .72rem;
-  font-weight: 700;
+.artTileMusic>span {
+  font-size: 2rem;
 }
-
+.artTile small {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--hhText);
+}
 .artTileMusic {
   bottom: 34px;
   left: 0;
@@ -231,7 +209,6 @@
   padding: .8rem 1rem;
   transform: rotate(-7deg);
 }
-
 .artTilePlant {
   right: 7%;
   bottom: 36px;
@@ -240,90 +217,78 @@
   width: 76px;
   height: 76px;
   border-radius: 24px;
-  background: #E6EEE2;
   font-size: 2.3rem;
   transform: rotate(8deg);
+  background: #E6EEE2;
 }
-
 .artNote {
   position: absolute;
   z-index: 2;
   padding: .6rem .95rem;
   border-radius: 50px;
-  background: #fff;
-  color: var(--hhText);
-  box-shadow: var(--shadowSoft);
   font-family: var(--fontAccent);
   font-size: 1.25rem;
   font-weight: 700;
   white-space: nowrap;
+  background: #fff;
+  color: var(--hhText);
+  box-shadow: var(--shadowSoft);
 }
-
 .artNoteTop {
   top: 0;
   left: 5%;
   transform: rotate(-5deg);
 }
-
 .artNoteBottom {
   right: 4%;
   bottom: 0;
   transform: rotate(4deg);
 }
-
 .artSpark {
   position: absolute;
-  color: var(--hhPrimary);
   font-size: 2.2rem;
+  color: var(--hhPrimary);
 }
-
 .artSparkOne {
   top: 40px;
   left: 25%;
 }
-
 .artSparkTwo {
   top: 190px;
   right: 12%;
-  color: var(--hhSecondary);
   font-size: 1.8rem;
+  color: var(--hhSecondary);
 }
-
 /* ===== SECTION INTRO ===== */
 .classesSectionIntro {
   max-width: 620px;
   margin-inline: auto;
   line-height: 1.8;
 }
-
 /* ===== EXPERIENCE CARDS ===== */
 .experienceCard {
   position: relative;
   height: 100%;
   min-height: 320px;
-  padding: clamp(1.5rem, 3vw, 2rem);
   overflow: hidden;
-  border: 1px solid rgba(237,112,82,.13);
-  border-radius: 24px;
-  box-shadow: 0 8px 26px rgba(111,69,48,.045);
   transition:
     transform .3s ease,
     box-shadow .3s ease,
     border-color .3s ease;
+  padding: 1.85rem;
+  border-radius: var(--radiusCard);
+  border: 1px solid rgba(237,112,82,.13);
+  box-shadow: 0 8px 26px rgba(111,69,48,.045);
 }
-
 .experienceClass {
   background: linear-gradient(150deg, #fff 55%, #FFF0E9 100%);
 }
-
 .experienceEvent {
   background: linear-gradient(150deg, #fff 55%, #FFF3E5 100%);
 }
-
 .experienceTraining {
   background: linear-gradient(150deg, #fff 55%, #EFF4EA 100%);
 }
-
 .experienceCard::after {
   content: "";
   position: absolute;
@@ -337,29 +302,23 @@
   pointer-events: none;
   transition: transform .3s ease;
 }
-
 .experienceClass::after {
   background: #FBE3DA;
 }
-
 .experienceEvent::after {
   background: #FCE9D9;
 }
-
 .experienceTraining::after {
   background: #E6EEE2;
 }
-
 .experienceCard:hover {
   transform: translateY(-7px);
   border-color: rgba(237,112,82,.4);
   box-shadow: var(--shadowHover);
 }
-
 .experienceCard:hover::after {
   transform: scale(1.2);
 }
-
 .experienceIcon {
   position: relative;
   z-index: 1;
@@ -369,66 +328,67 @@
   height: 64px;
   margin-bottom: 1.5rem;
   border-radius: 20px;
-  background: var(--hhTintPink);
-  box-shadow: inset 0 0 0 1px rgba(237,112,82,.06);
   font-size: 2rem;
   transition: transform .3s ease;
+  background: var(--hhTintPink);
+  box-shadow: inset 0 0 0 1px rgba(237,112,82,.06);
 }
-
 .experienceEvent .experienceIcon {
   background: var(--hhTintOrange);
 }
-
 .experienceTraining .experienceIcon {
   background: var(--hhTintGreen);
 }
-
 .experienceCard:hover .experienceIcon {
   transform: rotate(-8deg) scale(1.08);
 }
-
 .experienceLabel {
   position: relative;
   z-index: 1;
   display: block;
   margin-bottom: .55rem;
-  color: var(--hhPrimaryDark);
-  font-size: .68rem;
+  font-size: 0.9rem;
   font-weight: 800;
   letter-spacing: .1em;
+  color: var(--hhPrimaryDark);
 }
-
-.experienceCard h3,
-.experienceCard p,
-.experienceTag {
+.experienceCard h3 {
   position: relative;
   z-index: 1;
 }
-
+.experienceCard p {
+  position: relative;
+  z-index: 1;
+  color: var(--hhMuted);
+}
+.experienceTag {
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(237,112,82,.1);
+  background: var(--hhBg);
+  color: var(--hhText);
+}
 .experienceCard h3 {
   margin-bottom: .75rem;
   font-size: 1.55rem;
   font-weight: 800;
 }
-
 .experienceCard p {
-  color: var(--hhMuted);
-  font-size: .9rem;
+  font-size: 1rem;
   line-height: 1.8;
+  color: var(--hhMuted);
 }
-
 .experienceTag {
   display: inline-block;
   margin-top: 1.25rem;
   padding: .45rem .8rem;
-  border: 1px solid rgba(237,112,82,.1);
   border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: 1px solid rgba(237,112,82,.1);
   background: var(--hhBg);
   color: var(--hhText);
-  font-size: .75rem;
-  font-weight: 700;
 }
-
 /* ===== HOW IT WORKS ===== */
 .classesHowSection {
   position: relative;
@@ -437,37 +397,33 @@
     radial-gradient(circle at 5% 15%, rgba(246,161,90,.1), transparent 22%),
     #FFF4EC;
 }
-
 .howStep {
   position: relative;
   height: 100%;
   padding: 1.8rem 1.5rem;
-  border: 1px solid rgba(241,223,208,.9);
   border-radius: 22px;
-  background: rgba(255,255,255,.88);
-  box-shadow: 0 7px 22px rgba(111,69,48,.035);
   transition:
     transform .28s ease,
     box-shadow .28s ease,
     border-color .28s ease;
+  border: 1px solid rgba(241,223,208,.9);
+  background: rgba(255,255,255,.88);
+  box-shadow: 0 7px 22px rgba(111,69,48,.035);
 }
-
 .howStep:hover {
   transform: translateY(-6px) rotate(-.35deg);
   border-color: rgba(237,112,82,.42);
   box-shadow: var(--shadowHover);
 }
-
 .howStepNumber {
   position: absolute;
   top: 1.35rem;
   right: 1.4rem;
-  color: rgba(237,112,82,.3);
   font-size: 1.6rem;
   font-weight: 800;
-  letter-spacing: -.04em;
+  letter-spacing: -.035em;
+  color: rgba(237,112,82,.3);
 }
-
 .howStepIcon {
   display: grid;
   place-items: center;
@@ -475,213 +431,208 @@
   height: 58px;
   margin-bottom: 1.3rem;
   border-radius: 18px;
-  background: var(--hhTintPink);
   font-size: 1.8rem;
   transition: transform .28s ease;
+  background: var(--hhTintPink);
 }
-
 .howStep:nth-child(2) .howStepIcon {
   background: var(--hhTintOrange);
 }
-
 .howStep:nth-child(3) .howStepIcon {
   background: var(--hhTintGreen);
 }
-
 .howStep:hover .howStepIcon {
   transform: rotate(-7deg) scale(1.08);
 }
-
 .howStep h3 {
   margin-bottom: .7rem;
   font-size: 1.12rem;
   font-weight: 800;
 }
-
 .howStep p {
-  color: var(--hhMuted);
-  font-size: .88rem;
+  font-size: 1rem;
   line-height: 1.8;
+  color: var(--hhMuted);
 }
-
 /* ===== FINAL CTA ===== */
 .classesCtaSection {
   padding-block: clamp(3rem, 7vw, 5.5rem);
 }
-
 .classesCta {
   position: relative;
   isolation: isolate;
   overflow: hidden;
   padding: clamp(2.5rem, 6vw, 4.5rem) 1.5rem;
   border-radius: 30px;
+  text-align: center;
   background: linear-gradient(125deg, #ED7052 0%, #E98660 55%, #F6A15A 100%);
   color: #fff;
-  text-align: center;
 }
-
 .classesCtaDecor {
   position: absolute;
   z-index: -1;
   top: -65px;
   right: 3%;
-  color: rgba(255,255,255,.13);
   font-size: 13rem;
   line-height: 1;
+  color: rgba(255,255,255,.13);
 }
-
 .classesCtaEyebrow {
   display: block;
   margin-bottom: 1rem;
-  color: rgba(255,255,255,.85);
-  font-size: .72rem;
+  font-size: 0.9rem;
   font-weight: 800;
   letter-spacing: .13em;
+  color: rgba(255,255,255,.85);
 }
-
 .classesCta h2 {
   max-width: 700px;
   margin-inline: auto;
-  color: #fff;
   font-size: clamp(2rem, 4.5vw, 3.4rem);
   font-weight: 800;
   letter-spacing: -.035em;
+  color: #fff;
 }
-
 .classesCta p {
   max-width: 610px;
   margin: 1rem auto 1.7rem;
-  color: rgba(255,255,255,.92);
   line-height: 1.85;
+  color: rgba(255,255,255,.92);
 }
-
 .classesCta .hhBtnWhite:hover {
   background: #FFF8F1;
 }
-
 .classesCtaFootnote {
   display: block;
   margin-top: 1.2rem;
+  font-size: 1rem;
   color: rgba(255,255,255,.9);
-  font-size: .8rem;
 }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 991.98px) {
-  .classesHero {
-    padding-block: 2.25rem;
-  }
-
-  .classesHeroArt {
-    max-width: 430px;
-    width: 100%;
-    min-height: 310px;
-    margin-inline: auto;
-  }
+.classesHero {
+  padding-block: 2.25rem;
 }
+.classesHeroArt {
+  max-width: 430px;
+  width: 100%;
+  min-height: 310px;
+  margin-inline: auto;
+}}
 
 @media (max-width: 575.98px) {
-  .classesHero {
-    padding-block: 2rem 1.5rem;
-  }
-
-  .classesHeroTitle {
-    font-size: clamp(2.3rem, 10.5vw, 3.1rem);
-  }
-
-  .classesHeroActions {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .classesHeroActions .hhBtn {
-    width: 100%;
-  }
-
-  .classesHeroArt {
-    min-height: 300px;
-    margin-bottom: -12px;
-    transform: scale(.94);
-    transform-origin: top center;
-  }
-
-  .artCircleOne {
-    width: 245px;
-    height: 245px;
-  }
-
-  .artCircleTwo {
-    width: 190px;
-    height: 190px;
-  }
-
-  .artTileMain {
-    top: 68px;
-    width: 170px;
-    min-height: 165px;
-  }
-
-  .artEmoji {
-    width: 68px;
-    height: 68px;
-    font-size: 2.7rem;
-  }
-
-  .artTilePhoto {
-    top: 43px;
-    right: -2%;
-  }
-
-  .artTileMusic {
-    bottom: 30px;
-  }
-
-  .artTilePlant {
-    right: 2%;
-    bottom: 32px;
-    width: 62px;
-    height: 62px;
-  }
-
-  .artNote {
-    font-size: 1.05rem;
-  }
-
-  .experienceCard {
-    min-height: auto;
-  }
-
-  .classesCta {
-    border-radius: 22px;
-  }
+.classesHero {
+  padding-block: 2rem 1.5rem;
 }
+.classesHeroTitle {
+  font-size: clamp(2.3rem, 10.5vw, 3.1rem);
+}
+.classesHeroActions {
+  flex-direction: column;
+  align-items: stretch;
+}
+.classesHeroActions .hhBtn {
+  width: 100%;
+}
+.classesHeroArt {
+  min-height: 300px;
+  margin-bottom: -12px;
+  transform: scale(.94);
+  transform-origin: top center;
+}
+.artCircleOne {
+  width: 245px;
+  height: 245px;
+}
+.artCircleTwo {
+  width: 190px;
+  height: 190px;
+}
+.artTileMain {
+  top: 68px;
+  width: 170px;
+  min-height: 165px;
+}
+.artEmoji {
+  width: 68px;
+  height: 68px;
+  font-size: 2.7rem;
+}
+.artTilePhoto {
+  top: 43px;
+  right: -2%;
+}
+.artTileMusic {
+  bottom: 30px;
+}
+.artTilePlant {
+  right: 2%;
+  bottom: 32px;
+  width: 62px;
+  height: 62px;
+}
+.artNote {
+  font-size: 1.05rem;
+}
+.experienceCard {
+  min-height: auto;
+}
+.classesCta {
+  border-radius: 22px;
+}}
 
 /* ===== ACCESSIBILITY ===== */
 @media (prefers-reduced-motion: reduce) {
-  .classesHero .hhBtn,
-  .experienceCard,
-  .experienceCard::after,
-  .experienceIcon,
-  .howStep,
-  .howStepIcon {
-    transition: none;
-  }
-
-  .classesHero .hhBtn:hover,
-  .experienceCard:hover,
-  .howStep:hover,
-  .experienceCard:hover .experienceIcon,
-  .howStep:hover .howStepIcon {
-    transform: none;
-  }
+.classesHero .hhBtn {
+  transition: none;
 }
+.experienceCard {
+  transition: none;
+}
+.experienceCard::after {
+  transition: none;
+}
+.experienceIcon {
+  transition: none;
+}
+.howStep {
+  transition: none;
+}
+.howStepIcon {
+  transition: none;
+}
+.classesHero .hhBtn:hover {
+  transform: none;
+}
+.experienceCard:hover {
+  transform: none;
+}
+.howStep:hover {
+  transform: none;
+}
+.experienceCard:hover .experienceIcon {
+  transform: none;
+}
+.howStep:hover .howStepIcon {
+  transform: none;
+}}
 
 
 /* Shared intro-page hero sizing: aligned with Communities / Groups */
 @media (min-width: 576px) {
-  .classesHero { min-height: 544px; padding-block: clamp(2.5rem, 5vw, 4.8rem); display: flex; align-items: center; }
-  .classesHero .classesHeroArt { min-height: 390px; }
+.classesHero {
+  min-height: 544px;
+  padding-block: clamp(2.5rem, 5vw, 4.8rem);
+  display: flex;
+  align-items: center;
 }
+.classesHero .classesHeroArt {
+  min-height: 390px;
+}}
 @media (max-width: 575.98px) {
-  .classesHero { min-height: 0; padding-block: 2.5rem; }
-}
+.classesHero {
+  min-height: 0;
+  padding-block: 2.5rem;
+}}/* Page layout refinements — shared tokens, unchanged markup and behavior. */
+@media (max-width: 767.98px) { .classesHero { margin-top: .75rem; }}
