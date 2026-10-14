@@ -1,0 +1,226 @@
+/* A quiet field guide: preserve Bootstrap's collapse behavior and accessible controls. */
+body[data-page="home"] #faq {
+  padding-block: clamp(2.5rem, 5vw, 4rem) !important;
+  background: radial-gradient(ellipse at 15% 60%, #fce9d944, transparent 55%);
+}
+#faq .hhFaqGuide {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1.6fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+  max-width: 1180px;
+  position: relative;
+}
+#faq .hhSectionHead {
+  text-align: left;
+  margin: 0;
+  padding-top: 1rem;
+}
+#faq .hhSectionTitle {
+  max-width: 12ch;
+  font-size: clamp(1.9rem, 3vw, 2.55rem);
+  line-height: 1.2;
+}
+#faq .hhFaqIntro {
+  max-width: 26em;
+  margin-top: 1rem;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--hhMuted);
+}
+.hhFaqIllustration {
+  position: relative;
+  width: 245px;
+  height: 210px;
+  max-width: 100%;
+  margin: 1.5rem 0 0;
+  pointer-events: none;
+}
+.hhFaqPaper {
+  position: absolute;
+  left: 33px;
+  top: 23px;
+  width: 160px;
+  height: 160px;
+  border-radius: 7px;
+  border: 1px solid #f0d9ca;
+  background: linear-gradient(110deg, #fffdf8, #fff8f1);
+  box-shadow: 0 10px 18px #9d6b4b12;
+  transform: rotate(-9deg);
+}
+.hhFaqPaper::before {
+  content: "";
+  position: absolute;
+  top: 25px;
+  left: 20px;
+  right: 20px;
+  height: 65px;
+  background: repeating-linear-gradient(180deg, transparent 0 17px, #f0d9ca66 17px 18px);
+}
+.hhFaqPaperBack {
+  left: 48px;
+  top: 16px;
+  transform: rotate(7deg);
+  background: #fce9d9;
+}
+.hhFaqCompass {
+  position: absolute;
+  left: 2px;
+  top: 10px;
+  width: 145px;
+  height: 145px;
+  background: url("../assets/living-hobby-atlas.webp") 60% 33.333333% / 600% 400%;
+  transform: rotate(-12deg);
+  filter: drop-shadow(2px 6px 5px #9d6b4b22);
+}
+.hhFaqKey {
+  position: absolute;
+  left: 130px;
+  top: 101px;
+  width: 92px;
+  height: 78px;
+  transform: rotate(14deg);
+  filter: drop-shadow(2px 4px 3px #9d6b4b22);
+}
+.hhFaqKey path {
+  fill: none;
+  stroke: #c98a48;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.hhFaqKey .hhFaqKeyHighlight {
+  stroke: #f6a15a;
+  stroke-width: 3;
+}
+#faq .hhAccordion {
+  min-width: 0;
+  position: relative;
+  padding: 1.2rem 1.1rem 1.2rem 1.6rem;
+  border-radius: 9px 20px 20px 9px;
+  border: 1px solid #f0d9ca;
+  background: linear-gradient(90deg, #fce9d944, transparent 22px), #fffdf8;
+  box-shadow: 0 12px 25px #9d6b4b0c;
+}
+#faq .hhAccordion::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  left: 10px;
+  width: 3px;
+  border-radius: 3px;
+  background: #f0d9ca88;
+}
+#faq .hhAccordion .accordion-item {
+  border-radius: 7px !important;
+  margin-bottom: 0.65rem;
+  background: #fffdf8;
+  border: 1px solid #f0d9ca88;
+  overflow: hidden;
+}
+#faq .hhAccordion .accordion-item:last-child {
+  margin-bottom: 0;
+}
+#faq .hhAccordion .accordion-button {
+  padding: 1.1rem 1.2rem;
+  border-left: 3px solid transparent;
+  border-radius: 0;
+  background: #fffdf8;
+  font-size: 1.03rem;
+  line-height: 1.55;
+  gap: 1rem;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s;
+}
+#faq .hhAccordion .accordion-button:not(.collapsed) {
+  background: #fff8f1;
+  border-left-color: var(--hhPrimary);
+  color: var(--hhText);
+}
+#faq .hhAccordion .accordion-button:focus-visible {
+  outline: 2px solid var(--hhPrimary);
+  outline-offset: -4px;
+  box-shadow: none;
+}
+#faq .hhAccordion .accordion-button::after {
+  display: grid;
+  place-items: center;
+  flex: 0 0 29px;
+  width: 29px;
+  height: 29px;
+  border: 1px solid #f0d9ca;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  background-color: #fff8f1;
+  transition:
+    transform 0.3s,
+    background-color 0.3s;
+}
+#faq .hhAccordion .accordion-button:not(.collapsed)::after {
+  transform: rotate(180deg);
+  background-color: var(--hhTintOrange);
+}
+#faq .hhAccordion .accordion-body {
+  padding: 0.15rem 1.4rem 1.25rem;
+  font-size: 1rem;
+  line-height: 1.85;
+  background: #fff8f144;
+}
+#faq .accordion-collapse.show .accordion-body {
+  animation: hhFaqUnfold 0.35s ease-out;
+}
+@keyframes hhFaqUnfold {
+  from {
+    opacity: 0.4;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (max-width: 767.98px) {
+  #faq .hhFaqGuide {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  #faq .hhSectionHead {
+    text-align: center;
+    padding: 0;
+  }
+  #faq .hhSectionTitle {
+    max-width: none;
+  }
+  #faq .hhFaqIntro {
+    margin-inline: auto;
+  }
+  .hhFaqIllustration {
+    margin: 1rem auto 0;
+    height: 165px;
+    transform: scale(0.85);
+    transform-origin: center top;
+  }
+  #faq .hhAccordion {
+    padding: 0.8rem 0.65rem 0.8rem 1rem;
+  }
+  #faq .hhAccordion::before {
+    left: 5px;
+    width: 2px;
+  }
+  #faq .hhAccordion .accordion-button {
+    padding: 1rem 0.85rem;
+    font-size: 1rem;
+  }
+  #faq .hhAccordion .accordion-body {
+    padding-inline: 1rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #faq .hhAccordion *,
+  #faq .hhAccordion *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

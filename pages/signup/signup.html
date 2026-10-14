@@ -12,6 +12,11 @@
   <link href="../../shared/css/components.css" rel="stylesheet">
   <link href="../../shared/css/layout.css" rel="stylesheet">
   <link href="signup.css" rel="stylesheet">
+  <link href="../../animation/shared/auth-scene.css" rel="stylesheet">
+  <link href="../../animation/signup/signup-animation.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../animation/shared/hobby-studio.css" />
+  <link rel="preload" as="image" href="../../animation/assets/studio-cat-poses.webp" />
+<link rel="preload" href="../../animation/assets/studio-cat-motion-v2.webp" as="image">
 </head>
 <body data-page="signup" data-root="../../">
   <div id="hhNavbar"></div>
@@ -63,17 +68,7 @@
                   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>
                 </button>
               </div>
-              <div class="signupPasswordHelp" id="passwordHint">
-                <div class="signupStrengthTrack" aria-hidden="true"><span id="passwordStrengthBar"></span></div>
-                <span id="passwordStrengthText">Use the checklist below to create a strong password.</span>
-              </div>
-              <ul class="signupPasswordRules" id="passwordRules" aria-label="Password requirements">
-                <li data-rule="length"><span aria-hidden="true">○</span> 8 characters or more</li>
-                <li data-rule="number"><span aria-hidden="true">○</span> At least one number</li>
-                <li data-rule="case"><span aria-hidden="true">○</span> Uppercase and lowercase letters</li>
-                <li data-rule="special"><span aria-hidden="true">○</span> At least one special character (e.g. !@#$%)</li>
-              </ul>
-              <small class="signupError" id="passwordError" aria-live="polite"></small>
+                  <small class="signupError" id="passwordError" aria-live="polite"></small>
             </div>
 
             <div class="signupFieldGroup">
@@ -88,6 +83,19 @@
                 </button>
               </div>
               <small class="signupError" id="confirmPasswordError" aria-live="polite"></small>
+            </div>
+
+            <div class="signupPasswordGuide">
+            <div class="signupPasswordHelp" id="passwordHint">
+                <div class="signupStrengthTrack" aria-hidden="true"><span id="passwordStrengthBar"></span></div>
+                <span id="passwordStrengthText">Use the checklist below to create a strong password.</span>
+              </div>
+            <ul class="signupPasswordRules" id="passwordRules" aria-label="Password requirements">
+                <li data-rule="length"><span aria-hidden="true">○</span> 8 characters or more</li>
+                <li data-rule="number"><span aria-hidden="true">○</span> At least one number</li>
+                <li data-rule="case"><span aria-hidden="true">○</span> Uppercase and lowercase letters</li>
+                <li data-rule="special"><span aria-hidden="true">○</span> At least one special character (e.g. !@#$%)</li>
+              </ul>
             </div>
 
             <div class="signupTermsGroup">
@@ -108,6 +116,38 @@
       </section>
 
       <aside class="signupVisualPanel" aria-label="Discover what you can do with HobbyHub">
+<!-- HH_SCENE:signup-room:START -->
+<div class="hhAuthScene hhSignupRoom hhHobbyStudio" aria-hidden="true">
+    <img
+      class="hhArtistRoom"
+      src="../../animation/assets/studio-signup-room.webp"
+      alt=""
+      decoding="async"
+      width="1086"
+      height="1448"
+    />
+    <span class="hhRoomSunbeam"></span><span class="hhRoomGlints"></span
+    ><span class="hhStudioLamp"></span>
+    <div class="hhAuthDepthStage" id="hhSignupDepthStage">
+      <span class="hhStudioSpeech">Your creative corner is waiting.</span>
+      <div class="hhStudioCat">
+        <div class="hhStudioCatBody">
+          <span class="hhStudioCatPose" style="--cat-x: 0%; --cat-y: 0%"></span
+          ><span class="hhStudioCatPose" style="--cat-x: 50%; --cat-y: 0%"></span
+          ><span class="hhStudioCatPose" style="--cat-x: 100%; --cat-y: 0%"></span
+          ><span class="hhStudioCatPose" style="--cat-x: 0%; --cat-y: 100%"></span
+          ><span class="hhStudioCatPose" style="--cat-x: 50%; --cat-y: 100%"></span
+          ><span class="hhStudioCatPose" style="--cat-x: 100%; --cat-y: 100%"></span>
+        </div>
+      </div>
+      <span class="hhStudioCamera"></span><span class="hhStudioBrush"></span
+      ><i class="hhStudioRuleSpark" style="--spark-index: 0"></i
+      ><i class="hhStudioRuleSpark" style="--spark-index: 1"></i
+      ><i class="hhStudioRuleSpark" style="--spark-index: 2"></i
+      ><i class="hhStudioRuleSpark" style="--spark-index: 3"></i>
+    </div>
+  </div>
+<!-- HH_SCENE:signup-room:END -->
         <div class="signupVisualGlow signupVisualGlowOne"></div>
         <div class="signupVisualGlow signupVisualGlowTwo"></div>
         <div class="signupVisualTop">
@@ -115,19 +155,11 @@
           <span class="signupVisualSparkle" aria-hidden="true">✳</span>
         </div>
         <div class="signupVisualMain">
-          <div class="signupIllustration" aria-hidden="true">
-            <div class="signupIllustrationOrbit signupOrbitOne"></div>
-            <div class="signupIllustrationOrbit signupOrbitTwo"></div>
-            <div class="signupIllustrationCenter"><span>✿</span><small>your next<br>favorite thing</small></div>
-            <span class="signupFloatingIcon signupFloatArt">✎</span>
-            <span class="signupFloatingIcon signupFloatMusic">♫</span>
-            <span class="signupFloatingIcon signupFloatLeaf">♧</span>
-            <span class="signupFloatingIcon signupFloatStar">✦</span>
-            <span class="signupTinyDot signupDotOne"></span><span class="signupTinyDot signupDotTwo"></span>
-          </div>
+          <div class="hhAuthMessage">
           <p class="signupHandwritten">A world of little possibilities</p>
           <h2>One small yes can<br><em>open a whole new world.</em></h2>
           <p class="signupVisualCopy">Try something new, find people who get it, and make time for the things that make you feel like you.</p>
+        </div>
         </div>
         <div class="signupVisualBottom">
           <div class="signupVisualBadge" aria-hidden="true">✦</div>
@@ -147,5 +179,7 @@
   <script src="../../shared/js/utils.js"></script>
   <script src="../../shared/js/components.js"></script>
   <script src="signup.js"></script>
+  <script src="../../animation/shared/hobby-studio.js"></script>
+  <script src="../../animation/signup/signup-animation.js"></script>
 </body>
 </html>

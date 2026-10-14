@@ -35,9 +35,9 @@ async function renderFeatured() {
   const activityList = await getFeaturedActivities();
   document.getElementById("featuredGrid").innerHTML = activityList.map((activity, index) => `
       <div class="col-12 col-md-6 col-lg-4 reveal" style="--delay:${index * 90}ms">
-        <a class="featCard hhCard hhCardHover" id="${activity.id}Card" data-activity-id="${activity.id}"
+        <a class="featCard hhCard hhCardHover" id="${activity.id}Card" data-activity-id="${activity.id}" data-activity-type="${escapeHtml(String(activity.type || "Class").toLowerCase())}"
            href="${buildUrl("activity", "?id=" + activity.id)}">
-          <span class="featCardImage" aria-hidden="true"></span>
+          <span class="featCardImage" aria-hidden="true"><img class="featCardCover" src="${escapeHtml(ActivityMedia.resolve(activity))}" alt="" width="1536" height="1024" loading="lazy" decoding="async"></span>
           <span class="featCardTitle">${escapeHtml(activity.title)}</span>
           <span class="featCardRow">
             <span class="featCardMeta">${escapeHtml(activity.type)} · ${formatPrice(activity.priceJod)}</span>
@@ -45,6 +45,7 @@ async function renderFeatured() {
           </span>
         </a>
       </div>`).join("");
+  ActivityMedia.bind(document.getElementById("featuredGrid"));
 }
 
 // Bootstrap accordion: سؤال واحد مفتوح بكل مرة، والأول مفتوح من البداية
@@ -82,6 +83,7 @@ async function initHome() {
     });
   });
   initReveal();                                                     // حركة الظهور عند النزول
+  document.dispatchEvent(new Event("hh:home-ready")); // Decorate the completed page without changing its data flow.
 }
 
 initHome();

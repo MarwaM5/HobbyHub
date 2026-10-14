@@ -1,0 +1,186 @@
+/* The hero revision is isolated from all lower sections and authentication pages. */
+body[data-page='home'] .heroContent {
+  max-width: none;
+  padding-inline: clamp(1.5rem, 5vw, 6rem);
+}
+body[data-page='home'] .heroTitle {
+  width: 40%;
+  text-shadow: 0 2px 15px #fff8f166;
+}
+body[data-page='home'] .heroText {
+  width: 36%;
+  text-shadow: 0 1px 10px #fff8f1;
+}
+body[data-page='home'] .heroActions {
+  max-width: 40%;
+}
+.heroMedia .hhLandscapeVeil {
+  background: radial-gradient(ellipse at 19% 46%, #fff8f1a8 0%, #fff8f15c 27%, transparent 56%);
+}
+.heroMedia .hhGoldenMist {
+  height: 12%;
+  background: linear-gradient(transparent, #fff8f166);
+}
+.hhLivingUniverse {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  perspective: 1200px;
+  isolation: isolate;
+}
+.hhArtifactField {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+.hhLivingArtifact {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  opacity: 0;
+  will-change: transform;
+}
+.hhLivingArtifactArt {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/living-hobby-atlas.webp');
+  background-size: 600% 400%;
+  filter: drop-shadow(5px 10px 7px #4e2c292e);
+  transform: scaleX(var(--artifact-pulse, 1));
+}
+.hhLivingArtifact[data-kind='camera'] .hhLivingArtifactArt::after {
+  content: '';
+  position: absolute;
+  left: 43%;
+  top: 40%;
+  width: 31%;
+  height: 31%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from var(--lens-angle, 0deg),
+    transparent 0deg,
+    #fff9d64a 18deg,
+    transparent 40deg,
+    transparent 170deg,
+    #f6a15a33 190deg,
+    transparent 220deg
+  );
+  mix-blend-mode: screen;
+}
+.hhLivingArtifact[data-kind='guitar'] .hhLivingArtifactArt::after {
+  content: '';
+  position: absolute;
+  left: 48%;
+  top: 34%;
+  width: 4%;
+  height: 30%;
+  background: repeating-linear-gradient(90deg, transparent 0 3px, #fff8f154 4px, transparent 5px);
+  transform: rotate(-28deg) translateX(var(--string-vibration, 0px));
+  opacity: 0.28;
+}
+.heroMedia .hhPortalBackdrop {
+  transform: scale(1.018) translate(var(--landscape-x, 0px), var(--landscape-y, 0px));
+}
+.hhLivePortal {
+  position: absolute;
+  left: calc(var(--live-portal-x) - var(--live-portal-w) / 2);
+  top: calc(var(--live-portal-y) - var(--live-portal-h) / 2);
+  width: var(--live-portal-w);
+  height: var(--live-portal-h);
+  transform: scale(var(--portal-breathe, 1));
+  transform-style: preserve-3d;
+}
+.hhLivingVortex {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 49% 49% 15% 15%;
+  mix-blend-mode: screen;
+  opacity: var(--portal-glow, 0.8);
+}
+.hhPortalAura {
+  position: absolute;
+  inset: -14%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #ffe9a938, transparent 68%);
+  opacity: var(--portal-glow, 0.8);
+  box-shadow: inset 0 0 45px #fff2ac22;
+}
+.hhOpeningFlare {
+  position: absolute;
+  inset: -35%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #fff8e6c9, #ffc47966 30%, transparent 65%);
+  opacity: var(--opening-flare, 0);
+  mix-blend-mode: screen;
+}
+.hhDoorLeaf {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  opacity: clamp(0, calc((1 - var(--door-open, 0)) * 14), 1);
+}
+.hhDoorLeaf > span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  background-image: url('../assets/living-door.webp');
+  /* Fit the opaque leaves, excluding the generated image's alpha padding. */
+  background-size: 232.2% 105.6%;
+  background-position: 12.2% 23%;
+  filter: drop-shadow(4px 5px 5px #593a2744);
+}
+.hhDoorLeafLeft {
+  left: 0;
+  transform-origin: left center;
+  transform: rotateY(calc(var(--door-open, 0) * -100deg));
+}
+.hhDoorLeafRight {
+  right: 0;
+  transform-origin: right center;
+  transform: rotateY(calc(var(--door-open, 0) * 100deg));
+}
+.hhDoorLeafRight > span {
+  background-position: 87.8% 23%;
+}
+.hhPortalBreath {
+  position: absolute;
+  inset: 0;
+  background: url('../assets/portal-world.webp') 69% center/cover no-repeat;
+  mask-image: radial-gradient(ellipse 18% 48% at 78% 43%, #000 58%, transparent 100%);
+  transform: scale(calc(1.018 + (var(--portal-breathe, 1) - 1) * 0.5));
+}
+body[data-page='home'] .heroActions {
+  position: relative;
+  z-index: 2;
+}
+@media (max-width: 1099.98px) {
+  body[data-page='home'] .heroTitle,
+  body[data-page='home'] .heroText {
+    width: 100%;
+  }
+  body[data-page='home'] .heroActions {
+    max-width: 100%;
+  }
+  .heroMedia .hhLandscapeVeil {
+    background: linear-gradient(#fff8f1 0%, #fff8f1e6 26%, #fff8f14d 42%, transparent 56%);
+  }
+  .hhPortalBreath {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hhLivingArtifact {
+    will-change: auto;
+  }
+  .hhOpeningFlare {
+    display: none;
+  }
+}

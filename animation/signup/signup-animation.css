@@ -1,0 +1,60 @@
+/* Signup: a physical door leaf opens in perspective onto the artist-room scene. */
+body[data-page='signup'] .signupVisualMain {
+  padding-block: 0.5rem 1.3rem;
+}
+body[data-page='signup'] .hhArtistRoom {
+  object-position: 66% center;
+}
+body[data-page='signup'] .hhAuthMessage {
+  margin-top: 390px;
+}
+body[data-page='signup'] .hhRoomCaption {
+  top: 18%;
+}
+.hhSignupDoorLeaf {
+  position: absolute;
+  width: 28%;
+  height: 51%;
+  right: 12%;
+  top: 14%;
+  border-radius: 80px 80px 0 0;
+  transform-origin: left center;
+  transform: perspective(850px) rotateY(-82deg);
+  backface-visibility: hidden;
+  background: linear-gradient(100deg, #b85e42, #ed7052 55%, #d95a3b);
+  border: 4px solid #cf7958;
+  box-shadow: inset -7px 0 12px #8e493322;
+  animation: hhSignupDoorOpen 2s 0.15s var(--ease) backwards;
+}
+.hhDoorPanel {
+  position: absolute;
+  inset: 14px;
+  border: 3px solid #f6a15a66;
+  border-radius: 70px 70px 0 0;
+  box-shadow: inset 3px 3px 5px #8e493344;
+}
+.hhDoorKnob {
+  position: absolute;
+  right: 12px;
+  top: 65%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #d6a25b;
+  box-shadow:
+    2px 2px 3px #332e2a55,
+    inset -2px -2px 2px #a78148;
+}
+@keyframes hhSignupDoorOpen {
+  from {
+    transform: perspective(850px) rotateY(0);
+  }
+  to {
+    transform: perspective(850px) rotateY(-82deg);
+  }
+}
+@media (max-width: 900px) {
+  body[data-page='signup'] .hhAuthMessage {
+    margin-top: 335px;
+  }
+}

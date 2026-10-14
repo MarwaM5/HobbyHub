@@ -16,7 +16,17 @@
   <link rel="stylesheet" href="../../shared/css/layout.css">
   <link rel="stylesheet" href="../../shared/css/motion.css">
   <link rel="stylesheet" href="home.css">
-  <link rel="stylesheet" href="animation/homeAnimation.css">
+  <link rel="stylesheet" href="../../animation/home/home-animation.css">
+  <link rel="stylesheet" href="../../animation/home/living-hero.css">
+  <link rel="preload" as="image" href="../../animation/assets/living-hobby-atlas.webp">
+  <link rel="preload" as="image" href="../../animation/assets/living-door.webp">
+  <link rel="preload" as="image" href="../../animation/assets/portal-world.webp">
+  <link rel="stylesheet" href="../../animation/home/trail-story.css" />
+  <link rel="stylesheet" href="../../animation/home/category-world.css" />
+  <link rel="stylesheet" href="../../animation/home/featured-desk.css" />
+  <link rel="stylesheet" href="../../animation/home/community-village.css" />
+  <link rel="stylesheet" href="../../animation/home/faq-guide.css" />
+  <link rel="stylesheet" href="../../animation/home/chapter-finale.css" />
 </head>
 
 <!-- data-root = المسافة من هالصفحة لجذر المشروع -->
@@ -27,35 +37,53 @@
   <main>
 
     <!-- ===== HERO: بياخد كل الشاشة ===== -->
+    <div class="hhWorldJourney">
     <header class="hero" id="hero">
-      <!-- ===== HERO ANIMATION START: لاحقاً بنلصق هون HTML الأنميشن (مكانه heroAnimationSlot) ===== -->
       <div class="heroMedia" id="heroAnimationSlot" aria-hidden="true">
-        <!-- ديكور مؤقت بالـ CSS لحد ما نحط الأنميشن الحقيقي -->
-        <span class="heroBlob heroBlob1"></span>
-        <span class="heroBlob heroBlob2"></span>
-        <span class="heroBlob heroBlob3"></span>
-        <div class="heroBubbles">
-          <span class="heroBubble" style="top:16%; right:14%; --s:92px; --t:6.5s; --d:-1s">🎨</span>
-          <span class="heroBubble" style="top:42%; right:30%; --s:68px; --t:5.5s; --d:-3s">🎸</span>
-          <span class="heroBubble" style="top:62%; right:10%; --s:84px; --t:7s; --d:-2s">📷</span>
-          <span class="heroBubble" style="top:24%; right:36%; --s:60px; --t:6s; --d:-4s">🥾</span>
-          <span class="heroBubble" style="top:74%; right:34%; --s:72px; --t:7.5s; --d:-5s">🍳</span>
-          <span class="heroBubble" style="top:10%; right:50%; --s:56px; --t:5s; --d:-2.5s">♟️</span>
-        </div>
+<!-- HH_SCENE:hero:START -->
+<div class="hhWorldLandscape">
+    <img
+      class="hhPortalBackdrop"
+      src="../../animation/assets/portal-world.webp"
+      alt=""
+      fetchpriority="high"
+      decoding="async"
+      width="1672"
+      height="941"
+    />
+    <span class="hhLandscapeVeil"></span>
+    <div class="hhLivingUniverse" id="hhPortalViewport" aria-hidden="true">
+      <span class="hhPortalBreath"></span>
+      <div class="hhLivePortal">
+        <span class="hhPortalAura"></span><canvas class="hhLivingVortex"></canvas>
+        <span class="hhOpeningFlare"></span>
+        <div class="hhDoorLeaf hhDoorLeafLeft"><span></span></div>
+        <div class="hhDoorLeaf hhDoorLeafRight"><span></span></div>
       </div>
-      <!-- ===== HERO ANIMATION END ===== -->
+      <div class="hhArtifactField"></div>
+    </div>
+    <div class="hhAtmosphericDust"></div>
+    <span class="hhGoldenMist"></span>
+    <span class="hhWorldAnnotation">A whole world of hobbies<br />is waiting for you.</span>
+    <span class="hhPortalAnnotation">Follow your curiosity ↗</span>
+    <svg class="hhCloudTransition" viewBox="0 0 1440 100" preserveAspectRatio="none">
+      <path d="M0 100V58Q160 17 290 59T535 60 800 61 1050 48 1440 52v48Z" fill="#FFF8F1" />
+    </svg>
+  </div>
+<!-- HH_SCENE:hero:END -->
+      </div>
 
       <div class="hhContainer heroContent">
         <p class="heroEyebrow animFadeUp" style="--delay:.1s">Find a hobby that feels like you.</p>
         <h1 class="heroTitle animFadeUp" style="--delay:.25s">
-          Discover something new. <span class="heroMark">Learn something fun.</span> Grow at your own pace.
+          Find Your Next <span class="heroMark">Hobby Adventure</span>
         </h1>
         <p class="heroText animFadeUp" style="--delay:.4s">
-          HobbyHub brings discovery, learning, communities and personal progress together in one place.
+          Discover hobbies, learn new skills, connect with amazing people, and grow into the happiest version of yourself.
         </p>
         <div class="heroActions animFadeUp" style="--delay:.55s">
-          <a class="hhBtn hhBtnPrimary hhBtnLg" id="btnHeroQuiz" data-route="login">Take the Hobby Quiz</a>
-          <a class="hhBtn hhBtnOutline hhBtnLg" id="btnHeroHow" href="#howItWorks">See how it works</a>
+          <a class="hhBtn hhBtnPrimary hhBtnLg" id="btnHeroQuiz" data-route="login">Start Discovering</a>
+          <a class="hhBtn hhBtnOutline hhBtnLg" id="btnHeroHow" href="#howItWorks">Watch the Story <span aria-hidden="true">↘</span></a>
         </div>
       </div>
 
@@ -64,6 +92,41 @@
         <span class="heroScrollArrow" aria-hidden="true">↓</span>
       </a>
     </header>
+    </div>
+
+    <!-- ===== HOW HOBBYHUB WORKS (بيتعبى من home.js) ===== -->
+    <section class="hhSection pt-0" id="howItWorks">
+      <div class="hhContainer">
+<!-- HH_SCENE:trail:START -->
+<div class="hhTrailRibbon" aria-hidden="true">
+    <svg viewBox="0 0 1100 180" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="hhRibbonGold">
+          <stop stop-color="#F6A15A" />
+          <stop offset=".5" stop-color="#ED7052" />
+          <stop offset="1" stop-color="#F6A15A" />
+        </linearGradient>
+      </defs>
+      <path
+        class="hhTrailShadow"
+        d="M10 100C170-25 165 205 300 90S451-24 575 100s165 64 270-13 185-9 245 2"
+      />
+      <path
+        class="hhTrailLine"
+        pathLength="1"
+        d="M10 100C170-25 165 205 300 90S451-24 575 100s165 64 270-13 185-9 245 2"
+      />
+    </svg>
+  </div>
+<!-- HH_SCENE:trail:END -->
+        <div class="hhSectionHead reveal">
+          <p class="hhWorldEyebrow">THE CURIOSITY TRAIL</p>
+          <h2 class="hhSectionTitle">How HobbyHub Works</h2>
+          <p class="hhSectionSub">A simple journey from curiosity to progress.</p>
+        </div>
+        <div class="row g-4" id="stepsGrid"></div>
+      </div>
+    </section>
 
     <!-- ===== EXPLORE BY CATEGORY (بيتعبى من home.js) ===== -->
     <section class="hhSection" id="explore">
@@ -73,17 +136,6 @@
           <p class="hhSectionSub">Pick a starting point and discover hobbies you might love.</p>
         </div>
         <div class="row g-4" id="categoryGrid"></div>
-      </div>
-    </section>
-
-    <!-- ===== HOW HOBBYHUB WORKS (بيتعبى من home.js) ===== -->
-    <section class="hhSection pt-0" id="howItWorks">
-      <div class="hhContainer">
-        <div class="hhSectionHead reveal">
-          <h2 class="hhSectionTitle">How HobbyHub Works</h2>
-          <p class="hhSectionSub">A simple journey from curiosity to progress.</p>
-        </div>
-        <div class="row g-4" id="stepsGrid"></div>
       </div>
     </section>
 
@@ -110,6 +162,30 @@
       </div>
     </section>
 
+<!-- HH_SCENE:islands:START -->
+<section class="hhSection hhArchipelago" id="hobbyIslands">
+    <div class="hhContainer">
+      <div class="hhSectionHead">
+        <p class="hhWorldEyebrow">THE HOBBY ARCHIPELAGO</p>
+        <h2 class="hhSectionTitle">Find your people.<span> Your little world.</span></h2>
+        <p class="hhSectionSub">Explore places where curiosity becomes a shared passion.</p>
+      </div>
+      <div class="hhIslandEnvironment">
+        <div class="hhIslandClouds" aria-hidden="true"></div>
+        <svg
+          class="hhIslandBridges"
+          viewBox="0 0 1100 220"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path pathLength="1" d="M140 95Q270 15 400 119t249 0 290-4" />
+        </svg>
+        <div class="hhIslandGrid" id="hhIslandGrid"></div>
+      </div>
+    </div>
+  </section>
+<!-- HH_SCENE:islands:END -->
+
     <!-- ===== COMMUNITY + AI PANELS ===== -->
     <section class="pb-5" id="panels">
       <div class="hhContainer">
@@ -132,15 +208,96 @@
       </div>
     </section>
 
+<!-- HH_SCENE:memories:START -->
+<section class="hhSection hhMemoryWall" id="creativeMemories">
+    <div class="hhContainer">
+      <div class="hhSectionHead">
+        <p class="hhWorldEyebrow">LITTLE MOMENTS THAT STAY WITH YOU</p>
+        <h2 class="hhSectionTitle">Your memories <span>start here.</span></h2>
+        <p class="hhSectionSub">
+          Your first brushstroke. Your first song. A whole new way of seeing.
+        </p>
+      </div>
+      <div class="hhMemoryBoard">
+        <span class="hhMemoryThread" aria-hidden="true"></span>
+        <article
+          class="hhMemoryCard"
+          style="--paper-angle: -5deg; --diorama-x: 0%; --diorama-y: 0%"
+        >
+          <span class="hhMemoryPin" aria-hidden="true"></span>
+          <div class="hhMemoryImage"><span class="hhDiorama" aria-hidden="true"></span></div>
+          <h3>Something made by you.</h3>
+          <p>What would you love to create with your own hands?</p>
+          <span class="hhHandwritten">a little time to create</span>
+        </article>
+        <article
+          class="hhMemoryCard"
+          style="--paper-angle: 4deg; --diorama-x: 50%; --diorama-y: 0%"
+        >
+          <span class="hhMemoryPin" aria-hidden="true"></span>
+          <div class="hhMemoryImage"><span class="hhDiorama" aria-hidden="true"></span></div>
+          <h3>A song you can call yours.</h3>
+          <p>Every melody starts with one small, imperfect note.</p>
+          <span class="hhHandwritten">keep a little room for joy</span>
+        </article>
+        <article
+          class="hhMemoryCard"
+          style="--paper-angle: -3deg; --diorama-x: 100%; --diorama-y: 0%"
+        >
+          <span class="hhMemoryPin" aria-hidden="true"></span>
+          <div class="hhMemoryImage"><span class="hhDiorama" aria-hidden="true"></span></div>
+          <h3>A different kind of weekend.</h3>
+          <p>Go somewhere new. Notice something you never saw before.</p>
+          <span class="hhHandwritten">there is wonder everywhere</span>
+        </article>
+      </div>
+    </div>
+  </section>
+<!-- HH_SCENE:memories:END -->
+
     <!-- ===== FAQ (بيتعبى من home.js) ===== -->
     <section class="hhSection pt-4" id="faq">
-      <div class="hhContainer">
+      <div class="hhContainer hhFaqGuide">
         <div class="hhSectionHead reveal">
           <h2 class="hhSectionTitle">Frequently Asked Questions</h2>
+          <p class="hhFaqIntro">A little guidance for your next adventure.</p>
+          <div class="hhFaqIllustration" aria-hidden="true">
+            <span class="hhFaqPaper hhFaqPaperBack"></span><span class="hhFaqPaper"></span>
+            <span class="hhFaqCompass"></span>
+            <svg class="hhFaqKey" viewBox="0 0 100 80"><path d="M33 41a18 18 0 1 1 0-36 18 18 0 0 1 0 36Zm13-7 42 36m-16-13 9-10m-1 18 10-10"/><path class="hhFaqKeyHighlight" d="M21 11q14-11 25 5M49 34l37 33"/></svg>
+          </div>
         </div>
         <div class="accordion hhAccordion reveal" id="faqAccordion"></div>
       </div>
     </section>
+
+<!-- HH_SCENE:chapter:START -->
+<section class="hhMagicalChapter" id="nextChapter">
+    <div class="hhContainer hhChapterLayout">
+      <div class="hhBookScene" aria-hidden="true">
+        <span class="hhBookRadiance"></span>
+        <img class="hhBookArtwork" src="../../animation/assets/magical-book.webp" alt="" loading="lazy" decoding="async" width="1536" height="1024" />
+        <div class="hhBookViewport" id="hhBookViewport"></div>
+        <span class="hhBookSpark hhBookSparkOne">✦</span><span class="hhBookSpark hhBookSparkTwo">✧</span>
+      </div>
+      <div class="hhChapterCopy">
+        <p class="hhWorldEyebrow">THE NEXT CHAPTER IS YOURS</p>
+        <h2>Your Next Chapter <span>Starts Here</span></h2>
+        <p>
+          Join a community of curious and creative people, discover new passions, and turn your free
+          time into something amazing.
+        </p>
+        <a
+          class="hhBtn hhBtnPrimary hhBtnLg"
+          id="btnChapterSignup"
+          data-route="signup"
+          href="../signup/signup.html"
+          >Create Your Free Account <span aria-hidden="true">→</span></a
+        ><span class="hhHandwritten">One little step. A whole world of possibilities.</span>
+      </div>
+    </div>
+  </section>
+<!-- HH_SCENE:chapter:END -->
 
   </main>
 
@@ -152,8 +309,19 @@
   <script src="../../shared/js/data.js"></script>
   <script src="../../shared/js/dataService.js"></script>
   <script src="../../shared/js/utils.js"></script>
+  <script src="../../shared/js/activity-media.js"></script>
   <script src="../../shared/js/components.js"></script>
   <script src="home.js"></script>
-  <script src="animation/homeAnimation.js"></script>
+    <script src="../../animation/vendor/three-r160.min.js"></script>
+  <script src="../../animation/shared/models.js"></script>
+  <script src="../../animation/shared/world.js"></script>
+  <script src="../../animation/home/living-hero.js"></script>
+  <script src="../../animation/home/trail-story.js"></script>
+  <script src="../../animation/home/category-world.js"></script>
+  <script src="../../animation/home/featured-desk.js"></script>
+  <script src="../../animation/home/community-village.js"></script>
+  <script src="../../animation/home/chapter-finale.js"></script>
+  <script src="../../animation/home/memory-breeze.js"></script>
+  <script src="../../animation/home/home-animation.js"></script>
 </body>
 </html>

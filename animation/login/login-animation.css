@@ -1,0 +1,18 @@
+/* Login: the welcoming creative corner, with the desk as the foreground. */
+body[data-page='login'] .loginVisualContent {
+  padding-block: 0.5rem 1.3rem;
+}
+body[data-page='login'] .hhAuthDepthStage {
+  inset: 14% 0 27%;
+}
+body[data-page='login'] .hhRoomCaption {
+  top: 17%;
+}
+body[data-page='login'] .hhAuthMessage {
+  margin-top: 290px;
+}
+@media (max-width: 900px) {
+  body[data-page='login'] .hhAuthMessage {
+    margin-top: 335px;
+  }
+}

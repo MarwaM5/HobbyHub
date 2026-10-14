@@ -1,0 +1,150 @@
+<!-- Editable scene sources; sync-scenes.py embeds them into the real Home page. -->
+<template data-hh-scene="hero">
+  <div class="hhWorldLandscape">
+    <img
+      class="hhPortalBackdrop"
+      src="../../animation/assets/portal-world.webp"
+      alt=""
+      fetchpriority="high"
+      decoding="async"
+      width="1672"
+      height="941"
+    />
+    <span class="hhLandscapeVeil"></span>
+    <div class="hhLivingUniverse" id="hhPortalViewport" aria-hidden="true">
+      <span class="hhPortalBreath"></span>
+      <div class="hhLivePortal">
+        <span class="hhPortalAura"></span><canvas class="hhLivingVortex"></canvas>
+        <span class="hhOpeningFlare"></span>
+        <div class="hhDoorLeaf hhDoorLeafLeft"><span></span></div>
+        <div class="hhDoorLeaf hhDoorLeafRight"><span></span></div>
+      </div>
+      <div class="hhArtifactField"></div>
+    </div>
+    <div class="hhAtmosphericDust"></div>
+    <span class="hhGoldenMist"></span>
+    <span class="hhWorldAnnotation">A whole world of hobbies<br />is waiting for you.</span>
+    <span class="hhPortalAnnotation">Follow your curiosity ↗</span>
+    <svg class="hhCloudTransition" viewBox="0 0 1440 100" preserveAspectRatio="none">
+      <path d="M0 100V58Q160 17 290 59T535 60 800 61 1050 48 1440 52v48Z" fill="#FFF8F1" />
+    </svg>
+  </div>
+</template>
+<template data-hh-scene="trail">
+  <div class="hhTrailRibbon" aria-hidden="true">
+    <svg viewBox="0 0 1100 180" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="hhRibbonGold">
+          <stop stop-color="#F6A15A" />
+          <stop offset=".5" stop-color="#ED7052" />
+          <stop offset="1" stop-color="#F6A15A" />
+        </linearGradient>
+      </defs>
+      <path
+        class="hhTrailShadow"
+        d="M10 100C170-25 165 205 300 90S451-24 575 100s165 64 270-13 185-9 245 2"
+      />
+      <path
+        class="hhTrailLine"
+        pathLength="1"
+        d="M10 100C170-25 165 205 300 90S451-24 575 100s165 64 270-13 185-9 245 2"
+      />
+    </svg>
+  </div>
+</template>
+<template data-hh-scene="islands">
+  <section class="hhSection hhArchipelago" id="hobbyIslands">
+    <div class="hhContainer">
+      <div class="hhSectionHead">
+        <p class="hhWorldEyebrow">THE HOBBY ARCHIPELAGO</p>
+        <h2 class="hhSectionTitle">Find your people.<span> Your little world.</span></h2>
+        <p class="hhSectionSub">Explore places where curiosity becomes a shared passion.</p>
+      </div>
+      <div class="hhIslandEnvironment">
+        <div class="hhIslandClouds" aria-hidden="true"></div>
+        <svg
+          class="hhIslandBridges"
+          viewBox="0 0 1100 220"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path pathLength="1" d="M140 95Q270 15 400 119t249 0 290-4" />
+        </svg>
+        <div class="hhIslandGrid" id="hhIslandGrid"></div>
+      </div>
+    </div>
+  </section>
+</template>
+<template data-hh-scene="memories">
+  <section class="hhSection hhMemoryWall" id="creativeMemories">
+    <div class="hhContainer">
+      <div class="hhSectionHead">
+        <p class="hhWorldEyebrow">LITTLE MOMENTS THAT STAY WITH YOU</p>
+        <h2 class="hhSectionTitle">Your memories <span>start here.</span></h2>
+        <p class="hhSectionSub">
+          Your first brushstroke. Your first song. A whole new way of seeing.
+        </p>
+      </div>
+      <div class="hhMemoryBoard">
+        <span class="hhMemoryThread" aria-hidden="true"></span>
+        <article
+          class="hhMemoryCard"
+          style="--paper-angle: -5deg; --diorama-x: 0%; --diorama-y: 0%"
+        >
+          <span class="hhMemoryPin" aria-hidden="true"></span>
+          <div class="hhMemoryImage"><span class="hhDiorama" aria-hidden="true"></span></div>
+          <h3>Something made by you.</h3>
+          <p>What would you love to create with your own hands?</p>
+          <span class="hhHandwritten">a little time to create</span>
+        </article>
+        <article
+          class="hhMemoryCard"
+          style="--paper-angle: 4deg; --diorama-x: 50%; --diorama-y: 0%"
+        >
+          <span class="hhMemoryPin" aria-hidden="true"></span>
+          <div class="hhMemoryImage"><span class="hhDiorama" aria-hidden="true"></span></div>
+          <h3>A song you can call yours.</h3>
+          <p>Every melody starts with one small, imperfect note.</p>
+          <span class="hhHandwritten">keep a little room for joy</span>
+        </article>
+        <article
+          class="hhMemoryCard"
+          style="--paper-angle: -3deg; --diorama-x: 100%; --diorama-y: 0%"
+        >
+          <span class="hhMemoryPin" aria-hidden="true"></span>
+          <div class="hhMemoryImage"><span class="hhDiorama" aria-hidden="true"></span></div>
+          <h3>A different kind of weekend.</h3>
+          <p>Go somewhere new. Notice something you never saw before.</p>
+          <span class="hhHandwritten">there is wonder everywhere</span>
+        </article>
+      </div>
+    </div>
+  </section>
+</template>
+<template data-hh-scene="chapter">
+  <section class="hhMagicalChapter" id="nextChapter">
+    <div class="hhContainer hhChapterLayout">
+      <div class="hhBookScene" aria-hidden="true">
+        <span class="hhBookRadiance"></span>
+        <img class="hhBookArtwork" src="../../animation/assets/magical-book.webp" alt="" loading="lazy" decoding="async" width="1536" height="1024" />
+        <div class="hhBookViewport" id="hhBookViewport"></div>
+        <span class="hhBookSpark hhBookSparkOne">✦</span><span class="hhBookSpark hhBookSparkTwo">✧</span>
+      </div>
+      <div class="hhChapterCopy">
+        <p class="hhWorldEyebrow">THE NEXT CHAPTER IS YOURS</p>
+        <h2>Your Next Chapter <span>Starts Here</span></h2>
+        <p>
+          Join a community of curious and creative people, discover new passions, and turn your free
+          time into something amazing.
+        </p>
+        <a
+          class="hhBtn hhBtnPrimary hhBtnLg"
+          id="btnChapterSignup"
+          data-route="signup"
+          href="../signup/signup.html"
+          >Create Your Free Account <span aria-hidden="true">→</span></a
+        ><span class="hhHandwritten">One little step. A whole world of possibilities.</span>
+      </div>
+    </div>
+  </section>
+</template>

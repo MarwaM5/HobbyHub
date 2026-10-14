@@ -1,0 +1,12 @@
+# Chapter book image prompts
+
+Generated with the built-in ImageGen tool. Reference: the existing `magical-book.webp`, used for matching leather, ornament and camera. Assets saved in the HobbyHub project's `animation/assets/chapter-book-closed.webp` and `chapter-book-open.webp`. Original generated PNGs retained in Codex; WebP conversion preserves composition and transparency.
+
+## closed
+
+Use case: stylized-concept. Generate a new transparent 1536x1024 illustration asset for HobbyHub animation. The referenced open magical book is a STYLE, MATERIALS AND CAMERA reference only. Render the SAME richly carved warm terracotta leather book and gold embossed floral filigree, thick warm ivory page edges, ornate copper clasps, beautiful tactile leather and golden rim lighting, but CLOSED, no objects growing out of it. Perspective is a frontal slightly elevated 3/4 view with spine on LEFT, fore edge on RIGHT, cover top visible. Book fills lower central 65% of canvas width, bottom at 94%, top at 42%, ample transparent air above, book only, no table, no floating islands, no plants, no humans. On the cover very subtle embossed exact text 'HobbyHub' centered. High-end cinematic whimsical realism, rich saturated terracotta #ED7052 and amber #F6A15A, creamy #FFF8F1, isolated true alpha, no checkerboard. Do not copy any camera/guitar/portal from reference; this is the closed state before opening.
+
+## open
+
+Use case: stylized-concept. Generate a new transparent 1536x1024 animation asset of the SAME OPEN leather book in reference image, matching the reference's frontal slightly elevated camera, ornate terracotta leather, gold embossing, thick creamy parchment layers and exactly the broad left and right pages curving toward the center spine. But REMOVE all portal, plants, flowers, photographs, instruments, camera, tools and other objects above the pages: just the beautiful open book with blank lightly botanical engraved parchment and a soft warm golden glow from the center crease. Width 93% canvas, bottom at94%, uppermost page edges at54%; upper half fully transparent with no objects. The front carved leather covers and page curvature must be highly detailed and physically dimensional, no human, no text, no frame, no table, no checkerboard. High-end cinematic whimsical realistic 3D illustration, match warm terracotta and amber palette exactly. This is a CLEAN OPEN BOOK stage for separate hobby objects to emerge later.
+

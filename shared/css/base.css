@@ -30,7 +30,7 @@
   --shadowSoft: 0 6px 24px rgba(237, 112, 82, 0.10);
   --shadowHover: 0 16px 36px rgba(237, 112, 82, 0.20);
   /* مقاسات عامة */
-  --navH: 92px;                 /* ارتفاع الـ navbar (الهيرو بيعتمد عليه) */
+  --navH: 84px;                 /* ارتفاع الـ navbar (الهيرو بيعتمد عليه) */
   --containerMax: 1440px;           /* أقصى عرض (شاشات عادية بتاخد العرض كامل) */
   --pagePadX: clamp(1.25rem, 3.5vw, 3.5rem);  /* الهامش الجانبي: بيكبر مع الشاشة وبيصغر عالموبايل */
   /* Shared rhythm: all feature pages use the same canvas and spacing. */

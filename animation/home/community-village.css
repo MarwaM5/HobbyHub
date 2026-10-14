@@ -1,0 +1,348 @@
+/* A connected village; intrinsic spacing keeps every community sign outside the artwork. */
+.hhCommunityVillage {
+  isolation: isolate;
+  background: radial-gradient(ellipse at 50% 58%, #e6eee255, transparent 73%);
+}
+.hhCommunityVillage .hhSectionHead {
+  margin-bottom: 1.5rem;
+}
+.hhCommunityVillage .hhIslandEnvironment {
+  position: relative;
+  max-width: 1180px;
+  margin: auto;
+}
+.hhCommunityVillage .hhIslandClouds {
+  inset: 12% -5% 8%;
+  opacity: 0.75;
+  pointer-events: none;
+}
+.hhCommunityVillage .hhIslandGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+  padding: 1rem 0 2rem;
+}
+.hhCommunityVillage .hhIslandCard,
+.hhCommunityVillage .hhIslandCard:hover,
+.hhCommunityVillage .hhIslandCard:focus-visible,
+.hhCommunityVillage .hhIslandCard.isAwake {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  padding: 0;
+  transform: none;
+  animation: none;
+  color: var(--hhText);
+  position: relative;
+  z-index: 2;
+}
+.hhCommunityVillage .hhIslandCard[data-village-home='0'] {
+  padding-top: 22px;
+}
+.hhCommunityVillage .hhIslandCard[data-village-home='2'] {
+  padding-top: 14px;
+}
+.hhCommunityVillage .hhIslandCard[data-village-home='3'] {
+  padding-top: 36px;
+}
+.hhCommunityVillage .hhIslandCard:focus-visible {
+  outline: 2px solid var(--hhPrimary);
+  outline-offset: 6px;
+  border-radius: 18px;
+}
+.hhVillageHome {
+  display: block;
+  position: relative;
+  width: min(100%, 260px);
+  aspect-ratio: 1;
+  margin-bottom: 1.4rem;
+  pointer-events: none;
+  transform: translateY(0);
+  transition: transform 0.55s;
+}
+.hhVillageHome > .hhDiorama {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 13px 10px #9d6b4b22);
+  animation: hhVillageBreathe 9s var(--village-phase, 0s) ease-in-out infinite;
+}
+.hhVillageDetails {
+  position: absolute;
+  inset: 0;
+}
+.hhVillageWindow {
+  position: absolute;
+  width: 13%;
+  height: 17%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #f6a15a99, #f6a15a22 55%, transparent 75%);
+  mix-blend-mode: screen;
+  opacity: 0.5;
+  animation: hhVillageLamplight 6s var(--village-phase, 0s) ease-in-out infinite;
+}
+.hhVillageArtWindow {
+  left: 59%;
+  top: 27%;
+}
+.hhVillageMusicWindow {
+  left: 65%;
+  top: 21%;
+}
+.hhVillageGardenWindow {
+  left: 66%;
+  top: 34%;
+}
+.hhVillageReadingWindow {
+  left: 56%;
+  top: 17%;
+}
+.hhVillagePaintLight {
+  position: absolute;
+  left: 33%;
+  top: 35%;
+  width: 12%;
+  height: 13%;
+  background: radial-gradient(ellipse, #f6a15a44, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.hhVillageNote {
+  position: absolute;
+  font-size: 1.45rem;
+  color: var(--hhPrimary);
+  text-shadow: 0 1px 3px #9d6b4b22;
+  animation: hhVillageMelody 5s ease-out infinite;
+}
+.hhVillageNoteOne {
+  left: 21%;
+  top: 4%;
+}
+.hhVillageNoteTwo {
+  left: 77%;
+  top: 9%;
+  animation-delay: -2.5s;
+}
+.hhVillagePlant {
+  position: absolute;
+  left: 13%;
+  top: 57%;
+  width: 25%;
+  aspect-ratio: 1;
+  background: url('../assets/living-hobby-atlas.webp') 60% 0 / 600% 400%;
+  filter: drop-shadow(1px 3px 2px #9d6b4b22);
+  transform-origin: 50% 90%;
+  animation: hhVillageLeaves 7s ease-in-out infinite;
+}
+.hhVillageReadingLight {
+  position: absolute;
+  left: 33%;
+  top: 48%;
+  width: 31%;
+  height: 14%;
+  background: radial-gradient(ellipse, #f6a15a33, transparent 65%);
+  animation: hhVillageLamplight 6s -2s ease-in-out infinite;
+}
+.hhCommunityVillage .hhIslandLabel {
+  width: calc(100% - 12px);
+  max-width: 275px;
+  padding: 0.85rem 0.6rem;
+  border: 1px solid #f0d9ca;
+  border-radius: 8px 8px 15px 15px;
+  background: linear-gradient(100deg, #fff8f1, #fffdf8);
+  box-shadow: 0 5px 13px #9d6b4b0c;
+  backdrop-filter: none;
+  transition:
+    transform 0.4s,
+    border-color 0.4s,
+    box-shadow 0.4s;
+}
+.hhCommunityVillage .hhIslandLabel strong {
+  display: block;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.hhCommunityVillage .hhIslandLabel small {
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+.hhCommunityVillage .hhIslandLabel::before,
+.hhCommunityVillage .hhIslandLabel::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 17px;
+  top: -17px;
+  background: #c98a4866;
+}
+.hhCommunityVillage .hhIslandLabel::before {
+  left: 20%;
+}
+.hhCommunityVillage .hhIslandLabel::after {
+  right: 20%;
+}
+.hhVillageSelected .hhVillageHome {
+  transform: translateY(-5px);
+}
+.hhCommunityVillage .hhVillageSelected .hhIslandLabel {
+  transform: translateY(-3px);
+  border-color: var(--hhPrimary);
+  box-shadow: 0 9px 18px #9d6b4b14;
+}
+.hhVillageSelected .hhVillageWindow {
+  opacity: 1;
+  animation: none;
+}
+.hhVillageSelected .hhVillagePaintLight {
+  opacity: 1;
+}
+.hhCommunityVillage .hhIslandBridges {
+  position: absolute;
+  inset: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  z-index: 1;
+  pointer-events: none;
+}
+.hhCommunityVillage .hhIslandBridges path {
+  fill: none;
+  stroke-dashoffset: 0;
+  filter: none;
+}
+.hhCommunityVillage .hhIslandBridges .hhVillageBridgeRail {
+  stroke: #ba8b5766;
+  stroke-width: 10;
+  stroke-dasharray: none;
+}
+.hhCommunityVillage .hhIslandBridges .hhVillageBridgePlanks {
+  stroke: #c98a4877;
+  stroke-width: 8;
+  stroke-dasharray: 3 5;
+}
+.hhCommunityVillage .hhIslandBridges .hhVillageBridgeLight {
+  stroke: #f6a15a;
+  stroke-width: 2;
+  stroke-dasharray: none;
+  opacity: 0.12;
+  transition: opacity 0.4s;
+}
+.hhCommunityVillage .hhIslandBridges .hhVillageBridgeLight.hhVillageLit {
+  opacity: 1;
+  filter: drop-shadow(0 0 4px #ed705277);
+}
+.hhCommunityVillage:not(.hhVillageVisible) .hhVillageHome *,
+.hhCommunityVillage .hhIslandCard:not(.hhHomeVisible) .hhVillageHome *,
+.hhCommunityVillage.hhVillagePaused .hhVillageHome * {
+  animation-play-state: paused !important;
+}
+/* Memory content and original paper angles remain untouched. Motion pivots around the pin. */
+.hhMemoryWall.hhLivingMemories .hhMemoryBoard {
+  perspective: 1100px;
+}
+.hhMemoryWall.hhLivingMemories .hhMemoryCard {
+  transform-origin: 50% 0;
+  animation: hhMemoryBreeze 9s var(--memory-phase, 0s) ease-in-out infinite;
+}
+.hhMemoryWall.hhLivingMemories .hhMemoryCard:not(.hhMemoryMoving),
+.hhMemoryWall.hhLivingMemories.hhVillagePaused .hhMemoryCard {
+  animation-play-state: paused;
+}
+@keyframes hhVillageBreathe {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+@keyframes hhVillageLamplight {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+@keyframes hhVillageMelody {
+  0% {
+    opacity: 0;
+    transform: translateY(7px) rotate(-8deg);
+  }
+  35% {
+    opacity: 0.65;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-9px) rotate(8deg);
+  }
+}
+@keyframes hhVillageLeaves {
+  0%,
+  100% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+}
+@keyframes hhMemoryBreeze {
+  0%,
+  100% {
+    transform: rotate(var(--paper-angle)) rotateX(-1deg) translateY(0);
+  }
+  50% {
+    transform: rotate(calc(var(--paper-angle) + 0.55deg)) rotateX(1.6deg) translateY(-2px);
+  }
+}
+@media (max-width: 1000px) {
+  .hhCommunityVillage .hhIslandGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem 1.5rem;
+  }
+  .hhCommunityVillage .hhIslandCard[data-village-home] {
+    padding-top: 0;
+  }
+}
+@media (max-width: 599.98px) {
+  .hhCommunityVillage .hhIslandGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding-inline: 2rem;
+  }
+  .hhCommunityVillage .hhIslandGrid::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 45px;
+    bottom: 45px;
+    border-left: 2px dashed #f6a15a55;
+  }
+  .hhCommunityVillage .hhIslandBridges {
+    display: none;
+  }
+  .hhVillageHome {
+    width: min(100%, 250px);
+  }
+  .hhCommunityVillage .hhIslandLabel {
+    max-width: 285px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hhCommunityVillage .hhVillageHome *,
+  .hhCommunityVillage .hhIslandLabel,
+  .hhCommunityVillage .hhIslandBridges path,
+  .hhMemoryWall.hhLivingMemories .hhMemoryCard {
+    animation: none !important;
+    transition: none !important;
+  }
+  .hhVillageSelected .hhVillageHome,
+  .hhCommunityVillage .hhVillageSelected .hhIslandLabel {
+    transform: none;
+  }
+}

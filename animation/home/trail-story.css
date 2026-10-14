@@ -1,0 +1,311 @@
+/* The Curiosity Trail: one open landscape, four readable chapters. */
+body[data-page='home'] #howItWorks {
+  isolation: isolate;
+  padding-block: clamp(2.5rem, 5vw, 4rem) !important;
+  background: radial-gradient(ellipse at 20% 52%, #fce9d966, transparent 48%),
+    radial-gradient(ellipse at 85% 60%, #e6eee255, transparent 46%);
+}
+#howItWorks > .hhContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+#howItWorks .hhSectionHead {
+  order: 1;
+}
+#howItWorks #stepsGrid {
+  order: 2;
+}
+#howItWorks .hhSectionHead {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 1.2rem;
+}
+#howItWorks .hhTrailRibbon {
+  inset: 145px 3% auto;
+  height: 240px;
+  opacity: 0.65;
+  z-index: -1;
+}
+#howItWorks .hhTrailShadow {
+  stroke-width: 10;
+}
+#howItWorks .hhTrailLine {
+  stroke-width: 2;
+}
+#howItWorks #stepsGrid {
+  position: relative;
+  margin-top: 0;
+}
+body[data-page='home'] #howItWorks .stepCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 0.65rem 1rem;
+  border-radius: 24px;
+  transform: none;
+  background: transparent;
+  transition: background-color 0.35s;
+}
+#howItWorks .stepCard:hover {
+  background: #fff8f166;
+}
+#howItWorks .stepCard:focus-visible {
+  outline: 2px solid var(--hhPrimary);
+  outline-offset: 5px;
+}
+#howItWorks .stepCardNum {
+  width: 34px;
+  height: 34px;
+  font-size: 0.82rem;
+  transition: box-shadow 0.4s;
+}
+#howItWorks .hhTrailPlaying .stepCardNum {
+  box-shadow: 0 0 0 6px #f6a15a20;
+}
+#howItWorks .stepCardTitle {
+  margin-top: 0.65rem;
+}
+#howItWorks .stepCardText {
+  max-width: 19em;
+  line-height: 1.65;
+  margin-bottom: 0.5rem;
+}
+#howItWorks .stepCardArrow {
+  position: static;
+  opacity: 1;
+  transform: none;
+  margin-top: auto;
+}
+.hhTrailStage {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.5;
+  margin: 0.4rem 0 1rem;
+  pointer-events: none;
+  --chapter-progress: 0;
+  --chapter-ease: 0;
+}
+.hhTrailArt,
+.hhGatherWorld,
+.hhGrowthTree {
+  position: absolute;
+  inset: 0;
+  background: url('../assets/curiosity-trail.webp') no-repeat;
+  background-size: 200% 200%;
+  filter: drop-shadow(0 12px 9px #9d6b4b14);
+}
+[data-chapter='0'] .hhTrailArt {
+  background-position: 0 0;
+}
+[data-chapter='1'] .hhTrailArt {
+  background-position: 100% 0;
+}
+.hhDiscoveryLens {
+  position: absolute;
+  width: 23%;
+  aspect-ratio: 1;
+  left: var(--lens-x, 26%);
+  top: var(--lens-y, 31%);
+  transform: translate(-50%, -50%) rotate(-24deg);
+  border-radius: 50%;
+  border: 5px solid #c98a48;
+  background: radial-gradient(circle at 30% 25%, #fff8f199, #f6a15a0a 65%);
+  box-shadow:
+    inset 0 0 0 2px #f6a15a,
+    inset 0 0 12px #f6a15a66,
+    3px 6px 9px #9d6b4b33;
+  transition:
+    left 0.8s ease,
+    top 0.8s ease;
+}
+.hhDiscoveryLens::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 70%;
+  top: 93%;
+  left: 44%;
+  border-radius: 3px 3px 8px 8px;
+  background: linear-gradient(90deg, #9d6b4b, #ed7052 45%, #9d6b4b);
+  box-shadow: 2px 3px 5px #9d6b4b33;
+}
+.hhDiscoveryLens i {
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  border-top: 2px solid #fff8f1cc;
+}
+.hhDiscoveryHalo {
+  position: absolute;
+  inset: 16% 8% 18%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #f6a15a33, transparent 65%);
+  mix-blend-mode: multiply;
+  opacity: var(--chapter-ease);
+}
+.hhDiscoveryFind,
+.hhGrowthMoment {
+  position: absolute;
+  bottom: 1%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--hhPrimaryDark);
+  background: #fff8f1e6;
+  border: 1px solid #f0d9ca;
+  border-radius: 30px;
+  padding: 0.35rem 0.7rem;
+  box-shadow: 0 4px 12px #9d6b4b0f;
+}
+.hhLearningPainting {
+  position: absolute;
+  left: 52%;
+  top: 21%;
+  width: 25%;
+  height: 34%;
+  transform: skewY(-5deg);
+  overflow: visible;
+}
+.hhLearningPainting path,
+.hhLearningPainting circle {
+  fill: none;
+  stroke: #ed7052;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--paint, 0));
+}
+.hhLearningPainting circle {
+  stroke: #f6a15a;
+}
+.hhLearningBrush {
+  position: absolute;
+  left: var(--brush-x, 55%);
+  top: var(--brush-y, 23%);
+  width: 23%;
+  aspect-ratio: 1;
+  background: url('../assets/living-hobby-atlas.webp') 0 100% / 600% 400%;
+  transform: translate(-30%, -60%) rotate(var(--brush-angle, -28deg));
+  filter: drop-shadow(2px 4px 3px #9d6b4b22);
+  opacity: calc(1 - var(--chapter-progress) * 0.35);
+}
+.hhLearningGlow {
+  position: absolute;
+  left: 52%;
+  top: 20%;
+  width: 26%;
+  height: 35%;
+  border-radius: 50%;
+  box-shadow: 0 0 25px #f6a15a33;
+  opacity: var(--paint, 0);
+}
+/* Keep the complete illustration: splitting it into polygons clipped the islands. */
+.hhGatherWorld {
+  /* The right island crosses the atlas midpoint: include its full 12% overhang.
+     Inverse background width keeps the artwork at its original scale. */
+  right: -12%;
+  background-size: 178.5714286% 200%;
+  background-position: 0 100%;
+  transform-origin: 50% 65%;
+  transform: translateY(calc((1 - var(--chapter-ease)) * 5px))
+    scale(calc(0.96 + var(--chapter-ease) * 0.04));
+}
+.hhGatherNodes {
+  fill: #f6a15a;
+  opacity: var(--bridge, 0);
+  filter: drop-shadow(0 0 3px #ed7052);
+}
+.hhGatherBridges {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.hhGatherBridges path {
+  fill: none;
+  stroke: #f6a15a;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--bridge, 0));
+  filter: drop-shadow(0 0 3px #ed7052);
+}
+.hhConnectionLight {
+  position: absolute;
+  left: 48%;
+  top: 46%;
+  font-size: 1.5rem;
+  color: #f6a15a;
+  opacity: var(--bridge, 0);
+  text-shadow: 0 0 12px #ed7052;
+}
+.hhGrowthTree {
+  /* Exclude the Connect overhang from the neighboring tree tile. */
+  clip-path: inset(0 0 0 12%);
+  background-position: 100% 100%;
+  transform-origin: 50% 91%;
+  transform: scale(calc(0.16 + var(--tree, 0) * 0.84));
+  opacity: var(--tree, 0);
+}
+.hhGrowthSeed {
+  position: absolute;
+  inset: 40% 29% 0;
+  background: url('../assets/living-hobby-atlas.webp') 60% 0 / 600% 400%;
+  opacity: var(--seed, 1);
+  transform-origin: bottom;
+  transform: scale(0.7);
+}
+.hhGrowthLight {
+  position: absolute;
+  inset: 16% 20% 5%;
+  background: radial-gradient(ellipse, #f6a15a33, transparent 65%);
+  opacity: var(--tree, 0);
+  z-index: -1;
+}
+.hhGrowthMoment {
+  opacity: var(--tree, 0);
+  font-size: 0.65rem;
+  bottom: -1%;
+}
+@media (min-width: 1100px) {
+  #howItWorks #stepsGrid > div {
+    width: 25%;
+  }
+}
+@media (max-width: 1099.98px) {
+  #howItWorks #stepsGrid > div {
+    width: 50%;
+  }
+  #howItWorks .hhTrailRibbon {
+    display: none;
+  }
+  .hhTrailStage {
+    max-width: 350px;
+  }
+}
+@media (max-width: 599.98px) {
+  #howItWorks #stepsGrid > div {
+    width: 100%;
+  }
+  .hhTrailStage {
+    max-width: 330px;
+    margin-bottom: 0.5rem;
+  }
+  #howItWorks .stepCard {
+    padding-bottom: 1.4rem;
+  }
+  #howItWorks .stepCardText {
+    max-width: 25em;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hhDiscoveryLens {
+    transition: none;
+  }
+}

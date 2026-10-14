@@ -1,0 +1,600 @@
+/* Open category landscape; scoped to Explore only. */
+body[data-page='home'] #explore.hhCategoryWorld {
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+  background: radial-gradient(ellipse at 18% 30%, #fce9d955, transparent 48%),
+    radial-gradient(ellipse at 78% 70%, #e6eee255, transparent 48%);
+}
+.hhCategoryWorld .hhSectionHead {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 0.5rem;
+}
+/* Intrinsic row heights reserve space for names and links at every zoom level. */
+.hhCategoryWorld #categoryGrid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 26%));
+  justify-content: space-between;
+  align-items: start;
+  row-gap: 48px;
+  max-width: 1180px;
+  margin: 0 auto;
+  isolation: isolate;
+}
+.hhCategoryWorld #categoryGrid > [data-world-index] {
+  position: relative;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transform: none;
+  z-index: 2;
+}
+.hhCategoryWorld #categoryGrid > [data-world-index='0'] {
+  padding-top: 66px;
+}
+.hhCategoryWorld #categoryGrid > [data-world-index='1'] {
+  padding-top: 0 !important;
+}
+.hhCategoryWorld #categoryGrid > [data-world-index='2'] {
+  padding-top: 80px;
+}
+.hhCategoryWorld #categoryGrid > [data-world-index='3'] {
+  left: 32%;
+  padding-top: 30px;
+}
+.hhCategoryWorld #categoryGrid > [data-world-index='4'] {
+  left: 15%;
+  padding-top: 0 !important;
+}
+.hhCategoryWorld #categoryGrid > [data-world-index='5'] {
+  padding-top: 55px;
+}
+body[data-page='home'] .hhCategoryWorld .catCard,
+body[data-page='home'] .hhCategoryWorld .catCard:hover,
+body[data-page='home'] .hhCategoryWorld .catCard:focus-visible {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-height: 0;
+  height: auto;
+  padding: 0 0.25rem 0.6rem;
+  border: 0;
+  border-radius: 28px;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+  animation: none;
+  text-align: center;
+  color: var(--hhText);
+}
+body[data-page='home'] .hhCategoryWorld .catCard:focus-visible {
+  outline: 2px solid var(--hhPrimary);
+  outline-offset: 6px;
+}
+.hhCategoryWorld .catCardTop {
+  gap: 0.5rem;
+  transform: none;
+  justify-content: center;
+}
+.hhCategoryWorld .catCardDot {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 9px;
+}
+.hhCategoryWorld .catCardName {
+  font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+  line-height: 1.4;
+}
+.hhCategoryWorld .catCardHobbies {
+  max-width: 24em;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+.hhCategoryWorld .catCardLink {
+  transform: none;
+  margin-top: 0.35rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.hhCategoryScene {
+  position: relative;
+  display: block;
+  width: min(100%, 240px);
+  aspect-ratio: 1;
+  flex-shrink: 0;
+  margin-bottom: 0.7rem;
+  pointer-events: none;
+  transform: perspective(900px) translateY(0) rotateX(0);
+  transition: transform 0.55s cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+.hhCategoryWorld .hhCategoryScene > .hhDiorama {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 300% 200%;
+  transform: none;
+  filter: drop-shadow(0 15px 12px #9d6b4b20);
+  animation: hhCategoryFloat 8s var(--world-phase, 0s) ease-in-out infinite;
+}
+.hhCategoryWorld .catCard.isCategoryActive .hhCategoryScene {
+  transform: perspective(900px) translateY(-11px) rotateX(4deg);
+}
+.hhCategoryWorld .catCard.isCategoryActive .catCardName {
+  color: var(--hhPrimaryDark);
+}
+.hhCategoryWorld .catCard.isCategoryActive .catCardArrow {
+  transform: translateX(6px);
+}
+.hhCategoryWorld.isWorldVisible .hhCategoryScene {
+  animation: hhCategoryArrive 0.9s var(--world-entry-delay, 0s) cubic-bezier(0.2, 0.75, 0.2, 1)
+    backwards;
+}
+.hhCategoryDetails {
+  position: absolute;
+  inset: 0;
+}
+.hhCategoryIslandGlow {
+  position: absolute;
+  inset: 20% -3% 0;
+  background: radial-gradient(ellipse, #f6a15a33, transparent 65%);
+  opacity: 0.2;
+  transition: opacity 0.5s;
+}
+.isCategoryActive .hhCategoryIslandGlow,
+.hhActorAwake .hhCategoryIslandGlow {
+  opacity: 1;
+}
+.hhCategoryActor {
+  position: absolute;
+  display: block;
+  width: 29%;
+  aspect-ratio: 1;
+  background-image: url('../assets/living-hobby-atlas.webp');
+  background-repeat: no-repeat;
+  background-size: 600% 400%;
+  filter: drop-shadow(2px 5px 4px #9d6b4b33);
+  transform-origin: 50% 80%;
+}
+.hhCategoryBrush {
+  background-position: 0 100%;
+  left: 2%;
+  top: 8%;
+  transform: rotate(-20deg);
+}
+.hhCategoryPaint {
+  position: absolute;
+  left: 4%;
+  top: 7%;
+  width: 35%;
+  height: 23%;
+  overflow: visible;
+}
+.hhCategoryPaint path {
+  fill: none;
+  stroke: #ed7052;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.isCategoryActive .hhCategoryBrush,
+.hhActorAwake .hhCategoryBrush {
+  animation: hhCategoryBrushDraw 2.8s ease-in-out infinite;
+}
+.isCategoryActive .hhCategoryPaint path,
+.hhActorAwake .hhCategoryPaint path {
+  animation: hhCategoryPaintDraw 2.8s ease-in-out infinite;
+}
+.hhCategoryGuitar {
+  background-position: 20% 0;
+  width: 30%;
+  left: 73%;
+  top: 12%;
+  transform: rotate(12deg);
+}
+.isCategoryActive .hhCategoryGuitar,
+.hhActorAwake .hhCategoryGuitar {
+  animation: hhCategoryStrum 2.8s ease-in-out infinite;
+}
+.hhCategoryNote {
+  position: absolute;
+  font-size: 1.5rem;
+  color: var(--hhPrimary);
+  text-shadow: 0 2px 5px #9d6b4b20;
+  opacity: 0;
+}
+.hhCategoryNoteOne {
+  left: 82%;
+  top: 3%;
+}
+.hhCategoryNoteTwo {
+  left: 69%;
+  top: -2%;
+}
+.isCategoryActive .hhCategoryNote,
+.hhActorAwake .hhCategoryNote {
+  animation: hhCategoryNotes 2.8s ease-out infinite;
+}
+.isCategoryActive .hhCategoryNoteTwo,
+.hhActorAwake .hhCategoryNoteTwo {
+  animation-delay: 0.6s;
+}
+.hhCategoryCompass {
+  background-position: 60% 33.333333%;
+  left: 1%;
+  top: 18%;
+  width: 30%;
+}
+.hhCategoryCompassHalo {
+  position: absolute;
+  left: 7%;
+  top: 24%;
+  width: 18%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px dashed #f6a15a99;
+  opacity: 0;
+}
+.isCategoryActive .hhCategoryCompass,
+.hhActorAwake .hhCategoryCompass {
+  animation: hhCategoryFindNorth 3.2s ease-in-out infinite;
+}
+.isCategoryActive .hhCategoryCompassHalo,
+.hhActorAwake .hhCategoryCompassHalo {
+  opacity: 1;
+}
+.hhCategoryBall {
+  background: none;
+  left: 68%;
+  top: 10%;
+  width: 22%;
+  filter: drop-shadow(2px 4px 3px #9d6b4b33);
+}
+.hhCategoryBall svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.hhCategoryBallShadow {
+  position: absolute;
+  left: 69%;
+  top: 39%;
+  width: 21%;
+  height: 6%;
+  background: radial-gradient(ellipse, #9d6b4b33, transparent 70%);
+}
+.isCategoryActive .hhCategoryBall,
+.hhActorAwake .hhCategoryBall {
+  animation: hhCategoryBounce 1.4s cubic-bezier(0.36, 0, 0.66, 1) infinite;
+}
+.isCategoryActive .hhCategoryBallShadow,
+.hhActorAwake .hhCategoryBallShadow {
+  animation: hhCategoryBounceShadow 1.4s ease-in-out infinite;
+}
+.hhCategoryCoffee {
+  background-position: 0 66.666667%;
+  left: 74%;
+  top: 21%;
+  width: 30%;
+}
+.hhCategorySteam {
+  position: absolute;
+  left: 78%;
+  top: 0;
+  width: 19%;
+  height: 28%;
+  opacity: 0;
+}
+.hhCategorySteam path {
+  fill: none;
+  stroke: #c98a48;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.isCategoryActive .hhCategorySteam,
+.hhActorAwake .hhCategorySteam {
+  animation: hhCategorySteamRise 3s ease-out infinite;
+}
+.hhCategoryChess {
+  background-position: 20% 66.666667%;
+  left: 0;
+  top: 22%;
+  width: 27%;
+}
+.isCategoryActive .hhCategoryChess,
+.hhActorAwake .hhCategoryChess {
+  animation: hhCategoryChessMove 3s ease-in-out infinite;
+}
+.hhCategoryChessOrbit {
+  position: absolute;
+  left: 5%;
+  top: 47%;
+  width: 24%;
+  height: 8%;
+  border: 1px solid #f6a15a66;
+  border-radius: 50%;
+  opacity: 0;
+}
+.isCategoryActive .hhCategoryChessOrbit,
+.hhActorAwake .hhCategoryChessOrbit {
+  opacity: 1;
+}
+.hhCategoryAtmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.hhCategoryRoutes {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.hhCategoryRoutes path {
+  fill: none;
+  stroke-linecap: round;
+}
+.hhCategoryRouteSoft {
+  stroke: #f6a15a14;
+  stroke-width: 14;
+}
+.hhCategoryRouteLine {
+  stroke: url(#hhCategoryRouteGold);
+  stroke-width: 1.5;
+  opacity: 0.45;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  filter: drop-shadow(0 0 4px #f6a15a55);
+}
+.isWorldVisible .hhCategoryRouteLine {
+  animation: hhCategoryRouteReveal 1.7s ease-out forwards;
+}
+.hhCategoryCloud {
+  position: absolute;
+  width: 65%;
+  height: 32%;
+  background: radial-gradient(ellipse, #fff8f1dd, transparent 70%);
+}
+.hhCategoryCloudOne {
+  left: -15%;
+  top: 28%;
+}
+.hhCategoryCloudTwo {
+  right: -20%;
+  top: 70%;
+}
+.hhCategoryWorld .catCard:not(.isCategoryVisible) .hhCategoryScene,
+.hhCategoryWorld .catCard:not(.isCategoryVisible) .hhCategoryScene *,
+.hhCategoryPaused .hhCategoryScene,
+.hhCategoryPaused .hhCategoryScene *,
+.hhCategoryPaused .hhCategoryRoutes path,
+.hhCategoryWorld:not(.isWorldVisible) .hhCategoryRoutes path {
+  animation-play-state: paused !important;
+}
+@keyframes hhCategoryArrive {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes hhCategoryFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-0.25deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(0.25deg);
+  }
+}
+@keyframes hhCategoryRouteReveal {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes hhCategoryBrushDraw {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-20deg);
+  }
+  35% {
+    transform: translate(13px, -7px) rotate(-7deg);
+  }
+  70% {
+    transform: translate(26px, 0) rotate(-25deg);
+  }
+}
+@keyframes hhCategoryPaintDraw {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  72% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+@keyframes hhCategoryStrum {
+  0%,
+  100% {
+    transform: rotate(12deg);
+  }
+  30% {
+    transform: rotate(7deg) translateY(-3px);
+  }
+  60% {
+    transform: rotate(15deg);
+  }
+}
+@keyframes hhCategoryNotes {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) rotate(-8deg);
+  }
+  35% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-16px) rotate(8deg);
+  }
+}
+@keyframes hhCategoryFindNorth {
+  0%,
+  100% {
+    transform: rotate(-15deg);
+  }
+  35% {
+    transform: rotate(28deg);
+  }
+  65% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes hhCategoryBounce {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-10deg);
+  }
+  50% {
+    transform: translateY(-19px) rotate(15deg);
+  }
+}
+@keyframes hhCategoryBounceShadow {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(0.65);
+    opacity: 0.3;
+  }
+}
+@keyframes hhCategorySteamRise {
+  0% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+@keyframes hhCategoryChessMove {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  45%,
+  65% {
+    transform: translate(12px, -8px) rotate(5deg);
+  }
+}
+@media (max-width: 1099.98px) {
+  .hhCategoryWorld #categoryGrid > [data-world-index] {
+    padding-top: 0;
+  }
+
+  .hhCategoryWorld #categoryGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 2rem;
+    min-height: 0;
+    padding-bottom: 2rem;
+  }
+  .hhCategoryWorld #categoryGrid > [data-world-index] {
+    position: relative;
+    width: auto;
+    left: auto;
+    top: auto;
+  }
+  .hhCategoryWorld #categoryGrid > [data-world-index]:nth-of-type(even) {
+    margin-top: 2rem;
+  }
+  .hhCategoryScene {
+    width: min(100%, 240px);
+  }
+}
+@media (max-width: 599.98px) {
+  .hhCategoryWorld #categoryGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding-top: 1rem;
+  }
+  .hhCategoryWorld #categoryGrid > [data-world-index]:nth-of-type(even) {
+    margin-top: 0;
+  }
+  body[data-page='home'] .hhCategoryWorld .catCard {
+    display: grid;
+    grid-template-columns: 48% 1fr;
+    column-gap: 0.65rem;
+    row-gap: 0.15rem;
+    text-align: left;
+    align-items: center;
+  }
+  .hhCategoryWorld .hhCategoryScene {
+    grid-column: 1;
+    grid-row: 1 / 4;
+    width: 100%;
+    margin: 0;
+  }
+  .hhCategoryWorld .catCardTop,
+  .hhCategoryWorld .catCardHobbies,
+  .hhCategoryWorld .catCardLink {
+    grid-column: 2;
+  }
+  .hhCategoryWorld .catCardTop {
+    justify-content: flex-start;
+    align-self: end;
+  }
+  .hhCategoryWorld .catCardHobbies {
+    font-size: 0.9rem;
+  }
+  .hhCategoryWorld .catCardLink {
+    align-self: start;
+    font-size: 0.82rem;
+  }
+  .hhCategoryWorld .catCardName {
+    font-size: 1.05rem;
+  }
+  .hhCategoryWorld [data-world-index]:nth-of-type(even) .hhCategoryScene {
+    grid-column: 2;
+  }
+  .hhCategoryWorld [data-world-index]:nth-of-type(even) .catCardTop,
+  .hhCategoryWorld [data-world-index]:nth-of-type(even) .catCardHobbies,
+  .hhCategoryWorld [data-world-index]:nth-of-type(even) .catCardLink {
+    grid-column: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hhCategoryWorld .hhCategoryScene,
+  .hhCategoryWorld .hhCategoryScene *,
+  .hhCategoryRoutes path {
+    animation: none !important;
+    transition: none !important;
+  }
+  .hhCategoryRouteLine {
+    stroke-dashoffset: 0;
+  }
+  .hhCategoryWorld .catCard.isCategoryActive .hhCategoryScene {
+    transform: none;
+  }
+}

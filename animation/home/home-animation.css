@@ -1,0 +1,914 @@
+/* HobbyHub's illustrated world and live WebGL foreground, isolated to Home. */
+body[data-page='home'] main {
+  overflow: clip;
+}
+body[data-page='home'] .hero {
+  min-height: max(680px, calc(100svh - var(--navH)));
+  margin-top: 0;
+  border: 0;
+  overflow: hidden;
+  background: var(--hhBg);
+}
+body[data-page='home'] .heroMedia {
+  background: none;
+  z-index: -1;
+}
+.hhWorldLandscape {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.heroMedia .hhPortalBackdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 69% center;
+  transform: scale(1.035) translate(var(--landscape-x, 0px), var(--landscape-y, 0px));
+}
+.hhLandscapeVeil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #fff8f1f2 0%, #fff8f1d4 25%, #fff8f176 43%, transparent 64%);
+}
+.hhPortalViewport {
+  position: absolute;
+  inset: 0 0 0 38%;
+}
+.hhPortalViewport canvas,
+.hhBookViewport canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+.hhWorldUnavailable canvas {
+  visibility: hidden;
+}
+.hhGoldenMist {
+  position: absolute;
+  inset: auto 0 0;
+  height: 22%;
+  background: linear-gradient(transparent, #fff8f1ba);
+}
+.hhCloudTransition {
+  position: absolute;
+  width: 100%;
+  height: 80px;
+  bottom: -1px;
+}
+.hhWorldAnnotation {
+  position: absolute;
+  top: 8%;
+  left: 43%;
+  font: 1.45rem/1.1 var(--fontAccent);
+  color: var(--hhText);
+  transform: rotate(-9deg);
+  text-shadow: 0 1px 8px #fff8f1;
+}
+.hhPortalAnnotation {
+  position: absolute;
+  bottom: 10%;
+  right: 10%;
+  font: 1.6rem var(--fontAccent);
+  color: #fff8f1;
+  transform: rotate(-8deg);
+  text-shadow: 0 2px 12px #332e2a;
+}
+body[data-page='home'] .heroContent {
+  padding-block: 4rem 6rem;
+}
+body[data-page='home'] .heroEyebrow {
+  font-size: 1.4rem;
+  color: var(--hhPrimaryDark);
+}
+body[data-page='home'] .heroTitle {
+  width: 44%;
+  max-width: 10em;
+  font-size: clamp(2.65rem, 4.5vw, 4.8rem);
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+}
+body[data-page='home'] .heroMark {
+  display: block;
+  color: var(--hhPrimaryDark);
+  font-family: var(--fontAccent);
+  font-size: 1.13em;
+  line-height: 1.12;
+  background: none;
+  animation: none;
+}
+body[data-page='home'] .heroText {
+  width: 40%;
+  max-width: 32em;
+  font-weight: 500;
+  font-size: 1.07rem;
+  line-height: 1.85;
+  color: var(--hhText);
+}
+body[data-page='home'] .heroActions {
+  max-width: 46%;
+  gap: 0.85rem;
+}
+body[data-page='home'] .heroActions .hhBtn {
+  box-shadow: 0 7px 22px #9d6b4b20;
+}
+body[data-page='home'] .heroActions .hhBtnOutline {
+  background: #fff8f1db;
+}
+body[data-page='home'] .heroScroll {
+  left: 25%;
+  bottom: 2rem;
+  color: var(--hhPrimaryDark);
+}
+.hhAtmosphericDust {
+  position: absolute;
+  inset: 0;
+}
+.hhAtmosphericDust i {
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  left: var(--x);
+  top: var(--y);
+  background: #fff4ca;
+  box-shadow: 0 0 9px 3px #f6a15a66;
+  animation: hhDustLift var(--duration) var(--delay) ease-in-out infinite alternate;
+}
+.hhWorldEyebrow {
+  font-size: 0.77rem;
+  letter-spacing: 0.17em;
+  font-weight: 800;
+  color: var(--hhPrimaryDark);
+  margin-bottom: 0.75rem;
+}
+body[data-page='home'] .hhSectionHead {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+body[data-page='home'] .hhSectionTitle {
+  line-height: 1.2;
+  text-wrap: balance;
+}
+body[data-page='home'] .hhSectionTitle span {
+  font-family: var(--fontAccent);
+  color: var(--hhPrimaryDark);
+  font-size: 1.12em;
+}
+.hhHandwritten {
+  display: block;
+  margin-top: 1rem;
+  font: 1.45rem var(--fontAccent);
+  color: var(--hhPrimaryDark);
+}
+body[data-page='home'] #howItWorks {
+  position: relative;
+  padding-top: 3rem !important;
+}
+.hhTrailRibbon {
+  position: absolute;
+  inset: 158px 6% auto;
+  height: 190px;
+  pointer-events: none;
+}
+.hhTrailRibbon svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.hhTrailShadow {
+  fill: none;
+  stroke: #f6a15a25;
+  stroke-width: 16;
+}
+.hhTrailLine {
+  fill: none;
+  stroke: url(#hhRibbonGold);
+  stroke-width: 3;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--trail, 1));
+  filter: drop-shadow(0 0 5px #f6a15a99);
+}
+body[data-page='home'] .stepCard {
+  position: relative;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  text-align: center;
+  padding-top: 175px;
+  padding-inline: 0.9rem;
+}
+.hhStepDiorama {
+  position: absolute;
+  top: -10px;
+  left: calc(50% - 95px);
+  width: 190px;
+  height: 190px;
+  background-image: url('../assets/hobby-dioramas.webp');
+  background-size: 300% 200%;
+  background-position: var(--diorama-x, 0%) var(--diorama-y, 0%);
+  transform-origin: center bottom;
+  pointer-events: none;
+  filter: drop-shadow(0 8px 8px #9d6b4b0f);
+}
+body[data-page='home'] .stepCardNum {
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--hhTintOrange);
+  box-shadow: 0 4px 10px #9d6b4b0c;
+}
+body[data-page='home'] .stepCardText {
+  line-height: 1.75;
+  max-width: 20em;
+  margin-inline: auto;
+}
+.hhStepDiorama.isAwake[data-step='0'] {
+  animation: hhDioramaTurn 1.2s var(--ease) backwards;
+}
+.hhStepDiorama.isAwake[data-step='1'] {
+  animation: hhDioramaPaint 1.2s var(--ease) backwards;
+}
+.hhStepDiorama.isAwake[data-step='2'] {
+  animation: hhDioramaGather 1.2s var(--ease) backwards;
+}
+.hhStepDiorama.isAwake[data-step='3'] {
+  animation: hhDioramaGrow 1.2s var(--ease) backwards;
+}
+body[data-page='home'] #explore {
+  position: relative;
+  background: radial-gradient(ellipse at 50% 40%, #fce9d955, transparent 70%);
+}
+body[data-page='home'] .catCard {
+  padding-top: 245px;
+  min-height: 430px;
+  overflow: visible;
+  background: linear-gradient(150deg, #fffcf8b3, var(--hhTintOrange));
+  border-radius: 24px 24px 34px 34px;
+  border-color: #f1dfd080;
+  box-shadow: 0 13px 30px #9d6b4b10;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition:
+    transform 0.22s ease-out,
+    box-shadow 0.3s;
+}
+body[data-page='home'] .catCard.tintPink {
+  background: linear-gradient(150deg, #fffcf8b3, #fbe3da);
+}
+body[data-page='home'] .catCard.tintGreen {
+  background: linear-gradient(150deg, #fffcf8b3, #e6eee2);
+}
+body[data-page='home'] .catCard:hover,
+body[data-page='home'] .catCard:focus-visible {
+  transform: perspective(1000px) translateY(-9px) rotateX(var(--tilt-x, 0deg))
+    rotateY(var(--tilt-y, 0deg));
+  box-shadow: 0 25px 42px #9d6b4b20;
+}
+.hhDiorama {
+  display: block;
+  background-image: url('../assets/hobby-dioramas.webp');
+  background-size: 300% 200%;
+  background-position: var(--diorama-x, 0%) var(--diorama-y, 0%);
+}
+.catCard > .hhDiorama {
+  position: absolute;
+  top: -12px;
+  left: calc(50% - 130px);
+  width: 260px;
+  height: 260px;
+  transform: translateZ(42px);
+  filter: drop-shadow(0 15px 10px #9d6b4b12);
+  pointer-events: none;
+  transition: transform 0.4s var(--ease);
+}
+body[data-page='home'] .catCard:hover > .hhDiorama {
+  transform: translateZ(60px) translateY(-5px);
+}
+body[data-page='home'] .catCardTop,
+body[data-page='home'] .catCardLink {
+  transform: translateZ(16px);
+}
+.hhPossibilityReveal {
+  animation: hhPossibilitiesUnfold 1s var(--card-delay, 0s) var(--ease) backwards;
+}
+body[data-page='home'] #featured {
+  background: linear-gradient(180deg, transparent, #fce9d94a 45%, transparent);
+  position: relative;
+}
+body[data-page='home'] #featuredGrid {
+  padding-top: 0.7rem;
+}
+body[data-page='home'] .featCard {
+  position: relative;
+  border-radius: 5px;
+  padding: 0.8rem 0.8rem 1.5rem;
+  background: #fffdfa;
+  box-shadow: 0 14px 22px #9d6b4b15;
+  transform: rotate(var(--desk-angle, -2deg));
+  transition:
+    transform 0.4s var(--ease),
+    box-shadow 0.4s;
+}
+body[data-page='home'] .featCard:hover,
+body[data-page='home'] .featCard:focus-visible {
+  transform: translateY(-10px) rotate(0);
+  box-shadow: 0 25px 40px #9d6b4b24;
+}
+body[data-page='home'] .featCardImage {
+  position: relative;
+  height: 230px;
+  border-radius: 2px;
+  animation: none;
+  overflow: hidden;
+  background: radial-gradient(ellipse, #fce9d9, #fff8f1);
+}
+body[data-page='home'] .featCardImage .hhDiorama {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 115px);
+  width: 230px;
+  height: 230px;
+  transition: transform 0.6s var(--ease);
+}
+body[data-page='home'] .featCard:hover .featCardImage .hhDiorama {
+  transform: scale(1.08);
+}
+body[data-page='home'] .featCard::before {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  width: 32%;
+  height: 24px;
+  left: 34%;
+  top: -10px;
+  background: #f6a15a66;
+  transform: rotate(-4deg);
+  clip-path: polygon(4% 0, 100% 7%, 95% 100%, 0 94%);
+}
+.hhDeskReveal {
+  animation: hhPhotoPlace 1s var(--card-delay, 0s) var(--ease) backwards;
+}
+.hhArchipelago {
+  position: relative;
+  background: radial-gradient(ellipse at 50% 60%, #e6eee266, transparent 75%);
+  overflow: hidden;
+}
+.hhIslandEnvironment {
+  position: relative;
+}
+.hhIslandClouds {
+  position: absolute;
+  inset: 20% -10% -10%;
+  background: radial-gradient(ellipse at 20% 75%, #fff 0, transparent 36%),
+    radial-gradient(ellipse at 80% 65%, #fff 0, transparent 42%);
+}
+.hhIslandGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.2rem;
+  position: relative;
+  padding-bottom: 2rem;
+}
+.hhIslandCard {
+  display: block;
+  position: relative;
+  padding-top: 220px;
+  color: var(--hhText);
+  transform: translateY(var(--island-offset, 0px));
+  transition: transform 0.5s var(--ease);
+}
+.hhIslandCard:hover,
+.hhIslandCard:focus-visible {
+  color: var(--hhText);
+  transform: translateY(calc(var(--island-offset, 0px) - 14px));
+}
+.hhIslandCard > .hhDiorama {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 125px);
+  width: 250px;
+  height: 250px;
+  pointer-events: none;
+  filter: drop-shadow(0 14px 12px #9d6b4b18);
+  animation: hhIslandBob 8s var(--card-delay, 0s) ease-in-out infinite;
+}
+.hhIslandLabel {
+  display: block;
+  position: relative;
+  text-align: center;
+  border: 1px solid #f1dfd0bb;
+  background: #fffdf8f0;
+  padding: 1rem 0.75rem;
+  border-radius: 18px;
+  box-shadow: 0 7px 18px #9d6b4b0c;
+  backdrop-filter: blur(8px);
+}
+.hhIslandLabel strong {
+  font-size: 1.03rem;
+}
+.hhIslandLabel small {
+  display: block;
+  margin-top: 0.4rem;
+  color: var(--hhMuted);
+  font-size: 0.85rem;
+}
+.hhIslandBridges {
+  position: absolute;
+  width: 100%;
+  height: 180px;
+  top: 140px;
+}
+.hhIslandBridges path {
+  fill: none;
+  stroke: #ba8b57;
+  stroke-width: 5;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--bridges, 1));
+  filter: drop-shadow(0 2px 2px #9d6b4b33);
+}
+.hhIslandCard.isAwake {
+  animation: hhIslandArrive 1.1s var(--card-delay, 0s) var(--ease) backwards;
+}
+.hhIslandFootnote {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--hhMuted);
+  margin-top: 1rem;
+}
+.hhMemoryWall {
+  background: radial-gradient(ellipse at 50% 50%, #fce9d933, transparent 70%);
+}
+.hhMemoryBoard {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+  max-width: 1080px;
+  margin-inline: auto;
+  padding: 1.5rem 0;
+  position: relative;
+}
+.hhMemoryThread {
+  position: absolute;
+  top: 15px;
+  inset-inline: 0;
+  height: 35px;
+  border-top: 2px solid #d1ae8d;
+  border-radius: 50%;
+  transform: rotate(1deg);
+}
+.hhMemoryCard {
+  position: relative;
+  padding: 1rem 1rem 1.5rem;
+  background: #fffdf9;
+  border: 1px solid var(--hhBorder);
+  border-radius: 5px;
+  box-shadow: 0 14px 26px #9d6b4b15;
+  transform: rotate(var(--paper-angle));
+}
+.hhMemoryImage {
+  height: 210px;
+  background: radial-gradient(ellipse, #fce9d9, #fff8f1);
+}
+.hhMemoryImage .hhDiorama {
+  width: 210px;
+  height: 210px;
+  margin-inline: auto;
+}
+.hhMemoryPin {
+  position: absolute;
+  top: -8px;
+  left: calc(50% - 6px);
+  width: 12px;
+  height: 12px;
+  background: var(--hhPrimary);
+  border-radius: 50%;
+  box-shadow:
+    2px 3px 4px #332e2a33,
+    inset -2px -2px 3px #d95a3b;
+  z-index: 2;
+}
+.hhMemoryCard h3 {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+.hhMemoryCard p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--hhMuted);
+  margin-top: 0.5rem;
+}
+.hhMemoryCard.isAwake {
+  animation: hhMemoryPlace 1.1s var(--card-delay, 0s) var(--ease) backwards;
+}
+.hhMagicalChapter {
+  padding: 4rem 0 5rem;
+  background: linear-gradient(160deg, #fff8f1, #fce9d980 60%, #fbe3da80);
+}
+.hhChapterLayout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: center;
+  gap: 2rem;
+}
+.hhBookScene {
+  height: 430px;
+  position: relative;
+  perspective: 1100px;
+  --book-open: 1;
+}
+.hhBookRadiance {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse, #fff8d2bb, transparent 65%);
+}
+.hhBookArtwork {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: translateY(calc((1 - var(--book-open)) * 45px))
+    scale(calc(0.86 + var(--book-open) * 0.14));
+  opacity: calc(0.5 + var(--book-open) * 0.5);
+}
+.hhBookCover {
+  position: absolute;
+  z-index: 2;
+  width: 45%;
+  height: 36%;
+  bottom: 9%;
+  left: 50%;
+  transform-origin: left center;
+  transform: rotateY(calc(var(--book-open) * -170deg)) rotateZ(-6deg);
+  backface-visibility: hidden;
+  background: linear-gradient(130deg, #a04f35, #ed7052 55%, #d69a53);
+  border: 5px double #e0bd7a;
+  border-radius: 5px 12px 12px 5px;
+  box-shadow: 5px 12px 15px #332e2a20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff8f1;
+}
+.hhBookCover > span:first-child {
+  font: 1.5rem var(--fontAccent);
+}
+.hhCoverFlower {
+  font-size: 2rem;
+}
+.hhBookCover > small {
+  font-size: 0.6rem;
+}
+.hhBookViewport {
+  position: absolute;
+  inset: -10% 0 10%;
+  pointer-events: none;
+}
+.hhBookSpark {
+  position: absolute;
+  font-size: 2rem;
+  color: var(--hhSecondary);
+  left: 26%;
+  top: 6%;
+  animation: hhDustLift 5s ease-in-out infinite alternate;
+}
+.hhBookSparkTwo {
+  left: 74%;
+  top: 20%;
+  animation-delay: -2s;
+}
+.hhChapterCopy h2 {
+  font-size: clamp(2.3rem, 4vw, 3.7rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+.hhChapterCopy h2 span {
+  display: block;
+  color: var(--hhPrimaryDark);
+  font-family: var(--fontAccent);
+  font-size: 1.15em;
+}
+.hhChapterCopy > p:not(.hhWorldEyebrow) {
+  margin: 1.3rem 0 1.8rem;
+  color: var(--hhMuted);
+  line-height: 1.8;
+  max-width: 35em;
+}
+.hhCursorAura {
+  position: fixed;
+  z-index: 8;
+  left: 0;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  margin: -15px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(#f6a15a55, transparent 70%);
+  box-shadow: 0 0 30px #f6a15a22;
+  opacity: 0;
+}
+.hhScenePaused * {
+  animation-play-state: paused !important;
+}
+@keyframes hhDustLift {
+  to {
+    translate: 12px -28px;
+    opacity: 0.25;
+  }
+}
+@keyframes hhDioramaTurn {
+  from {
+    transform: perspective(600px) rotateY(-35deg) translateY(25px);
+    opacity: 0.2;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+@keyframes hhDioramaPaint {
+  from {
+    clip-path: inset(0 100% 0 0);
+    translate: -20px 0;
+  }
+  to {
+    clip-path: inset(0);
+    translate: 0 0;
+  }
+}
+@keyframes hhDioramaGather {
+  from {
+    transform: scale(0.65) rotate(-8deg);
+    opacity: 0.2;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+@keyframes hhDioramaGrow {
+  from {
+    transform: scaleY(0.2);
+    opacity: 0.2;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+@keyframes hhPossibilitiesUnfold {
+  from {
+    transform: perspective(1000px) translate(var(--spread, 0px), 50px) rotateY(20deg) scale(0.8);
+    opacity: 0.25;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+@keyframes hhPhotoPlace {
+  from {
+    translate: var(--spread, 0px) -35px;
+    rotate: -8deg;
+    opacity: 0.25;
+  }
+  to {
+    translate: 0 0;
+    rotate: 0deg;
+    opacity: 1;
+  }
+}
+@keyframes hhIslandBob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -7px;
+  }
+}
+@keyframes hhIslandArrive {
+  from {
+    translate: 0 50px;
+    opacity: 0.1;
+  }
+  to {
+    translate: 0 0;
+    opacity: 1;
+  }
+}
+@keyframes hhMemoryPlace {
+  from {
+    translate: 0 -35px;
+    rotate: 8deg;
+    opacity: 0.25;
+  }
+  to {
+    translate: 0 0;
+    rotate: 0deg;
+    opacity: 1;
+  }
+}
+@media (min-width: 1100px) and (prefers-reduced-motion: no-preference) {
+  .hhWorldJourney {
+    height: 175svh;
+  }
+  body[data-page='home'] .hhWorldJourney .hero {
+    position: sticky;
+    top: var(--navH);
+    height: calc(100svh - var(--navH));
+    min-height: 610px;
+  }
+}
+@media (max-width: 1099.98px) {
+  body[data-page='home'] .hero {
+    min-height: 1050px;
+    align-items: flex-start;
+  }
+  body[data-page='home'] .heroContent {
+    padding-top: 3rem;
+  }
+  body[data-page='home'] .heroTitle {
+    width: 100%;
+    max-width: 15em;
+    font-size: clamp(2.8rem, 5vw, 4rem);
+  }
+  body[data-page='home'] .heroText {
+    width: 100%;
+    max-width: 40em;
+  }
+  body[data-page='home'] .heroActions {
+    max-width: 100%;
+  }
+  .heroMedia .hhPortalBackdrop {
+    inset: auto 0 0;
+    height: 66%;
+    object-position: 75% center;
+  }
+  .hhLandscapeVeil {
+    background: linear-gradient(#fff8f1 0%, #fff8f1 26%, #fff8f1d9 37%, transparent 55%);
+  }
+  .hhPortalViewport {
+    inset: 40% 0 0;
+  }
+  .hhWorldAnnotation {
+    top: 43%;
+    left: 7%;
+  }
+  body[data-page='home'] .heroScroll {
+    left: 50%;
+    bottom: 1rem;
+  }
+  .hhIslandGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 720px;
+    margin: auto;
+    gap: 2rem;
+  }
+  .hhIslandBridges {
+    display: none;
+  }
+  .hhMemoryBoard {
+    gap: 1.2rem;
+  }
+}
+@media (max-width: 767.98px) {
+  body[data-page='home'] .hero {
+    min-height: 980px;
+  }
+  body[data-page='home'] .heroContent {
+    padding-top: 2.5rem;
+  }
+  body[data-page='home'] .heroTitle {
+    font-size: clamp(2.5rem, 8.5vw, 3.6rem);
+  }
+  body[data-page='home'] .heroText {
+    font-size: 1rem;
+  }
+  .heroMedia .hhPortalBackdrop {
+    height: 58%;
+  }
+  .hhPortalViewport {
+    inset: 43% 0 0;
+  }
+  .hhWorldAnnotation {
+    top: 50%;
+    font-size: 1.2rem;
+  }
+  .hhPortalAnnotation {
+    font-size: 1.25rem;
+    bottom: 9%;
+  }
+  .hhTrailRibbon {
+    display: none;
+  }
+  .hhStepDiorama {
+    width: 210px;
+    height: 210px;
+    left: calc(50% - 105px);
+  }
+  body[data-page='home'] .stepCard {
+    padding-top: 190px;
+  }
+  body[data-page='home'] .catCard {
+    padding-top: 265px;
+  }
+  .catCard > .hhDiorama {
+    width: 275px;
+    height: 275px;
+    left: calc(50% - 137px);
+  }
+  .hhMemoryBoard {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+    gap: 2.5rem;
+  }
+  .hhMemoryThread {
+    display: none;
+  }
+  .hhChapterLayout {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .hhBookScene {
+    height: 350px;
+    max-width: 600px;
+    width: 100%;
+    margin: auto;
+  }
+  .hhChapterCopy {
+    text-align: center;
+  }
+  .hhMagicalChapter {
+    padding-block: 3rem;
+  }
+  .hhIslandGrid {
+    gap: 1rem;
+  }
+  .hhIslandCard {
+    padding-top: 165px;
+  }
+  .hhIslandCard > .hhDiorama {
+    width: 185px;
+    height: 185px;
+    left: calc(50% - 92px);
+  }
+  .hhIslandLabel {
+    padding: 0.8rem 0.4rem;
+  }
+  .hhIslandLabel strong {
+    font-size: 0.9rem;
+  }
+  .hhIslandLabel small {
+    font-size: 0.77rem;
+  }
+  .hhCursorAura {
+    display: none;
+  }
+}
+@media (max-width: 420px) {
+  body[data-page='home'] .hero {
+    min-height: 1010px;
+  }
+  body[data-page='home'] .heroActions .hhBtn {
+    padding-inline: 1rem;
+    font-size: 0.95rem;
+  }
+  .hhBookScene {
+    height: 290px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-page='home'] *,
+  body[data-page='home'] *::before,
+  body[data-page='home'] *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  body[data-page='home'] .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .hhBookScene {
+    --book-open: 1 !important;
+  }
+  .hhTrailRibbon {
+    --trail: 1 !important;
+  }
+  .hhIslandEnvironment {
+    --bridges: 1 !important;
+  }
+  .hhCursorAura {
+    display: none;
+  }
+}

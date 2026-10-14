@@ -1,0 +1,245 @@
+/* The final chapter: layered illustrated book states and independently turning leaves. */
+body[data-page='home'] #nextChapter {
+  isolation: isolate;
+  position: relative;
+  overflow: hidden;
+  padding: clamp(3rem, 6vw, 5rem) 0;
+  background: radial-gradient(ellipse at 25% 55%, #f6a15a22, transparent 62%),
+    linear-gradient(140deg, #fff8f1, #fce9d980 60%, #fbe3da55);
+  border-top: 1px solid #f0d9ca66;
+}
+#nextChapter .hhChapterLayout {
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+}
+#nextChapter .hhBookScene {
+  height: clamp(410px, 43vw, 565px);
+  perspective: 1100px;
+  --chapter-opening: 1;
+  --chapter-world: 1;
+  --chapter-emerge: 1;
+  transform: scale(var(--chapter-breath, 1));
+}
+#nextChapter .hhBookRadiance {
+  inset: 12% -7% -4%;
+  background: radial-gradient(ellipse at 50% 67%, #f6a15a44, transparent 65%);
+  opacity: calc(0.3 + var(--chapter-opening) * 0.7);
+}
+#nextChapter .hhBookArtwork,
+#nextChapter .hhBookBlank,
+#nextChapter .hhClosedBookArtwork {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  pointer-events: none;
+}
+#nextChapter .hhBookArtwork {
+  opacity: var(--chapter-world);
+  transform: none;
+  clip-path: inset(calc((1 - var(--chapter-world)) * 58%) 0 0);
+  filter: drop-shadow(0 18px 17px #9d6b4b22);
+  z-index: 2;
+}
+#nextChapter .hhBookBlank {
+  opacity: calc(var(--chapter-opening) * (1 - var(--chapter-world)));
+  transform: rotateX(calc((1 - var(--chapter-opening)) * 22deg))
+    scale(calc(0.86 + var(--chapter-opening) * 0.14));
+  transform-origin: 50% 82%;
+  z-index: 1;
+}
+#nextChapter .hhBookCover {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  transform-origin: 31% 72%;
+  transform: rotateY(calc(var(--chapter-opening) * -92deg))
+    rotateZ(calc(var(--chapter-opening) * -5deg));
+  opacity: calc(1 - var(--chapter-opening));
+  z-index: 5;
+}
+#nextChapter .hhClosedBookArtwork {
+  width: 80%;
+  left: 10%;
+  filter: drop-shadow(0 18px 13px #9d6b4b22);
+}
+#nextChapter .hhBookViewport {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+.hhChapterLeaves,
+.hhChapterArtifacts,
+.hhChapterLights {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.hhChapterLeaf {
+  position: absolute;
+  left: 50%;
+  bottom: 15%;
+  width: 39%;
+  height: 23%;
+  transform-origin: left 65%;
+  backface-visibility: hidden;
+  border: 1px solid #c98a4844;
+  border-radius: 8% 38% 8% 18%;
+  background: radial-gradient(ellipse at 30% 20%, #fffdf8, #fff8f1 60%, #f0d9ca),
+    repeating-linear-gradient(180deg, transparent 0 17px, #c98a4822 17px 18px);
+  box-shadow:
+    0 3px 0 #fff8f1,
+    1px 9px 12px #9d6b4b25;
+}
+.hhChapterLeaf::before {
+  content: '';
+  position: absolute;
+  inset: 18% 20%;
+  border-top: 1px solid #c98a4833;
+  border-bottom: 1px solid #c98a4833;
+  border-radius: 50%;
+}
+.hhChapterArtifact {
+  display: block;
+  position: absolute;
+  aspect-ratio: 1;
+  background: url('../assets/living-hobby-atlas.webp') var(--artifact-x) var(--artifact-y) / 600%
+    400%;
+  filter: drop-shadow(3px 7px 5px #9d6b4b33);
+  transform-origin: center;
+}
+.hhChapterRibbon {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.hhChapterRibbon path {
+  fill: none;
+  stroke: #f6a15a;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--chapter-emerge));
+  opacity: calc(var(--chapter-emerge) * 0.75);
+  filter: drop-shadow(0 0 3px #ed705277);
+}
+.hhChapterLights {
+  opacity: var(--chapter-emerge);
+}
+.hhChapterLights i {
+  position: absolute;
+  left: var(--light-x);
+  top: var(--light-y);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #f6a15a;
+  box-shadow: 0 0 7px #f6a15a;
+  animation: hhChapterLightRise 5.5s var(--light-delay) ease-in-out infinite;
+}
+#nextChapter .hhChapterCopy {
+  position: relative;
+  z-index: 6;
+  min-width: 0;
+}
+#nextChapter .hhWorldEyebrow {
+  color: var(--hhPrimaryDark);
+  letter-spacing: 0.15em;
+}
+#nextChapter .hhChapterCopy h2 {
+  font-size: clamp(2.3rem, 3.7vw, 3.55rem);
+}
+#nextChapter .hhChapterCopy h2 span {
+  color: var(--hhPrimary);
+  text-shadow: 0 2px 0 #fff8f1;
+}
+#nextChapter .hhChapterCopy > p:not(.hhWorldEyebrow) {
+  font-size: 1.03rem;
+  line-height: 1.85;
+}
+#nextChapter #btnChapterSignup {
+  min-height: 54px;
+  padding-inline: 1.55rem;
+  box-shadow: 0 8px 20px #ed70522b;
+}
+#nextChapter .hhHandwritten {
+  margin-top: 1.1rem;
+  font-size: 1.3rem;
+  line-height: 1.5;
+}
+.hhChapterPaused .hhChapterLights i {
+  animation-play-state: paused !important;
+}
+@keyframes hhChapterLightRise {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: translateY(3px);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-11px);
+  }
+}
+/* Warm accent typography, preserving FAQ content and Bootstrap controls. */
+#faq .hhSectionTitle {
+  color: var(--hhPrimaryDark);
+  background: linear-gradient(115deg, var(--hhPrimaryDark), var(--hhPrimary) 75%, #c98a48);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#faq .hhFaqIntro {
+  color: var(--hhPrimaryDark);
+}
+/* Motion is driven independently of the original one-shot reveal animation. */
+#creativeMemories.hhLivingMemories .hhMemoryCard {
+  animation: none !important;
+  transform-origin: 50% -8px;
+}
+#creativeMemories .hhMemoryCard.hhMemoryMoving {
+  will-change: transform;
+}
+@media (max-width: 767.98px) {
+  #nextChapter .hhChapterLayout {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  #nextChapter .hhBookScene {
+    width: 100%;
+    height: clamp(330px, 75vw, 450px);
+    max-width: 620px;
+  }
+  #nextChapter .hhChapterCopy {
+    text-align: center;
+  }
+  #nextChapter .hhChapterCopy > p {
+    margin-inline: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #nextChapter * {
+    animation: none !important;
+    transition: none !important;
+  }
+  #nextChapter .hhChapterLeaf {
+    display: none;
+  }
+}
+
+/* Keep the full approved world visible immediately, including without JavaScript. */
+#nextChapter .hhBookArtwork {
+  opacity: 1;
+  clip-path: none;
+}
