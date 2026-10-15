@@ -1,0 +1,42 @@
+/* Enrollments & Payments page styles are scoped here; shared layout lives in admin-shell.css. */
+.invoiceJourney {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.invoiceJourney > div {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #fff;
+  border: 1px solid var(--hhBorder);
+  border-radius: 12px;
+  padding: 17px;
+}
+.invoiceJourney b {
+  display: grid;
+  place-items: center;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background: #fbe3da;
+  color: #a3452f;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+.invoiceJourney strong {
+  display: block;
+  font-size: 0.8rem;
+}
+.invoiceJourney small {
+  display: block;
+  color: var(--hhMuted);
+  font-size: 0.7rem;
+  margin-top: 4px;
+}
+@media (max-width: 700px) {
+  .invoiceJourney {
+    grid-template-columns: 1fr;
+  }
+}

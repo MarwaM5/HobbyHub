@@ -140,6 +140,10 @@ function renderUserFooter() {
 
 // بتركّب الأجزاء المشتركة بأماكنها. صفحات الزوار بتحتفظ بالـ navbar العام.
 function mountSharedUi(options = {}) {
+  if (options.adminApp) {
+    if (typeof mountAdminUi !== "function") throw new Error("Admin shell is not loaded.");
+    return mountAdminUi(options);
+  }
   const navbarSlot = document.getElementById("hhNavbar");
   const footerSlot = document.getElementById("hhFooter");
   const modalsSlot = document.getElementById("hhModals");
@@ -156,4 +160,5 @@ function mountSharedUi(options = {}) {
   }
   if (modalsSlot) modalsSlot.innerHTML = renderLoginModal();
   applyRoutes(document);
+  if (typeof applyWebsiteContent === "function") applyWebsiteContent();
 }

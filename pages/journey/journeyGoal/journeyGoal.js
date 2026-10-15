@@ -1,8 +1,5 @@
 /* Goal detail interactions. All demo state resets on refresh; no browser storage. */
-const journeyGoalDetails={
- goalFirstSong:{hobby:"Guitar",title:"Play my first full song",description:"Build confidence through small, repeatable practice steps.",progress:68,milestones:[{id:"chords",text:"Learn 5 chords",done:true},{id:"transitions",text:"Practice chord transitions",done:true},{id:"intro",text:"Learn the song intro",done:true},{id:"fullSong",text:"Play the full song",done:false}],notes:["Practiced 30 minutes today."]},
- goalPhotoPortfolio:{hobby:"Photography",title:"Build a 10 photo portfolio",description:"Collect your favorite shots and learn to tell a story through your photos.",progress:35,milestones:[{id:"light",text:"Practice natural lighting",done:true},{id:"composition",text:"Try 3 composition techniques",done:true},{id:"portraits",text:"Take 3 portrait photos",done:false},{id:"outdoor",text:"Take 3 outdoor photos",done:false},{id:"edit",text:"Edit your favorite shots",done:false},{id:"portfolio",text:"Choose the final 10 photos",done:false}],notes:["Tried golden-hour photos this week."]}
-};
+const journeyGoalDetails=JSON.parse(JSON.stringify(sharedJourneyDetails));
 let activeJourneyGoal;
 function getGoalFromQuery(){
  const params=new URLSearchParams(location.search);

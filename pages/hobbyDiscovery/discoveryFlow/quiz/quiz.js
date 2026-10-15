@@ -6,11 +6,6 @@
   const app=document.getElementById("quizApp");
   const questions=Array.isArray(hobbyQuizQuestions)?hobbyQuizQuestions:[];
   const answers={}; let current=0;
-  const dimensionWeights={environment:1.5,social:1.5,activityType:1,time:1,cost:1.5,energy:1,competitive:1,purpose:1,equipment:1,learning:1,learningCurve:1,weekend:1};
-  const categoryBonusMap={
-    activityType:[["creative","foodHome"],["sportsFitness","outdoorAdventure"],["musicDance","creative"],["gamesMind","foodHome"]],
-    weekend:[["creative"],["outdoorAdventure"],["sportsFitness"],["foodHome"],["gamesMind"],["musicDance"]]
-  };
   function renderQuestion(){
     const q=questions[current]; if(!q){renderResults();return;}
     const selected=answers[q.id];
@@ -25,35 +20,7 @@
     document.getElementById("quizBack").addEventListener("click",()=>{if(current>0){current--;renderQuestion();}});
     document.getElementById("quizNext").addEventListener("click",()=>{if(!answers[q.id])return;if(current<questions.length-1){current++;renderQuestion();}else renderResults();});
   }
-  function getResults(){
-    const dimensionNames=Object.keys(dimensionWeights);
-    const maxBaseScore=dimensionNames.reduce((sum,key)=>sum+dimensionWeights[key],0)+3;
-    const list=(Array.isArray(hobbies)?hobbies:[]).map(h=>{
-      let score=0;
-      dimensionNames.forEach(dimension=>{
-        const q=questions.find(item=>item.dimension===dimension);
-        if(!q || answers[q.id]===undefined || !h.quizProfile) return;
-        const option=q.options.find(item=>item.id===answers[q.id]);
-        if(!option) return;
-        const expected=Number(h.quizProfile[dimension]);
-        const chosen=Number(option.value);
-        const distance=Math.abs(expected-chosen);
-        const weight=dimensionWeights[dimension];
-        if(distance===0) score+=weight;
-        else if(distance===1) score+=weight*0.5;
-      });
-      // Q3 and Q12 add a category bonus, as specified in the project brief.
-      ["activityType","weekend"].forEach(dimension=>{
-        const q=questions.find(item=>item.dimension===dimension);
-        if(!q || answers[q.id]===undefined) return;
-        const optionIndex=q.options.findIndex(item=>item.id===answers[q.id]);
-        const matchingCategories=(categoryBonusMap[dimension]||[])[optionIndex]||[];
-        if(matchingCategories.includes(h.categoryId)) score+=1.5;
-      });
-      return {...h,score,match:Math.round((score/maxBaseScore)*100)};
-    });
-    return list.sort((a,b)=>b.score-a.score || a.name.localeCompare(b.name)).slice(0,3);
-  }
+  function getResults(){ return HobbyMatching.rank(hobbies,questions,answers); }
   function renderResults(){
     const results=getResults();
     app.innerHTML=`<div class="quizResultsHead"><div class="quizResultIcon">✦</div><p class="dfEyebrow">MADE FOR YOUR KIND OF FUN</p><h1>Your hobby matches</h1><p class="quizIntro">Here are a few ideas based on the preferences you shared.</p></div>

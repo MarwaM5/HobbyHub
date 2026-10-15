@@ -87,3 +87,13 @@ async function initHome() {
 }
 
 initHome();
+
+/* Approved active campaigns only; no empty advertising placeholders. */
+document.addEventListener('DOMContentLoaded',async()=>{
+ for(const placement of ['home-banner','home-premium','home-featured']){
+  const campaigns=await getVisibleCampaigns(placement);if(!campaigns.length)continue;
+  const section=document.createElement('section');section.className='hhContainer hhSponsoredSection';section.setAttribute('aria-label','Sponsored');
+  section.innerHTML=campaigns.map(c=>`<a class="hhSponsoredCard" href="${escapeHtml(c.destinationUrl)}" target="_blank" rel="noopener noreferrer"><img src="${escapeHtml(ActivityMedia.resolve({imageUrl:c.imageUrl}))}" alt="${escapeHtml(c.name)}"><span><small>Sponsored</small><strong>${escapeHtml(c.name)}</strong></span></a>`).join('');
+  const target=document.getElementById('featuredGrid')?.closest('section');if(target)target.before(section);
+ }
+});

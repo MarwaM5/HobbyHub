@@ -1,8 +1,5 @@
 /* My Journey: demo goals live in memory only, per the current project brief. */
-const journeyGoals = [
-  { id:"goalFirstSong", hobby:"Guitar", title:"Play my first full song", emoji:"🎸", progress:68, milestonesDone:3, milestonesTotal:4, accent:"#ed7052", end:"#f6a15a", tint:"#fbe3da" },
-  { id:"goalPhotoPortfolio", hobby:"Photography", title:"Build a 10 photo portfolio", emoji:"📸", progress:35, milestonesDone:2, milestonesTotal:6, accent:"#7da477", end:"#a8c59b", tint:"#e6eee2" }
-];
+const journeyGoals = sharedJourneyGoals.map(goal=>({...goal}));
 function readTransientGoal(){
   const params=new URLSearchParams(window.location.search);
   const raw=params.get("savedGoal");

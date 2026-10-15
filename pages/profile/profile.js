@@ -45,11 +45,14 @@
   });
   form.addEventListener("submit",e=>{
     e.preventDefault();if(!form.reportValidity())return;
+    const record=users.find(item=>item.id===currentUser.id);if(record){record.name=nameInput.value.trim();record.email=emailInput.value.trim();currentUser.name=record.name;}
     savedPhotoData=pendingPhotoData;
     updateProfile(nameInput.value.trim(),emailInput.value.trim(),savedPhotoData);
     form.hidden=true;editButton.hidden=false;form.reset();
     showProfileToast("Profile updated for this demo session.");
   });
+  const enrolled=enrollments.filter(e=>e.userId===currentUser.id&&e.status==='confirmed');
+  document.getElementById('profileEnrollmentList').innerHTML=enrolled.map(e=>{const a=activities.find(a=>a.id===e.activityId);if(!a)return '';const online=String(a.delivery).startsWith('Online');return `<article class="pfEnrollmentCard" data-activity-id="${escapeHtml(a.id)}"><div class="pfEnrollmentIcon pfHobbyPeach">${escapeHtml(a.emoji||'✦')}</div><div class="pfEnrollmentMain"><div class="pfEnrollmentTitleRow"><h3>${escapeHtml(a.title)}</h3><span class="pfStatus">Confirmed</span></div><p>${escapeHtml(a.type)} · ${escapeHtml(a.date)} · ${escapeHtml(a.delivery)}</p></div><div class="pfEnrollmentActions"><a class="hhBtn hhBtnWhite" href="${buildUrl('activityDetails','?id='+encodeURIComponent(a.id)+'&u=1')}">View</a>${online?`<a class="hhBtn hhBtnPrimary" href="${buildUrl('liveSession','?id='+encodeURIComponent(a.id)+'&u=1')}">Join online ↗</a>`:''}</div></article>`;}).join('');
   const enrollmentCards=[...document.querySelectorAll(".pfEnrollmentCard")];
   document.getElementById("profileEnrollmentCount").textContent=enrollmentCards.length;
   document.getElementById("enrollmentCountBadge").textContent=enrollmentCards.length;

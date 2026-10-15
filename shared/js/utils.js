@@ -2,6 +2,13 @@
 
 // أسماء الصفحات ومساراتها من جذر المشروع. لو غيّرنا مسار صفحة بنغيّره من هون بس
 const routes = {
+  adminDashboard: "admin/dashboard/dashboard.html",
+  adminUsers: "admin/users/users.html",
+  adminCatalog: "admin/catalog/catalog.html",
+  adminActivities: "admin/activities/activities.html",
+  adminCommunities: "admin/communities/communities.html",
+  adminPayments: "admin/payments/payments.html",
+  adminSettings: "admin/settings/settings.html",
   dashboard: "pages/dashboard/dashboard.html",
   profile: "pages/profile/profile.html",
   classesBrowse: "pages/classes/classesBrowse/classesBrowse.html",

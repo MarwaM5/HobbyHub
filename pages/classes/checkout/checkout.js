@@ -18,5 +18,5 @@
  city.addEventListener("input",()=>city.setCustomValidity(/^[A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ .'-]{1,59}$/.test(city.value.trim())?"":"Enter a valid city name."));
  cardNumber.addEventListener("input",()=>{const digits=cardNumber.value.replace(/\D/g,"");cardNumber.setCustomValidity(digits.length>=13&&digits.length<=19?"":"Enter a card number containing 13 to 19 digits.");});
  cvv.addEventListener("input",()=>cvv.setCustomValidity(/^\d{3,4}$/.test(cvv.value)?"":"Enter a 3 or 4 digit security code."));
- form.addEventListener("submit",e=>{e.preventDefault();form.classList.add("was-validated");validateExpiry();if(!form.checkValidity()){form.reportValidity();return;}form.hidden=true;document.getElementById("orderSummary").hidden=true;success.hidden=false;});
+ form.addEventListener("submit",e=>{e.preventDefault();form.classList.add("was-validated");validateExpiry();if(!form.checkValidity()){form.reportValidity();return;}try{enrollInActivity(a.id,true);}catch(error){let node=document.getElementById('checkoutRecordError');if(!node){node=document.createElement('p');node.id='checkoutRecordError';node.setAttribute('role','alert');form.prepend(node);}node.textContent=error.message;return;}form.hidden=true;document.getElementById("orderSummary").hidden=true;success.hidden=false;});
 })();

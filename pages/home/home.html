@@ -50,7 +50,7 @@
       decoding="async"
       width="1672"
       height="941"
-    />
+    / data-content-image="home-hero-image">
     <span class="hhLandscapeVeil"></span>
     <div class="hhLivingUniverse" id="hhPortalViewport" aria-hidden="true">
       <span class="hhPortalBreath"></span>
@@ -74,11 +74,11 @@
       </div>
 
       <div class="hhContainer heroContent">
-        <p class="heroEyebrow animFadeUp" style="--delay:.1s">Find a hobby that feels like you.</p>
+        <p class="heroEyebrow animFadeUp" style="--delay:.1s" data-content-key="home-1">Find a hobby that feels like you.</p>
         <h1 class="heroTitle animFadeUp" style="--delay:.25s">
-          Find Your Next <span class="heroMark">Hobby Adventure</span>
+          <span data-content-key="home-hero-heading">Find Your Next</span> <span class="heroMark" data-content-key="home-hero-accent">Hobby Adventure</span>
         </h1>
-        <p class="heroText animFadeUp" style="--delay:.4s">
+        <p class="heroText animFadeUp" style="--delay:.4s" data-content-key="home-2">
           Discover hobbies, learn new skills, connect with amazing people, and grow into the happiest version of yourself.
         </p>
         <div class="heroActions animFadeUp" style="--delay:.55s">
@@ -120,9 +120,9 @@
   </div>
 <!-- HH_SCENE:trail:END -->
         <div class="hhSectionHead reveal">
-          <p class="hhWorldEyebrow">THE CURIOSITY TRAIL</p>
-          <h2 class="hhSectionTitle">How HobbyHub Works</h2>
-          <p class="hhSectionSub">A simple journey from curiosity to progress.</p>
+          <p class="hhWorldEyebrow" data-content-key="home-3">THE CURIOSITY TRAIL</p>
+          <h2 class="hhSectionTitle" data-content-key="home-4">How HobbyHub Works</h2>
+          <p class="hhSectionSub" data-content-key="home-5">A simple journey from curiosity to progress.</p>
         </div>
         <div class="row g-4" id="stepsGrid"></div>
       </div>
@@ -132,8 +132,8 @@
     <section class="hhSection" id="explore">
       <div class="hhContainer">
         <div class="hhSectionHead reveal">
-          <h2 class="hhSectionTitle">Explore by Category</h2>
-          <p class="hhSectionSub">Pick a starting point and discover hobbies you might love.</p>
+          <h2 class="hhSectionTitle" data-content-key="home-6">Explore by Category</h2>
+          <p class="hhSectionSub" data-content-key="home-7">Pick a starting point and discover hobbies you might love.</p>
         </div>
         <div class="row g-4" id="categoryGrid"></div>
       </div>
@@ -144,8 +144,8 @@
       <div class="hhContainer">
         <div class="quizBanner reveal">
           <span class="quizBannerSpark" aria-hidden="true">✨</span>
-          <h2 class="quizBannerTitle">Not sure what hobby is right for you?</h2>
-          <p class="quizBannerText">Take our quick Hobby Discovery quiz and get hobby matches based on your interests, time and activity style.</p>
+          <h2 class="quizBannerTitle" data-content-key="home-8">Not sure what hobby is right for you?</h2>
+          <p class="quizBannerText" data-content-key="home-9">Take our quick Hobby Discovery quiz and get hobby matches based on your interests, time and activity style.</p>
           <a class="hhBtn hhBtnPrimary hhBtnLg" id="btnBannerQuiz" data-route="login">Discover my hobbies</a>
         </div>
       </div>
@@ -155,8 +155,8 @@
     <section class="hhSection" id="featured">
       <div class="hhContainer">
         <div class="hhSectionHead reveal">
-          <h2 class="hhSectionTitle">Featured Classes, Events &amp; Training</h2>
-          <p class="hhSectionSub">Learn something practical and meet people with similar interests.</p>
+          <h2 class="hhSectionTitle" data-content-key="home-10">Featured Classes, Events &amp; Training</h2>
+          <p class="hhSectionSub" data-content-key="home-11">Learn something practical and meet people with similar interests.</p>
         </div>
         <div class="row g-4" id="featuredGrid"></div>
       </div>
@@ -166,9 +166,9 @@
 <section class="hhSection hhArchipelago" id="hobbyIslands">
     <div class="hhContainer">
       <div class="hhSectionHead">
-        <p class="hhWorldEyebrow">THE HOBBY ARCHIPELAGO</p>
+        <p class="hhWorldEyebrow" data-content-key="home-12">THE HOBBY ARCHIPELAGO</p>
         <h2 class="hhSectionTitle">Find your people.<span> Your little world.</span></h2>
-        <p class="hhSectionSub">Explore places where curiosity becomes a shared passion.</p>
+        <p class="hhSectionSub" data-content-key="home-13">Explore places where curiosity becomes a shared passion.</p>
       </div>
       <div class="hhIslandEnvironment">
         <div class="hhIslandClouds" aria-hidden="true"></div>
@@ -192,15 +192,15 @@
         <div class="row g-4">
           <div class="col-12 col-lg-6 reveal">
             <div class="panel tintGreen">
-              <h2 class="panelTitle">Join a Hobby Community</h2>
-              <p class="panelText">Ask questions, share tips and learn from people who enjoy the same hobbies.</p>
+              <h2 class="panelTitle" data-content-key="home-14">Join a Hobby Community</h2>
+              <p class="panelText" data-content-key="home-15">Ask questions, share tips and learn from people who enjoy the same hobbies.</p>
               <a class="hhBtn hhBtnOutline" id="btnPanelGroups" data-route="groupsIntro">Explore Groups</a>
             </div>
           </div>
           <div class="col-12 col-lg-6 reveal" style="--delay:120ms">
             <div class="panel tintOrange">
-              <h2 class="panelTitle">Need an idea for your hobby?</h2>
-              <p class="panelText">Use the AI Hobby Generator to turn your hobby, level and available time into an activity idea.</p>
+              <h2 class="panelTitle" data-content-key="home-16">Need an idea for your hobby?</h2>
+              <p class="panelText" data-content-key="home-17">Use the AI Hobby Generator to turn your hobby, level and available time into an activity idea.</p>
               <a class="hhBtn hhBtnPrimary" id="btnPanelAi" data-route="ai">Try AI Generator</a>
             </div>
           </div>
@@ -212,9 +212,9 @@
 <section class="hhSection hhMemoryWall" id="creativeMemories">
     <div class="hhContainer">
       <div class="hhSectionHead">
-        <p class="hhWorldEyebrow">LITTLE MOMENTS THAT STAY WITH YOU</p>
+        <p class="hhWorldEyebrow" data-content-key="home-18">LITTLE MOMENTS THAT STAY WITH YOU</p>
         <h2 class="hhSectionTitle">Your memories <span>start here.</span></h2>
-        <p class="hhSectionSub">
+        <p class="hhSectionSub" data-content-key="home-19">
           Your first brushstroke. Your first song. A whole new way of seeing.
         </p>
       </div>
@@ -227,7 +227,7 @@
           <span class="hhMemoryPin" aria-hidden="true"></span>
           <div class="hhMemoryImage"><span class="hhDiorama" aria-hidden="true"></span></div>
           <h3>Something made by you.</h3>
-          <p>What would you love to create with your own hands?</p>
+          <p data-content-key="home-20">What would you love to create with your own hands?</p>
           <span class="hhHandwritten">a little time to create</span>
         </article>
         <article
@@ -237,7 +237,7 @@
           <span class="hhMemoryPin" aria-hidden="true"></span>
           <div class="hhMemoryImage"><span class="hhDiorama" aria-hidden="true"></span></div>
           <h3>A song you can call yours.</h3>
-          <p>Every melody starts with one small, imperfect note.</p>
+          <p data-content-key="home-21">Every melody starts with one small, imperfect note.</p>
           <span class="hhHandwritten">keep a little room for joy</span>
         </article>
         <article
@@ -247,7 +247,7 @@
           <span class="hhMemoryPin" aria-hidden="true"></span>
           <div class="hhMemoryImage"><span class="hhDiorama" aria-hidden="true"></span></div>
           <h3>A different kind of weekend.</h3>
-          <p>Go somewhere new. Notice something you never saw before.</p>
+          <p data-content-key="home-22">Go somewhere new. Notice something you never saw before.</p>
           <span class="hhHandwritten">there is wonder everywhere</span>
         </article>
       </div>
@@ -259,8 +259,8 @@
     <section class="hhSection pt-4" id="faq">
       <div class="hhContainer hhFaqGuide">
         <div class="hhSectionHead reveal">
-          <h2 class="hhSectionTitle">Frequently Asked Questions</h2>
-          <p class="hhFaqIntro">A little guidance for your next adventure.</p>
+          <h2 class="hhSectionTitle" data-content-key="home-23">Frequently Asked Questions</h2>
+          <p class="hhFaqIntro" data-content-key="home-24">A little guidance for your next adventure.</p>
           <div class="hhFaqIllustration" aria-hidden="true">
             <span class="hhFaqPaper hhFaqPaperBack"></span><span class="hhFaqPaper"></span>
             <span class="hhFaqCompass"></span>
@@ -281,9 +281,9 @@
         <span class="hhBookSpark hhBookSparkOne">✦</span><span class="hhBookSpark hhBookSparkTwo">✧</span>
       </div>
       <div class="hhChapterCopy">
-        <p class="hhWorldEyebrow">THE NEXT CHAPTER IS YOURS</p>
+        <p class="hhWorldEyebrow" data-content-key="home-25">THE NEXT CHAPTER IS YOURS</p>
         <h2>Your Next Chapter <span>Starts Here</span></h2>
-        <p>
+        <p data-content-key="home-26">
           Join a community of curious and creative people, discover new passions, and turn your free
           time into something amazing.
         </p>

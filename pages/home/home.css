@@ -387,3 +387,4 @@
   color: var(--hhPrimary);
 }
 @media (max-width: 767.98px) { .hero { margin-top: .75rem; } .heroContent { padding-block: 3rem 5rem; } .catCard { padding: 1.5rem; }}
+.hhSponsoredSection{padding-block:20px;display:flex;gap:18px;flex-wrap:wrap}.hhSponsoredCard{display:flex;align-items:center;gap:18px;padding:16px;background:#fff;border:1px solid var(--hhBorder);border-radius:18px;color:var(--hhText);text-decoration:none;flex:1;min-width:240px}.hhSponsoredCard img{width:130px;height:85px;object-fit:cover;border-radius:12px}.hhSponsoredCard span{display:grid;gap:6px}.hhSponsoredCard small{color:var(--hhMuted)}

@@ -14,7 +14,7 @@
       <div class="contactHeroCopy">
         <p class="contactEyebrow"><span></span> WE’RE HERE FOR YOU</p>
         <h1>Let’s talk about<br><em>what’s on your mind.</em></h1>
-        <p>Have a question, an idea, or feedback about HobbyHub? Send us a note. We’d love to hear from you.</p>
+        <p data-content-key="contact-1">Have a question, an idea, or feedback about HobbyHub? Send us a note. We’d love to hear from you.</p>
         <div class="contactPromise"><span class="promiseIcon">♡</span><span><strong>A friendly space to reach out</strong><small>Questions, suggestions, and feedback are all welcome.</small></span></div>
       </div>
       <div class="contactHeroArt" aria-hidden="true">
@@ -27,31 +27,32 @@
 
     <section class="contactContent">
       <div class="contactInfoColumn">
-        <p class="contactSectionLabel">GET IN TOUCH</p>
+        <p class="contactSectionLabel" data-content-key="contact-2">GET IN TOUCH</p>
         <h2>We’d love to<br>hear from you.</h2>
-        <p class="contactIntro">Use the form to share what you need help with, suggest an improvement, or simply tell us what you think about HobbyHub.</p>
-        <div class="contactInfoCard"><span class="infoIcon">✉</span><div><h3>Email us</h3><p>For questions and feedback, send us a message using the form.</p></div></div>
-        <div class="contactInfoCard"><span class="infoIcon peachIcon">♡</span><div><h3>Share an idea</h3><p>Have an idea that could make discovering hobbies easier? We’re all ears.</p></div></div>
+        <p class="contactIntro" data-content-key="contact-3">Use the form to share what you need help with, suggest an improvement, or simply tell us what you think about HobbyHub.</p>
+        <div class="contactInfoCard"><span class="infoIcon">✉</span><div><h3>Email us</h3><p data-content-key="contact-4">For questions and feedback, send us a message using the form.</p></div></div>
+        <div class="contactInfoCard"><span class="infoIcon peachIcon">♡</span><div><h3>Share an idea</h3><p data-content-key="contact-5">Have an idea that could make discovering hobbies easier? We’re all ears.</p></div></div>
         <div class="contactNoteBox"><span>✦</span><p><strong>Every message starts a conversation.</strong><br>We appreciate you being part of the HobbyHub journey.</p></div>
       </div>
 
       <div class="contactFormCard">
-        <div class="formHeading"><span class="formHeadingIcon">↗</span><div><h2>Send us a message</h2><p>Fill in the details below and let us know how we can help.</p></div></div>
+        <div class="formHeading"><span class="formHeadingIcon">↗</span><div><h2 data-content-key="contact-6">Send us a message</h2><p data-content-key="contact-7">Fill in the details below and let us know how we can help.</p></div></div>
         <form id="contactForm" novalidate>
           <div class="formRow">
             <div class="fieldGroup"><label for="contactName">Your name <span>*</span></label><input id="contactName" name="name" type="text" placeholder="e.g. Alex Morgan" autocomplete="name" required><small class="fieldError" id="nameError"></small></div>
             <div class="fieldGroup"><label for="contactEmail">Email address <span>*</span></label><input id="contactEmail" name="email" type="email" placeholder="you@example.com" autocomplete="email" required><small class="fieldError" id="emailError"></small></div>
           </div>
-          <div class="fieldGroup"><label for="contactTopic">What’s this about? <span>*</span></label><select id="contactTopic" name="topic" required><option value="" selected disabled>Choose a topic</option><option value="general">General question</option><option value="feedback">Feedback or suggestion</option><option value="classes">Classes and activities</option><option value="account">Account help</option><option value="other">Something else</option></select><small class="fieldError" id="topicError"></small></div>
+          <div class="fieldGroup"><label for="contactTopic">What’s this about? <span>*</span></label><select id="contactTopic" name="topic" required><option value="" selected disabled>Choose a topic</option><option value="general">General question</option><option value="feedback">Feedback or suggestion</option><option value="classes">Classes and activities</option><option value="account">Account help</option><option value="advertising">Advertise with HobbyHub</option><option value="list-activity">List an activity / become a partner</option><option value="other">Something else</option></select><small class="fieldError" id="topicError"></small></div>
+          <fieldset id="contactBusinessFields" class="contactBusinessFields" hidden><legend>Tell us about your organization</legend><div class="formRow"><div class="fieldGroup"><label for="contactBusinessName">Organization / business name <span>*</span></label><input id="contactBusinessName" name="businessName" autocomplete="organization"><small class="fieldError" id="businessNameError"></small></div><div class="fieldGroup"><label for="contactPhone">Contact phone <span>*</span></label><input id="contactPhone" name="phone" type="tel" autocomplete="tel"><small class="fieldError" id="phoneError"></small></div></div><p>Share your proposed activity or advertising idea below. We’ll agree on the details before publication.</p></fieldset>
           <div class="fieldGroup"><label for="contactMessage">Your message <span>*</span></label><textarea id="contactMessage" name="message" rows="5" placeholder="Tell us a little about what you need…" required></textarea><div class="messageMeta"><small class="fieldError" id="messageError"></small><small id="messageCount">0 / 1000</small></div></div>
           <button class="contactSubmit" type="submit">Send message <span aria-hidden="true">→</span></button>
-          <p class="formPrivacy">Your message details are only used for this demo form. <a data-route="privacy" href="../../pages/privacy/privacy.html">Privacy Policy</a></p>
+          <p class="formPrivacy">We use your contact details to respond to your enquiry. <a data-route="privacy" href="../../pages/privacy/privacy.html">Privacy Policy</a></p>
           <div class="contactFormFeedback" id="contactFeedback" role="status" aria-live="polite" hidden></div>
         </form>
       </div>
     </section>
 
-    <section class="contactBottom"><div class="bottomSpark">✦</div><div><p class="contactSectionLabel">KEEP EXPLORING</p><h2>Good things start with curiosity.</h2><p>Thanks for helping us make HobbyHub a better place to discover what you love.</p></div><span class="bottomHeart">♡</span></section>
+    <section class="contactBottom"><div class="bottomSpark">✦</div><div><p class="contactSectionLabel" data-content-key="contact-8">KEEP EXPLORING</p><h2 data-content-key="contact-9">Good things start with curiosity.</h2><p data-content-key="contact-10">Thanks for helping us make HobbyHub a better place to discover what you love.</p></div><span class="bottomHeart">♡</span></section>
   </main>
   <div id="hhFooter"></div><div id="hhModals"></div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script><script src="../../shared/js/data.js"></script><script src="../../shared/js/dataService.js"></script><script src="../../shared/js/utils.js"></script><script src="../../shared/js/components.js"></script><script src="contact.js"></script>

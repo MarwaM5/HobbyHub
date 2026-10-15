@@ -75,7 +75,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    showNotice(notice, "Your details look complete. Login will connect to your account when the authentication flow is implemented.");
+    // Replace this navigation with the future server-authenticated role response.
+    window.location.href = buildUrl("dashboard", "?u=1");
   });
 
   function openForgotDialog() {

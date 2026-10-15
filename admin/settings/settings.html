@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Settings — HobbyHub Admin</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../shared/css/base.css" />
+    <link rel="stylesheet" href="../../shared/css/components.css" />
+    <link rel="stylesheet" href="../shared/css/admin-shell.css" />
+    <link rel="stylesheet" href="settings.css" />
+  </head>
+  <body class="hhAdmin" data-root="../../" data-admin-page="settings">
+    <div class="adminShell">
+      <div id="adminSidebarSlot"></div>
+      <div class="adminMain">
+        <div id="adminHeaderSlot"></div>
+        <main class="adminContent" id="adminMainContent">
+          <div class="adminTabs" id="adminTabs" role="tablist" aria-label="Settings sections"></div>
+          <div id="adminWorkspace" role="tabpanel" tabindex="0"></div>
+          <noscript>Please enable JavaScript to use HobbyHub.</noscript>
+        </main>
+        <div id="adminFooterSlot"></div>
+      </div>
+    </div>
+    <div class="adminToast" id="adminToast" role="status" aria-live="polite" hidden></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../shared/js/data.js"></script>
+    <script src="../../shared/js/dataService.js"></script>
+    <script src="../../shared/js/utils.js"></script>
+    <script src="../../shared/js/components.js"></script>
+    <script src="../shared/js/admin-shell.js"></script>
+    <script src="../shared/js/admin-manager.js"></script>
+    <script src="../shared/js/admin-settlement.js"></script>
+    <script src="settings.js"></script>
+  </body>
+</html>

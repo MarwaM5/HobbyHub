@@ -1,0 +1,337 @@
+.adminWelcome {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  padding: 30px 34px;
+  margin-bottom: 24px;
+  border: 1px solid #efd7c3;
+  border-radius: 20px;
+  background: linear-gradient(110deg, #fff5e8, #fbe3da 65%, #e6eee2);
+  isolation: isolate;
+}
+.adminEyebrow {
+  color: #a24c33;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  font-size: 0.66rem;
+  margin: 0 0 12px;
+}
+.adminWelcome h2 {
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  margin: 0 0 12px;
+}
+.adminWelcome h2 span {
+  color: #b9553b;
+}
+.adminWelcome p:last-child {
+  margin: 0;
+  color: var(--hhMuted);
+  max-width: 350px;
+}
+.adminWelcome > .adminBtn {
+  z-index: 1;
+  white-space: nowrap;
+  margin-right: 50px;
+}
+.adminWelcomeArt {
+  position: absolute;
+  right: 15px;
+  top: -20px;
+  font-size: 120px;
+  color: #f6a15a;
+  opacity: 0.3;
+  z-index: -1;
+  rotate: 15deg;
+}
+.adminWelcomeArt i {
+  position: absolute;
+  right: 130px;
+  top: 80px;
+  color: #7da477;
+  font-style: normal;
+}
+.dashboardMoneyGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.dashboardMoneyCard {
+  display: block;
+  text-decoration: none;
+  color: var(--hhText);
+  background: #fff;
+  border: 1px solid var(--hhBorder);
+  border-radius: 16px;
+  padding: 22px;
+  transition: box-shadow 0.2s;
+}
+.dashboardMoneyCard:hover {
+  box-shadow: 0 8px 24px #b5794820;
+  color: var(--hhText);
+}
+.dashboardMoneyIcon {
+  display: grid;
+  place-items: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 10px;
+  background: #fbe3da;
+  color: #a94831;
+  font-size: 1.25rem;
+  margin-bottom: 14px;
+}
+.payable .dashboardMoneyIcon {
+  background: #e6eee2;
+  color: #50714a;
+}
+.receivable .dashboardMoneyIcon {
+  background: #fff0c9;
+  color: #87672b;
+}
+.dashboardMoneyCard p {
+  margin: 0 0 7px;
+  font-size: 0.8rem;
+  color: var(--hhMuted);
+}
+.dashboardMoneyCard strong {
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  letter-spacing: -0.04em;
+  display: block;
+}
+.dashboardMoneyCard small {
+  display: block;
+  color: var(--hhMuted);
+  font-size: 0.7rem;
+  margin-top: 8px;
+}
+.dashboardMainGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 20px;
+}
+.dashboardSectionTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.dashboardSectionTitle h2 {
+  margin: 0;
+}
+.dashboardTask {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--hhText);
+  padding: 15px 0;
+  border-bottom: 1px solid #f3e6dc;
+}
+.dashboardTask:last-child {
+  border-bottom: 0;
+}
+.dashboardTask:hover {
+  color: #a94831;
+}
+.dashboardTaskIcon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: #fbe3da;
+  color: #a94831;
+  flex-shrink: 0;
+  font-size: 1.05rem;
+}
+.dashboardTaskIcon.sage {
+  background: #e6eee2;
+  color: #50714a;
+}
+.dashboardTaskIcon.gold {
+  background: #fff0c9;
+  color: #87672b;
+}
+.dashboardTask strong {
+  font-size: 0.81rem;
+  display: block;
+}
+.dashboardTask small {
+  font-size: 0.7rem;
+  color: var(--hhMuted);
+  display: block;
+  margin-top: 3px;
+}
+.dashboardTask b {
+  margin-left: auto;
+  min-width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #fff5ea;
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+}
+.dashboardTask i {
+  font-style: normal;
+  color: #a94831;
+}
+.dashboardIncomeItem {
+  margin: 23px 0;
+}
+.dashboardIncomeItem > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.76rem;
+}
+.dashboardIncomeTrack {
+  height: 7px;
+  background: #f7eee6;
+  border-radius: 20px;
+  margin-top: 9px;
+  overflow: hidden;
+}
+.dashboardIncomeTrack span {
+  display: block;
+  height: 100%;
+  border-radius: 20px;
+  background: #ed7052;
+}
+.dashboardIncomeTrack .gold {
+  background: #e0a63a;
+}
+.dashboardIncomeTrack .sage {
+  background: #7da477;
+}
+.dashboardIncomeTrack .peach {
+  background: #f6a15a;
+}
+.dashboardIncome .adminBtn {
+  margin-top: 6px;
+}
+.dashboardQuickCreate {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 10px 0 27px;
+}
+.dashboardQuickCreate h2 {
+  font-size: 1rem;
+}
+.dashboardQuickCreate > div {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.dashboardBottomGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.dashboardPlatformStats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+.dashboardPlatformStats a {
+  display: grid;
+  gap: 4px;
+  text-decoration: none;
+  color: var(--hhText);
+}
+.dashboardPlatformStats strong {
+  font-size: 1.7rem;
+  line-height: 1.2;
+}
+.dashboardPlatformStats span {
+  font-size: 0.75rem;
+  color: var(--hhMuted);
+}
+.dashboardTimeline {
+  list-style: none;
+  padding: 0;
+  margin: 18px 0 0;
+}
+.dashboardTimeline li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 10px 0;
+}
+.dashboardTimeline li > span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ed7052;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+.dashboardTimeline strong {
+  font-size: 0.75rem;
+}
+.dashboardTimeline p {
+  margin: 3px 0;
+  font-size: 0.73rem;
+  color: var(--hhMuted);
+}
+.dashboardTimeline time {
+  margin-left: auto;
+  white-space: nowrap;
+  font-size: 0.65rem;
+  color: var(--hhMuted);
+}
+@media (max-width: 1100px) {
+  .dashboardMoneyGrid {
+    gap: 10px;
+  }
+  .dashboardMoneyCard {
+    padding: 17px;
+  }
+  .dashboardMainGrid {
+    grid-template-columns: 1fr;
+  }
+  .dashboardQuickCreate {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+@media (max-width: 650px) {
+  .adminWelcome {
+    padding: 23px;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .adminWelcome > .adminBtn {
+    margin: 0;
+  }
+  .dashboardMoneyGrid,
+  .dashboardBottomGrid {
+    grid-template-columns: 1fr;
+  }
+  .dashboardMoneyCard {
+    padding: 20px;
+  }
+  .dashboardMoneyIcon {
+    float: right;
+    margin: 0;
+  }
+  .dashboardTask small {
+    max-width: 210px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dashboardMoneyCard {
+    transition: none;
+  }
+}
+
+.dashboardBookingChart {display:flex;align-items:center;justify-content:space-between;gap:24px;margin:22px 0;padding:24px 32px}.dashboardChartLegend {min-width:220px}.dashboardChartLegend p {display:flex;align-items:center;gap:10px;margin:12px 0}.dashboardChartLegend i {width:12px;height:12px;border-radius:50%}.dashboardChartLegend strong {margin-left:auto}.dashboardDonut {width:180px;height:180px;border-radius:50%;display:grid;place-items:center;flex-shrink:0}.dashboardDonut>span {background:var(--hhBg);width:132px;height:132px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center}.dashboardDonut strong {font-size:2rem}@media(max-width:540px){.dashboardBookingChart{flex-direction:column;align-items:stretch}.dashboardDonut{align-self:center}}

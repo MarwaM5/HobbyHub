@@ -9,15 +9,22 @@ document.addEventListener("DOMContentLoaded", () => {
     name: document.getElementById("contactName"),
     email: document.getElementById("contactEmail"),
     topic: document.getElementById("contactTopic"),
-    message
+    message,
+    businessName:document.getElementById("contactBusinessName"),
+    phone:document.getElementById("contactPhone")
   };
   const errors = {
     name: document.getElementById("nameError"),
     email: document.getElementById("emailError"),
     topic: document.getElementById("topicError"),
-    message: document.getElementById("messageError")
+    message: document.getElementById("messageError"),
+    businessName:document.getElementById("businessNameError"),
+    phone:document.getElementById("phoneError")
   };
 
+  const businessTopic=()=>['advertising','list-activity'].includes(fields.topic.value);
+  function updateBusinessFields(){const show=businessTopic();document.getElementById('contactBusinessFields').hidden=!show;fields.businessName.required=show;fields.phone.required=show;}
+  fields.topic.addEventListener('change',updateBusinessFields);updateBusinessFields();
   message.addEventListener("input", () => {
     count.textContent = `${message.value.length} / 1000`;
     if (message.value.length > 1000) message.value = message.value.slice(0, 1000);
@@ -45,7 +52,9 @@ document.addEventListener("DOMContentLoaded", () => {
       name: fields.name.value.trim(),
       email: fields.email.value.trim(),
       topic: fields.topic.value,
-      message: fields.message.value.trim()
+      message: fields.message.value.trim(),
+      businessName:businessTopic()?fields.businessName.value.trim():"",
+      phone:businessTopic()?fields.phone.value.trim():""
     };
     const setError = (key, text) => {
       errors[key].textContent = text;
@@ -58,16 +67,20 @@ document.addEventListener("DOMContentLoaded", () => {
     setError("topic", values.topic ? "" : "Please choose a topic.");
     setError("message", !values.message ? "Please enter your message." : (values.message.length < 10 ? "Please enter at least 10 characters." : ""));
 
+    setError("businessName",businessTopic()&&!values.businessName?"Please enter your organization’s name.":"");
+    setError("phone",businessTopic()&&!/^[+\d][\d\s()-]{6,24}$/.test(values.phone)?"Please enter a contact phone number.":"");
     if (!valid) {
       const firstInvalid = form.querySelector(".isInvalid");
       if (firstInvalid) firstInvalid.focus();
       return;
     }
 
-    feedback.textContent = "Thanks for reaching out! This form is a front-end demo, so your message hasn’t been sent or saved.";
+    AdminService.submitContact(values);
+    feedback.textContent = "Thank you for your message.";
     feedback.hidden = false;
     feedback.classList.add("isVisible");
     form.reset();
+    updateBusinessFields();
     count.textContent = "0 / 1000";
     Object.values(errors).forEach((error) => error.textContent = "");
     Object.values(fields).forEach((field) => field.classList.remove("isInvalid"));
