@@ -14,10 +14,11 @@ function readTransientGoal(){
     return goal;
   }catch(error){return null;}
 }
+const receivedJourneyGoal=readTransientGoal();
 function renderJourneyGoals(){
   const grid=document.getElementById("journeyGoalsGrid");
-  const savedGoal=readTransientGoal();
-  const goals=savedGoal?[...journeyGoals,savedGoal]:journeyGoals;
+  const savedGoal=receivedJourneyGoal;
+  const goals=savedGoal?[...journeyGoals.filter(goal=>goal.id!==savedGoal.id),savedGoal]:journeyGoals;
   grid.innerHTML=goals.map((goal)=>{
     const detailPayload=savedGoal&&goal.id===savedGoal.id
       ? "&goalData="+encodeURIComponent(JSON.stringify(savedGoal))
@@ -26,7 +27,7 @@ function renderJourneyGoals(){
     <article class="journeyGoalCard" id="${escapeHtml(goal.id)}" data-goal-id="${escapeHtml(goal.id)}" style="--goalAccent:${goal.accent};--goalEnd:${goal.end};--goalTint:${goal.tint};--progress:${goal.progress}%">
       <div class="journeyGoalTop">
         <div class="journeyGoalIcon" aria-hidden="true">${escapeHtml(goal.emoji||"🌱")}</div>
-        <div class="journeyGoalInfo"><p class="journeyGoalHobby">${escapeHtml(goal.hobby)} journey</p><h3>${escapeHtml(goal.title)}</h3></div>
+        <div class="journeyGoalInfo"><p class="journeyGoalHobby">${escapeHtml(goal.hobby)} journey${goal.plannedMinutes?" · "+escapeHtml(goal.plannedMinutes)+" min / session":""}</p><h3>${escapeHtml(goal.title)}</h3></div>
       </div>
       <div class="journeyGoalProgress">
         <div class="journeyProgressLabels"><span>You're making progress</span><strong>${goal.progress}%</strong></div>

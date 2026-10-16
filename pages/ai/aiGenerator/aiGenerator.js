@@ -7,6 +7,7 @@
   document.body.classList.add("hasUserSession");
   mountSharedUi({userApp:true,active:"aiApp",title:"AI Generator",subtitle:"Turn your hobby into a doable idea."});
 
+  const durationPicker=mountSessionDuration(document.getElementById("aiSessionDuration"),"aiDuration");
   const form=document.getElementById("aiGeneratorForm");
   const hobbySelect=document.getElementById("aiHobby");
   const preview=document.getElementById("aiGenPreviewCanvas");
@@ -18,7 +19,6 @@
   let currentInputs=null;
   let toastTimeout=null;
 
-  const ideaBank=sharedIdeaBank, genericIdeas=sharedGenericIdeas;
 
   function showToast(message){
     toast.textContent=message;toast.classList.add("isVisible");
@@ -37,13 +37,8 @@
       hobbySelect.innerHTML='<option value="">Choose a hobby</option>'+all.map(hobby=>`<option value="${escapeHtml(hobby.id)}" data-emoji="${escapeHtml(hobby.emoji||"✦")}">${escapeHtml(hobby.name)}</option>`).join("");
       const initial=all.find(h=>h.id==="photography");
       if(initial)hobbySelect.value=initial.id;
+      enhanceHobbySelect(hobbySelect);
     });
-  }
-  function chooseIdea(hobbyId){
-    const options=ideaBank[hobbyId]||genericIdeas;
-    const idea=options[generatedIndex%options.length]||genericIdeas[generatedIndex%genericIdeas.length];
-    generatedIndex++;
-    return idea;
   }
   function renderIdea(idea,inputs){
     const selectedOption=hobbySelect.options[hobbySelect.selectedIndex];
@@ -56,14 +51,15 @@
         <div class="aiGenPlan"><p class="aiGenEyebrow">YOUR LITTLE PLAN</p>
           ${idea.steps.map((step,index)=>`<div class="aiGenIdeaStep"><span>${index+1}</span><div><h5>${escapeHtml(step[0])}</h5><p>${escapeHtml(step[1])}</p></div></div>`).join("")}
         </div>
-        <div class="aiGenIdeaMeta"><span>⏱ ${escapeHtml(inputs.time)}</span><span>⌂ ${escapeHtml(idea.place)}</span><span>🧰 ${escapeHtml(tools)}</span></div>
+        <p class="aiGenResultsDescription">Your time is a session estimate, not a deadline. If you need longer, keep unfinished milestones for your next session.</p><div class="aiGenIdeaMeta"><span>⏱ ${escapeHtml(inputs.time)}</span><span>⌂ ${escapeHtml(idea.place)}</span><span>🧰 ${escapeHtml(tools)}</span></div>
       </div>`;
     saveButton.disabled=false;regenerateButton.disabled=false;
   }
   function generateIdea(){
     if(!hobbySelect.value){hobbySelect.focus();showToast("Choose a hobby first, and your idea will be on its way.");return}
-    const inputs={hobby:hobbySelect.value,level:getSelected("level"),time:getSelected("time"),tools:document.getElementById("aiTools").value.trim()};
-    currentIdea=chooseIdea(inputs.hobby);
+    const minutes=durationPicker.read();if(minutes===null)return;
+    const inputs={hobby:hobbySelect.value,level:getSelected("level"),time:minutes+" minutes",tools:document.getElementById("aiTools").value.trim()};
+    currentIdea=createHobbyProject(inputs.hobby,generatedIndex++,inputs.time,inputs.level);
     currentInputs=inputs;
     renderIdea(currentIdea,inputs);
     saveButton.innerHTML="♡ Save idea";
@@ -82,6 +78,7 @@
       description:currentIdea.description,
       emoji:currentIdea.emoji||"🌱",
       progress:0,
+      plannedMinutes:currentIdea.minutes,
       milestones:(currentIdea.steps||[]).map((step,index)=>({
         id:"aiStep"+(index+1),
         text:step[0]+(step[1]?" — "+step[1]:""),

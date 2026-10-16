@@ -22,7 +22,7 @@ async function renderSteps() {
   const stepList = await getHowSteps();
   document.getElementById("stepsGrid").innerHTML = stepList.map((step, index) => `
       <div class="col-12 col-sm-6 col-lg-3 reveal" style="--delay:${index * 90}ms">
-        <a class="stepCard hhCard hhCardHover" id="${step.id}Card" href="${buildUrl(step.route)}">
+        <a class="stepCard hhCard hhCardHover" id="${step.id}Card" href="${buildUrl(step.route === "groups" ? "groupsIntro" : step.route)}">
           <span class="stepCardNum">${step.num}</span>
           <h3 class="stepCardTitle">${escapeHtml(step.title)}</h3>
           <p class="stepCardText">${escapeHtml(step.text)}</p>

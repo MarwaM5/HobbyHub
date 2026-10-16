@@ -51,7 +51,8 @@ function getRoot() {
 
 // رابط صفحة كامل. مثال: buildUrl("category", "?c=creative")
 function buildUrl(routeKey, query = "") {
-  return getRoot() + routes[routeKey] + query;
+  const target=getRoot() + routes[routeKey] + query;
+  return withProfilePreview(target);
 }
 
 // بيحمي النص من رموز HTML (& < >) قبل ما نحطه بالصفحة
@@ -97,3 +98,34 @@ function initReveal() {
   }, { threshold: 0.12 });
   items.forEach((item) => observer.observe(item));
 }
+
+/* Frontend-only state handoff. URL values are previews, never proof of payment or authorization. */
+const profilePreview = (() => {
+ const saved=new Set(['guitar','photography','pottery']);
+ const booked=new Set();
+ try {
+  const raw=new URLSearchParams(window.location.search).get('preview');
+  if(raw && raw.length<6000){const state=JSON.parse(raw);
+   if(Array.isArray(state.h)) { saved.clear(); state.h.slice(0,100).filter(id=>hobbies.some(h=>h.id===id)).forEach(id=>saved.add(id)); }
+   if(Array.isArray(state.e))state.e.slice(0,100).filter(id=>activities.some(a=>a.id===id&&a.status==='published')).forEach(id=>booked.add(id));
+  }
+ }catch{}
+ // Only reconstruct the frontend enrollment view; do not create financial records from URL input.
+ for(const id of booked)if(!hasActivityEnrollment(id))enrollments.push({id:'preview-'+id,userId:currentUser.id,activityId:id,status:'confirmed',previewOnly:true});
+ return {saved,booked};
+})();
+function withProfilePreview(target){
+ const hashIndex=target.indexOf('#'),hash=hashIndex<0?'':target.slice(hashIndex),base=hashIndex<0?target:target.slice(0,hashIndex);
+ const split=base.indexOf('?'),path=split<0?base:base.slice(0,split),params=new URLSearchParams(split<0?'':base.slice(split+1));
+ if(params.get('u')!=='1' || path.includes('/admin/'))return target;
+ const e=enrollments.filter(row=>row.userId===currentUser.id&&row.status==='confirmed').map(row=>row.activityId);
+ params.set('preview',JSON.stringify({h:[...profilePreview.saved],e:[...new Set(e)]}));
+ return path+'?'+params.toString()+hash;
+}
+// Refresh links at activation because navigation may have rendered before Save/Enroll.
+document.addEventListener('click',event=>{
+ const link=event.target.closest?.('a[href]');if(!link)return;
+ const href=link.getAttribute('href');
+ if(!href||/^(?:[a-z]+:|\/\/)/i.test(href))return;
+ link.setAttribute('href',withProfilePreview(href));
+},true);

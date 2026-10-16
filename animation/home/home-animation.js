@@ -42,7 +42,7 @@
         const hobby = hobbies.find((item) => item.id === id);
         if (!hobby) return '';
         const cell = hobbyCells[id];
-        return `<a class="hhIslandCard" href="${buildUrl('communityFeed', '?id=' + encodeURIComponent(id) + (isLoggedIn() ? '&u=1' : ''))}" style="--diorama-x:${cell[0]}%;--diorama-y:${cell[1]}%;--island-offset:${index % 2 ? 17 : 0}px;--card-delay:${index * 0.13}s"><span class="hhDiorama" aria-hidden="true"></span><span class="hhIslandLabel"><strong>${escapeHtml(hobby.name)} Community</strong><small>Explore this little world <span aria-hidden="true">↗</span></small></span></a>`;
+        return `<a class="hhIslandCard" href="${(isLoggedIn() ? buildUrl('communityFeed', '?id=' + encodeURIComponent(id) + '&u=1') : buildUrl('groupsIntro'))}" style="--diorama-x:${cell[0]}%;--diorama-y:${cell[1]}%;--island-offset:${index % 2 ? 17 : 0}px;--card-delay:${index * 0.13}s"><span class="hhDiorama" aria-hidden="true"></span><span class="hhIslandLabel"><strong>${escapeHtml(hobby.name)} Community</strong><small>Explore this little world <span aria-hidden="true">↗</span></small></span></a>`;
       })
       .join('');
     document

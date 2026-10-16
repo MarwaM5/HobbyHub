@@ -56,14 +56,7 @@
                   <label class="aiGenChoice"><input type="radio" name="level" value="Confident"><span class="aiGenChoiceIcon">🌳</span><span><b>Confident</b><small>Ready for a challenge</small></span><i>✓</i></label>
                 </div>
               </fieldset>
-              <div class="aiGenField">
-                <label for="aiTime">How much time do you have?</label>
-                <div class="aiGenTimeGrid">
-                  <label class="aiGenTimeChoice isSelected"><input type="radio" name="time" value="15 minutes"><span>⚡</span><b>15 min</b><small>A tiny break</small></label>
-                  <label class="aiGenTimeChoice"><input type="radio" name="time" value="30 minutes" checked><span>⏳</span><b>30 min</b><small>A little session</small></label>
-                  <label class="aiGenTimeChoice"><input type="radio" name="time" value="1 hour"><span>☀️</span><b>1 hour</b><small>Time to explore</small></label>
-                </div>
-              </div>
+              <div class="aiGenField" id="aiSessionDuration"></div>
               <div class="aiGenField">
                 <label for="aiTools">What tools or materials do you have?</label>
                 <div class="aiGenInputWrap"><span aria-hidden="true">🧰</span><input id="aiTools" name="tools" type="text" placeholder="e.g. phone, pencil, paper, guitar"></div>

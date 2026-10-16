@@ -11,12 +11,18 @@ function showNewGoalToast(message){const toast=document.getElementById("newGoalT
 function initJourneyNewGoal(){
  if(!isLoggedIn()){window.location.href=buildUrl("login");return;}
  mountSharedUi({userApp:true,active:"journeyApp",title:"Create New Goal",subtitle:"Make your idea grow"});applyRoutes(document);
+ const hobbySelect=document.getElementById('goalHobby');
+ hobbySelect.innerHTML='<option value="">Choose a hobby</option>'+categories.map(category=>`<optgroup label="${escapeHtml(category.name)}">${hobbies.filter(h=>h.categoryId===category.id).map(h=>`<option value="${escapeHtml(h.name)}">${escapeHtml(h.name)}</option>`).join('')}</optgroup>`).join('');
+ enhanceHobbySelect(hobbySelect);
+ const durationPicker=mountSessionDuration(document.getElementById("goalSessionDuration"),"goalDuration");
  addNewGoalMilestone();addNewGoalMilestone();addNewGoalMilestone();
  document.getElementById("btnAddMilestone").addEventListener("click",()=>addNewGoalMilestone());
  document.getElementById("btnSuggestGoal").addEventListener("click",()=>{const hobby=document.getElementById("goalHobby").value;const suggestion=document.getElementById("goalSuggestion");if(!hobby){suggestion.textContent="Choose a hobby first and we’ll suggest a goal for it.";suggestion.hidden=false;return;}const title=goalSuggestions[hobby]||"Build a small skill step by step";suggestion.innerHTML=`<b>Suggested goal:</b> ${escapeHtml(title)} <button type="button" class="ngUseSuggestion" style="margin-left:.5rem;border:0;background:transparent;color:#a94b34;font-weight:800;text-decoration:underline">Use this</button>`;suggestion.hidden=false;suggestion.querySelector("button").addEventListener("click",()=>{document.getElementById("goalTitleInput").value=title;});});
- document.getElementById("newGoalForm").addEventListener("submit",event=>{event.preventDefault();const hobby=document.getElementById("goalHobby").value;const title=document.getElementById("goalTitleInput").value.trim();const milestones=[...document.querySelectorAll(".ngMilestoneRow input")].map(input=>input.value.trim());const time=document.getElementById("weeklyTime").value;
- if(!hobby||!title||!time||milestones.length===0||milestones.some(item=>!item)){showNewGoalToast("Please complete the hobby, goal, weekly time, and each milestone.");return;}
- showNewGoalToast("Your goal is ready in this demo! Goal creation will connect to My Journey when the in-memory goal flow is completed. Nothing is saved after leaving this page.");
+ document.getElementById("newGoalForm").addEventListener("submit",event=>{event.preventDefault();const hobby=document.getElementById("goalHobby").value;const title=document.getElementById("goalTitleInput").value.trim();const milestones=[...document.querySelectorAll(".ngMilestoneRow input")].map(input=>input.value.trim());const time=durationPicker.read();if(time===null)return;
+ if(!hobby||!title||!time||milestones.length===0||milestones.some(item=>!item)){showNewGoalToast("Please complete the hobby, goal, session time, and each milestone.");return;}
+ const selectedHobby=hobbies.find(item=>item.name===hobby);
+ const goal={id:"goalCustom"+Date.now().toString(36),hobby,title,description:"A personal goal, one milestone at a time.",emoji:selectedHobby?.emoji||"🌱",plannedMinutes:time,progress:0,milestones:milestones.map((text,index)=>({id:"customStep"+(index+1),text,done:false})),notes:[]};
+ window.location.href=buildUrl("myJourney","?u=1&savedGoal="+encodeURIComponent(JSON.stringify(goal)));
  });
 }
 initJourneyNewGoal();

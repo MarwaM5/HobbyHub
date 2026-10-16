@@ -410,6 +410,16 @@ const AdminService = (() => {
       required(value.date, 'Date');
       required(value.time, 'Time');
       if (Number.isNaN(new Date(value.date).getTime())) throw Error('Enter a valid activity date.');
+      if(value.endDate || value.endTime || value.meetingDays){
+        value.endDate=required(value.endDate,'End date');value.endTime=required(value.endTime,'End time');value.meetingDays=required(value.meetingDays,'Session days');
+        const end=new Date(value.endDate);
+        if(!/^\d{4}-\d{2}-\d{2}$/.test(value.endDate)||Number.isNaN(end.getTime())||end.toISOString().slice(0,10)!==value.endDate||end<new Date(value.date))throw Error('End date must be a valid date on or after the start date.');
+        const clock=value.time.match(/^(\d{1,2}):(\d{2})(?:\s*(AM|PM))?$/i);
+        if(!clock || Number(clock[2])>59 || Number(clock[1])>(clock[3]?12:23) || (clock[3]&&Number(clock[1])<1) || !/^([01]\d|2[0-3]):[0-5]\d$/.test(value.endTime))throw Error('Enter valid start and end times.');
+        const hour=clock[3]?(Number(clock[1])%12+(clock[3].toUpperCase()==='PM'?12:0)):Number(clock[1]);
+        value.startTime=String(hour).padStart(2,'0')+':'+clock[2];
+        if(value.endTime<=value.startTime)throw Error('Session end time must be after its start time.');
+      }
       value.duration = required(value.duration, 'Duration');
       value.sessions = value.sessions || value.duration;
       value.imageUrl = value.imageUrl || '';
@@ -970,3 +980,25 @@ function recordOrganizerPayment(invoiceId, request) {
 }
 
 function isValidPaymentDay(value){if(!/^\d{4}-\d{2}-\d{2}$/.test(value||''))return false;const date=new Date(value+'T12:00:00Z');return !Number.isNaN(date.getTime())&&date.toISOString().slice(0,10)===value;}
+
+/* Frontend project suggestions: replace with an AI endpoint later. */
+function createHobbyProject(hobbyId, variation, time, level) {
+ const projects={"drawing": ["Create a three-panel postcard", "Sketch three scenes from your day"], "calligraphy": ["Make a hand-lettered gift tag", "Letter a short quote for your desk"], "photography": ["Tell a story in five photos", "Create a three-photo colour collection"], "pottery": ["Make a small pinch-pot dish", "Shape a textured clay pendant"], "crochet": ["Crochet a small coaster", "Make a two-colour bookmark"], "tatreez": ["Stitch a small geometric motif", "Make a stitched bookmark motif"], "accessoriesHandicrafts": ["Make a personalised beaded bracelet", "Design a matching keyring"], "guitar": ["Record a short three-chord song", "Create a four-bar chord loop"], "oud": ["Record a short oud melody", "Create a four-bar oud phrase"], "singing": ["Record a verse of a favourite song", "Create a short vocal harmony"], "piano": ["Record a short piano melody", "Compose a four-bar piano phrase"], "dabke": ["Build a short dabke sequence", "Record a short dabke step combination"], "modernDance": ["Create a short dance sequence", "Choreograph a chorus-length routine"], "hiking": ["Create a local walking-route journal", "Make a nearby trail photo map"], "camping": ["Build a campsite layout plan", "Pack and test a basic camp kit at home"], "snorkeling": ["Make a marine-life identification card", "Create a supervised snorkelling preparation checklist"], "windsurfing": ["Create a windsurfing preparation card", "Build a supervised lesson preparation plan"], "cycling": ["Map a short local cycling route", "Create a bike preparation checklist"], "football": ["Complete a three-station ball-control circuit", "Record a short passing challenge"], "running": ["Complete a comfortable walk-run session", "Create a personal warm-up card"], "swimming": ["Create a supervised pool-session plan", "Make a pool preparation and reflection card"], "tennis": ["Complete a short controlled rally challenge", "Record a ball-control practice sequence"], "padel": ["Complete a short partner rally challenge", "Create a court-positioning diagram"], "cooking": ["Make a colourful three-ingredient salad", "Prepare a simple lunch bowl"], "bakingDesserts": ["Make a small batch of oat cookies", "Create a no-bake dessert cup"], "homeGardening": ["Plant a small herb pot", "Create a labelled seed-starting tray"], "coffeeBrewing": ["Make a two-cup coffee comparison card", "Create your own coffee recipe card"], "chess": ["Build an annotated three-puzzle collection", "Annotate a short chess game"], "tawleh": ["Create an illustrated opening-move card", "Annotate one friendly tawleh round"], "reading": ["Create a one-page illustrated book review", "Make a character relationship map"], "groupBoardGames": ["Create a quick-start game guide", "Design a small paper board game"]};
+ const hobby=hobbies.find(h=>h.id===hobbyId);
+ const title=(projects[hobbyId]||["Create a small personal hobby project"])[variation % (projects[hobbyId]?.length||1)];
+ const parsed=typeof time==='number'?time:time==='1 hour'?60:Number(String(time).replace(/ minutes?$/,''));
+ if(!Number.isInteger(parsed)||parsed<5||parsed>480)throw Error('Choose a session between 5 and 480 whole minutes.');
+ const minutes=parsed;
+ const parts=[Math.round(minutes*.2),Math.round(minutes*.6)];parts.push(minutes-parts[0]-parts[1]);
+ return {title,description:`Your outcome: ${title.toLowerCase()}. Use this ${minutes}-minute session to make a first version; finishing can take another session.`,emoji:hobby?.emoji||"🌱",place:"Choose a suitable space",minutes,steps:[
+ ["Prepare your first version",`Choose the materials and a manageable scope for: ${title.toLowerCase()}. About ${parts[0]} min.`],
+ ["Make the project",`${level==="Beginner"?"Keep the first version simple":"Add one detail that challenges you"}. Work toward the named outcome with the tools you have. About ${parts[1]} min.`],
+ ["Keep your result",`Save, photograph or write down what you made. Mark only completed milestones and note what remains. About ${parts[2]} min.`]]};
+}
+
+function activitySchedule(activity){
+ const formatDate=value=>{const date=new Date(value);return Number.isNaN(date.getTime())?'Date to be confirmed':date.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});};
+ const start=formatDate(activity.date),end=activity.endDate?formatDate(activity.endDate):'';
+ const clock=value=>{if(!/^\d{2}:\d{2}$/.test(value||''))return value||'Time to be confirmed';const [h,m]=value.split(':').map(Number);return (h%12||12)+':'+String(m).padStart(2,'0')+(h<12?' AM':' PM');};
+ return {dates:end&&end!==start?start+' – '+end:start,hours:activity.endTime?clock(activity.startTime||activity.time)+' – '+clock(activity.endTime):clock(activity.time)+' · End time to be confirmed',days:activity.meetingDays||'Session days to be confirmed'};
+}
