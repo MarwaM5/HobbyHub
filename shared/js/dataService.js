@@ -23,7 +23,7 @@ async function getCategories() {
 async function getHowSteps() { return howSteps; }
 
 // الأنشطة اللي الأدمن علّم عليها Featured (مجانية أو مدفوعة)
-async function getFeaturedActivities() { return activities.filter((activity) => activity.isFeatured && (activity.status || "published") === "published"); }
+async function getFeaturedActivities() { return activities.filter((activity) => isActivityFeatured(activity)); }
 
 async function getFaqs() { return faqs; }
 
@@ -34,7 +34,7 @@ async function getDashboardNextSteps() { return dashboardNextSteps; }
 async function getDashboardRecentActivity() { return dashboardRecentActivity; }
 
 // Classes, events and trainings (mock data for the front-end phase).
-async function getActivities() { return activities.filter((activity) => (activity.status || "published") === "published"); }
+async function getActivities() { return activities.filter((activity) => isActivityListed(activity)); }
 async function getActivityById(id) { return activities.find((activity) => activity.id === id && (activity.status || "published") === "published") || null; }
 
 /* Shared frontend contracts. These operate only on this document's mock records. */
@@ -93,7 +93,7 @@ const HobbyHubService = (() => {
       payableFils: bookings.reduce((sum, item) => sum + item.payableFils, 0),
     };
   }
-  function invoiceDetails(invoice, today = new Date().toISOString().slice(0, 10)) {
+  function invoiceDetails(invoice, today = new Date(demoNow()).toISOString().slice(0, 10)) {
     const fees = serviceFees.filter((item) => invoice.feeIds.includes(item.id));
     const amountFils = fees.reduce((sum, item) => sum + item.amountFils, 0);
     return {
@@ -102,7 +102,7 @@ const HobbyHubService = (() => {
       status: invoice.status === 'issued' && invoice.dueOn < today ? 'overdue' : invoice.status,
     };
   }
-  function campaignVisible(campaign, today = new Date().toISOString().slice(0, 10)) {
+  function campaignVisible(campaign, today = new Date(demoNow()).toISOString().slice(0, 10)) {
     return (
       campaign.approved === true &&
       campaign.status === 'active' &&
@@ -171,7 +171,7 @@ const HobbyHubService = (() => {
       id: 'log-' + Date.now() + '-' + platformActivityLog.length,
       kind,
       detail,
-      createdAt: new Date().toISOString(),
+      createdAt: new Date(demoNow()).toISOString(),
     });
   }
   function markPayoutPaid(id) {
@@ -180,7 +180,7 @@ const HobbyHubService = (() => {
       throw new Error('Only a pending payout can be marked paid out.');
     if (!payoutDetails(payout).payableFils) throw new Error('This payout has no paid bookings.');
     payout.status = 'paidOut';
-    payout.paidAt = new Date().toISOString();
+    payout.paidAt = new Date(demoNow()).toISOString();
     recordEvent('Simulated payout', id);
     return clone(payoutDetails(payout));
   }
@@ -189,7 +189,7 @@ const HobbyHubService = (() => {
     if (!invoice || !['issued', 'overdue'].includes(invoice.status))
       throw new Error('Only an issued invoice can be marked paid.');
     invoice.status = 'paid';
-    invoice.paidAt = new Date().toISOString();
+    invoice.paidAt = new Date(demoNow()).toISOString();
     serviceFees
       .filter((item) => invoice.feeIds.includes(item.id))
       .forEach((item) => {
@@ -291,6 +291,7 @@ const AdminService = (() => {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) throw Error('Enter a valid email address.');
   };
   const safeReference = (value) => {
+    if(typeof value==='string'&&value.length<2000000&&/^data:image\/(jpeg|png|webp);base64,[a-z0-9+/=]+$/i.test(value))return;
     if (
       value &&
       ((/^[a-z][a-z\d+.-]*:/i.test(value) && !/^https?:\/\//i.test(value)) ||
@@ -321,7 +322,7 @@ const AdminService = (() => {
         throw Error('This email is already in use.');
       value.role = old?.role || 'user';
       value.status = old?.status || 'active';
-      value.joinedAt = old?.joinedAt || new Date().toISOString().slice(0, 10);
+      value.joinedAt = old?.joinedAt || new Date(demoNow()).toISOString().slice(0, 10);
     }
     if (['categories', 'hobbies', 'organizers', 'communities', 'campaigns'].includes(kind))
       value.name = required(value.name, 'Name');
@@ -420,6 +421,13 @@ const AdminService = (() => {
         value.startTime=String(hour).padStart(2,'0')+':'+clock[2];
         if(value.endTime<=value.startTime)throw Error('Session end time must be after its start time.');
       }
+      if(value.sourceContactId){value.commissionPercent=15;if(value.isFeatured){value.featuredStartsAt=value.publishAt;value.featuredEndsAt=value.bookingClosesAt;}const request=contactMessages.find(r=>r.id===value.sourceContactId);if(value.status==='published'&&request?.activityRequest){const offer=request.agreement;if(offer?.status!=='accepted')throw Error('Record the organizer’s acceptance before publication.');if(offer.totalFils>0&&(!request.publicationReceipt||request.publicationReceipt.amountFils!==offer.totalFils))throw Error('Verify receipt of the publication fees before scheduling publication.');const current=quoteActivityPublication(value,offer.rates);if(['publishAt','bookingClosesAt','priceJod','isFeatured','totalFils'].some(key=>current[key]!==offer[key]))throw Error('Dates or pricing changed. Prepare a new offer and record approval.');value.listingFeeFils=offer.listingFeeFils;value.featuredFeeFils=offer.featuredFeeFils;}}
+      if(value.publishAt&&!value.sourceContactId&&(!value.listingFeeFils||value.publicationRateSnapshot)){
+        const rates=value.publicationRateSnapshot||platformSettings.requestPricing,q=quoteActivityPublication(value,rates);value.listingFeeFils=q.listingFeeFils;value.featuredFeeFils=q.featuredFeeFils;value.publicationRateSnapshot=clone(rates);
+      }
+      publicationWindow(value);
+      if(value.sourceContactId&&activities.some(a=>a.id!==value.id&&a.sourceContactId===value.sourceContactId))throw Error('This request already has an activity.');
+      if(value.publishAt&&value.status==='published'&&value.isFeatured&&!(Number(value.featuredFeeFils)>0))throw Error('Confirm a positive, fixed homepage-placement fee before publication.');
       value.duration = required(value.duration, 'Duration');
       value.sessions = value.sessions || value.duration;
       value.imageUrl = value.imageUrl || '';
@@ -543,6 +551,7 @@ const AdminService = (() => {
     }
     if (old) Object.assign(old, value);
     else list.push(value);
+    if(kind==='activities'&&value.sourceContactId){const r=contactMessages.find(r=>r.id===value.sourceContactId);if(r){r.activityId=value.id;r.organizerId=value.organizerId;r.reviewStatus='draftPrepared';}}
     if (kind === 'activities' && value.status === 'published') {
       for (const [type, amount] of [
         ['listing', value.listingFeeFils || 0],
@@ -575,6 +584,7 @@ const AdminService = (() => {
       }
     }
 
+    if(kind==='activities'&&value.status==='published'&&value.sourceContactId)reconcileRequestReceipt(value.sourceContactId);
     if (kind === 'organizers' && value.sourceContactId) {
       const request = contactMessages.find((c) => c.id === value.sourceContactId);
       if (request) {
@@ -594,7 +604,7 @@ const AdminService = (() => {
       id: id('log'),
       kind: old ? 'Updated' : 'Created',
       detail: value.title || value.name || value.number || value.question || kind,
-      createdAt: new Date().toISOString(),
+      createdAt: new Date(demoNow()).toISOString(),
     });
     return clone(value);
   }
@@ -690,7 +700,7 @@ const AdminService = (() => {
     fee.status = 'paid';
   }
   function submitContact(values) {
-    required(values.name, 'Name');
+    const contactName=required(values.name,'Name');if(contactName.length<2||contactName.length>100||!/[\p{L}]/u.test(contactName))throw Error('Enter a contact name containing letters, between 2 and 100 characters.');
     email(values.email);
     required(values.topic, 'Topic');
     if (required(values.message, 'Message').length < 10)
@@ -699,7 +709,9 @@ const AdminService = (() => {
       required(values.businessName, 'Organization name');
       validateContactPhone(values.phone);
     }
-    const item = { ...values, id: id('message'), createdAt: new Date().toISOString(), status: 'new' };
+    if(values.coverImageData)safeReference(values.coverImageData);
+    if(values.topic==='list-activity'){values.activityRequest=validateActivityRequest(values.activityRequest||{});values.publicationEstimate=quoteActivityPublication(values.activityRequest);if(Number(values.activityRequest.priceJod)>0)values.payoutDetails=validateOrganizerPayout(values.payoutDetails||{});}
+    const item = { ...values, reviewStatus:'new', id: id('message'), createdAt: new Date(demoNow()).toISOString(), status: 'new' };
     contactMessages.unshift(item);
     return clone(item);
   }
@@ -737,6 +749,7 @@ const AdminService = (() => {
 function enrollInActivity(activityId, paid = false) {
   const activity = activities.find((a) => a.id === activityId && (a.status || 'published') === 'published');
   if (!activity) throw Error('Activity is unavailable.');
+  if(!isActivityListed(activity))throw Error('Booking is closed or this activity is not yet open.');
   const existing = enrollments.find(
     (e) => e.userId === currentUser.id && e.activityId === activityId && e.status === 'confirmed',
   );
@@ -752,7 +765,7 @@ function enrollInActivity(activityId, paid = false) {
     userId: currentUser.id,
     activityId,
     status: 'confirmed',
-    createdAt: new Date().toISOString().slice(0, 10),
+    createdAt: new Date(demoNow()).toISOString().slice(0, 10),
   };
   enrollments.push(enrollment);
   if (activity.priceJod > 0) {
@@ -764,10 +777,10 @@ function enrollInActivity(activityId, paid = false) {
         amountFils: quote.amountFils,
         commissionPercent: quote.commissionPercent,
         status: 'paid',
-        paidAt: new Date().toISOString(),
+        paidAt: new Date(demoNow()).toISOString(),
       };
     simulatedPayments.push(payment);
-    let payout = payouts.find((p) => p.organizerId === activity.organizerId && p.status === 'pending');
+    let payout = payouts.find((p) => p.organizerId === activity.organizerId && p.status === 'pending' && p.paymentIds.every(id=>enrollments.find(e=>e.id===simulatedPayments.find(pay=>pay.id===id)?.enrollmentId)?.activityId===activity.id));
     if (!payout) {
       payout = {
         id: 'payout-' + Date.now() + '-' + payouts.length,
@@ -910,6 +923,7 @@ const SettlementService = (() => {
   }
   function complete(id, request) {
     const quote = details(id);
+    const original=payouts.find(p=>p.id===id);if(!original||!payoutReady(original))throw Error('Organizer settlement is available after the activity ends and refunds are reviewed.');
     if (quote.status !== 'pending') throw Error('This payout has already been settled.');
     if (!quote.payableFils || quote.payableFils !== request.expectedAmountFils)
       throw Error('The payable changed. Review the breakdown again.');
@@ -921,12 +935,12 @@ const SettlementService = (() => {
       request.mode === 'preview'
         ? 'PREVIEW-' + Date.now() + '-' + id
         : String(request.reference || '').trim();
-    const paidOn = request.mode === 'preview' ? new Date().toISOString().slice(0, 10) : request.paidOn;
+    const paidOn = request.mode === 'preview' ? new Date(demoNow()).toISOString().slice(0, 10) : request.paidOn;
     if (reference.length < 3 || reference.length > 100)
       throw Error('Enter the bank or wallet transfer reference.');
     if (payouts.some((p) => p.id !== id && p.transferReference === reference))
       throw Error('This transfer reference is already attached to another payout.');
-    if (!isValidPaymentDay(paidOn) || paidOn > new Date().toISOString().slice(0, 10))
+    if (!isValidPaymentDay(paidOn) || paidOn > new Date(demoNow()).toISOString().slice(0, 10))
       throw Error('Enter the actual transfer date, not a future date.');
     if (request.mode === 'external' && !request.externalTransferCompleted)
       throw Error('Confirm that the transfer was completed outside HobbyHub.');
@@ -964,7 +978,7 @@ function recordOrganizerPayment(invoiceId, request) {
     throw Error('This payment reference has already been recorded.');
   if (
     !isValidPaymentDay(request.receivedOn) ||
-    request.receivedOn > new Date().toISOString().slice(0, 10)
+    request.receivedOn > new Date(demoNow()).toISOString().slice(0, 10)
   )
     throw Error('Enter the actual receipt date.');
   if (!request.receiptConfirmed) throw Error('Confirm that you received this payment.');
@@ -1002,3 +1016,96 @@ function activitySchedule(activity){
  const clock=value=>{if(!/^\d{2}:\d{2}$/.test(value||''))return value||'Time to be confirmed';const [h,m]=value.split(':').map(Number);return (h%12||12)+':'+String(m).padStart(2,'0')+(h<12?' AM':' PM');};
  return {dates:end&&end!==start?start+' – '+end:start,hours:activity.endTime?clock(activity.startTime||activity.time)+' – '+clock(activity.endTime):clock(activity.time)+' · End time to be confirmed',days:activity.meetingDays||'Session days to be confirmed'};
 }
+
+/* Activity request and publication contracts. Times explicitly use the configured Amman offset. */
+function activityDateTime(value,label='Date and time'){
+ if(!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(value||''))throw Error(label+' is required.');
+ const [day,time]=value.split('T');const d=new Date(day+'T'+time+':00Z');
+ if(Number.isNaN(d.getTime())||d.toISOString().slice(0,16)!==value)throw Error('Enter a valid '+label.toLowerCase()+'.');
+ return new Date(value+':00+03:00').getTime();
+}
+function publicationWindow(value,requireAll=false){
+ const any=value.publishAt||value.bookingClosesAt||value.featuredStartsAt||value.featuredEndsAt;
+ if(!any&&!requireAll)return null;
+ const start=activityDateTime(value.publishAt,'Publication start'),close=activityDateTime(value.bookingClosesAt,'Booking deadline');
+ const date=new Date(value.date);if(Number.isNaN(date.getTime()))throw Error('Enter the activity start date.');
+ const day= /^\d{4}-\d{2}-\d{2}$/.test(value.date)?value.date:[date.getFullYear(),String(date.getMonth()+1).padStart(2,'0'),String(date.getDate()).padStart(2,'0')].join('-');
+ let clock=value.startTime||value.time;
+ if(!/^\d{2}:\d{2}$/.test(clock||'')){const match=String(clock).match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);if(!match)throw Error('Enter the session start time.');clock=String(Number(match[1])%12+(match[3].toUpperCase()==='PM'?12:0)).padStart(2,'0')+':'+match[2];}
+ const event=activityDateTime(day+'T'+clock,'Activity start');
+ if(close<=start)throw Error('Booking must close after publication begins.');
+ if(close>event)throw Error('Booking must close at or before the activity starts.');
+ let featuredHours=0;
+ if(value.isFeatured){const from=activityDateTime(value.featuredStartsAt,'Homepage start'),to=activityDateTime(value.featuredEndsAt,'Homepage end');if(from<start||to>close||to<=from)throw Error('Homepage placement must fall within the publication and booking period.');featuredHours=(to-from)/3600000;}
+ return {publicationHours:(close-start)/3600000,featuredHours};
+}
+function formatDisplayPeriod(hours){const minutes=Math.round(hours*60),days=Math.floor(minutes/1440),h=Math.floor(minutes%1440/60),m=minutes%60;return [days?days+' day'+(days===1?'':'s'):'',h?h+' hr':'',m?m+' min':''].filter(Boolean).join(' ')||'0 min';}
+function isActivityListed(activity,now=demoNow()){
+ if((activity.status||'published')!=='published')return false;
+ if(!activity.publishAt)return true;
+ try{return now>=activityDateTime(activity.publishAt)&&now<activityDateTime(activity.bookingClosesAt);}catch{return false;}
+}
+function isActivityFeatured(activity,now=demoNow()){
+ if(!activity.isFeatured||!isActivityListed(activity,now))return false;
+ if(!activity.featuredStartsAt&&!activity.featuredEndsAt)return true;
+ try{return now>=activityDateTime(activity.featuredStartsAt)&&now<activityDateTime(activity.featuredEndsAt);}catch{return false;}
+}
+function validateActivityRequest(input){
+ const a={...input};if(a.sessionDays){const pattern=calculateRequestSchedule(a.date,a.endDate,a.sessionDays);a.meetingDays=pattern.meetingDays;a.sessions=pattern.sessions;a.duration=pattern.duration;}if(a.isFeatured){a.featuredStartsAt=a.publishAt;a.featuredEndsAt=a.bookingClosesAt;}
+ for(const key of ['title','hobbyId','type','description','level','date','endDate','time','endTime','meetingDays','duration','sessions','delivery'])if(!String(a[key]??'').trim())throw Error('Complete the activity details: '+key+'.');
+ if(!hobbies.some(h=>h.id===a.hobbyId)||!['Class','Event','Training'].includes(a.type)||!['inperson','online'].includes(a.delivery))throw Error('Choose a valid hobby, activity type and delivery.');
+ for(const [key,value]of Object.entries(a))if(typeof value==='string'&&value.length>3000)throw Error('Activity details are too long.');
+ for(const key of ['date','endDate']){const parsed=new Date(a[key]+'T00:00:00Z');if(!/^\d{4}-\d{2}-\d{2}$/.test(a[key])||Number.isNaN(parsed.getTime())||parsed.toISOString().slice(0,10)!==a[key])throw Error('Enter a valid activity date.');}
+ if(a.endDate<a.date||!/^([01]\d|2[0-3]):[0-5]\d$/.test(a.time)||!/^([01]\d|2[0-3]):[0-5]\d$/.test(a.endTime)||a.endTime<=a.time)throw Error('Activity end date/time must follow its start date/time.');
+ if(a.title.trim().length<3||a.title.length>150||a.description.trim().length<10)throw Error('Use a clear activity title and a description of at least 10 characters.');
+ a.seats=Number(a.seats);if(!Number.isInteger(a.seats)||a.seats<1||a.seats>100000)throw Error('Enter a whole number of seats from 1 to 100000.');
+ a.priceJod=HobbyHubService.toFils(a.priceJod)/1000;
+ if(a.delivery==='inperson'&&!String(a.location||'').trim())throw Error('Enter the venue or address.');
+ if(a.delivery==='online'&&!['jitsi','zoom'].includes(a.onlineProvider))throw Error('Choose the online meeting provider.');
+ if(a.acceptedTerms!==true)throw Error('Accept the 15% paid-booking commission and separate homepage-placement terms.');
+ a.isFeatured=Boolean(a.isFeatured);a.startTime=a.time;publicationWindow(a,true);
+ if(a.delivery==='online'&&a.onlineProvider==='zoom'){let url;try{url=new URL(a.zoomUrl);}catch{throw Error('Enter the Zoom meeting link.');}if(url.protocol!=='https:'||!/(^|\.)zoom\.us$|(^|\.)zoom\.com$/.test(url.hostname))throw Error('Use an HTTPS Zoom meeting link.');if(!/^\d{9,11}$/.test(String(a.zoomMeetingId||'').replace(/\s/g,'')))throw Error('Enter the 9–11 digit Zoom meeting ID.');a.zoomMeetingId=String(a.zoomMeetingId).replace(/\s/g,'');const linked=url.pathname.match(/\/j\/(\d{9,11})(?:\/|$)/);if(linked&&linked[1]!==a.zoomMeetingId)throw Error('The meeting ID must match the Zoom link.');}
+
+ a.commissionPercent=15;delete a.featuredFeeFils;delete a.listingFeeFils;delete a.status;return a;
+}
+function requestActivityPrefill(requestId){
+ const request=contactMessages.find(r=>r.id===requestId);if(!request?.activityRequest)throw Error('Activity request not found.');
+ const existing=activities.find(a=>a.sourceContactId===requestId);if(existing)return {existingId:existing.id};
+ const organizer=organizers.find(o=>o.id===request.organizerId||o.email.toLowerCase()===request.email.toLowerCase());if(!organizer)throw Error('Add or link the organizer before preparing the activity.');
+ const a=validateActivityRequest(request.activityRequest),h=hobbies.find(h=>h.id===a.hobbyId);
+ const quote=quoteActivityPublication(a);if(a.delivery==='online'&&a.onlineProvider==='jitsi')a.jitsiRoomName='HobbyHub-'+request.id.replace(/[^a-zA-Z0-9-]/g,'');
+ return {...a,organizerId:organizer.id,categoryId:h.categoryId,sourceContactId:requestId,status:'draft',imageUrl:request.coverImageData||request.imageReference||'',commissionPercent:15,featuredFeeFils:quote.featuredFeeFils,listingFeeFils:quote.listingFeeFils};
+}
+function updateActivityRequestStatus(id,status){const r=contactMessages.find(r=>r.id===id);if(!r?.activityRequest)throw Error('Request not found.');if(!['new','followUp','closed'].includes(status))throw Error('Choose a valid request state.');r.reviewStatus=status;return r;}
+
+function quoteActivityPublication(activity,rates=platformSettings.requestPricing){
+ const period=publicationWindow({...activity,featuredStartsAt:activity.publishAt,featuredEndsAt:activity.bookingClosesAt},true);
+ const amount=HobbyHubService.toFils(activity.priceJod);
+ const freeRate=Number(rates.freeListingDailyFils),homeRate=Number(rates.homepageDailyFils);
+ if(!Number.isSafeInteger(freeRate)||freeRate<0||!Number.isSafeInteger(homeRate)||homeRate<0)throw Error('Configure valid publication rates.');
+ const listingFeeFils=amount===0?Math.round(period.publicationHours/24*freeRate):0;
+ const featuredFeeFils=activity.isFeatured?Math.round(period.publicationHours/24*homeRate):0;
+ return {publicationHours:period.publicationHours,listingFeeFils,featuredFeeFils,totalFils:listingFeeFils+featuredFeeFils,commissionPercent:15,rates:{freeListingDailyFils:freeRate,homepageDailyFils:homeRate},publishAt:activity.publishAt,bookingClosesAt:activity.bookingClosesAt,priceJod:amount/1000,isFeatured:Boolean(activity.isFeatured)};
+}
+function saveRequestPricing(values){const result={};for(const key of ['freeListingDailyFils','homepageDailyFils']){result[key]=Number(values[key]);if(!Number.isSafeInteger(result[key])||result[key]<0||result[key]>1000000)throw Error('Use daily rates between JOD 0 and 1000.');}Object.assign(platformSettings.requestPricing,result);return result;}
+function validateOrganizerPayout(values){const result=SettlementService.validateRecipient({...values,checkedWithOrganizer:true});return {...result,checkedWithOrganizer:false};}
+function requestQuoteSource(request){return activities.find(a=>a.sourceContactId===request.id)||request.activityRequest;}
+function prepareOrganizerQuote(id){const request=contactMessages.find(r=>r.id===id);if(!request?.activityRequest)throw Error('Activity request not found.');const source=requestQuoteSource(request);const quote=quoteActivityPublication(source);if(request.publicationReceipt){if(['publishAt','bookingClosesAt','priceJod','isFeatured','totalFils'].some(k=>quote[k]!==request.agreement[k]))throw Error('A payment is already recorded. Reconcile it before changing paid terms.');return request.agreement;}request.agreement={...quote,status:'prepared',preparedAt:new Date(demoNow()).toISOString(),account:{...platformSettings.receivingAccount}};return request.agreement;}
+function recordOrganizerDecision(id,input){const request=contactMessages.find(r=>r.id===id),offer=request?.agreement;if(!offer)throw Error('Prepare the offer first.');if(!['accepted','declined','changesRequested'].includes(input.decision)||!['email','phone','whatsapp'].includes(input.channel))throw Error('Choose the reply and contact channel.');const reference=String(input.reference||'').trim();if(reference.length<5||reference.length>300||input.confirmed!==true)throw Error('Record the organizer’s actual reply and confirm you received it.');Object.assign(offer,{status:input.decision,channel:input.channel,replyReference:reference,repliedAt:new Date(demoNow()).toISOString()});return offer;}
+function organizerQuoteText(request){const offer=request.agreement;if(!offer)throw Error('Prepare the offer first.');const fmt=HobbyHubService.money,account=offer.account;return ['HobbyHub activity proposal — '+requestQuoteSource(request).title,'Organizer: '+request.businessName,'Publication: '+offer.publishAt+' → '+offer.bookingClosesAt+' (Amman UTC+03:00)','Display period: '+formatDisplayPeriod(offer.publicationHours),'Paid-booking commission: 15%. Free bookings: no booking commission.','Free-activity publication: '+fmt(offer.listingFeeFils),'Homepage placement: '+fmt(offer.featuredFeeFils),'Total publication/placement fees: '+fmt(offer.totalFils),'Daily rates are prorated to the actual hours and rounded to the nearest fils.',offer.totalFils?account?.holder&&account?.identifier?'Pay HobbyHub: '+[account.holder,account.method,account.provider,account.identifier].filter(Boolean).join(' · '):'Payment instructions pending: admin must configure HobbyHub’s receiving account before requesting a transfer.':'No fixed publication payment due.','Please reply to confirm or decline these dates and fees. No publication is approved by this quotation alone.'].join('\n');}
+
+function calculateRequestSchedule(first,last,days){
+ const start=new Date(first+'T00:00:00Z'),end=new Date(last+'T00:00:00Z');
+ if(Number.isNaN(start.getTime())||Number.isNaN(end.getTime())||end<start)throw Error('Choose a valid first and last session date.');
+ if(!Array.isArray(days))throw Error('Choose the session days.');
+ const chosen=[...new Set(days.map(Number))];if(!chosen.length||chosen.some(d=>!Number.isInteger(d)||d<0||d>6))throw Error('Choose the session days.');
+ if(!chosen.includes(start.getUTCDay())||!chosen.includes(end.getUTCDay()))throw Error('The first and last session dates must match the selected session days.');
+ const span=Math.round((end-start)/86400000)+1;if(span>730)throw Error('Choose an activity span of up to two years.');let count=0;for(let i=0;i<span;i++)if(chosen.includes((start.getUTCDay()+i)%7))count++;
+ return {duration:span+' calendar day'+(span===1?'':'s'),sessions:count+' session'+(count===1?'':'s'),meetingDays:chosen.map(d=>['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][d]).join(', ')};
+}
+
+function demoNow(){return typeof window!=='undefined'&&window.DemoStore?window.DemoStore.now():Date.now();}
+function requestStage(request){if(request.activityId&&activities.some(a=>a.id===request.activityId&&a.status==='published'))return 'published';if(request.agreement?.status==='declined')return 'declined';if(request.agreement?.status==='changesRequested')return 'changes';if(request.agreement?.status!=='accepted')return request.agreement?'reply':'review';if(request.agreement.totalFils>0&&!request.publicationReceipt)return 'payment';return 'publish';}
+function recordPublicationReceipt(id,input){const r=contactMessages.find(r=>r.id===id);if(r?.agreement?.status!=='accepted')throw Error('Record organizer approval first.');if(r.publicationReceipt)throw Error('This receipt is already recorded.');if(input.confirmed!==true||HobbyHubService.toFils(input.amountJod)!==r.agreement.totalFils||String(input.reference||'').trim().length<3||!isValidPaymentDay(input.receivedOn)||input.receivedOn>new Date(demoNow()).toISOString().slice(0,10))throw Error('Confirm the exact amount, payment date and transfer reference.');if(contactMessages.some(x=>x.publicationReceipt?.reference===input.reference.trim()))throw Error('This payment reference is already used.');r.publicationReceipt={amountFils:r.agreement.totalFils,reference:input.reference.trim(),receivedOn:input.receivedOn,recordedAt:new Date(demoNow()).toISOString()};return r.publicationReceipt;}
+function reconcileRequestReceipt(id){const r=contactMessages.find(r=>r.id===id);if(!r?.publicationReceipt||!r.activityId)return;const fees=serviceFees.filter(f=>f.activityId===r.activityId&&['listing','featured'].includes(f.type));if(!fees.length||invoices.some(i=>i.sourceRequestId===id))return;const invoice={id:'request-invoice-'+id,sourceRequestId:id,number:'HH-'+id,organizerId:r.organizerId,issuedOn:r.publicationReceipt.receivedOn,dueOn:r.publicationReceipt.receivedOn,currency:'JOD',feeIds:fees.map(f=>f.id),status:'paid',paidAt:r.publicationReceipt.recordedAt,paymentNotes:r.publicationReceipt.reference};invoices.push(invoice);fees.forEach(f=>{f.status='paid';f.invoiceId=invoice.id;});}
+function payoutReady(payout,now=demoNow()){return payout.paymentIds.every(id=>{const payment=simulatedPayments.find(p=>p.id===id),booking=enrollments.find(e=>e.id===payment?.enrollmentId),a=activities.find(a=>a.id===booking?.activityId);if(!a)return false;const d=new Date(a.endDate||a.date),date=[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');try{return now>=activityDateTime(date+'T'+(a.endTime||'23:59'));}catch{return false;}});}

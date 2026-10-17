@@ -13,10 +13,11 @@
       speech = scene.querySelector('.hhStudioSpeech'),
       sparks = [...scene.querySelectorAll('.hhStudioRuleSpark')];
     const fields = [...form.querySelectorAll('input')];
-    // Real drawn poses for stretch, wave, gaze, walking and sleep.
+    // Real drawn poses for stretch, wave, gaze and sleep.
     const actorFrames = Array.from({ length: 12 }, (_, index) => {
       const node = document.createElement('span');
       node.className = 'hhStudioMotionFrame';
+      node.dataset.motionFrame = String(index);
       node.style.setProperty('--motion-x', ((index % 4) / 3) * 100 + '%');
       node.style.setProperty(
         '--motion-y',
@@ -77,28 +78,9 @@
         return;
       clearTimeout(motionTimer);
       motionTimer = setTimeout(() => {
-        const walking = [];
-        for (let i = 0; i < 14; i++)
-          walking.push({ pose: 5 + (i % 2), x: 32 - i * 5, duration: 240 });
-        for (let i = 0; i < 14; i++)
-          walking.push({
-            pose: 5 + (i % 2),
-            x: -33 + i * 5,
-            facing: -1,
-            duration: 240,
-          });
-        playMotion(
-          [
-            { pose: 8, duration: 1500 },
-            ...walking,
-            { pose: 0, duration: 800 },
-            { pose: 7, duration: 4200 },
-            { pose: 1, duration: 600 },
-            { pose: 2, duration: 850 },
-            { pose: 8, duration: 1600 },
-          ],
-          'wander',
-        );
+        stopMotion();
+        motionMode = 'sleep';
+        showMotion(7);
       }, 9000);
     }
     function greet() {
@@ -248,11 +230,9 @@
         node.classList.toggle('hhMotionShown', index === actorPose),
       );
       if (!active && motionIndex === 7)
-        message = 'A tiny nap. I�ll wake when you need me.';
+        message = 'A tiny nap. I’ll wake when you need me.';
       if (!active && motionMode === 'welcome')
         message = 'Oh, hello! Make yourself at home.';
-      if (!active && motionMode === 'wander' && motionIndex !== 7)
-        message = 'Just exploring my little creative corner.';
       if (message !== lastMessage) {
         lastMessage = message;
         speech.textContent = message;

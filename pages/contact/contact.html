@@ -1,59 +1,532 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#FFF8F1">
-  <title>Contact Us | HobbyHub</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../../shared/css/base.css" rel="stylesheet"><link href="../../shared/css/components.css" rel="stylesheet"><link href="../../shared/css/layout.css" rel="stylesheet"><link href="contact.css" rel="stylesheet">
-</head>
-<body data-page="contact" data-root="../../">
-  <div id="hhNavbar"></div>
-  <main class="contactPage">
-    <section class="contactHero">
-      <div class="contactHeroCopy">
-        <p class="contactEyebrow"><span></span> WE’RE HERE FOR YOU</p>
-        <h1>Let’s talk about<br><em>what’s on your mind.</em></h1>
-        <p data-content-key="contact-1">Have a question, an idea, or feedback about HobbyHub? Send us a note. We’d love to hear from you.</p>
-        <div class="contactPromise"><span class="promiseIcon">♡</span><span><strong>A friendly space to reach out</strong><small>Questions, suggestions, and feedback are all welcome.</small></span></div>
-      </div>
-      <div class="contactHeroArt" aria-hidden="true">
-        <div class="contactArtCircle"></div><div class="contactArtOrbit"></div>
-        <div class="contactNote noteMain"><span class="noteIcon">✉</span><strong>We’re listening</strong><small>Your thoughts matter to us.</small></div>
-        <div class="contactNote noteSmall"><span>✦</span> Say hello!</div>
-        <div class="contactDoodle doodleOne">✳</div><div class="contactDoodle doodleTwo">♡</div>
-      </div>
-    </section>
-
-    <section class="contactContent">
-      <div class="contactInfoColumn">
-        <p class="contactSectionLabel" data-content-key="contact-2">GET IN TOUCH</p>
-        <h2>We’d love to<br>hear from you.</h2>
-        <p class="contactIntro" data-content-key="contact-3">Use the form to share what you need help with, suggest an improvement, or simply tell us what you think about HobbyHub.</p>
-        <div class="contactInfoCard"><span class="infoIcon">✉</span><div><h3>Email us</h3><p data-content-key="contact-4">For questions and feedback, send us a message using the form.</p></div></div>
-        <div class="contactInfoCard"><span class="infoIcon peachIcon">♡</span><div><h3>Share an idea</h3><p data-content-key="contact-5">Have an idea that could make discovering hobbies easier? We’re all ears.</p></div></div>
-        <div class="contactNoteBox"><span>✦</span><p><strong>Every message starts a conversation.</strong><br>We appreciate you being part of the HobbyHub journey.</p></div>
-      </div>
-
-      <div class="contactFormCard">
-        <div class="formHeading"><span class="formHeadingIcon">↗</span><div><h2 data-content-key="contact-6">Send us a message</h2><p data-content-key="contact-7">Fill in the details below and let us know how we can help.</p></div></div>
-        <form id="contactForm" novalidate>
-          <div class="formRow">
-            <div class="fieldGroup"><label for="contactName">Your name <span>*</span></label><input id="contactName" name="name" type="text" placeholder="e.g. Alex Morgan" autocomplete="name" required><small class="fieldError" id="nameError"></small></div>
-            <div class="fieldGroup"><label for="contactEmail">Email address <span>*</span></label><input id="contactEmail" name="email" type="email" placeholder="you@example.com" autocomplete="email" required><small class="fieldError" id="emailError"></small></div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#FFF8F1" />
+    <title>Contact Us | HobbyHub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../shared/css/base.css" rel="stylesheet" />
+    <link href="../../shared/css/components.css" rel="stylesheet" />
+    <link href="../../shared/css/layout.css" rel="stylesheet" />
+    <link href="contact.css" rel="stylesheet" />
+  </head>
+  <body data-page="contact" data-root="../../">
+    <div id="hhNavbar"></div>
+    <main class="contactPage">
+      <section class="contactHero">
+        <div class="contactHeroCopy">
+          <p class="contactEyebrow"><span></span> WE’RE HERE FOR YOU</p>
+          <h1>Let’s talk about<br /><em>what’s on your mind.</em></h1>
+          <p data-content-key="contact-1">
+            Have a question, an idea, or feedback about HobbyHub? Send us a note. We’d love to hear from you.
+          </p>
+          <div class="contactPromise">
+            <span class="promiseIcon">♡</span
+            ><span
+              ><strong>A friendly space to reach out</strong
+              ><small>Questions, suggestions, and feedback are all welcome.</small></span
+            >
           </div>
-          <div class="fieldGroup"><label for="contactTopic">What’s this about? <span>*</span></label><select id="contactTopic" name="topic" required><option value="" selected disabled>Choose a topic</option><option value="general">General question</option><option value="feedback">Feedback or suggestion</option><option value="classes">Classes and activities</option><option value="account">Account help</option><option value="advertising">Advertise with HobbyHub</option><option value="list-activity">List an activity / become a partner</option><option value="other">Something else</option></select><small class="fieldError" id="topicError"></small></div>
-          <fieldset id="contactBusinessFields" class="contactBusinessFields" hidden><legend>Tell us about your organization</legend><div class="formRow"><div class="fieldGroup"><label for="contactBusinessName">Organization / business name <span>*</span></label><input id="contactBusinessName" name="businessName" autocomplete="organization"><small class="fieldError" id="businessNameError"></small></div><div class="fieldGroup"><label for="contactPhone">Contact phone <span>*</span></label><input id="contactPhone" name="phone" type="tel" autocomplete="tel"><small class="fieldError" id="phoneError"></small></div></div><p>Share your proposed activity or advertising idea below. We’ll agree on the details before publication.</p></fieldset>
-          <div class="fieldGroup"><label for="contactMessage">Your message <span>*</span></label><textarea id="contactMessage" name="message" rows="5" placeholder="Tell us a little about what you need…" required></textarea><div class="messageMeta"><small class="fieldError" id="messageError"></small><small id="messageCount">0 / 1000</small></div></div>
-          <button class="contactSubmit" type="submit">Send message <span aria-hidden="true">→</span></button>
-          <p class="formPrivacy">We use your contact details to respond to your enquiry. <a data-route="privacy" href="../../pages/privacy/privacy.html">Privacy Policy</a></p>
-          <div class="contactFormFeedback" id="contactFeedback" role="status" aria-live="polite" hidden></div>
-        </form>
-      </div>
-    </section>
+        </div>
+        <div class="contactHeroArt" aria-hidden="true">
+          <div class="contactArtCircle"></div>
+          <div class="contactArtOrbit"></div>
+          <div class="contactNote noteMain">
+            <span class="noteIcon">✉</span><strong>We’re listening</strong
+            ><small>Your thoughts matter to us.</small>
+          </div>
+          <div class="contactNote noteSmall"><span>✦</span> Say hello!</div>
+          <div class="contactDoodle doodleOne">✳</div>
+          <div class="contactDoodle doodleTwo">♡</div>
+        </div>
+      </section>
 
-    <section class="contactBottom"><div class="bottomSpark">✦</div><div><p class="contactSectionLabel" data-content-key="contact-8">KEEP EXPLORING</p><h2 data-content-key="contact-9">Good things start with curiosity.</h2><p data-content-key="contact-10">Thanks for helping us make HobbyHub a better place to discover what you love.</p></div><span class="bottomHeart">♡</span></section>
-  </main>
-  <div id="hhFooter"></div><div id="hhModals"></div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script><script src="../../shared/js/data.js"></script><script src="../../shared/js/dataService.js"></script><script src="../../shared/js/utils.js"></script><script src="../../shared/js/components.js"></script><script src="contact.js"></script>
-</body></html>
+      <section class="contactContent">
+        <div class="contactInfoColumn">
+          <p class="contactSectionLabel" data-content-key="contact-2">GET IN TOUCH</p>
+          <h2>We’d love to<br />hear from you.</h2>
+          <p class="contactIntro" data-content-key="contact-3">
+            Use the form to share what you need help with, suggest an improvement, or simply tell us what you
+            think about HobbyHub.
+          </p>
+          <div class="contactInfoCard">
+            <span class="infoIcon">✉</span>
+            <div>
+              <h3>Message the HobbyHub team</h3>
+              <p data-content-key="contact-4">
+                Your enquiry goes to the HobbyHub admin team for review and follow-up.
+              </p>
+            </div>
+          </div>
+          <div class="contactInfoCard">
+            <span class="infoIcon peachIcon">♡</span>
+            <div>
+              <h3>Share an idea</h3>
+              <p data-content-key="contact-5">
+                Have an idea that could make discovering hobbies easier? We’re all ears.
+              </p>
+            </div>
+          </div>
+          <div class="contactInfoCard">
+            <span class="infoIcon peachIcon" aria-hidden="true">↗</span>
+            <div><h3>Chat on WhatsApp</h3><p>Reach the HobbyHub team directly.</p><a class="contactDirectLink" href="https://wa.me/962785477413" target="_blank" rel="noopener noreferrer" aria-label="Chat with HobbyHub on WhatsApp, opens a new tab">0785477413 <span aria-hidden="true">↗</span></a></div>
+          </div>
+          <div class="contactInfoCard">
+            <span class="infoIcon" aria-hidden="true">✉</span>
+            <div><h3>Email us</h3><p>Prefer email? We’d love to hear from you.</p><a class="contactDirectLink" href="mailto:albadarnehmarwa@gmail.com">albadarnehmarwa@gmail.com</a></div>
+          </div>
+          <div class="contactNoteBox">
+            <span>✦</span>
+            <p>
+              <strong>Every message starts a conversation.</strong><br />We appreciate you being part of the
+              HobbyHub journey.
+            </p>
+          </div>
+        </div>
+
+        <div class="contactFormCard">
+          <div class="formHeading">
+            <span class="formHeadingIcon">↗</span>
+            <div>
+              <h2 data-content-key="contact-6">Send us a message</h2>
+              <p data-content-key="contact-7">Fill in the details below and let us know how we can help.</p>
+            </div>
+          </div>
+          <form id="contactForm" novalidate>
+            <div class="formRow">
+              <div class="fieldGroup">
+                <label for="contactName">Your name <span>*</span></label
+                ><input
+                  id="contactName"
+                  name="name"
+                  type="text"
+                  placeholder="e.g. Alex Morgan"
+                  autocomplete="name"
+                  maxlength="100"
+                  required
+                /><small class="fieldError" id="nameError"></small>
+              </div>
+              <div class="fieldGroup">
+                <label for="contactEmail">Email address <span>*</span></label
+                ><input
+                  id="contactEmail"
+                  name="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  autocomplete="email"
+                  maxlength="254"
+                  required
+                /><small class="fieldError" id="emailError"></small>
+              </div>
+            </div>
+            <div class="fieldGroup">
+              <label for="contactTopic">What’s this about? <span>*</span></label
+              ><select id="contactTopic" name="topic" required>
+                <option value="" selected disabled>Choose a topic</option>
+                <option value="general">General enquiry</option>
+                <option value="list-activity">Submit an activity</option></select
+              ><small class="fieldError" id="topicError"></small>
+            </div>
+            <fieldset id="contactBusinessFields" class="contactBusinessFields" hidden>
+              <legend>Tell us about your organization</legend>
+              <div class="formRow">
+                <div class="fieldGroup">
+                  <label for="contactBusinessName">Organization / business name <span>*</span></label
+                  ><input
+                    id="contactBusinessName"
+                    name="businessName"
+                    maxlength="150"
+                    autocomplete="organization"
+                  /><small class="fieldError" id="businessNameError"></small>
+                </div>
+                <div class="fieldGroup">
+                  <label for="contactPhone">Contact phone <span>*</span></label
+                  ><input
+                    id="contactPhone"
+                    name="phone"
+                    maxlength="14"
+                    type="tel"
+                    inputmode="numeric"
+                    placeholder="0791234567"
+                    pattern="07[789][0-9]{7}"
+                    autocomplete="tel"
+                  /><small>Jordanian mobile · 10 digits · starts with 077, 078 or 079.</small
+                  ><small class="fieldError" id="phoneError" aria-live="polite"></small>
+                </div>
+              </div>
+              <p>We’ll review your proposal and contact you before approving any publication or placement.</p>
+            </fieldset>
+            <fieldset id="contactActivityFields" class="contactBusinessFields contactActivityFields" hidden>
+              <legend>Your proposed activity</legend>
+              <p>Share your proposal. HobbyHub’s admin reviews and approves the final listing.</p>
+              <div class="requestPricing">
+                <strong>Clear fees, before you submit</strong>
+                <p>
+                  Booking commission applies only to paid bookings made through HobbyHub. Free attendance does
+                  not mean free publication for the organizer.
+                </p>
+                <div id="requestTariffs" class="requestTariffs"></div>
+                <p id="requestFeePreview" aria-live="polite">
+                  Enter the ticket price below to see the booking split.
+                </p>
+                <p>
+                  Homepage placement is optional and has a <b>separate daily rate</b>, for both free and paid
+                  activities. It uses exactly the same display period as your listing. Review the calculated
+                  total below. The admin sends the final offer using your selected contact method; publication
+                  needs your approval. Placement does not guarantee bookings.
+                </p>
+              </div>
+              <div class="formRow">
+                <div class="fieldGroup">
+                  <label for="request-title">Activity title *</label
+                  ><input
+                    id="request-title"
+                    data-request-field="title"
+                    type="text"
+                    required
+                    maxlength="150"
+                  />
+                </div>
+                <div class="fieldGroup">
+                  <label for="request-type">Activity type *</label
+                  ><select id="request-type" data-request-field="type" required>
+                    <option value="Class">Class</option>
+                    <option value="Event">Event</option>
+                    <option value="Training">Training</option>
+                  </select>
+                </div>
+              </div>
+              <div class="formRow">
+                <div class="fieldGroup">
+                  <label for="request-hobbyId">Hobby *</label
+                  ><select id="request-hobbyId" data-request-field="hobbyId" required>
+                    <option value="">Choose a hobby</option>
+                  </select>
+                </div>
+                <div class="fieldGroup">
+                  <label for="request-level">Level *</label
+                  ><select id="request-level" data-request-field="level" required>
+                    <option>Beginner</option>
+                    <option>All levels</option>
+                    <option>Intermediate</option>
+                    <option>Advanced</option>
+                  </select>
+                </div>
+              </div>
+              <div class="fieldGroup">
+                <label for="request-description">Activity description *</label
+                ><textarea
+                  id="request-description"
+                  data-request-field="description"
+                  required
+                  minlength="10"
+                  maxlength="3000"
+                  rows="3"
+                ></textarea>
+              </div>
+              <div class="formRow">
+                <div class="fieldGroup">
+                  <label for="request-seats">Number of seats *</label
+                  ><input
+                    id="request-seats"
+                    data-request-field="seats"
+                    type="number"
+                    required
+                    min="1"
+                    max="100000"
+                    step="1"
+                  />
+                </div>
+                <div class="fieldGroup">
+                  <label for="request-priceJod">Price per participant (JOD; 0 = free) *</label
+                  ><input
+                    id="request-priceJod"
+                    data-request-field="priceJod"
+                    type="number"
+                    required
+                    min="0"
+                    step="0.001"
+                  />
+                </div>
+              </div>
+              <div class="formRow">
+                <div class="fieldGroup">
+                  <label for="request-duration">Activity date range (calculated)</label
+                  ><input
+                    id="request-duration"
+                    data-request-field="duration"
+                    type="text"
+                    readonly
+                    placeholder="Calculated from your dates" aria-describedby="request-duration-help"
+                  /><small id="request-duration-help">From the first session date to the last, including days without sessions. This is separate from the publication period.</small>
+                </div>
+                <div class="fieldGroup">
+                  <label for="request-sessions">Number of sessions (calculated)</label
+                  ><input
+                    id="request-sessions"
+                    data-request-field="sessions"
+                    type="text"
+                    readonly
+                    placeholder="Calculated from dates and days" aria-describedby="request-sessions-help"
+                  /><small id="request-sessions-help">The actual number of sessions, based on your dates and selected weekdays.</small>
+                </div>
+              </div>
+              <div class="formRow">
+                <div class="fieldGroup">
+                  <label for="request-date">First session date *</label
+                  ><input id="request-date" data-request-field="date" type="date" required />
+                </div>
+                <div class="fieldGroup">
+                  <label for="request-endDate">Last session date *</label
+                  ><input id="request-endDate" data-request-field="endDate" type="date" required />
+                </div>
+              </div>
+              <div class="formRow">
+                <div class="fieldGroup">
+                  <label for="request-time">Session start time *</label
+                  ><input id="request-time" data-request-field="time" type="time" required />
+                </div>
+                <div class="fieldGroup">
+                  <label for="request-endTime">Session end time *</label
+                  ><input id="request-endTime" data-request-field="endTime" type="time" required />
+                </div>
+              </div>
+              <fieldset class="requestDays">
+                <legend>Which days do sessions take place?</legend>
+                <div>
+                  <label><input type="checkbox" data-session-day="1" /><span>Mon</span></label
+                  ><label><input type="checkbox" data-session-day="2" /><span>Tue</span></label
+                  ><label><input type="checkbox" data-session-day="3" /><span>Wed</span></label
+                  ><label><input type="checkbox" data-session-day="4" /><span>Thu</span></label
+                  ><label><input type="checkbox" data-session-day="5" /><span>Fri</span></label
+                  ><label><input type="checkbox" data-session-day="6" /><span>Sat</span></label
+                  ><label><input type="checkbox" data-session-day="0" /><span>Sun</span></label>
+                </div>
+                <input id="request-meetingDays" data-request-field="meetingDays" type="hidden" /><small
+                  id="requestScheduleHelp"
+                  aria-live="polite"
+                  >Choose your first date, last date and session days. We’ll calculate the rest.</small
+                >
+              </fieldset>
+              <p class="requestTimeZone">All activity and publication times are Amman time (UTC+03:00).</p>
+              <div class="formRow">
+                <div class="fieldGroup">
+                  <label for="request-delivery">Delivery *</label
+                  ><select id="request-delivery" data-request-field="delivery" required>
+                    <option value="inperson">In person</option>
+                    <option value="online">Online</option>
+                  </select>
+                </div>
+                <div class="fieldGroup">
+                  <label for="request-onlineProvider">Online provider *</label
+                  ><select id="request-onlineProvider" data-request-field="onlineProvider" required>
+                    <option value="jitsi">Jitsi Meet</option>
+                    <option value="zoom">Zoom</option>
+                  </select>
+                </div>
+              </div>
+              <div class="fieldGroup">
+                <label for="request-location">Venue / address *</label
+                ><input
+                  id="request-location"
+                  data-request-field="location"
+                  type="text"
+                  required
+                  maxlength="300"
+                />
+              </div>
+              <div id="requestOnlineInfo" class="requestOnlineInfo" hidden>
+                <p id="requestJitsiNote">
+                  Jitsi Meet: the admin prepares the HobbyHub room. Enrolled members access the meeting from
+                  My Enrollments.
+                </p>
+                <div id="requestZoomFields" hidden>
+                  <p>
+                    Create the meeting in your Zoom account, then share its details with the admin. These
+                    details are for enrolled members.
+                  </p>
+                  <div class="fieldGroup">
+                    <label for="request-zoomUrl">Zoom meeting link *</label
+                    ><input
+                      id="request-zoomUrl"
+                      data-request-field="zoomUrl"
+                      type="url"
+                      placeholder="https://…zoom.us/j/…"
+                    />
+                  </div>
+                  <div class="formRow">
+                    <div class="fieldGroup">
+                      <label for="request-zoomMeetingId">Meeting ID *</label
+                      ><input
+                        id="request-zoomMeetingId"
+                        data-request-field="zoomMeetingId"
+                        type="text"
+                        inputmode="numeric"
+                        maxlength="11"
+                        placeholder="9–11 digits"
+                      />
+                    </div>
+                    <div class="fieldGroup">
+                      <label for="request-zoomPasscode">Meeting passcode (optional)</label
+                      ><input id="request-zoomPasscode" data-request-field="zoomPasscode" maxlength="100" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h3>Proposed publication period</h3>
+              <p>
+                The booking deadline must be at or before the first session. Admin confirms these times with
+                you.
+              </p>
+              <div class="formRow">
+                <div class="fieldGroup">
+                  <label for="request-publishAt">Start listing *</label
+                  ><input
+                    id="request-publishAt"
+                    data-request-field="publishAt"
+                    type="datetime-local"
+                    required
+                  />
+                </div>
+                <div class="fieldGroup">
+                  <label for="request-bookingClosesAt">Close bookings *</label
+                  ><input
+                    id="request-bookingClosesAt"
+                    data-request-field="bookingClosesAt"
+                    type="datetime-local"
+                    required
+                  />
+                </div>
+              </div>
+              <label class="requestCheck"
+                ><input type="checkbox" id="requestFeatured" /> Also feature this activity on the homepage for
+                the same display period</label
+              >
+              <div id="requestFeeTotal" class="requestFeeTotal" aria-live="polite"></div>
+              <p class="requestPeriod" id="requestPeriod" aria-live="polite">
+                Choose the dates to see the calculated display period.
+              </p>
+              <div class="fieldGroup">
+                <label for="requestCover">Cover image (optional for initial review)</label
+                ><input id="requestCover" type="file" accept="image/jpeg,image/png,image/webp" /><small
+                  >JPG, PNG or WebP, up to 5 MB. A compressed copy is saved locally for this demo. Server uploads come with the backend.</small
+                ><img
+                  id="requestImagePreview"
+                  class="requestImagePreview"
+                  alt="Your proposed activity cover"
+                  hidden
+                />
+              </div>
+              <fieldset class="requestFollowUp">
+                <legend>How should the admin contact you?</legend>
+                <div class="fieldGroup">
+                  <label for="requestContactMethod">Preferred method</label
+                  ><select id="requestContactMethod">
+                    <option value="email">Email — using the address above</option>
+                    <option value="phone">Phone call — using the mobile above</option>
+                    <option value="whatsapp">WhatsApp — using the mobile above</option>
+                  </select>
+                </div>
+                <p>
+                  The admin sends your final offer and payment instructions through this channel. You reply to
+                  approve or decline. No activity is published just because you submit this form.
+                </p>
+              </fieldset>
+              <fieldset id="requestPayout" class="requestFollowUp" hidden>
+                <legend>Where should your booking proceeds be paid?</legend>
+                <p>
+                  For paid activities, HobbyHub deducts the 15% booking commission and pays the remaining
+                  share to this recipient. The admin must verify the details with you first.
+                </p>
+                <div class="formRow">
+                  <div class="fieldGroup">
+                    <label for="payoutName">Account holder’s name *</label
+                    ><input id="payoutName" maxlength="120" />
+                  </div>
+                  <div class="fieldGroup">
+                    <label for="payoutMethod">Receiving method</label
+                    ><select id="payoutMethod">
+                      <option value="wallet">Mobile wallet</option>
+                      <option value="cliq">CliQ</option>
+                      <option value="bank">Bank / IBAN</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="formRow">
+                  <div class="fieldGroup">
+                    <label for="payoutProvider">Bank or wallet provider *</label
+                    ><input id="payoutProvider" maxlength="120" placeholder="Your bank or wallet provider" />
+                  </div>
+                  <div class="fieldGroup">
+                    <label id="payoutIdentifierLabel" for="payoutIdentifier">Wallet mobile number *</label
+                    ><input id="payoutIdentifier" maxlength="80" placeholder="0791234567" />
+                  </div>
+                </div>
+                <small id="payoutHint" aria-live="polite"
+                  >Receiving details only. Never enter a card number, PIN, password or OTP.</small
+                >
+              </fieldset>
+              <label class="requestCheck"
+                ><input type="checkbox" id="requestTerms" required /> I have reviewed the 15% paid-booking
+                commission, the free-activity publication fee when applicable, and the additional homepage fee
+                when selected. I understand the admin must confirm the final offer with me. Submission is a
+                request, not publication.</label
+              >
+            </fieldset>
+            <div class="fieldGroup">
+              <label for="contactMessage">Your message / additional notes</label
+              ><textarea
+                id="contactMessage"
+                name="message"
+                maxlength="1000"
+                rows="5"
+                placeholder="Tell us a little about what you need…"
+                required
+              ></textarea>
+              <div class="messageMeta">
+                <small class="fieldError" id="messageError"></small><small id="messageCount">0 / 1000</small>
+              </div>
+            </div>
+            <button class="contactSubmit" type="submit">
+              Send message <span aria-hidden="true">→</span>
+            </button>
+            <p class="formPrivacy">
+              We use your contact details to respond to your enquiry.
+              <a data-route="privacy" href="../../pages/privacy/privacy.html">Privacy Policy</a>
+            </p>
+            <div
+              class="contactFormFeedback"
+              id="contactFeedback"
+              role="status"
+              aria-live="polite"
+              hidden
+            ></div>
+          </form>
+        </div>
+      </section>
+
+      <section class="contactBottom">
+        <div class="bottomSpark">✦</div>
+        <div>
+          <p class="contactSectionLabel" data-content-key="contact-8">KEEP EXPLORING</p>
+          <h2 data-content-key="contact-9">Good things start with curiosity.</h2>
+          <p data-content-key="contact-10">
+            Thanks for helping us make HobbyHub a better place to discover what you love.
+          </p>
+        </div>
+        <span class="bottomHeart">♡</span>
+      </section>
+    </main>
+    <div id="hhFooter"></div>
+    <div id="hhModals"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../shared/js/data.js"></script>
+    <script src="../../shared/js/dataService.js"></script><script src="../../shared/js/demo-store.js"></script>
+    <script src="../../shared/js/utils.js"></script>
+    <script src="../../shared/js/components.js"></script>
+    <script src="contact.js"></script>
+  </body>
+</html>

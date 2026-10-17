@@ -61,3 +61,36 @@ Contact Us now has advertising and activity-listing topics with conditional busi
 Sources checked for future integration context, not as a claim that a gateway has been implemented: Orange Money business-wallet/API services (https://orange.jo/en/orange-money) and JoPACC CliQ transfer/recipient-confirmation guidance (https://www.jopacc.com/faqs/cliq-faqs?page=0).
 
 Additional executable tests passed for recipient and amount validation, no mutation on failure, distinct preview/external settlement records, immutable recipient snapshots, duplicate settlement protection, free events with listing fees, invoice prefill without duplicate fees, incoming receipt reconciliation, the two-step settlement UI, Contact conditional fields and request-to-organizer conversion. Source/DOM checks passed; actual browser layout and GPU appearance remain unverified.
+
+
+### Activity proposals and dated publication
+
+Contact Us offers general enquiries or an activity proposal. Proposals contain organizer/contact details, hobby/activity details, session schedule, requested publication and booking timestamps, optional homepage dates, and explicit acceptance of the 15% paid-booking commission plus a separate fixed homepage fee. All proposal timestamps use Amman UTC+03:00. There is no extra standard listing charge in the new editor.
+
+`AdminService.submitContact` validates a proposal and adds it only to this document's in-memory inbox. It does not create an activity or send email. Files are local object-URL previews; only filename/type/size metadata is included in the preview request. Real uploads, request persistence, authenticated access, notifications and delivery need server endpoints. Do not use URL payloads or browser storage to transmit organizer requests to admin.
+
+The Dashboard inbox includes a representative structured proposal. Review → add/link organizer → prepare populated activity editor → Save draft or Publish. A request is linked only after a successful activity save, and a request can have only one linked activity. Read status is separate from follow-up state (new, followUp, draftPrepared, closed). Closing a request does not unpublish its activity.
+
+`publicationWindow` validates publication < booking deadline <= first session; homepage start/end must be inside that interval. Durations are calculated as elapsed days/hours/minutes. The admin confirms one total homepage fee; no per-day price is invented. Publishing a scheduled homepage placement requires a positive fee. The fee enters the existing service-fee/invoice contract, independently of ticket price. Request-sourced activities retain a 15% commission; free tickets produce no booking commission.
+
+`isActivityListed` and `isActivityFeatured` evaluate visibility at render time. Enrollment service independently checks the booking window. Already enrolled users retain activity details and online-session access after bookings close. Backend must enforce these windows, authentication and financial verification using authoritative server time; client-side date checks are previews.
+
+
+### Demo refinement: guided proposals, tariffs and organizer approval
+
+The approved demo tariff is 15% per paid booking, JOD 1/day for listing a free activity, plus JOD 1/day for optional homepage placement of any activity. `platformSettings.requestPricing` is editable in Settings. Publication hours are prorated against 24-hour days and rounded to whole fils. Homepage and inside-listing periods now match exactly; there are no extra homepage date inputs in the proposal or editor. Prepared offers retain their rate snapshots when tariffs change.
+
+Proposal phone fields normalize Jordanian mobile numbers while typing. Calendar span and session count derive from first/last dates and weekday checkboxes. Zoom remains an external meeting link, with meeting ID and optional passcode; Jitsi room names are prefilled on the admin's linked draft. Meeting access continues through the existing enrollment flow. Real server authorization and meeting-provider controls are still required.
+
+Paid proposals collect recipient name, method, provider and identifier. This is receiving information for the organizer's booking share, never card credentials. Format validation does not verify ownership. Copied recipient details remain unverified until checked with the organizer. No bank identifiers, file contents or proposals are sent through URL state or browser storage.
+
+Settings includes HobbyHub's receiving account for publication/homepage fees. It starts empty; do not fabricate payable account numbers. Prepared offers contain the configured account snapshot, or a clear missing-instructions message. The admin copies an offer and contacts the organizer manually via their selected email/phone/WhatsApp. No email or WhatsApp message is sent by this frontend. The admin records an actual accepted/declined reply with channel, reference and acknowledgment. Source-request activities cannot be published without recorded acceptance. Changed offer dates, price or homepage choice require a new offer/approval. This is a workflow preview, not legally verified electronic consent or proof of money transfer.
+
+Free-activity listing and homepage charges feed the existing service-fee/invoice contracts when the approved activity is published; booking commission and organizer payouts remain separate. Publishing does not pretend the invoice has been paid. All mutations, account configuration, quotes and replies remain document-local until backend persistence is implemented.
+
+
+### Current demo override: local persistence and guided lifecycle
+
+The user has explicitly authorized temporary localStorage. The current implementation supersedes previous no-storage notes for this demo. `shared/js/demo-store.js` hydrates whitelisted mock arrays/settings after dataService and before page initialization. It writes only hobbyhub-demo-v1, supports cross-tab refresh, compact image previews, a clearly labeled demo clock and project-only reset. Use the same HTTP origin through Live Server; file URL storage sharing is not guaranteed. Payment card fields and login passwords are not included in storage.
+
+The guided request controller is admin/shared/js/request-workflow.js. It replaces the crowded request modal, and finance exposes only student bookings, incoming organizer display fees, and organizer settlements. Request publication requires accepted terms and a verified recorded receipt when fixed fees are due. An internal paid invoice links the receipt to service-fee records without duplicate revenue. Payout requires the activity end time and a confirmed cancellation/refund review. The optional clock exists only for testing these boundaries and never changes the operating-system clock. See DEMO.md for a full walkthrough.

@@ -5,12 +5,17 @@
     ['dashboard', 'Dashboard', 'Your platform at a glance', 'adminDashboard'],
     ['users', 'Users', 'People, accounts and platform access', 'adminUsers'],
     ['catalog', 'Hobbies & Quiz', 'Manage the hobby catalog and discovery questions', 'adminCatalog'],
-    ['activities', 'Classes / Events / Training', 'Activities and external organizers', 'adminActivities'],
+    [
+      'activities',
+      'Activities & Organizers',
+      'Activity details, schedules and organizers',
+      'adminActivities',
+    ],
     ['communities', 'Communities', 'Hobby spaces and community moderation', 'adminCommunities'],
     [
       'payments',
-      'Enrollments & Payments',
-      'Bookings, organizer payments and advertising charges',
+      'Bookings & Money',
+      'Student payments, incoming display fees and organizer proceeds',
       'adminPayments',
     ],
     ['settings', 'Settings', 'Platform theme and supported website content', 'adminSettings'],
@@ -219,6 +224,34 @@
     mountSharedUi({ adminApp: true, active: config.page });
     const host = document.getElementById('adminWorkspace'),
       tabs = document.getElementById('adminTabs');
+    if (window.DemoStore) {
+      const controls = document.createElement('div');
+      controls.className = 'adminDemoBar';
+      const stamp = DemoStore.clock ? new Date(DemoStore.clock + 3 * 3600000).toISOString().slice(0, 16) : '';
+      controls.innerHTML = `<strong>Local demo</strong><span>${!DemoStore.available ? 'Local storage is blocked; allow browser storage before continuing.' : location.protocol === 'file:' ? 'Use Live Server on one origin to share data across pages.' : 'Requests and changes persist on this browser.'}</span><label for="adminDemoClock">Demo time (Amman)</label><input id="adminDemoClock" type="datetime-local" value="${stamp}"><button type="button" class="adminBtn secondary" id="applyDemoClock">Apply</button><button type="button" class="adminBtn secondary" id="realDemoClock">Real time</button><button type="button" class="adminBtn secondary" id="resetDemoData">Reset demo</button>`;
+      document.getElementById('adminHeaderSlot').appendChild(controls);
+      controls.querySelector('#applyDemoClock').addEventListener('click', () => {
+        try {
+          DemoStore.setClock(controls.querySelector('#adminDemoClock').value);
+          location.reload();
+        } catch (error) {
+          toast(error.message);
+        }
+      });
+      controls.querySelector('#realDemoClock').addEventListener('click', () => {
+        DemoStore.setClock(null);
+        location.reload();
+      });
+      controls
+        .querySelector('#resetDemoData')
+        .addEventListener('click', () =>
+          dialog(
+            'Reset local demo?',
+            '<p>Remove this project’s saved demo requests, bookings and settings and return to sample data?</p>',
+            () => DemoStore.reset(),
+          ),
+        );
+    }
     let state;
     try {
       state = await getAdminSnapshot();
@@ -242,6 +275,10 @@
       });
       host.setAttribute('aria-labelledby', 'adminTab-' + active);
     }
+    document.addEventListener('hh:demo-data-updated', () => {
+      if (!document.querySelector('dialog[open]')) render();
+      else toast('Demo data changed in another tab. Close this dialog and reload before continuing.');
+    });
     tabs.innerHTML = config.tabs
       .map(
         (tab, index) =>

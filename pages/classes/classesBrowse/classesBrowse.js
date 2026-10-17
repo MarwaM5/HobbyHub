@@ -6,7 +6,7 @@
  const grid=document.getElementById("activityGrid"), search=document.getElementById("activitySearch"), filters=document.getElementById("categoryFilters");
  let selected="all";
  let initialHobby=new URLSearchParams(location.search).get("hobby");
- const published=activities.filter(a=>(a.status||"published")==="published"&&(loggedIn||a.isFeatured===true));
+ const published=activities.filter(a=>isActivityListed(a)&&(loggedIn||isActivityFeatured(a)));
  const cats=categories;
  function card(a){
   const hobby=hobbies.find(h=>h.id===a.hobbyId), cat=cats.find(c=>c.id===(a.categoryId||(hobby&&hobby.categoryId)));

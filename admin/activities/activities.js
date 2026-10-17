@@ -20,8 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
             [
               { key: 'title', label: 'Title', wrap: true },
               { key: 'type', label: 'Type' },
-              { key: 'category', label: 'Category' },
-              { key: 'hobby', label: 'Hobby' },
               { key: 'organizer', label: 'Organizer' },
               { key: 'date', label: 'Date' },
               {
@@ -31,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     ? 'Free'
                     : u.esc(HobbyHubService.money(HobbyHubService.toFils(r.priceJod))),
               },
-              { key: 'delivery', label: 'Delivery' },
               { label: 'Status', render: (r) => u.badge(r.status) },
             ],
           ),

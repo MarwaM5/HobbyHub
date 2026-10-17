@@ -6,6 +6,7 @@
   function resolve(activity) {
     const path = typeof activity?.imageUrl === 'string' ? activity.imageUrl.trim() : '';
     if (!path || /[\u0000-\u001f\\]/.test(path) || path.startsWith('//')) return fallback();
+    if(path.length<2000000&&/^data:image\/(jpeg|png|webp);base64,[a-z0-9+/=]+$/i.test(path))return path;
     if (/^https?:\/\//i.test(path)) return path;
     if (/^[a-z][a-z\d+.-]*:/i.test(path)) return fallback();
     return path.startsWith('/') ? path : getRoot() + path;

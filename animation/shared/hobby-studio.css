@@ -793,3 +793,10 @@ body[data-page='signup'] .signupVisualBottom {
 .hhHobbyStudio[data-cat-action='welcome'] .hhStudioMotionFrame {
   transition: opacity 0.24s ease-in-out;
 }
+
+/* Keep every sprite inside its own cell; sleep has extra transparent headroom. */
+.hhStudioMotionFrame { background-repeat: no-repeat; transition: opacity .5s ease-in-out; }
+.hhStudioMotionFrame[data-motion-frame="7"] { clip-path: inset(17% 0 8% 1%); }
+.hhHobbyStudio[data-cat-action="sleep"] .hhStudioCatBody { animation: hhStudioSleepBreathing 5.5s ease-in-out infinite; transform-origin: 50% 85%; }
+@keyframes hhStudioSleepBreathing { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(1px) scale(1.012,1.025); } }
+@media (prefers-reduced-motion: reduce) { .hhStudioMotionFrame { transition: none; } .hhHobbyStudio[data-cat-action="sleep"] .hhStudioCatBody { animation: none; } }

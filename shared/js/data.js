@@ -1021,8 +1021,8 @@ websiteContent.blocks = {
   'contact-4': {
     id: 'contact-4',
     page: 'contact',
-    title: 'For questions and feedback, send us a message using the form.',
-    body: 'For questions and feedback, send us a message using the form.',
+    title: 'Your enquiry goes to the HobbyHub admin team for review and follow-up.',
+    body: 'Your enquiry goes to the HobbyHub admin team for review and follow-up.',
     imageUrl: '',
   },
   'contact-5': {
@@ -1951,3 +1951,13 @@ Object.assign(
   contactMessages.find((message) => message.id === 'message002'),
   { topic: 'advertising', businessName: 'Ayla Studio', phone: '+962 79 000 0101', organizerId: 'orgAyla' },
 );
+
+/* Representative structured proposal for the frontend review flow. */
+contactMessages.push({id:'requestWatercolorPreview',name:'Ayla coordinator',businessName:'Ayla Studio',email:'ayla@example.com',phone:'0791234567',topic:'list-activity',message:'A small watercolor workshop proposal. Please confirm the homepage placement fee with us.',createdAt:'2026-10-17T10:00:00+03:00',status:'new',reviewStatus:'new',organizerId:'orgAyla',imageReference:'animation/assets/featured-watercolor.webp',activityRequest:{title:'Autumn Watercolor Studio',type:'Class',hobbyId:'drawing',description:'Create a warm autumn watercolor postcard in two guided sessions.',level:'Beginner',seats:12,priceJod:20,duration:'2 weeks',sessions:'2 sessions',date:'2026-11-11',endDate:'2026-11-18',time:'17:00',startTime:'17:00',endTime:'18:30',meetingDays:'Wednesdays',delivery:'inperson',location:'Ayla Studio, Amman',publishAt:'2026-11-01T10:00',bookingClosesAt:'2026-11-11T17:00',isFeatured:true,featuredStartsAt:'2026-11-01T10:00',featuredEndsAt:'2026-11-10T17:00',acceptedTerms:true,commissionPercent:15}});
+
+/* Sample listing windows, separate from session dates. */
+activities.forEach(a=>{if(a.publishAt)return;const d=new Date(a.date),day=[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');a.publishAt='2026-10-01T10:00';a.bookingClosesAt=day+'T'+a.startTime;if(a.isFeatured){a.featuredStartsAt=a.publishAt;a.featuredEndsAt=a.bookingClosesAt;if(!(a.featuredFeeFils>0))a.featuredFeeFils=15000;}});
+
+/* Demo tariffs chosen for the prototype; admin can change future offers. */
+platformSettings.requestPricing={freeListingDailyFils:1000,homepageDailyFils:1000};
+platformSettings.receivingAccount={holder:'',method:'cliq',provider:'',identifier:''};

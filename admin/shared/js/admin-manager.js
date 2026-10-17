@@ -89,10 +89,10 @@
           text('name', 'Business name'),
           text('email', 'Contact email', 'email'),
           text('phone', 'Jordanian phone number', 'tel'),
-          text('payoutAccountHolder', 'Payout account holder (optional)', 'text', false),
+          text('payoutAccountHolder', 'Name on the organizer’s receiving account', 'text', false),
           choice(
             'payoutMethod',
-            'Preferred payout method',
+            'How the organizer receives their share',
             [
               ['bank', 'Bank transfer'],
               ['wallet', 'Mobile wallet'],
@@ -100,7 +100,7 @@
             ],
             false,
           ),
-          text('payoutProvider', 'Receiving bank / wallet provider', 'text', false),
+          text('payoutProvider', 'Organizer’s bank or wallet provider', 'text', false),
           text('payoutIdentifier', 'IBAN, wallet number or CliQ alias', 'text', false),
           text('notes', 'Notes', 'textarea', false),
         ];
@@ -149,12 +149,14 @@
           text('jitsiRoomName', 'Jitsi room name', 'text', false),
           text('jitsiPasscode', 'Jitsi passcode', 'text', false),
           text('imageUrl', 'Cover image reference', 'text', false),
-          text('isFeatured', 'Show in Home → Featured', 'checkbox', false),
-          text('listingFeeJod', 'Listing fee charged to organizer (JOD)', 'number', false, {
+          text('publishAt', 'Publication starts (Amman time)', 'datetime-local', true),
+          text('bookingClosesAt', 'Bookings close (Amman time)', 'datetime-local', true),
+          text('isFeatured', 'Homepage placement (separate fixed fee)', 'checkbox', false),
+
+          text('featuredFeeJod', 'Agreed total homepage fee (JOD)', 'number', false, {
             min: 0,
             step: '.001',
           }),
-          text('featuredFeeJod', 'Featured-placement fee (JOD)', 'number', false, { min: 0, step: '.001' }),
           text('description', 'Description', 'textarea'),
           text('whatYouLearn', 'What you will learn', 'textarea', false),
         ];
@@ -217,6 +219,7 @@
     return `<button type="button" class="adminBtn ${command === 'add' ? '' : 'link'}" data-command="${command}" data-kind="${kind}" data-key="${e(id || '')}" ${extra}>${e(label)}</button>`;
   }
   function actions(kind, row) {
+    if (kind === 'activities' && row.status === 'published') return '<span class="adminMuted">Published · view details</span>';
     let out = action('Edit', 'edit', kind, row.id);
     if (kind === 'users')
       return (
@@ -284,6 +287,7 @@
   function editor(kind, key, refresh, prefill = {}) {
     const s = HobbyHubService.snapshot(),
       old = source(s, kind).find((r) => r.id === key);
+    if (kind === 'activities' && old?.status === 'published') { ui.toast('Published details are locked. Agree changes with the organizer before preparing a replacement.'); return; }
     const value = { ...prefill, ...(old || {}) };
     if (kind === 'activities') {
       value.date = value.date ? new Date(value.date).toLocaleDateString('en-CA') : '';
@@ -299,7 +303,7 @@
         const d = new Date('2000-01-01 ' + value.time);
         value.time = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
       }
-      value.delivery = String(value.delivery).startsWith('Online') ? 'online' : 'inperson';
+      value.delivery = /^online/i.test(String(value.delivery)) ? 'online' : 'inperson';
       value.featuredFeeJod = (value.featuredFeeFils || 0) / 1000;
       value.listingFeeJod = (value.listingFeeFils || 0) / 1000;
       value.seats ??= 12;
@@ -333,15 +337,22 @@
     const fieldHtml = (field) => {
       const v = current(field),
         identifier = 'editor-' + field.name.replaceAll('.', '-');
-      const constraints = field.type === 'tel' ? 'maxlength="25" pattern="[+0-9 ()-]{9,25}" title="Jordanian number: 0791234567 or +962791234567"' : ['text', 'email', 'url', 'textarea'].includes(field.type) ? `maxlength="${field.type === 'textarea' ? 3000 : 300}"` : '';
-      const attrs = `${constraints} id="${identifier}" name="${field.name}" ${field.required ? 'required' : ''} ${field.min !== undefined ? `min="${field.min}"` : ''} ${field.max !== undefined ? `max="${field.max}"` : ''} ${field.step ? `step="${field.step}"` : ''}`;
+      const constraints =
+        field.type === 'tel'
+          ? 'maxlength="25" pattern="[+0-9 ()-]{9,25}" title="Jordanian number: 0791234567 or +962791234567"'
+          : ['text', 'email', 'url', 'textarea'].includes(field.type)
+            ? `maxlength="${field.type === 'textarea' ? 3000 : 300}"`
+            : '';
+      const readOnly =
+        field.name === 'commissionPercent' && (value.sourceContactId || value.publishAt) ? 'readonly' : '';
+      const attrs = `${constraints} ${readOnly} id="${identifier}" name="${field.name}" ${field.required ? 'required' : ''} ${field.min !== undefined ? `min="${field.min}"` : ''} ${field.max !== undefined ? `max="${field.max}"` : ''} ${field.step ? `step="${field.step}"` : ''}`;
       let control =
         field.type === 'select'
           ? `<select ${attrs}>${field.required ? '' : '<option value="">None</option>'}${field.options.map(([key, label]) => `<option value="${e(key)}" ${String(key) === String(v) ? 'selected' : ''}>${e(label)}</option>`).join('')}</select>`
           : field.type === 'textarea'
             ? `<textarea ${attrs} rows="3">${e(v)}</textarea>`
             : `<input ${attrs} type="${field.type}" ${field.type === 'checkbox' ? (v ? 'checked' : '') : `value="${e(v)}"`}>`;
-      return `<div class="adminField ${field.type === 'textarea' ? 'adminFull' : ''}" data-field="${field.name}"><label for="${identifier}">${e(field.label)} <small class="adminMuted">${field.required ? "(required)" : "(optional)"}</small></label>${control}</div>`;
+      return `<div class="adminField ${field.type === 'textarea' ? 'adminFull' : ''}" data-field="${field.name}"><label for="${identifier}">${e(field.label)} <small class="adminMuted">${field.required ? '(required)' : '(optional)'}</small></label>${control}</div>`;
     };
     const questionOptions =
       kind === 'questions'
@@ -352,9 +363,47 @@
       : '';
     const dialog = ui.dialog(
       (old ? 'Edit ' : 'Add ') + (names[kind] || kind),
-      `<form id="adminEditorForm"><div class="adminFormGrid">${fields.map(fieldHtml).join('')}${questionOptions}${imagePreview}<p class="adminFormError adminFull" id="editorError" role="alert" hidden></p><div class="adminFormActions adminFull"><button class="adminBtn" type="submit">${kind === 'activities' ? 'Save draft' : kind === 'invoices' ? 'Save draft' : 'Save changes'}</button>${kind === 'activities' ? '<button type="submit" class="adminBtn secondary" value="publish" id="editorPublish">Publish</button>' : ''}</div></div></form>`,
+      `<form id="adminEditorForm">${kind === 'organizers' ? '<p class="adminNotice">Save the organization’s contact details here, then select it when adding an activity. This does not publish an activity or create a payment. The optional receiving-account details are used later to pay its share of bookings.</p>' : ''}${kind === 'users' && !old ? '<p class="adminNotice">This creates a user record only. No login credentials or invitation are created. Email account activation requires the backend.</p>' : ''}<div class="adminFormGrid">${fields.map(fieldHtml).join('')}${kind === 'activities' ? '<div class="adminFull adminPanel" id="publicationSummary" role="status"></div>' : ''}${questionOptions}${imagePreview}<p class="adminFormError adminFull" id="editorError" role="alert" hidden></p><div class="adminFormActions adminFull"><button class="adminBtn" type="submit">${kind === 'activities' ? (old?.status === 'published' ? 'Save changes' : 'Save draft') : kind === 'invoices' ? 'Save draft' : 'Save changes'}</button>${kind === 'activities' && (!value.sourceContactId || ['publish', 'published'].includes(requestStage(contactMessages.find((r) => r.id === value.sourceContactId)))) ? '<button type="submit" class="adminBtn secondary" value="publish" id="editorPublish">Publish</button>' : ''}</div></div></form>`,
     );
     const form = dialog.querySelector('#adminEditorForm');
+    if (kind === 'activities') {
+      const summary = dialog.querySelector('#publicationSummary');
+      function period() {
+        const v = {};
+        form
+          .querySelectorAll('[name]')
+          .forEach((input) => (v[input.name] = input.type === 'checkbox' ? input.checked : input.value));
+        v.startTime = v.time;
+        if (v.isFeatured) {
+          v.featuredStartsAt = v.publishAt;
+          v.featuredEndsAt = v.bookingClosesAt;
+        }
+        try {
+          const rates =
+            s.contactMessages.find((r) => r.id === value.sourceContactId)?.agreement?.rates ||
+            s.settings.requestPricing;
+          const result = quoteActivityPublication(v, rates);
+          form.elements.featuredFeeJod.value = String(result.featuredFeeFils / 1000);
+          form.elements.featuredFeeJod.readOnly = true;
+          summary.textContent =
+            'Display period: ' +
+            formatDisplayPeriod(result.publicationHours) +
+            (v.isFeatured ? ' · Same period on homepage' : '') +
+            ' · Free-activity listing: ' +
+            HobbyHubService.money(result.listingFeeFils) +
+            ' · Homepage: ' +
+            HobbyHubService.money(result.featuredFeeFils) +
+            ' · Total: ' +
+            HobbyHubService.money(result.totalFils) +
+            '. Paid-booking commission: 15%. Request-based publication needs recorded organizer approval.';
+        } catch (error) {
+          summary.textContent = error.message;
+        }
+      }
+      form.addEventListener('input', period);
+      form.addEventListener('change', period);
+      period();
+    }
     let previewUrl = null;
     let options = cloneOptions(
       old?.options || [
@@ -437,7 +486,7 @@
         return;
       }
       if (/^(https?:\/\/|\/|[\w.-])/i.test(ref) && !/^javascript:/i.test(ref)) {
-        img.src = /^https?:|^\//.test(ref) ? ref : getRoot() + ref;
+        img.src = /^https?:|^data:image\/(?:jpeg|png|webp);base64,|^\//i.test(ref) ? ref : getRoot() + ref;
         img.hidden = false;
       }
     }
@@ -487,9 +536,14 @@
       }
       if (kind === 'questions') input.options = options;
       if (kind === 'activities') {
-        input.status = event.submitter?.id === 'editorPublish' ? 'published' : 'draft';
+        if (input.isFeatured) {
+          input.featuredStartsAt = input.publishAt;
+          input.featuredEndsAt = input.bookingClosesAt;
+        }
+        input.status =
+          event.submitter?.id === 'editorPublish' || old?.status === 'published' ? 'published' : 'draft';
         input.featuredFeeFils = HobbyHubService.toFils(input.featuredFeeJod || 0);
-        input.listingFeeFils = HobbyHubService.toFils(input.listingFeeJod || 0);
+        input.listingFeeFils = old?.listingFeeFils || 0;
         delete input.listingFeeJod;
         delete input.featuredFeeJod;
       }
@@ -526,6 +580,12 @@
           ui.toast('Create an invoice for this charge first.');
           return;
         }
+        if (command === 'reviewActivityRequest') return AdminRequestFlow.open(key, refresh);
+        if (command === 'reopenActivityRequest') {
+          updateActivityRequestStatus(key, 'followUp');
+          refresh();
+          return;
+        }
         if (command === 'requestOrganizer') {
           const request = s.contactMessages.find((x) => x.id === key);
           if (!request) return;
@@ -539,6 +599,14 @@
             phone: request.phone || '',
             notes: request.message,
             sourceContactId: request.id,
+            ...(request.payoutDetails
+              ? {
+                  payoutAccountHolder: request.payoutDetails.name,
+                  payoutMethod: request.payoutDetails.method,
+                  payoutProvider: request.payoutDetails.provider,
+                  payoutIdentifier: request.payoutDetails.identifier,
+                }
+              : {}),
           });
         }
         if (command === 'invoiceCampaign') {

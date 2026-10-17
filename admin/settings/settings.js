@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     info: '--hhInfo',
   };
   const theme = (s) =>
+    billing(s) +
     u.panel(
       'Theme & colors',
       `<form id="themeForm" class="adminSettingsForm"><div class="adminTokenGrid">${Object.entries(
@@ -34,8 +35,16 @@ document.addEventListener('DOMContentLoaded', () => {
         )
         .join(
           '',
-        )}</div><h2>Category tints</h2><div class="adminTokenGrid">${s.categories.map((c) => `<div class="adminToken"><label for="tint-${c.id}">${e(c.name)}</label><input type="color" id="tint-${c.id}" name="tint-${c.id}" value="${s.settings.categoryTints[c.id] || '#FBE3DA'}"></div>`).join('')}</div><div class="adminField"><label for="defaultCommission">Default booking commission (%)</label><input id="defaultCommission" name="defaultCommission" type="number" min="0" max="100" step=".01" value="${s.settings.defaultCommissionPercent}" required></div><h2>Advertising packages</h2>${s.settings.adPackages.map((p) => `<div class="adminToolbar"><strong>${e(p.name)}</strong><div class="adminField"><label for="package-price-${p.id}">Price (JOD)</label><input id="package-price-${p.id}" name="package-price-${p.id}" type="number" min="0" step=".001" value="${p.priceFils / 1000}" required></div><div class="adminField"><label for="package-days-${p.id}">Duration (days)</label><input id="package-days-${p.id}" name="package-days-${p.id}" type="number" min="1" step="1" value="${p.durationDays}" required></div></div>`).join('')}<div class="adminFormActions"><button type="submit" class="adminBtn">Save changes</button><a class="adminBtn secondary" href="${buildUrl('adminDashboard')}">Back to Dashboard</a></div><p id="themeError" role="alert" class="adminFormError" hidden></p></form>`,
+        )}</div><h2>Category tints</h2><div class="adminTokenGrid">${s.categories.map((c) => `<div class="adminToken"><label for="tint-${c.id}">${e(c.name)}</label><input type="color" id="tint-${c.id}" name="tint-${c.id}" value="${s.settings.categoryTints[c.id] || '#FBE3DA'}"></div>`).join('')}</div><div class="adminField"><label for="defaultCommission">Default booking commission (%)</label><input id="defaultCommission" name="defaultCommission" type="number" min="0" max="100" step=".01" value="${s.settings.defaultCommissionPercent}" required></div><div class="adminFormActions"><button type="submit" class="adminBtn">Save changes</button><a class="adminBtn secondary" href="${buildUrl('adminDashboard')}">Back to Dashboard</a></div><p id="themeError" role="alert" class="adminFormError" hidden></p></form>`,
     );
+  function billing(s) {
+    const r = s.settings.requestPricing,
+      a = s.settings.receivingAccount;
+    return u.panel(
+      'Organizer pricing & HobbyHub receiving account',
+      `<form id="requestPricingForm" class="adminSettingsForm"><p>Demo tariffs: a day is 24 hours. Partial days are prorated to actual display hours and rounded to the nearest fils. Existing prepared offers keep their rate snapshot.</p><div class="adminFormGrid"><div class="adminField"><label for="freeDaily">Free-activity listing (JOD / day)</label><input id="freeDaily" type="number" min="0" max="1000" step=".001" value="${r.freeListingDailyFils / 1000}" required></div><div class="adminField"><label for="homeDaily">Additional homepage placement (JOD / day)</label><input id="homeDaily" type="number" min="0" max="1000" step=".001" value="${r.homepageDailyFils / 1000}" required></div></div><p>Paid activities: 15% per paid booking; no daily listing charge. Homepage fees are additional.</p><h3>Where organizers pay HobbyHub’s publication fees</h3><p>Enter your real receiving details before sharing payment instructions. These are separate from organizer accounts used for payouts. Never enter card details, PINs or passwords.</p><div class="adminFormGrid"><div class="adminField"><label for="platformAccountHolder">HobbyHub account holder</label><input id="platformAccountHolder" maxlength="120" value="${e(a.holder)}"></div><div class="adminField"><label for="platformAccountMethod">Receiving method</label><select id="platformAccountMethod">${['cliq', 'wallet', 'bank'].map((m) => `<option ${m === a.method ? 'selected' : ''} value="${m}">${e(m)}</option>`).join('')}</select></div><div class="adminField"><label for="platformAccountProvider">Bank / wallet provider</label><input id="platformAccountProvider" maxlength="120" value="${e(a.provider)}"></div><div class="adminField"><label for="platformAccountId">CliQ alias / wallet mobile / IBAN</label><input id="platformAccountId" maxlength="80" value="${e(a.identifier)}"></div></div><button class="adminBtn" type="submit">Save pricing & receiving details</button><p id="requestPricingError" role="alert" hidden></p></form>`,
+    );
+  }
   const content = (s) =>
     u.panel(
       'Website content',
@@ -49,13 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ) +
     u.panel(
       'Featured activities',
-      `<form id="featuredForm" class="adminSettingsForm">${s.activities
-        .filter((a) => a.status === 'published')
-        .map(
-          (a) =>
-            `<label><input type="checkbox" name="${a.id}" ${a.isFeatured ? 'checked' : ''}> ${e(a.title)}</label>`,
-        )
-        .join('')}<button type="submit" class="adminBtn">Save featured selection</button></form>`,
+      `<p>Set homepage dates and the agreed fixed fee in the activity editor, so publication and placement stay together.</p><a class="adminBtn secondary" href="${buildUrl('adminActivities')}">Manage activity placements →</a>`,
     ) +
     u.panel(
       'Frequently Asked Questions',
@@ -77,6 +80,37 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       u.toast('Contact information saved.');
     });
+    host.querySelector('#requestPricingForm')?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const get = (id) => host.querySelector('#' + id);
+      try {
+        const rates = {
+          freeListingDailyFils: HobbyHubService.toFils(get('freeDaily').value),
+          homepageDailyFils: HobbyHubService.toFils(get('homeDaily').value),
+        };
+        const account = {
+          holder: get('platformAccountHolder').value.trim(),
+          method: get('platformAccountMethod').value,
+          provider: get('platformAccountProvider').value.trim(),
+          identifier: get('platformAccountId').value.trim(),
+        };
+        if (account.holder || account.provider || account.identifier) {
+          const valid = validateOrganizerPayout({
+            name: account.holder,
+            method: account.method,
+            provider: account.provider,
+            identifier: account.identifier,
+          });
+          account.identifier = valid.identifier;
+        }
+        saveRequestPricing(rates);
+        Object.assign(platformSettings.receivingAccount, account);
+        u.toast('Pricing and receiving details updated for this preview. Existing offers remain unchanged.');
+      } catch (error) {
+        get('requestPricingError').textContent = error.message;
+        get('requestPricingError').hidden = false;
+      }
+    });
     host.querySelectorAll('[data-reset-color]').forEach((b) =>
       b.addEventListener('click', () => {
         host.querySelector('#theme-' + b.dataset.resetColor).value = defaults[b.dataset.resetColor];
@@ -90,11 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const values = Object.fromEntries(Object.keys(defaults).map((k) => [k, form.elements[k].value]));
         const commission = Number(form.elements.defaultCommission.value);
         HobbyHubService.split(1000, commission);
-        const packages = s.settings.adPackages.map((p) => ({
-          ...p,
-          priceFils: HobbyHubService.toFils(form.elements['package-price-' + p.id].value),
-          durationDays: Number(form.elements['package-days-' + p.id].value),
-        }));
+        const packages = s.settings.adPackages;
         await savePlatformConfig({
           theme: values,
           defaultCommissionPercent: commission,

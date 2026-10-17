@@ -915,3 +915,102 @@ body.hhAdmin {
 .hhAdmin .adminTable th {
   font-size: 0.72rem;
 }
+
+.adminDemoBar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  padding: 12px 22px;
+  background: #edf2e8;
+  border-bottom: 1px solid var(--hhBorder);
+  font-size: 0.8rem;
+}
+.adminDemoBar input {
+  border: 1px solid var(--hhBorder);
+  border-radius: 8px;
+  padding: 6px;
+  background: #fff;
+}
+.adminDemoBar .adminBtn {
+  padding: 6px 10px;
+  font-size: 0.78rem;
+}
+.requestCards {
+  display: grid;
+  gap: 14px;
+}
+.requestCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.requestCard h3 {
+  margin: 12px 0 6px;
+}
+.requestProgress {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+.requestProgress li {
+  padding: 8px 12px;
+  border-radius: 20px;
+  background: #f3ece5;
+  color: var(--hhMuted);
+  font-size: 0.8rem;
+}
+.requestProgress .complete {
+  background: #e7efdf;
+  color: #466d42;
+}
+.requestCurrent h3 {
+  margin-top: 18px;
+}
+.requestCurrent button {
+  margin: 10px 8px 5px 0;
+}
+.requestCurrent details {
+  margin: 16px 0;
+  padding: 12px;
+  background: #fff8;
+  border-radius: 10px;
+}
+.hhAdmin .adminBtn.link {
+  border: 1px solid var(--hhBorder);
+  background: #fff8;
+  border-radius: 9px;
+  padding: 7px 11px;
+  text-decoration: none;
+}
+.adminDialog details summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+@media (max-width: 650px) {
+  .requestCard {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .adminDemoBar {
+    padding: 12px;
+  }
+  .requestProgress {
+    gap: 5px;
+  }
+}
+
+.hhAdmin .hhLogoName { font-weight: 800; letter-spacing: -.025em; }
+.hhAdmin .hhLogoTag { font-size: .6rem; line-height: 1.4; }
+.adminWorkflowCheck { display: flex; align-items: flex-start; gap: 10px; width: 100%; margin: 18px 0; line-height: 1.6; }
+.adminWorkflowCheck input { flex: 0 0 auto; margin-top: .35em; width: 18px; height: 18px; accent-color: var(--hhPrimary); }
+.adminWorkflowCheck + .adminBtn { display: block; margin-top: 12px; }
+body[data-admin-page="activities"] .adminTable { white-space: normal; table-layout: fixed; }
+body[data-admin-page="activities"] .adminTable th, body[data-admin-page="activities"] .adminTable td { overflow-wrap: anywhere; padding: 12px 8px; }
+body[data-admin-page="activities"] .adminTable .adminWrap { min-width: 0; max-width: none; }
+body[data-admin-page="activities"] .adminTable th:first-child { width: 23%; }
+body[data-admin-page="activities"] .adminRowActions { flex-wrap: wrap; min-width: 0; }
+@media (max-width: 850px) { body[data-admin-page="activities"] .adminTable { table-layout: auto; min-width: 650px; } }
