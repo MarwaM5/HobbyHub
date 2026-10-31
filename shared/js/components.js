@@ -14,7 +14,7 @@ function renderLogo(extraClass = "") {
 
 // الـ Navbar للزائر. active = اسم الصفحة الحالية لتظليل زرها
 function renderNavbar(active = null) {
-  const links = [["discover", "Discover"], ["classes", "Classes"], ["groupsIntro", "Groups"], ["journey", "Journey"], ["ai", "AI"]];
+  const links = [["discover", "Discover"], ["classes", "Classes"], ["groupsIntro", "Groups"], ["journey", "Journey"], ["ai", "AI"], ["partner", "Partner with us"]];
   const pills = links.map(([key, label]) => `
         <li class="nav-item">
           <a class="nav-link hhPill ${active === key ? "isActive" : ""}" id="nav${label}" href="${buildUrl(key)}">${label}</a>
@@ -56,7 +56,7 @@ function renderFooter() {
         <div class="row gy-4">
           <div class="col-12 col-lg-4">${renderLogo("hhLogoFooter")}</div>
           ${renderFooterColumn("Explore", [["Discover Hobbies", buildUrl(isLoggedIn() ? "discoveryFlow" : "discover", isLoggedIn() ? "?u=1" : "")], ["Classes &amp; Events", buildUrl(isLoggedIn() ? "classesBrowse" : "classes", isLoggedIn() ? "?u=1" : "")], ["Communities", buildUrl(isLoggedIn() ? "groups" : "groupsIntro", isLoggedIn() ? "?u=1" : "")]])}
-          ${renderFooterColumn("About", [["About Us", buildUrl("about")], ["FAQ", buildUrl("home", "#faq")], ["Contact Us", buildUrl("contact")]])}
+          ${renderFooterColumn("About", [["Partner with us", buildUrl("partner")], ["About Us", buildUrl("about")], ["FAQ", buildUrl("home", "#faq")], ["Contact Us", buildUrl("contact")]])}
           ${renderFooterColumn("Legal", [["Privacy Policy", buildUrl("privacy")], ["Terms &amp; Conditions", buildUrl("terms")]])}
           ${renderFooterColumn("Follow Us", [["Instagram", "https://www.instagram.com/", true], ["LinkedIn", "https://www.linkedin.com/", true]])}
         </div>

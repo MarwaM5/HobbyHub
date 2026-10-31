@@ -116,11 +116,11 @@
 .hhNavbar .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23ED7052' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2.6' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
-@media (min-width: 1200px) {
+@media (min-width: 1400px) {
   .hhNavbar > .hhContainer { display: grid !important; grid-template-columns: minmax(220px,1fr) auto minmax(220px,1fr); align-items: center; gap: 1rem; }
   .hhNavbar .navbar-collapse { display: contents !important; }
   .hhNavbar .hhNavPills { margin-inline: 0 !important; justify-content: center; }}
-@media (max-width: 1199.98px) {
+@media (max-width: 1399.98px) {
   .hhNavbar .navbar-toggler { display: block; }
   .hhNavbar .navbar-collapse { flex-basis: 100%; width: 100%; padding: 1.25rem 0 .35rem; }
   .hhNavbar .navbar-collapse:not(.show):not(.collapsing) { display: none !important; }

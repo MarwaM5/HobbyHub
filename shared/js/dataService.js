@@ -442,15 +442,9 @@ const AdminService = (() => {
       if (!['draft', 'published', 'archived'].includes(value.status))
         throw Error('Invalid publication status.');
       if (value.delivery === 'online' || String(value.delivery).startsWith('Online')) {
-        if (!['jitsi', 'zoom'].includes(value.onlineProvider)) throw Error('Choose an online provider.');
-        value.delivery = value.onlineProvider === 'zoom' ? 'Online (Zoom)' : 'Online (Jitsi Meet)';
-        if (value.onlineProvider === 'zoom') {
-          safeUrl(required(value.zoomUrl, 'Zoom link'));
-          value.zoomMeetingId = required(value.zoomMeetingId, 'Meeting ID');
-        } else {
-          value.jitsiRoomName = required(value.jitsiRoomName, 'Jitsi room');
-          value.jitsiMeetingId = value.jitsiRoomName;
-        }
+        if (value.onlineProvider !== 'zoom') throw Error('Online activities use Zoom.');
+        value.delivery = 'Online (Zoom)';
+        validateZoomDetails(value);
       } else {
         value.delivery = 'In person';
         value.onlineProvider = null;
@@ -1061,10 +1055,10 @@ function validateActivityRequest(input){
  a.seats=Number(a.seats);if(!Number.isInteger(a.seats)||a.seats<1||a.seats>100000)throw Error('Enter a whole number of seats from 1 to 100000.');
  a.priceJod=HobbyHubService.toFils(a.priceJod)/1000;
  if(a.delivery==='inperson'&&!String(a.location||'').trim())throw Error('Enter the venue or address.');
- if(a.delivery==='online'&&!['jitsi','zoom'].includes(a.onlineProvider))throw Error('Choose the online meeting provider.');
+ if(a.delivery==='online'&&a.onlineProvider!=='zoom')throw Error('Online activities use Zoom.');
  if(a.acceptedTerms!==true)throw Error('Accept the 15% paid-booking commission and separate homepage-placement terms.');
  a.isFeatured=Boolean(a.isFeatured);a.startTime=a.time;publicationWindow(a,true);
- if(a.delivery==='online'&&a.onlineProvider==='zoom'){let url;try{url=new URL(a.zoomUrl);}catch{throw Error('Enter the Zoom meeting link.');}if(url.protocol!=='https:'||!/(^|\.)zoom\.us$|(^|\.)zoom\.com$/.test(url.hostname))throw Error('Use an HTTPS Zoom meeting link.');if(!/^\d{9,11}$/.test(String(a.zoomMeetingId||'').replace(/\s/g,'')))throw Error('Enter the 9–11 digit Zoom meeting ID.');a.zoomMeetingId=String(a.zoomMeetingId).replace(/\s/g,'');const linked=url.pathname.match(/\/j\/(\d{9,11})(?:\/|$)/);if(linked&&linked[1]!==a.zoomMeetingId)throw Error('The meeting ID must match the Zoom link.');}
+ if(a.delivery==='online')validateZoomDetails(a);
 
  a.commissionPercent=15;delete a.featuredFeeFils;delete a.listingFeeFils;delete a.status;return a;
 }
@@ -1073,7 +1067,7 @@ function requestActivityPrefill(requestId){
  const existing=activities.find(a=>a.sourceContactId===requestId);if(existing)return {existingId:existing.id};
  const organizer=organizers.find(o=>o.id===request.organizerId||o.email.toLowerCase()===request.email.toLowerCase());if(!organizer)throw Error('Add or link the organizer before preparing the activity.');
  const a=validateActivityRequest(request.activityRequest),h=hobbies.find(h=>h.id===a.hobbyId);
- const quote=quoteActivityPublication(a);if(a.delivery==='online'&&a.onlineProvider==='jitsi')a.jitsiRoomName='HobbyHub-'+request.id.replace(/[^a-zA-Z0-9-]/g,'');
+ const quote=quoteActivityPublication(a);
  return {...a,organizerId:organizer.id,categoryId:h.categoryId,sourceContactId:requestId,status:'draft',imageUrl:request.coverImageData||request.imageReference||'',commissionPercent:15,featuredFeeFils:quote.featuredFeeFils,listingFeeFils:quote.listingFeeFils};
 }
 function updateActivityRequestStatus(id,status){const r=contactMessages.find(r=>r.id===id);if(!r?.activityRequest)throw Error('Request not found.');if(!['new','followUp','closed'].includes(status))throw Error('Choose a valid request state.');r.reviewStatus=status;return r;}
@@ -1109,3 +1103,29 @@ function requestStage(request){if(request.activityId&&activities.some(a=>a.id===
 function recordPublicationReceipt(id,input){const r=contactMessages.find(r=>r.id===id);if(r?.agreement?.status!=='accepted')throw Error('Record organizer approval first.');if(r.publicationReceipt)throw Error('This receipt is already recorded.');if(input.confirmed!==true||HobbyHubService.toFils(input.amountJod)!==r.agreement.totalFils||String(input.reference||'').trim().length<3||!isValidPaymentDay(input.receivedOn)||input.receivedOn>new Date(demoNow()).toISOString().slice(0,10))throw Error('Confirm the exact amount, payment date and transfer reference.');if(contactMessages.some(x=>x.publicationReceipt?.reference===input.reference.trim()))throw Error('This payment reference is already used.');r.publicationReceipt={amountFils:r.agreement.totalFils,reference:input.reference.trim(),receivedOn:input.receivedOn,recordedAt:new Date(demoNow()).toISOString()};return r.publicationReceipt;}
 function reconcileRequestReceipt(id){const r=contactMessages.find(r=>r.id===id);if(!r?.publicationReceipt||!r.activityId)return;const fees=serviceFees.filter(f=>f.activityId===r.activityId&&['listing','featured'].includes(f.type));if(!fees.length||invoices.some(i=>i.sourceRequestId===id))return;const invoice={id:'request-invoice-'+id,sourceRequestId:id,number:'HH-'+id,organizerId:r.organizerId,issuedOn:r.publicationReceipt.receivedOn,dueOn:r.publicationReceipt.receivedOn,currency:'JOD',feeIds:fees.map(f=>f.id),status:'paid',paidAt:r.publicationReceipt.recordedAt,paymentNotes:r.publicationReceipt.reference};invoices.push(invoice);fees.forEach(f=>{f.status='paid';f.invoiceId=invoice.id;});}
 function payoutReady(payout,now=demoNow()){return payout.paymentIds.every(id=>{const payment=simulatedPayments.find(p=>p.id===id),booking=enrollments.find(e=>e.id===payment?.enrollmentId),a=activities.find(a=>a.id===booking?.activityId);if(!a)return false;const d=new Date(a.endDate||a.date),date=[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');try{return now>=activityDateTime(date+'T'+(a.endTime||'23:59'));}catch{return false;}});}
+
+// One provider contract for organizer requests, admin editing and enrolled access.
+function validateZoomDetails(activity) {
+ let url; try { url=new URL(String(activity.zoomUrl||'').trim()); } catch { throw Error('Enter the Zoom meeting link provided by the organizer.'); }
+ if(url.protocol!=='https:' || url.username || url.password || !/(^|\.)zoom\.(us|com)$/.test(url.hostname)) throw Error('Use an HTTPS Zoom meeting link.');
+ const id=String(activity.zoomMeetingId||'').replace(/\s/g,'');
+ if(!/^\d{9,11}$/.test(id)) throw Error('Enter the 9–11 digit Zoom meeting ID.');
+ const linked=url.pathname.match(/\/j\/(\d{9,11})(?:\/|$)/);
+ if(linked && linked[1]!==id) throw Error('The meeting ID must match the Zoom link.');
+ activity.zoomUrl=url.href; activity.zoomMeetingId=id;
+ return activity;
+}
+// Preserve local demo bookings while retiring the previous meeting provider.
+function normalizeOnlineActivities() {
+ for(const activity of activities) {
+  if(activity.delivery==='online' || /^online/i.test(String(activity.delivery||''))) {
+   activity.onlineProvider='zoom'; activity.delivery='Online (Zoom)';
+   delete activity.jitsiRoomName; delete activity.jitsiMeetingId; delete activity.jitsiPasscode;
+  }
+ }
+ for(const request of contactMessages) {
+  const a=request.activityRequest;
+  if(a?.delivery==='online') { a.onlineProvider='zoom'; delete a.jitsiRoomName; delete a.jitsiMeetingId; delete a.jitsiPasscode; }
+ }
+}
+normalizeOnlineActivities();

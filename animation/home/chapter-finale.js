@@ -32,6 +32,17 @@
       ).join('') +
       '</div>';
     const actors = [...viewport.querySelectorAll('.hhChapterArtifact')];
+    // Layout is fixed once; only compositor transforms change during animation.
+    scene.style.setProperty('--chapter-opening', 1);
+    scene.style.setProperty('--chapter-world', 1);
+    scene.style.setProperty('--chapter-emerge', 1);
+    scene.style.setProperty('--chapter-breath', 1);
+    scene.classList.add('hhChapterSettled');
+    actors.forEach((actor, i) => {
+      actor.style.left = configs[i].x + '%';
+      actor.style.top = configs[i].y + '%';
+      actor.style.opacity = '1';
+    });
     let frame = 0,
       previous = 0,
       elapsed = 0,
@@ -39,21 +50,12 @@
       dead = false;
     function paint() {
       const t = elapsed / 1000;
-      scene.style.setProperty('--chapter-opening', 1);
-      scene.style.setProperty('--chapter-world', 1);
-      scene.style.setProperty('--chapter-emerge', 1);
-      scene.style.setProperty(
-        '--chapter-breath',
-        preference.matches ? 1 : 1 + Math.sin(t * 0.75) * 0.007,
-      );
-      scene.classList.add('hhChapterSettled');
       actors.forEach((actor, i) => {
         const c = configs[i],
-          wave = preference.matches ? 0 : Math.sin(t * 0.8 + i);
-        actor.style.left = c.x + '%';
-        actor.style.top = c.y + wave * 0.85 + '%';
-        actor.style.transform = `translate(-50%,-50%) rotate(${c.angle + wave * 1.3}deg)`;
-        actor.style.opacity = '1';
+          phase = t * (0.55 + i * 0.025) + i * 1.1,
+          wave = preference.matches ? 0 : Math.sin(phase),
+          drift = preference.matches ? 0 : Math.cos(phase * 0.8) * 2;
+        actor.style.transform = `translate3d(calc(-50% + ${drift.toFixed(3)}px),calc(-50% + ${(wave * 5).toFixed(3)}px),0) rotate(${(c.angle + wave * 0.85).toFixed(3)}deg)`;
       });
     }
     function tick(now) {

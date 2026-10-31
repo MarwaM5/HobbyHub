@@ -237,17 +237,15 @@ body[data-page='home'] .hhCreatorDesk .featCard[data-paper='ticket']::before {
 .hhDeskPaused .hhDeskCoffeeSteam,
 .hhDeskPaused .featCard,
 .hhDeskPaused .featCard *,
-.hhCreatorDesk .featCard:not(.hhPaperVisible) * {
+.hhCreatorDesk .featCard:not(.hhPaperInView) * {
   animation-play-state: paused !important;
 }
 @keyframes hhDeskPaperSettle {
   from {
-    opacity: 0;
-    transform: translateY(14px) rotate(0);
+    transform: translate3d(0, 10px, 0) rotate(var(--paper-rotation, 0deg));
   }
   to {
-    opacity: 1;
-    transform: translateY(0) rotate(var(--paper-rotation, 0deg));
+    transform: translate3d(0, 0, 0) rotate(var(--paper-rotation, 0deg));
   }
 }
 @keyframes hhDeskLensLight {
@@ -295,4 +293,12 @@ body[data-page='home'] .hhCreatorDesk .featCard[data-paper='ticket']::before {
   body[data-page='home'] .hhCreatorDesk .featCard.hhPaperActive {
     transform: rotate(var(--paper-rotation, 0deg));
   }
+}
+
+/* Arrival never fades the activity out, and hover uses the fixed outer hit area. */
+body[data-page='home'] .hhCreatorDesk #featuredGrid > .reveal {
+  transition: none;
+}
+body[data-page='home'] .hhCreatorDesk .featCard {
+  backface-visibility: hidden;
 }

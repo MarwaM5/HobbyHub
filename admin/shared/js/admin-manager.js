@@ -137,7 +137,6 @@
             'onlineProvider',
             'Online provider',
             [
-              ['jitsi', 'Jitsi Meet'],
               ['zoom', 'Zoom'],
             ],
             false,
@@ -146,8 +145,6 @@
           text('zoomUrl', 'Zoom link', 'url', false),
           text('zoomMeetingId', 'Zoom meeting ID', 'text', false),
           text('zoomPasscode', 'Zoom passcode', 'text', false),
-          text('jitsiRoomName', 'Jitsi room name', 'text', false),
-          text('jitsiPasscode', 'Jitsi passcode', 'text', false),
           text('imageUrl', 'Cover image reference', 'text', false),
           text('publishAt', 'Publication starts (Amman time)', 'datetime-local', true),
           text('bookingClosesAt', 'Bookings close (Amman time)', 'datetime-local', true),
@@ -449,6 +446,7 @@
     }
     function delivery() {
       if (kind !== 'activities') return;
+      form.elements.onlineProvider.value = 'zoom';
       const online = form.elements.delivery.value === 'online',
         zoom = form.elements.onlineProvider.value === 'zoom';
       for (const field of [
@@ -456,8 +454,6 @@
         'zoomUrl',
         'zoomMeetingId',
         'zoomPasscode',
-        'jitsiRoomName',
-        'jitsiPasscode',
         'location',
       ]) {
         const show =

@@ -35,16 +35,17 @@
         binding.setAttribute('aria-hidden', 'true');
         binding.innerHTML =
           '<svg viewBox="0 0 240 24">' +
-          Array.from(
-            { length: 8 },
-            (_, i) => `<path d="M${12 + i * 30} 19v-9c0-11 12-11 12 0v9"/>`,
-          ).join('') +
+          Array.from({ length: 8 }, (_, i) => `<path d="M${12 + i * 30} 19v-9c0-11 12-11 12 0v9"/>`).join(
+            '',
+          ) +
           '</svg>';
         card.appendChild(binding);
       }
+      // Keep the hit area still while its paper lifts above the desk.
+      const hitArea = card.closest('.reveal') || card;
       const enter = () => card.classList.add('hhPaperActive');
       const leave = (event) => {
-        if (!event.relatedTarget || !card.contains(event.relatedTarget))
+        if (!event.relatedTarget || !hitArea.contains(event.relatedTarget))
           card.classList.remove('hhPaperActive');
       };
       for (const [name, handler] of [
@@ -53,17 +54,20 @@
         ['focusin', enter],
         ['focusout', leave],
       ]) {
-        card.addEventListener(name, handler);
-        cleanup.push(() => card.removeEventListener(name, handler));
+        hitArea.addEventListener(name, handler);
+        cleanup.push(() => hitArea.removeEventListener(name, handler));
       }
     });
     if ('IntersectionObserver' in window) {
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (entry.target === section)
-              section.classList.toggle('hhDeskVisible', entry.isIntersecting);
-            else entry.target.classList.toggle('hhPaperVisible', entry.isIntersecting);
+            if (entry.target === section) section.classList.toggle('hhDeskVisible', entry.isIntersecting);
+            else {
+              entry.target.classList.toggle('hhPaperInView', entry.isIntersecting);
+              // Never replay arrival while scrolling back across the viewport edge.
+              if (entry.isIntersecting) entry.target.classList.add('hhPaperVisible');
+            }
           });
         },
         { threshold: 0.08 },
@@ -73,7 +77,7 @@
       cleanup.push(() => observer.disconnect());
     } else {
       section.classList.add('hhDeskVisible');
-      cards.forEach((card) => card.classList.add('hhPaperVisible'));
+      cards.forEach((card) => card.classList.add('hhPaperVisible', 'hhPaperInView'));
     }
     const visibility = () => section.classList.toggle('hhDeskPaused', document.hidden);
     document.addEventListener('visibilitychange', visibility);

@@ -38,6 +38,7 @@
       for (const [name, value] of Object.entries(objects))
         if (state.objects[name] && typeof state.objects[name] === 'object')
           Object.assign(value, state.objects[name]);
+      normalizeOnlineActivities();
       override = Number.isFinite(state.clock) ? state.clock : null;
     } catch {
       available = false;

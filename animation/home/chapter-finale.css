@@ -61,8 +61,7 @@ body[data-page='home'] #nextChapter {
   box-shadow: none;
   border-radius: 0;
   transform-origin: 31% 72%;
-  transform: rotateY(calc(var(--chapter-opening) * -92deg))
-    rotateZ(calc(var(--chapter-opening) * -5deg));
+  transform: rotateY(calc(var(--chapter-opening) * -92deg)) rotateZ(calc(var(--chapter-opening) * -5deg));
   opacity: calc(1 - var(--chapter-opening));
   z-index: 5;
 }
@@ -112,8 +111,7 @@ body[data-page='home'] #nextChapter {
   display: block;
   position: absolute;
   aspect-ratio: 1;
-  background: url('../assets/living-hobby-atlas.webp') var(--artifact-x) var(--artifact-y) / 600%
-    400%;
+  background: url('../assets/living-hobby-atlas.webp') var(--artifact-x) var(--artifact-y) / 600% 400%;
   filter: drop-shadow(3px 7px 5px #9d6b4b33);
   transform-origin: center;
 }
@@ -242,4 +240,37 @@ body[data-page='home'] #nextChapter {
 #nextChapter .hhBookArtwork {
   opacity: 1;
   clip-path: none;
+}
+
+/* Slow independent floating, with no per-frame layout changes. */
+#nextChapter .hhChapterArtifact {
+  background-repeat: no-repeat;
+  will-change: transform;
+  backface-visibility: hidden;
+  transition: none;
+}
+#nextChapter .hhBookScene {
+  animation: hhChapterAmbientBreath 10s ease-in-out infinite;
+  will-change: transform;
+}
+.hhChapterPaused .hhBookScene {
+  animation-play-state: paused !important;
+}
+@keyframes hhChapterAmbientBreath {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.004);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #nextChapter .hhBookScene {
+    animation: none;
+    will-change: auto;
+  }
+  #nextChapter .hhChapterArtifact {
+    will-change: auto;
+  }
 }

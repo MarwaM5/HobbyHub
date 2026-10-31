@@ -40,6 +40,7 @@ const routes = {
   signup: "pages/signup/signup.html",
   about: "pages/about/about.html",
   contact: "pages/contact/contact.html",
+  partner: "pages/partner/partner.html",
   privacy: "pages/privacy/privacy.html",
   terms: "pages/terms/terms.html"
 };

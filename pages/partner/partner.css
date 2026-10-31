@@ -1,0 +1,38 @@
+/* Partner page builds on the shared warm contact visual language. */
+body[data-page='partner'] .contactHero {
+  background: radial-gradient(ellipse at 85% 20%, #ffe6cf 0, transparent 58%),
+    linear-gradient(120deg, #fff8f1, #fff0e7);
+}
+body[data-page='partner'] .contactInfoColumn {
+  align-self: start;
+}
+body[data-page='partner'] .contactInfoCard .infoIcon {
+  font-size: 0.9rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+body[data-page='partner'] .contactFormCard {
+  border-top: 4px solid var(--hhPrimary);
+}
+body[data-page='partner'] .contactHero h1 {
+  max-width: 760px;
+}
+body[data-page='partner'] .contactBottom {
+  background: linear-gradient(110deg, #ffe7d6, #fff4e6);
+}
+/* Keep the envelope in the layout so wrapped copy never runs underneath it. */
+body[data-page='partner'] .noteMain {
+  justify-content: flex-start;
+  gap: 10px;
+}
+body[data-page='partner'] .noteMain .noteIcon {
+  position: static;
+  flex: 0 0 48px;
+  margin-bottom: 4px;
+}
+body[data-page='partner'] .noteMain strong {
+  line-height: 1.35;
+}
+body[data-page='partner'] .noteMain small {
+  margin-top: 0;
+}
