@@ -17,7 +17,7 @@ function renderNavbar(active = null) {
   const links = [["discover", "Discover"], ["classes", "Classes"], ["groupsIntro", "Groups"], ["journey", "Journey"], ["ai", "AI"], ["partner", "Partner with us"]];
   const pills = links.map(([key, label]) => `
         <li class="nav-item">
-          <a class="nav-link hhPill ${active === key ? "isActive" : ""}" id="nav${label}" href="${buildUrl(key)}">${label}</a>
+          <a class="nav-link hhPill ${active === key ? "isActive" : ""}" id="nav${label}" href="${buildUrl(key)}">${key === "partner" ? "Submit an activity" : label}</a>
         </li>`).join("");
   return `
     <nav class="navbar navbar-expand-lg hhNavbar" aria-label="Main navigation">
@@ -56,7 +56,7 @@ function renderFooter() {
         <div class="row gy-4">
           <div class="col-12 col-lg-4">${renderLogo("hhLogoFooter")}</div>
           ${renderFooterColumn("Explore", [["Discover Hobbies", buildUrl(isLoggedIn() ? "discoveryFlow" : "discover", isLoggedIn() ? "?u=1" : "")], ["Classes &amp; Events", buildUrl(isLoggedIn() ? "classesBrowse" : "classes", isLoggedIn() ? "?u=1" : "")], ["Communities", buildUrl(isLoggedIn() ? "groups" : "groupsIntro", isLoggedIn() ? "?u=1" : "")]])}
-          ${renderFooterColumn("About", [["Partner with us", buildUrl("partner")], ["About Us", buildUrl("about")], ["FAQ", buildUrl("home", "#faq")], ["Contact Us", buildUrl("contact", isLoggedIn() ? "?u=1" : "")]])}
+          ${renderFooterColumn("About", [["Submit an activity", buildUrl("partner")], ["About Us", buildUrl("about")], ["FAQ", buildUrl("home", "#faq")], ["Contact Us", buildUrl("contact", isLoggedIn() ? "?u=1" : "")]])}
           ${renderFooterColumn("Legal", [["Privacy Policy", buildUrl("privacy")], ["Terms &amp; Conditions", buildUrl("terms")]])}
           ${renderFooterColumn("Follow Us", [["Instagram", "https://www.instagram.com/", true], ["LinkedIn", "https://www.linkedin.com/", true]])}
         </div>
