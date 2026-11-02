@@ -3,7 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
     u = AdminUI;
   u.start({
     page: 'catalog',
-    bind: m.bind,
+    bind: (host, state, render) => {
+      m.bind(host, state, render);
+      DiscoveryEditor.bind(host, render);
+    },
     tabs: [
       {
         id: 'hobbies',
@@ -18,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
               { key: 'name', label: 'Hobby' },
               { key: 'category', label: 'Category' },
             ],
+            { details: row => DiscoveryEditor.hobbyDetails(row) },
           ),
       },
       {
@@ -37,18 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
       {
         id: 'quiz',
         label: 'Quiz questions',
-        render: (s) =>
-          m.managed(
-            'questions',
-            'Quiz questions',
-            s.questions.map((q, i) => ({ ...q, order: i + 1, count: q.options.length })),
-            [
-              { key: 'order', label: 'Order' },
-              { key: 'question', label: 'Question', wrap: true },
-              { key: 'dimension', label: 'Dimension' },
-              { key: 'count', label: 'Options' },
-            ],
-          ),
+        render: () => DiscoveryEditor.render(),
       },
     ],
   });

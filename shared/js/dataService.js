@@ -15,27 +15,45 @@ function validateContactPhone(value) {
 // الكاتيجوريز ومعها هواياتها
 async function getCategories() {
   return categories.map((category) => ({
-    ...category,                                                            // نسخ بيانات الكاتيجوري
-    hobbies: hobbies.filter((hobby) => hobby.categoryId === category.id)    // وإضافة هواياتها
+    ...category, // نسخ بيانات الكاتيجوري
+    hobbies: hobbies.filter((hobby) => hobby.categoryId === category.id), // وإضافة هواياتها
   }));
 }
 
-async function getHowSteps() { return howSteps; }
+async function getHowSteps() {
+  return howSteps;
+}
 
 // الأنشطة اللي الأدمن علّم عليها Featured (مجانية أو مدفوعة)
-async function getFeaturedActivities() { return activities.filter((activity) => isActivityFeatured(activity)); }
+async function getFeaturedActivities() {
+  return activities.filter((activity) => isActivityFeatured(activity));
+}
 
-async function getFaqs() { return faqs; }
+async function getFaqs() {
+  return faqs;
+}
 
-async function getCurrentUser() { return currentUser; }
+async function getCurrentUser() {
+  return currentUser;
+}
 
-
-async function getDashboardNextSteps() { return dashboardNextSteps; }
-async function getDashboardRecentActivity() { return dashboardRecentActivity; }
+async function getDashboardNextSteps() {
+  return dashboardNextSteps;
+}
+async function getDashboardRecentActivity() {
+  return dashboardRecentActivity;
+}
 
 // Classes, events and trainings (mock data for the front-end phase).
-async function getActivities() { return activities.filter((activity) => isActivityListed(activity)); }
-async function getActivityById(id) { return activities.find((activity) => activity.id === id && (activity.status || "published") === "published") || null; }
+async function getActivities() {
+  return activities.filter((activity) => isActivityListed(activity));
+}
+async function getActivityById(id) {
+  return (
+    activities.find((activity) => activity.id === id && (activity.status || 'published') === 'published') ||
+    null
+  );
+}
 
 /* Shared frontend contracts. These operate only on this document's mock records. */
 
@@ -291,7 +309,12 @@ const AdminService = (() => {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) throw Error('Enter a valid email address.');
   };
   const safeReference = (value) => {
-    if(typeof value==='string'&&value.length<2000000&&/^data:image\/(jpeg|png|webp);base64,[a-z0-9+/=]+$/i.test(value))return;
+    if (
+      typeof value === 'string' &&
+      value.length < 2000000 &&
+      /^data:image\/(jpeg|png|webp);base64,[a-z0-9+/=]+$/i.test(value)
+    )
+      return;
     if (
       value &&
       ((/^[a-z][a-z\d+.-]*:/i.test(value) && !/^https?:\/\//i.test(value)) ||
@@ -336,17 +359,7 @@ const AdminService = (() => {
       exists(categories, value.categoryId, 'category');
       value.description = required(value.description, 'Description');
       value.emoji = value.emoji || '✦';
-      value.quizProfile = { ...old?.quizProfile, ...value.quizProfile };
-      for (const question of hobbyQuizQuestions) {
-        const mapping = Number(value.quizProfile[question.dimension]);
-        if (!question.options.some((o) => Number(o.value) === mapping))
-          throw Error('Choose a valid ' + question.dimension + ' mapping.');
-        value.quizProfile[question.dimension] = mapping;
-      }
-      value.tags = hobbyQuizQuestions
-        .filter((q) => ['environment', 'social', 'cost'].includes(q.dimension))
-        .map((q) => q.options.find((o) => Number(o.value) === value.quizProfile[q.dimension])?.label)
-        .filter(Boolean);
+      value.tags = Array.isArray(value.tags) ? value.tags : old?.tags || [];
     }
     if (kind === 'questions') {
       value.question = required(value.question, 'Question');
@@ -411,23 +424,84 @@ const AdminService = (() => {
       required(value.date, 'Date');
       required(value.time, 'Time');
       if (Number.isNaN(new Date(value.date).getTime())) throw Error('Enter a valid activity date.');
-      if(value.endDate || value.endTime || value.meetingDays){
-        value.endDate=required(value.endDate,'End date');value.endTime=required(value.endTime,'End time');value.meetingDays=required(value.meetingDays,'Session days');
-        const end=new Date(value.endDate);
-        if(!/^\d{4}-\d{2}-\d{2}$/.test(value.endDate)||Number.isNaN(end.getTime())||end.toISOString().slice(0,10)!==value.endDate||end<new Date(value.date))throw Error('End date must be a valid date on or after the start date.');
-        const clock=value.time.match(/^(\d{1,2}):(\d{2})(?:\s*(AM|PM))?$/i);
-        if(!clock || Number(clock[2])>59 || Number(clock[1])>(clock[3]?12:23) || (clock[3]&&Number(clock[1])<1) || !/^([01]\d|2[0-3]):[0-5]\d$/.test(value.endTime))throw Error('Enter valid start and end times.');
-        const hour=clock[3]?(Number(clock[1])%12+(clock[3].toUpperCase()==='PM'?12:0)):Number(clock[1]);
-        value.startTime=String(hour).padStart(2,'0')+':'+clock[2];
-        if(value.endTime<=value.startTime)throw Error('Session end time must be after its start time.');
+      if (value.endDate || value.endTime || value.meetingDays) {
+        value.endDate = required(value.endDate, 'End date');
+        value.endTime = required(value.endTime, 'End time');
+        value.meetingDays = required(value.meetingDays, 'Session days');
+        const end = new Date(value.endDate);
+        if (
+          !/^\d{4}-\d{2}-\d{2}$/.test(value.endDate) ||
+          Number.isNaN(end.getTime()) ||
+          end.toISOString().slice(0, 10) !== value.endDate ||
+          end < new Date(value.date)
+        )
+          throw Error('End date must be a valid date on or after the start date.');
+        const clock = value.time.match(/^(\d{1,2}):(\d{2})(?:\s*(AM|PM))?$/i);
+        if (
+          !clock ||
+          Number(clock[2]) > 59 ||
+          Number(clock[1]) > (clock[3] ? 12 : 23) ||
+          (clock[3] && Number(clock[1]) < 1) ||
+          !/^([01]\d|2[0-3]):[0-5]\d$/.test(value.endTime)
+        )
+          throw Error('Enter valid start and end times.');
+        const hour = clock[3]
+          ? (Number(clock[1]) % 12) + (clock[3].toUpperCase() === 'PM' ? 12 : 0)
+          : Number(clock[1]);
+        value.startTime = String(hour).padStart(2, '0') + ':' + clock[2];
+        if (value.endTime <= value.startTime) throw Error('Session end time must be after its start time.');
       }
-      if(value.sourceContactId){value.commissionPercent=15;if(value.isFeatured){value.featuredStartsAt=value.publishAt;value.featuredEndsAt=value.bookingClosesAt;}const request=contactMessages.find(r=>r.id===value.sourceContactId);if(value.status==='published'&&request?.activityRequest){const offer=request.agreement;if(offer?.status!=='accepted')throw Error('Record the organizer’s acceptance before publication.');if(offer.totalFils>0&&(!request.publicationReceipt||request.publicationReceipt.amountFils!==offer.totalFils))throw Error('Verify receipt of the publication fees before scheduling publication.');const current=quoteActivityPublication(value,offer.rates);if(['publishAt','bookingClosesAt','priceJod','isFeatured','totalFils'].some(key=>current[key]!==offer[key]))throw Error('Dates or pricing changed. Prepare a new offer and record approval.');value.listingFeeFils=offer.listingFeeFils;value.featuredFeeFils=offer.featuredFeeFils;}}
-      if(value.publishAt&&!value.sourceContactId&&(!value.listingFeeFils||value.publicationRateSnapshot)){
-        const rates=value.publicationRateSnapshot||platformSettings.requestPricing,q=quoteActivityPublication(value,rates);value.listingFeeFils=q.listingFeeFils;value.featuredFeeFils=q.featuredFeeFils;value.publicationRateSnapshot=clone(rates);
+      if (value.sourceContactId) {
+        value.commissionPercent = 15;
+        if (value.isFeatured) {
+          value.featuredStartsAt = value.publishAt;
+          value.featuredEndsAt = value.bookingClosesAt;
+        }
+        const request = contactMessages.find((r) => r.id === value.sourceContactId);
+        if (value.status === 'published' && request?.activityRequest) {
+          const offer = request.agreement;
+          if (offer?.status !== 'accepted')
+            throw Error('Record the organizer’s acceptance before publication.');
+          if (
+            offer.totalFils > 0 &&
+            (!request.publicationReceipt || request.publicationReceipt.amountFils !== offer.totalFils)
+          )
+            throw Error('Verify receipt of the publication fees before scheduling publication.');
+          const current = quoteActivityPublication(value, offer.rates);
+          if (
+            ['publishAt', 'bookingClosesAt', 'priceJod', 'isFeatured', 'totalFils'].some(
+              (key) => current[key] !== offer[key],
+            )
+          )
+            throw Error('Dates or pricing changed. Prepare a new offer and record approval.');
+          value.listingFeeFils = offer.listingFeeFils;
+          value.featuredFeeFils = offer.featuredFeeFils;
+        }
+      }
+      if (
+        value.publishAt &&
+        !value.sourceContactId &&
+        (!value.listingFeeFils || value.publicationRateSnapshot)
+      ) {
+        const rates = value.publicationRateSnapshot || platformSettings.requestPricing,
+          q = quoteActivityPublication(value, rates);
+        value.listingFeeFils = q.listingFeeFils;
+        value.featuredFeeFils = q.featuredFeeFils;
+        value.publicationRateSnapshot = clone(rates);
       }
       publicationWindow(value);
-      if(value.sourceContactId&&activities.some(a=>a.id!==value.id&&a.sourceContactId===value.sourceContactId))throw Error('This request already has an activity.');
-      if(value.publishAt&&value.status==='published'&&value.isFeatured&&!(Number(value.featuredFeeFils)>0))throw Error('Confirm a positive, fixed homepage-placement fee before publication.');
+      if (
+        value.sourceContactId &&
+        activities.some((a) => a.id !== value.id && a.sourceContactId === value.sourceContactId)
+      )
+        throw Error('This request already has an activity.');
+      if (
+        value.publishAt &&
+        value.status === 'published' &&
+        value.isFeatured &&
+        !(Number(value.featuredFeeFils) > 0)
+      )
+        throw Error('Confirm a positive, fixed homepage-placement fee before publication.');
       value.duration = required(value.duration, 'Duration');
       value.sessions = value.sessions || value.duration;
       value.imageUrl = value.imageUrl || '';
@@ -545,7 +619,14 @@ const AdminService = (() => {
     }
     if (old) Object.assign(old, value);
     else list.push(value);
-    if(kind==='activities'&&value.sourceContactId){const r=contactMessages.find(r=>r.id===value.sourceContactId);if(r){r.activityId=value.id;r.organizerId=value.organizerId;r.reviewStatus='draftPrepared';}}
+    if (kind === 'activities' && value.sourceContactId) {
+      const r = contactMessages.find((r) => r.id === value.sourceContactId);
+      if (r) {
+        r.activityId = value.id;
+        r.organizerId = value.organizerId;
+        r.reviewStatus = 'draftPrepared';
+      }
+    }
     if (kind === 'activities' && value.status === 'published') {
       for (const [type, amount] of [
         ['listing', value.listingFeeFils || 0],
@@ -578,7 +659,8 @@ const AdminService = (() => {
       }
     }
 
-    if(kind==='activities'&&value.status==='published'&&value.sourceContactId)reconcileRequestReceipt(value.sourceContactId);
+    if (kind === 'activities' && value.status === 'published' && value.sourceContactId)
+      reconcileRequestReceipt(value.sourceContactId);
     if (kind === 'organizers' && value.sourceContactId) {
       const request = contactMessages.find((c) => c.id === value.sourceContactId);
       if (request) {
@@ -694,7 +776,9 @@ const AdminService = (() => {
     fee.status = 'paid';
   }
   function submitContact(values) {
-    const contactName=required(values.name,'Name');if(contactName.length<2||contactName.length>100||!/[\p{L}]/u.test(contactName))throw Error('Enter a contact name containing letters, between 2 and 100 characters.');
+    const contactName = required(values.name, 'Name');
+    if (contactName.length < 2 || contactName.length > 100 || !/[\p{L}]/u.test(contactName))
+      throw Error('Enter a contact name containing letters, between 2 and 100 characters.');
     email(values.email);
     required(values.topic, 'Topic');
     if (required(values.message, 'Message').length < 10)
@@ -703,9 +787,20 @@ const AdminService = (() => {
       required(values.businessName, 'Organization name');
       validateContactPhone(values.phone);
     }
-    if(values.coverImageData)safeReference(values.coverImageData);
-    if(values.topic==='list-activity'){values.activityRequest=validateActivityRequest(values.activityRequest||{});values.publicationEstimate=quoteActivityPublication(values.activityRequest);if(Number(values.activityRequest.priceJod)>0)values.payoutDetails=validateOrganizerPayout(values.payoutDetails||{});}
-    const item = { ...values, reviewStatus:'new', id: id('message'), createdAt: new Date(demoNow()).toISOString(), status: 'new' };
+    if (values.coverImageData) safeReference(values.coverImageData);
+    if (values.topic === 'list-activity') {
+      values.activityRequest = validateActivityRequest(values.activityRequest || {});
+      values.publicationEstimate = quoteActivityPublication(values.activityRequest);
+      if (Number(values.activityRequest.priceJod) > 0)
+        values.payoutDetails = validateOrganizerPayout(values.payoutDetails || {});
+    }
+    const item = {
+      ...values,
+      reviewStatus: 'new',
+      id: id('message'),
+      createdAt: new Date(demoNow()).toISOString(),
+      status: 'new',
+    };
     contactMessages.unshift(item);
     return clone(item);
   }
@@ -743,7 +838,7 @@ const AdminService = (() => {
 function enrollInActivity(activityId, paid = false) {
   const activity = activities.find((a) => a.id === activityId && (a.status || 'published') === 'published');
   if (!activity) throw Error('Activity is unavailable.');
-  if(!isActivityListed(activity))throw Error('Booking is closed or this activity is not yet open.');
+  if (!isActivityListed(activity)) throw Error('Booking is closed or this activity is not yet open.');
   const existing = enrollments.find(
     (e) => e.userId === currentUser.id && e.activityId === activityId && e.status === 'confirmed',
   );
@@ -774,7 +869,16 @@ function enrollInActivity(activityId, paid = false) {
         paidAt: new Date(demoNow()).toISOString(),
       };
     simulatedPayments.push(payment);
-    let payout = payouts.find((p) => p.organizerId === activity.organizerId && p.status === 'pending' && p.paymentIds.every(id=>enrollments.find(e=>e.id===simulatedPayments.find(pay=>pay.id===id)?.enrollmentId)?.activityId===activity.id));
+    let payout = payouts.find(
+      (p) =>
+        p.organizerId === activity.organizerId &&
+        p.status === 'pending' &&
+        p.paymentIds.every(
+          (id) =>
+            enrollments.find((e) => e.id === simulatedPayments.find((pay) => pay.id === id)?.enrollmentId)
+              ?.activityId === activity.id,
+        ),
+    );
     if (!payout) {
       payout = {
         id: 'payout-' + Date.now() + '-' + payouts.length,
@@ -889,6 +993,20 @@ const SettlementService = (() => {
     if (!row) throw Error('Payout not found.');
     return row;
   }
+  function recipientFor(id) {
+    const payout = details(id);
+    const paymentIds = new Set(payout.paymentIds || []);
+    const activityIds = new Set(simulatedPayments.filter(p => paymentIds.has(p.id)).map(p => p.activityId || enrollments.find(e => e.id === p.enrollmentId)?.activityId));
+    const requests = activities.filter(a => activityIds.has(a.id)).map(a => contactMessages.find(r => r.id === a.sourceContactId)).filter(r => r?.payoutDetails);
+    const recipients = requests.map(r => r.payoutDetails);
+    const key = r => JSON.stringify([r.name, r.method, r.provider, r.identifier].map(v => String(v || '').trim()));
+    if (new Set(recipients.map(key)).size > 1)
+      return { recipient: {}, note: 'These bookings reference different receiving accounts. Confirm the correct recipient with the organizer before continuing.' };
+    // Prefer the account supplied for these bookings over a reused organizer's older record.
+    const organizer = organizers.find(o => o.id === payout.organizerId);
+    const recipient = recipients[0] || organizer?.payoutRecipient || {};
+    return { recipient: copy(recipient), note: recipients.length ? 'Receiving details supplied with this activity request. Confirm them with the organizer before continuing.' : '' };
+  }
   function validateRecipient(value) {
     const recipient = {
       name: String(value.name || '').trim(),
@@ -897,8 +1015,8 @@ const SettlementService = (() => {
       identifier: String(value.identifier || '').trim(),
       checkedWithOrganizer: value.checkedWithOrganizer === true,
     };
-    if (recipient.name.length < 2 || recipient.name.length > 120)
-      throw Error('Enter the account holder’s name.');
+    if (recipient.name.length < 2 || recipient.name.length > 120 || !/\p{L}/u.test(recipient.name))
+      throw Error('Enter the account holder’s name using letters, not only numbers.');
     if (!['bank', 'wallet', 'cliq'].includes(recipient.method)) throw Error('Choose a payout method.');
     if (!recipient.provider) throw Error('Enter the receiving bank or wallet provider.');
     if (recipient.method === 'bank') {
@@ -917,7 +1035,9 @@ const SettlementService = (() => {
   }
   function complete(id, request) {
     const quote = details(id);
-    const original=payouts.find(p=>p.id===id);if(!original||!payoutReady(original))throw Error('Organizer settlement is available after the activity ends and refunds are reviewed.');
+    const original = payouts.find((p) => p.id === id);
+    if (!original || !payoutReady(original))
+      throw Error('Organizer settlement is available after the activity’s last session ends.');
     if (quote.status !== 'pending') throw Error('This payout has already been settled.');
     if (!quote.payableFils || quote.payableFils !== request.expectedAmountFils)
       throw Error('The payable changed. Review the breakdown again.');
@@ -929,7 +1049,8 @@ const SettlementService = (() => {
       request.mode === 'preview'
         ? 'PREVIEW-' + Date.now() + '-' + id
         : String(request.reference || '').trim();
-    const paidOn = request.mode === 'preview' ? new Date(demoNow()).toISOString().slice(0, 10) : request.paidOn;
+    const paidOn =
+      request.mode === 'preview' ? new Date(demoNow()).toISOString().slice(0, 10) : request.paidOn;
     if (reference.length < 3 || reference.length > 100)
       throw Error('Enter the bank or wallet transfer reference.');
     if (payouts.some((p) => p.id !== id && p.transferReference === reference))
@@ -953,10 +1074,14 @@ const SettlementService = (() => {
       notes: String(request.notes || '').trim(),
     });
     organizer.payoutRecipient = copy(recipient);
-    if(platformActivityLog[0])Object.assign(platformActivityLog[0],{kind:'Organizer settlement',detail:organizer.name+' · '+reference});
+    if (platformActivityLog[0])
+      Object.assign(platformActivityLog[0], {
+        kind: 'Organizer settlement',
+        detail: organizer.name + ' · ' + reference,
+      });
     return details(id);
   }
-  return Object.freeze({ details, validateRecipient, complete });
+  return Object.freeze({ details, recipientFor, validateRecipient, complete });
 })();
 function recordOrganizerPayment(invoiceId, request) {
   const invoice = invoices.find((i) => i.id === invoiceId);
@@ -983,149 +1108,563 @@ function recordOrganizerPayment(invoiceId, request) {
     receivedOn: request.receivedOn,
     paymentNotes: String(request.notes || '').trim(),
   });
-  if(platformActivityLog[0])Object.assign(platformActivityLog[0],{kind:'Organizer payment receipt',detail:invoice.number+' · '+reference});
+  if (platformActivityLog[0])
+    Object.assign(platformActivityLog[0], {
+      kind: 'Organizer payment receipt',
+      detail: invoice.number + ' · ' + reference,
+    });
   return HobbyHubService.invoiceDetails(invoice);
 }
 
-function isValidPaymentDay(value){if(!/^\d{4}-\d{2}-\d{2}$/.test(value||''))return false;const date=new Date(value+'T12:00:00Z');return !Number.isNaN(date.getTime())&&date.toISOString().slice(0,10)===value;}
+function isValidPaymentDay(value) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value || '')) return false;
+  const date = new Date(value + 'T12:00:00Z');
+  return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value;
+}
 
 /* Frontend project suggestions: replace with an AI endpoint later. */
 function createHobbyProject(hobbyId, variation, time, level) {
- const projects={"drawing": ["Create a three-panel postcard", "Sketch three scenes from your day"], "calligraphy": ["Make a hand-lettered gift tag", "Letter a short quote for your desk"], "photography": ["Tell a story in five photos", "Create a three-photo colour collection"], "pottery": ["Make a small pinch-pot dish", "Shape a textured clay pendant"], "crochet": ["Crochet a small coaster", "Make a two-colour bookmark"], "tatreez": ["Stitch a small geometric motif", "Make a stitched bookmark motif"], "accessoriesHandicrafts": ["Make a personalised beaded bracelet", "Design a matching keyring"], "guitar": ["Record a short three-chord song", "Create a four-bar chord loop"], "oud": ["Record a short oud melody", "Create a four-bar oud phrase"], "singing": ["Record a verse of a favourite song", "Create a short vocal harmony"], "piano": ["Record a short piano melody", "Compose a four-bar piano phrase"], "dabke": ["Build a short dabke sequence", "Record a short dabke step combination"], "modernDance": ["Create a short dance sequence", "Choreograph a chorus-length routine"], "hiking": ["Create a local walking-route journal", "Make a nearby trail photo map"], "camping": ["Build a campsite layout plan", "Pack and test a basic camp kit at home"], "snorkeling": ["Make a marine-life identification card", "Create a supervised snorkelling preparation checklist"], "windsurfing": ["Create a windsurfing preparation card", "Build a supervised lesson preparation plan"], "cycling": ["Map a short local cycling route", "Create a bike preparation checklist"], "football": ["Complete a three-station ball-control circuit", "Record a short passing challenge"], "running": ["Complete a comfortable walk-run session", "Create a personal warm-up card"], "swimming": ["Create a supervised pool-session plan", "Make a pool preparation and reflection card"], "tennis": ["Complete a short controlled rally challenge", "Record a ball-control practice sequence"], "padel": ["Complete a short partner rally challenge", "Create a court-positioning diagram"], "cooking": ["Make a colourful three-ingredient salad", "Prepare a simple lunch bowl"], "bakingDesserts": ["Make a small batch of oat cookies", "Create a no-bake dessert cup"], "homeGardening": ["Plant a small herb pot", "Create a labelled seed-starting tray"], "coffeeBrewing": ["Make a two-cup coffee comparison card", "Create your own coffee recipe card"], "chess": ["Build an annotated three-puzzle collection", "Annotate a short chess game"], "tawleh": ["Create an illustrated opening-move card", "Annotate one friendly tawleh round"], "reading": ["Create a one-page illustrated book review", "Make a character relationship map"], "groupBoardGames": ["Create a quick-start game guide", "Design a small paper board game"]};
- const hobby=hobbies.find(h=>h.id===hobbyId);
- const title=(projects[hobbyId]||["Create a small personal hobby project"])[variation % (projects[hobbyId]?.length||1)];
- const parsed=typeof time==='number'?time:time==='1 hour'?60:Number(String(time).replace(/ minutes?$/,''));
- if(!Number.isInteger(parsed)||parsed<5||parsed>480)throw Error('Choose a session between 5 and 480 whole minutes.');
- const minutes=parsed;
- const parts=[Math.round(minutes*.2),Math.round(minutes*.6)];parts.push(minutes-parts[0]-parts[1]);
- return {title,description:`Your outcome: ${title.toLowerCase()}. Use this ${minutes}-minute session to make a first version; finishing can take another session.`,emoji:hobby?.emoji||"🌱",place:"Choose a suitable space",minutes,steps:[
- ["Prepare your first version",`Choose the materials and a manageable scope for: ${title.toLowerCase()}. About ${parts[0]} min.`],
- ["Make the project",`${level==="Beginner"?"Keep the first version simple":"Add one detail that challenges you"}. Work toward the named outcome with the tools you have. About ${parts[1]} min.`],
- ["Keep your result",`Save, photograph or write down what you made. Mark only completed milestones and note what remains. About ${parts[2]} min.`]]};
+  const projects = {
+    drawing: ['Create a three-panel postcard', 'Sketch three scenes from your day'],
+    calligraphy: ['Make a hand-lettered gift tag', 'Letter a short quote for your desk'],
+    photography: ['Tell a story in five photos', 'Create a three-photo colour collection'],
+    pottery: ['Make a small pinch-pot dish', 'Shape a textured clay pendant'],
+    crochet: ['Crochet a small coaster', 'Make a two-colour bookmark'],
+    tatreez: ['Stitch a small geometric motif', 'Make a stitched bookmark motif'],
+    accessoriesHandicrafts: ['Make a personalised beaded bracelet', 'Design a matching keyring'],
+    guitar: ['Record a short three-chord song', 'Create a four-bar chord loop'],
+    oud: ['Record a short oud melody', 'Create a four-bar oud phrase'],
+    singing: ['Record a verse of a favourite song', 'Create a short vocal harmony'],
+    piano: ['Record a short piano melody', 'Compose a four-bar piano phrase'],
+    dabke: ['Build a short dabke sequence', 'Record a short dabke step combination'],
+    modernDance: ['Create a short dance sequence', 'Choreograph a chorus-length routine'],
+    hiking: ['Create a local walking-route journal', 'Make a nearby trail photo map'],
+    camping: ['Build a campsite layout plan', 'Pack and test a basic camp kit at home'],
+    snorkeling: [
+      'Make a marine-life identification card',
+      'Create a supervised snorkelling preparation checklist',
+    ],
+    windsurfing: ['Create a windsurfing preparation card', 'Build a supervised lesson preparation plan'],
+    cycling: ['Map a short local cycling route', 'Create a bike preparation checklist'],
+    football: ['Complete a three-station ball-control circuit', 'Record a short passing challenge'],
+    running: ['Complete a comfortable walk-run session', 'Create a personal warm-up card'],
+    swimming: ['Create a supervised pool-session plan', 'Make a pool preparation and reflection card'],
+    tennis: ['Complete a short controlled rally challenge', 'Record a ball-control practice sequence'],
+    padel: ['Complete a short partner rally challenge', 'Create a court-positioning diagram'],
+    cooking: ['Make a colourful three-ingredient salad', 'Prepare a simple lunch bowl'],
+    bakingDesserts: ['Make a small batch of oat cookies', 'Create a no-bake dessert cup'],
+    homeGardening: ['Plant a small herb pot', 'Create a labelled seed-starting tray'],
+    coffeeBrewing: ['Make a two-cup coffee comparison card', 'Create your own coffee recipe card'],
+    chess: ['Build an annotated three-puzzle collection', 'Annotate a short chess game'],
+    tawleh: ['Create an illustrated opening-move card', 'Annotate one friendly tawleh round'],
+    reading: ['Create a one-page illustrated book review', 'Make a character relationship map'],
+    groupBoardGames: ['Create a quick-start game guide', 'Design a small paper board game'],
+  };
+  const hobby = hobbies.find((h) => h.id === hobbyId);
+  const title = (projects[hobbyId] || ['Create a small personal hobby project'])[
+    variation % (projects[hobbyId]?.length || 1)
+  ];
+  const parsed =
+    typeof time === 'number' ? time : time === '1 hour' ? 60 : Number(String(time).replace(/ minutes?$/, ''));
+  if (!Number.isInteger(parsed) || parsed < 5 || parsed > 480)
+    throw Error('Choose a session between 5 and 480 whole minutes.');
+  const minutes = parsed;
+  const parts = [Math.round(minutes * 0.2), Math.round(minutes * 0.6)];
+  parts.push(minutes - parts[0] - parts[1]);
+  return {
+    title,
+    description: `Your outcome: ${title.toLowerCase()}. Use this ${minutes}-minute session to make a first version; finishing can take another session.`,
+    emoji: hobby?.emoji || '🌱',
+    place: 'Choose a suitable space',
+    minutes,
+    steps: [
+      [
+        'Prepare your first version',
+        `Choose the materials and a manageable scope for: ${title.toLowerCase()}. About ${parts[0]} min.`,
+      ],
+      [
+        'Make the project',
+        `${level === 'Beginner' ? 'Keep the first version simple' : 'Add one detail that challenges you'}. Work toward the named outcome with the tools you have. About ${parts[1]} min.`,
+      ],
+      [
+        'Keep your result',
+        `Save, photograph or write down what you made. Mark only completed milestones and note what remains. About ${parts[2]} min.`,
+      ],
+    ],
+  };
 }
 
-function activitySchedule(activity){
- const formatDate=value=>{const date=new Date(value);return Number.isNaN(date.getTime())?'Date to be confirmed':date.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});};
- const start=formatDate(activity.date),end=activity.endDate?formatDate(activity.endDate):'';
- const clock=value=>{if(!/^\d{2}:\d{2}$/.test(value||''))return value||'Time to be confirmed';const [h,m]=value.split(':').map(Number);return (h%12||12)+':'+String(m).padStart(2,'0')+(h<12?' AM':' PM');};
- return {dates:end&&end!==start?start+' – '+end:start,hours:activity.endTime?clock(activity.startTime||activity.time)+' – '+clock(activity.endTime):clock(activity.time)+' · End time to be confirmed',days:activity.meetingDays||'Session days to be confirmed'};
+function activitySchedule(activity) {
+  const formatDate = (value) => {
+    const date = new Date(value);
+    return Number.isNaN(date.getTime())
+      ? 'Date to be confirmed'
+      : date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  };
+  const start = formatDate(activity.date),
+    end = activity.endDate ? formatDate(activity.endDate) : '';
+  const clock = (value) => {
+    if (!/^\d{2}:\d{2}$/.test(value || '')) return value || 'Time to be confirmed';
+    const [h, m] = value.split(':').map(Number);
+    return (h % 12 || 12) + ':' + String(m).padStart(2, '0') + (h < 12 ? ' AM' : ' PM');
+  };
+  return {
+    dates: end && end !== start ? start + ' – ' + end : start,
+    hours: activity.endTime
+      ? clock(activity.startTime || activity.time) + ' – ' + clock(activity.endTime)
+      : clock(activity.time) + ' · End time to be confirmed',
+    days: activity.meetingDays || 'Session days to be confirmed',
+  };
 }
 
 /* Activity request and publication contracts. Times explicitly use the configured Amman offset. */
-function activityDateTime(value,label='Date and time'){
- if(!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(value||''))throw Error(label+' is required.');
- const [day,time]=value.split('T');const d=new Date(day+'T'+time+':00Z');
- if(Number.isNaN(d.getTime())||d.toISOString().slice(0,16)!==value)throw Error('Enter a valid '+label.toLowerCase()+'.');
- return new Date(value+':00+03:00').getTime();
+function activityDateTime(value, label = 'Date and time') {
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/.test(value || '')) throw Error(label + ' is required.');
+  const [day, time] = value.split('T');
+  const d = new Date(day + 'T' + time + ':00Z');
+  if (Number.isNaN(d.getTime()) || d.toISOString().slice(0, 16) !== value)
+    throw Error('Enter a valid ' + label.toLowerCase() + '.');
+  return new Date(value + ':00+03:00').getTime();
 }
-function publicationWindow(value,requireAll=false){
- const any=value.publishAt||value.bookingClosesAt||value.featuredStartsAt||value.featuredEndsAt;
- if(!any&&!requireAll)return null;
- const start=activityDateTime(value.publishAt,'Publication start'),close=activityDateTime(value.bookingClosesAt,'Booking deadline');
- const date=new Date(value.date);if(Number.isNaN(date.getTime()))throw Error('Enter the activity start date.');
- const day= /^\d{4}-\d{2}-\d{2}$/.test(value.date)?value.date:[date.getFullYear(),String(date.getMonth()+1).padStart(2,'0'),String(date.getDate()).padStart(2,'0')].join('-');
- let clock=value.startTime||value.time;
- if(!/^\d{2}:\d{2}$/.test(clock||'')){const match=String(clock).match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);if(!match)throw Error('Enter the session start time.');clock=String(Number(match[1])%12+(match[3].toUpperCase()==='PM'?12:0)).padStart(2,'0')+':'+match[2];}
- const event=activityDateTime(day+'T'+clock,'Activity start');
- if(close<=start)throw Error('Booking must close after publication begins.');
- if(close>event)throw Error('Booking must close at or before the activity starts.');
- let featuredHours=0;
- if(value.isFeatured){const from=activityDateTime(value.featuredStartsAt,'Homepage start'),to=activityDateTime(value.featuredEndsAt,'Homepage end');if(from<start||to>close||to<=from)throw Error('Homepage placement must fall within the publication and booking period.');featuredHours=(to-from)/3600000;}
- return {publicationHours:(close-start)/3600000,featuredHours};
+function publicationWindow(value, requireAll = false) {
+  const any = value.publishAt || value.bookingClosesAt || value.featuredStartsAt || value.featuredEndsAt;
+  if (!any && !requireAll) return null;
+  const start = activityDateTime(value.publishAt, 'Publication start'),
+    close = activityDateTime(value.bookingClosesAt, 'Booking deadline');
+  const date = new Date(value.date);
+  if (Number.isNaN(date.getTime())) throw Error('Enter the activity start date.');
+  const day = /^\d{4}-\d{2}-\d{2}$/.test(value.date)
+    ? value.date
+    : [
+        date.getFullYear(),
+        String(date.getMonth() + 1).padStart(2, '0'),
+        String(date.getDate()).padStart(2, '0'),
+      ].join('-');
+  let clock = value.startTime || value.time;
+  if (!/^\d{2}:\d{2}$/.test(clock || '')) {
+    const match = String(clock).match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+    if (!match) throw Error('Enter the session start time.');
+    clock =
+      String((Number(match[1]) % 12) + (match[3].toUpperCase() === 'PM' ? 12 : 0)).padStart(2, '0') +
+      ':' +
+      match[2];
+  }
+  const event = activityDateTime(day + 'T' + clock, 'Activity start');
+  if (close <= start) throw Error('Booking must close after publication begins.');
+  if (close > event) throw Error('Booking must close at or before the activity starts.');
+  let featuredHours = 0;
+  if (value.isFeatured) {
+    const from = activityDateTime(value.featuredStartsAt, 'Homepage start'),
+      to = activityDateTime(value.featuredEndsAt, 'Homepage end');
+    if (from < start || to > close || to <= from)
+      throw Error('Homepage placement must fall within the publication and booking period.');
+    featuredHours = (to - from) / 3600000;
+  }
+  return { publicationHours: (close - start) / 3600000, featuredHours };
 }
-function formatDisplayPeriod(hours){const minutes=Math.round(hours*60),days=Math.floor(minutes/1440),h=Math.floor(minutes%1440/60),m=minutes%60;return [days?days+' day'+(days===1?'':'s'):'',h?h+' hr':'',m?m+' min':''].filter(Boolean).join(' ')||'0 min';}
-function isActivityListed(activity,now=demoNow()){
- if((activity.status||'published')!=='published')return false;
- if(!activity.publishAt)return true;
- try{return now>=activityDateTime(activity.publishAt)&&now<activityDateTime(activity.bookingClosesAt);}catch{return false;}
+function formatDisplayPeriod(hours) {
+  const minutes = Math.round(hours * 60),
+    days = Math.floor(minutes / 1440),
+    h = Math.floor((minutes % 1440) / 60),
+    m = minutes % 60;
+  return (
+    [days ? days + ' day' + (days === 1 ? '' : 's') : '', h ? h + ' hr' : '', m ? m + ' min' : '']
+      .filter(Boolean)
+      .join(' ') || '0 min'
+  );
 }
-function isActivityFeatured(activity,now=demoNow()){
- if(!activity.isFeatured||!isActivityListed(activity,now))return false;
- if(!activity.featuredStartsAt&&!activity.featuredEndsAt)return true;
- try{return now>=activityDateTime(activity.featuredStartsAt)&&now<activityDateTime(activity.featuredEndsAt);}catch{return false;}
+function isActivityListed(activity, now = demoNow()) {
+  if ((activity.status || 'published') !== 'published') return false;
+  if (!activity.publishAt) return true;
+  try {
+    return now >= activityDateTime(activity.publishAt) && now < activityDateTime(activity.bookingClosesAt);
+  } catch {
+    return false;
+  }
 }
-function validateActivityRequest(input){
- const a={...input};if(a.sessionDays){const pattern=calculateRequestSchedule(a.date,a.endDate,a.sessionDays);a.meetingDays=pattern.meetingDays;a.sessions=pattern.sessions;a.duration=pattern.duration;}if(a.isFeatured){a.featuredStartsAt=a.publishAt;a.featuredEndsAt=a.bookingClosesAt;}
- for(const key of ['title','hobbyId','type','description','level','date','endDate','time','endTime','meetingDays','duration','sessions','delivery'])if(!String(a[key]??'').trim())throw Error('Complete the activity details: '+key+'.');
- if(!hobbies.some(h=>h.id===a.hobbyId)||!['Class','Event','Training'].includes(a.type)||!['inperson','online'].includes(a.delivery))throw Error('Choose a valid hobby, activity type and delivery.');
- for(const [key,value]of Object.entries(a))if(typeof value==='string'&&value.length>3000)throw Error('Activity details are too long.');
- for(const key of ['date','endDate']){const parsed=new Date(a[key]+'T00:00:00Z');if(!/^\d{4}-\d{2}-\d{2}$/.test(a[key])||Number.isNaN(parsed.getTime())||parsed.toISOString().slice(0,10)!==a[key])throw Error('Enter a valid activity date.');}
- if(a.endDate<a.date||!/^([01]\d|2[0-3]):[0-5]\d$/.test(a.time)||!/^([01]\d|2[0-3]):[0-5]\d$/.test(a.endTime)||a.endTime<=a.time)throw Error('Activity end date/time must follow its start date/time.');
- if(a.title.trim().length<3||a.title.length>150||a.description.trim().length<10)throw Error('Use a clear activity title and a description of at least 10 characters.');
- a.seats=Number(a.seats);if(!Number.isInteger(a.seats)||a.seats<1||a.seats>100000)throw Error('Enter a whole number of seats from 1 to 100000.');
- a.priceJod=HobbyHubService.toFils(a.priceJod)/1000;
- if(a.delivery==='inperson'&&!String(a.location||'').trim())throw Error('Enter the venue or address.');
- if(a.delivery==='online'&&a.onlineProvider!=='zoom')throw Error('Online activities use Zoom.');
- if(a.acceptedTerms!==true)throw Error('Accept the 15% paid-booking commission and separate homepage-placement terms.');
- a.isFeatured=Boolean(a.isFeatured);a.startTime=a.time;publicationWindow(a,true);
- if(a.delivery==='online')validateZoomDetails(a);
+function isActivityFeatured(activity, now = demoNow()) {
+  if (!activity.isFeatured || !isActivityListed(activity, now)) return false;
+  if (!activity.featuredStartsAt && !activity.featuredEndsAt) return true;
+  try {
+    return (
+      now >= activityDateTime(activity.featuredStartsAt) && now < activityDateTime(activity.featuredEndsAt)
+    );
+  } catch {
+    return false;
+  }
+}
+function validateActivityRequest(input) {
+  const a = { ...input };
+  if (a.sessionDays) {
+    const pattern = calculateRequestSchedule(a.date, a.endDate, a.sessionDays);
+    a.meetingDays = pattern.meetingDays;
+    a.sessions = pattern.sessions;
+    a.duration = pattern.duration;
+  }
+  if (a.isFeatured) {
+    a.featuredStartsAt = a.publishAt;
+    a.featuredEndsAt = a.bookingClosesAt;
+  }
+  for (const key of [
+    'title',
+    'hobbyId',
+    'type',
+    'description',
+    'level',
+    'date',
+    'endDate',
+    'time',
+    'endTime',
+    'meetingDays',
+    'duration',
+    'sessions',
+    'delivery',
+  ])
+    if (!String(a[key] ?? '').trim()) throw Error('Complete the activity details: ' + key + '.');
+  if (
+    !hobbies.some((h) => h.id === a.hobbyId) ||
+    !['Class', 'Event', 'Training'].includes(a.type) ||
+    !['inperson', 'online'].includes(a.delivery)
+  )
+    throw Error('Choose a valid hobby, activity type and delivery.');
+  for (const [key, value] of Object.entries(a))
+    if (typeof value === 'string' && value.length > 3000) throw Error('Activity details are too long.');
+  for (const key of ['date', 'endDate']) {
+    const parsed = new Date(a[key] + 'T00:00:00Z');
+    if (
+      !/^\d{4}-\d{2}-\d{2}$/.test(a[key]) ||
+      Number.isNaN(parsed.getTime()) ||
+      parsed.toISOString().slice(0, 10) !== a[key]
+    )
+      throw Error('Enter a valid activity date.');
+  }
+  if (
+    a.endDate < a.date ||
+    !/^([01]\d|2[0-3]):[0-5]\d$/.test(a.time) ||
+    !/^([01]\d|2[0-3]):[0-5]\d$/.test(a.endTime) ||
+    a.endTime <= a.time
+  )
+    throw Error('Activity end date/time must follow its start date/time.');
+  if (a.title.trim().length < 3 || a.title.length > 150 || a.description.trim().length < 10)
+    throw Error('Use a clear activity title and a description of at least 10 characters.');
+  a.seats = Number(a.seats);
+  if (!Number.isInteger(a.seats) || a.seats < 1 || a.seats > 100000)
+    throw Error('Enter a whole number of seats from 1 to 100000.');
+  a.priceJod = HobbyHubService.toFils(a.priceJod) / 1000;
+  if (a.delivery === 'inperson' && !String(a.location || '').trim())
+    throw Error('Enter the venue or address.');
+  if (a.delivery === 'online' && a.onlineProvider !== 'zoom') throw Error('Online activities use Zoom.');
+  if (a.acceptedTerms !== true)
+    throw Error('Accept the 15% paid-booking commission and separate homepage-placement terms.');
+  a.isFeatured = Boolean(a.isFeatured);
+  a.startTime = a.time;
+  publicationWindow(a, true);
+  if (a.delivery === 'online') validateZoomDetails(a);
 
- a.commissionPercent=15;delete a.featuredFeeFils;delete a.listingFeeFils;delete a.status;return a;
+  a.commissionPercent = 15;
+  delete a.featuredFeeFils;
+  delete a.listingFeeFils;
+  delete a.status;
+  return a;
 }
-function requestActivityPrefill(requestId){
- const request=contactMessages.find(r=>r.id===requestId);if(!request?.activityRequest)throw Error('Activity request not found.');
- const existing=activities.find(a=>a.sourceContactId===requestId);if(existing)return {existingId:existing.id};
- const organizer=organizers.find(o=>o.id===request.organizerId||o.email.toLowerCase()===request.email.toLowerCase());if(!organizer)throw Error('Add or link the organizer before preparing the activity.');
- const a=validateActivityRequest(request.activityRequest),h=hobbies.find(h=>h.id===a.hobbyId);
- const quote=quoteActivityPublication(a);
- return {...a,organizerId:organizer.id,categoryId:h.categoryId,sourceContactId:requestId,status:'draft',imageUrl:request.coverImageData||request.imageReference||'',commissionPercent:15,featuredFeeFils:quote.featuredFeeFils,listingFeeFils:quote.listingFeeFils};
+function requestActivityPrefill(requestId) {
+  const request = contactMessages.find((r) => r.id === requestId);
+  if (!request?.activityRequest) throw Error('Activity request not found.');
+  const existing = activities.find((a) => a.sourceContactId === requestId);
+  if (existing) return { existingId: existing.id };
+  const organizer = organizers.find(
+    (o) => o.id === request.organizerId || o.email.toLowerCase() === request.email.toLowerCase(),
+  );
+  if (!organizer) throw Error('Add or link the organizer before preparing the activity.');
+  const a = validateActivityRequest(request.activityRequest),
+    h = hobbies.find((h) => h.id === a.hobbyId);
+  const quote = quoteActivityPublication(a);
+  return {
+    ...a,
+    organizerId: organizer.id,
+    categoryId: h.categoryId,
+    sourceContactId: requestId,
+    status: 'draft',
+    imageUrl: request.coverImageData || request.imageReference || '',
+    commissionPercent: 15,
+    featuredFeeFils: quote.featuredFeeFils,
+    listingFeeFils: quote.listingFeeFils,
+  };
 }
-function updateActivityRequestStatus(id,status){const r=contactMessages.find(r=>r.id===id);if(!r?.activityRequest)throw Error('Request not found.');if(!['new','followUp','closed'].includes(status))throw Error('Choose a valid request state.');r.reviewStatus=status;return r;}
+function updateActivityRequestStatus(id, status) {
+  const r = contactMessages.find((r) => r.id === id);
+  if (!r?.activityRequest) throw Error('Request not found.');
+  if (!['new', 'followUp', 'closed'].includes(status)) throw Error('Choose a valid request state.');
+  r.reviewStatus = status;
+  return r;
+}
 
-function quoteActivityPublication(activity,rates=platformSettings.requestPricing){
- const period=publicationWindow({...activity,featuredStartsAt:activity.publishAt,featuredEndsAt:activity.bookingClosesAt},true);
- const amount=HobbyHubService.toFils(activity.priceJod);
- const freeRate=Number(rates.freeListingDailyFils),homeRate=Number(rates.homepageDailyFils);
- if(!Number.isSafeInteger(freeRate)||freeRate<0||!Number.isSafeInteger(homeRate)||homeRate<0)throw Error('Configure valid publication rates.');
- const listingFeeFils=amount===0?Math.round(period.publicationHours/24*freeRate):0;
- const featuredFeeFils=activity.isFeatured?Math.round(period.publicationHours/24*homeRate):0;
- return {publicationHours:period.publicationHours,listingFeeFils,featuredFeeFils,totalFils:listingFeeFils+featuredFeeFils,commissionPercent:15,rates:{freeListingDailyFils:freeRate,homepageDailyFils:homeRate},publishAt:activity.publishAt,bookingClosesAt:activity.bookingClosesAt,priceJod:amount/1000,isFeatured:Boolean(activity.isFeatured)};
+function quoteActivityPublication(activity, rates = platformSettings.requestPricing) {
+  const period = publicationWindow(
+    { ...activity, featuredStartsAt: activity.publishAt, featuredEndsAt: activity.bookingClosesAt },
+    true,
+  );
+  const amount = HobbyHubService.toFils(activity.priceJod);
+  const freeRate = Number(rates.freeListingDailyFils),
+    homeRate = Number(rates.homepageDailyFils);
+  if (!Number.isSafeInteger(freeRate) || freeRate < 0 || !Number.isSafeInteger(homeRate) || homeRate < 0)
+    throw Error('Configure valid publication rates.');
+  const listingFeeFils = amount === 0 ? Math.round((period.publicationHours / 24) * freeRate) : 0;
+  const featuredFeeFils = activity.isFeatured ? Math.round((period.publicationHours / 24) * homeRate) : 0;
+  return {
+    publicationHours: period.publicationHours,
+    listingFeeFils,
+    featuredFeeFils,
+    totalFils: listingFeeFils + featuredFeeFils,
+    commissionPercent: 15,
+    rates: { freeListingDailyFils: freeRate, homepageDailyFils: homeRate },
+    publishAt: activity.publishAt,
+    bookingClosesAt: activity.bookingClosesAt,
+    priceJod: amount / 1000,
+    isFeatured: Boolean(activity.isFeatured),
+  };
 }
-function saveRequestPricing(values){const result={};for(const key of ['freeListingDailyFils','homepageDailyFils']){result[key]=Number(values[key]);if(!Number.isSafeInteger(result[key])||result[key]<0||result[key]>1000000)throw Error('Use daily rates between JOD 0 and 1000.');}Object.assign(platformSettings.requestPricing,result);return result;}
-function validateOrganizerPayout(values){const result=SettlementService.validateRecipient({...values,checkedWithOrganizer:true});return {...result,checkedWithOrganizer:false};}
-function requestQuoteSource(request){return activities.find(a=>a.sourceContactId===request.id)||request.activityRequest;}
-function prepareOrganizerQuote(id){const request=contactMessages.find(r=>r.id===id);if(!request?.activityRequest)throw Error('Activity request not found.');const source=requestQuoteSource(request);const quote=quoteActivityPublication(source);if(request.publicationReceipt){if(['publishAt','bookingClosesAt','priceJod','isFeatured','totalFils'].some(k=>quote[k]!==request.agreement[k]))throw Error('A payment is already recorded. Reconcile it before changing paid terms.');return request.agreement;}request.agreement={...quote,status:'prepared',preparedAt:new Date(demoNow()).toISOString(),account:{...platformSettings.receivingAccount}};return request.agreement;}
-function recordOrganizerDecision(id,input){const request=contactMessages.find(r=>r.id===id),offer=request?.agreement;if(!offer)throw Error('Prepare the offer first.');if(!['accepted','declined','changesRequested'].includes(input.decision)||!['email','phone','whatsapp'].includes(input.channel))throw Error('Choose the reply and contact channel.');const reference=String(input.reference||'').trim();if(reference.length<5||reference.length>300||input.confirmed!==true)throw Error('Record the organizer’s actual reply and confirm you received it.');Object.assign(offer,{status:input.decision,channel:input.channel,replyReference:reference,repliedAt:new Date(demoNow()).toISOString()});return offer;}
-function organizerQuoteText(request){const offer=request.agreement;if(!offer)throw Error('Prepare the offer first.');const fmt=HobbyHubService.money,account=offer.account;return ['HobbyHub activity proposal — '+requestQuoteSource(request).title,'Organizer: '+request.businessName,'Publication: '+offer.publishAt+' → '+offer.bookingClosesAt+' (Amman UTC+03:00)','Display period: '+formatDisplayPeriod(offer.publicationHours),'Paid-booking commission: 15%. Free bookings: no booking commission.','Free-activity publication: '+fmt(offer.listingFeeFils),'Homepage placement: '+fmt(offer.featuredFeeFils),'Total publication/placement fees: '+fmt(offer.totalFils),'Daily rates are prorated to the actual hours and rounded to the nearest fils.',offer.totalFils?account?.holder&&account?.identifier?'Pay HobbyHub: '+[account.holder,account.method,account.provider,account.identifier].filter(Boolean).join(' · '):'Payment instructions pending: admin must configure HobbyHub’s receiving account before requesting a transfer.':'No fixed publication payment due.','Please reply to confirm or decline these dates and fees. No publication is approved by this quotation alone.'].join('\n');}
-
-function calculateRequestSchedule(first,last,days){
- const start=new Date(first+'T00:00:00Z'),end=new Date(last+'T00:00:00Z');
- if(Number.isNaN(start.getTime())||Number.isNaN(end.getTime())||end<start)throw Error('Choose a valid first and last session date.');
- if(!Array.isArray(days))throw Error('Choose the session days.');
- const chosen=[...new Set(days.map(Number))];if(!chosen.length||chosen.some(d=>!Number.isInteger(d)||d<0||d>6))throw Error('Choose the session days.');
- if(!chosen.includes(start.getUTCDay())||!chosen.includes(end.getUTCDay()))throw Error('The first and last session dates must match the selected session days.');
- const span=Math.round((end-start)/86400000)+1;if(span>730)throw Error('Choose an activity span of up to two years.');let count=0;for(let i=0;i<span;i++)if(chosen.includes((start.getUTCDay()+i)%7))count++;
- return {duration:span+' calendar day'+(span===1?'':'s'),sessions:count+' session'+(count===1?'':'s'),meetingDays:chosen.map(d=>['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][d]).join(', ')};
+function saveRequestPricing(values) {
+  const result = {};
+  for (const key of ['freeListingDailyFils', 'homepageDailyFils']) {
+    result[key] = Number(values[key]);
+    if (!Number.isSafeInteger(result[key]) || result[key] < 0 || result[key] > 1000000)
+      throw Error('Use daily rates between JOD 0 and 1000.');
+  }
+  Object.assign(platformSettings.requestPricing, result);
+  return result;
+}
+function validateOrganizerPayout(values) {
+  const result = SettlementService.validateRecipient({ ...values, checkedWithOrganizer: true });
+  return { ...result, checkedWithOrganizer: false };
+}
+function requestQuoteSource(request) {
+  return activities.find((a) => a.sourceContactId === request.id) || request.activityRequest;
+}
+function prepareOrganizerQuote(id) {
+  const request = contactMessages.find((r) => r.id === id);
+  if (!request?.activityRequest) throw Error('Activity request not found.');
+  const source = requestQuoteSource(request);
+  const quote = quoteActivityPublication(source);
+  if (request.publicationReceipt) {
+    if (
+      ['publishAt', 'bookingClosesAt', 'priceJod', 'isFeatured', 'totalFils'].some(
+        (k) => quote[k] !== request.agreement[k],
+      )
+    )
+      throw Error('A payment is already recorded. Reconcile it before changing paid terms.');
+    return request.agreement;
+  }
+  request.agreement = {
+    ...quote,
+    status: 'prepared',
+    preparedAt: new Date(demoNow()).toISOString(),
+    account: { ...platformSettings.receivingAccount },
+  };
+  return request.agreement;
+}
+function recordOrganizerDecision(id, input) {
+  const request = contactMessages.find((r) => r.id === id),
+    offer = request?.agreement;
+  if (!offer) throw Error('Prepare the offer first.');
+  if (
+    !['accepted', 'declined', 'changesRequested'].includes(input.decision) ||
+    !['email', 'phone', 'whatsapp'].includes(input.channel)
+  )
+    throw Error('Choose the reply and contact channel.');
+  const reference = String(input.reference || '').trim();
+  if (reference.length < 5 || reference.length > 300 || input.confirmed !== true)
+    throw Error('Record the organizer’s actual reply and confirm you received it.');
+  Object.assign(offer, {
+    status: input.decision,
+    channel: input.channel,
+    replyReference: reference,
+    repliedAt: new Date(demoNow()).toISOString(),
+  });
+  return offer;
+}
+function organizerQuoteText(request) {
+  const offer = request.agreement;
+  if (!offer) throw Error('Prepare the offer first.');
+  const fmt = HobbyHubService.money,
+    account = offer.account;
+  return [
+    'HobbyHub activity proposal — ' + requestQuoteSource(request).title,
+    'Organizer: ' + request.businessName,
+    'Publication: ' + offer.publishAt + ' → ' + offer.bookingClosesAt + ' (Amman UTC+03:00)',
+    'Display period: ' + formatDisplayPeriod(offer.publicationHours),
+    'Paid-booking commission: 15%. Free bookings: no booking commission.',
+    'Free-activity publication: ' + fmt(offer.listingFeeFils),
+    'Homepage placement: ' + fmt(offer.featuredFeeFils),
+    'Total publication/placement fees: ' + fmt(offer.totalFils),
+    'Daily rates are prorated to the actual hours and rounded to the nearest fils.',
+    offer.totalFils
+      ? account?.holder && account?.identifier
+        ? 'Pay HobbyHub: ' +
+          [account.holder, account.method, account.provider, account.identifier].filter(Boolean).join(' · ')
+        : 'Payment instructions pending: admin must configure HobbyHub’s receiving account before requesting a transfer.'
+      : 'No fixed publication payment due.',
+    'Please reply to confirm or decline these dates and fees. No publication is approved by this quotation alone.',
+  ].join('\n');
 }
 
-function demoNow(){return typeof window!=='undefined'&&window.DemoStore?window.DemoStore.now():Date.now();}
-function requestStage(request){if(request.activityId&&activities.some(a=>a.id===request.activityId&&a.status==='published'))return 'published';if(request.agreement?.status==='declined')return 'declined';if(request.agreement?.status==='changesRequested')return 'changes';if(request.agreement?.status!=='accepted')return request.agreement?'reply':'review';if(request.agreement.totalFils>0&&!request.publicationReceipt)return 'payment';return 'publish';}
-function recordPublicationReceipt(id,input){const r=contactMessages.find(r=>r.id===id);if(r?.agreement?.status!=='accepted')throw Error('Record organizer approval first.');if(r.publicationReceipt)throw Error('This receipt is already recorded.');if(input.confirmed!==true||HobbyHubService.toFils(input.amountJod)!==r.agreement.totalFils||String(input.reference||'').trim().length<3||!isValidPaymentDay(input.receivedOn)||input.receivedOn>new Date(demoNow()).toISOString().slice(0,10))throw Error('Confirm the exact amount, payment date and transfer reference.');if(contactMessages.some(x=>x.publicationReceipt?.reference===input.reference.trim()))throw Error('This payment reference is already used.');r.publicationReceipt={amountFils:r.agreement.totalFils,reference:input.reference.trim(),receivedOn:input.receivedOn,recordedAt:new Date(demoNow()).toISOString()};return r.publicationReceipt;}
-function reconcileRequestReceipt(id){const r=contactMessages.find(r=>r.id===id);if(!r?.publicationReceipt||!r.activityId)return;const fees=serviceFees.filter(f=>f.activityId===r.activityId&&['listing','featured'].includes(f.type));if(!fees.length||invoices.some(i=>i.sourceRequestId===id))return;const invoice={id:'request-invoice-'+id,sourceRequestId:id,number:'HH-'+id,organizerId:r.organizerId,issuedOn:r.publicationReceipt.receivedOn,dueOn:r.publicationReceipt.receivedOn,currency:'JOD',feeIds:fees.map(f=>f.id),status:'paid',paidAt:r.publicationReceipt.recordedAt,paymentNotes:r.publicationReceipt.reference};invoices.push(invoice);fees.forEach(f=>{f.status='paid';f.invoiceId=invoice.id;});}
-function payoutReady(payout,now=demoNow()){return payout.paymentIds.every(id=>{const payment=simulatedPayments.find(p=>p.id===id),booking=enrollments.find(e=>e.id===payment?.enrollmentId),a=activities.find(a=>a.id===booking?.activityId);if(!a)return false;const d=new Date(a.endDate||a.date),date=[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');try{return now>=activityDateTime(date+'T'+(a.endTime||'23:59'));}catch{return false;}});}
+function calculateRequestSchedule(first, last, days) {
+  const start = new Date(first + 'T00:00:00Z'),
+    end = new Date(last + 'T00:00:00Z');
+  if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime()) || end < start)
+    throw Error('Choose a valid first and last session date.');
+  if (!Array.isArray(days)) throw Error('Choose the session days.');
+  const chosen = [...new Set(days.map(Number))];
+  if (!chosen.length || chosen.some((d) => !Number.isInteger(d) || d < 0 || d > 6))
+    throw Error('Choose the session days.');
+  if (!chosen.includes(start.getUTCDay()) || !chosen.includes(end.getUTCDay()))
+    throw Error('The first and last session dates must match the selected session days.');
+  const span = Math.round((end - start) / 86400000) + 1;
+  if (span > 730) throw Error('Choose an activity span of up to two years.');
+  let count = 0;
+  for (let i = 0; i < span; i++) if (chosen.includes((start.getUTCDay() + i) % 7)) count++;
+  return {
+    duration: span + ' calendar day' + (span === 1 ? '' : 's'),
+    sessions: count + ' session' + (count === 1 ? '' : 's'),
+    meetingDays: chosen
+      .map((d) => ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][d])
+      .join(', '),
+  };
+}
+
+function demoNow() {
+  return typeof window !== 'undefined' && window.DemoStore ? window.DemoStore.now() : Date.now();
+}
+function requestStage(request) {
+  if (request.activityId && activities.some((a) => a.id === request.activityId && a.status === 'published'))
+    return 'published';
+  if (request.agreement?.status === 'declined') return 'declined';
+  if (request.agreement?.status === 'changesRequested') return 'changes';
+  if (request.agreement?.status !== 'accepted') return request.agreement ? 'reply' : 'review';
+  if (request.agreement.totalFils > 0 && !request.publicationReceipt) return 'payment';
+  return 'publish';
+}
+function recordPublicationReceipt(id, input) {
+  const r = contactMessages.find((r) => r.id === id);
+  if (r?.agreement?.status !== 'accepted') throw Error('Record organizer approval first.');
+  if (r.publicationReceipt) throw Error('This receipt is already recorded.');
+  if (
+    input.confirmed !== true ||
+    HobbyHubService.toFils(input.amountJod) !== r.agreement.totalFils ||
+    String(input.reference || '').trim().length < 3 ||
+    !isValidPaymentDay(input.receivedOn) ||
+    input.receivedOn > new Date(demoNow()).toISOString().slice(0, 10)
+  )
+    throw Error('Confirm the exact amount, payment date and transfer reference.');
+  if (contactMessages.some((x) => x.publicationReceipt?.reference === input.reference.trim()))
+    throw Error('This payment reference is already used.');
+  r.publicationReceipt = {
+    amountFils: r.agreement.totalFils,
+    reference: input.reference.trim(),
+    receivedOn: input.receivedOn,
+    recordedAt: new Date(demoNow()).toISOString(),
+  };
+  return r.publicationReceipt;
+}
+function reconcileRequestReceipt(id) {
+  const r = contactMessages.find((r) => r.id === id);
+  if (!r?.publicationReceipt || !r.activityId) return;
+  const fees = serviceFees.filter(
+    (f) => f.activityId === r.activityId && ['listing', 'featured'].includes(f.type),
+  );
+  if (!fees.length || invoices.some((i) => i.sourceRequestId === id)) return;
+  const invoice = {
+    id: 'request-invoice-' + id,
+    sourceRequestId: id,
+    number: 'HH-' + id,
+    organizerId: r.organizerId,
+    issuedOn: r.publicationReceipt.receivedOn,
+    dueOn: r.publicationReceipt.receivedOn,
+    currency: 'JOD',
+    feeIds: fees.map((f) => f.id),
+    status: 'paid',
+    paidAt: r.publicationReceipt.recordedAt,
+    paymentNotes: r.publicationReceipt.reference,
+  };
+  invoices.push(invoice);
+  fees.forEach((f) => {
+    f.status = 'paid';
+    f.invoiceId = invoice.id;
+  });
+}
+function payoutReady(payout, now = demoNow()) {
+  return payout.paymentIds.every((id) => {
+    const payment = simulatedPayments.find((p) => p.id === id),
+      booking = enrollments.find((e) => e.id === payment?.enrollmentId),
+      a = activities.find((a) => a.id === booking?.activityId);
+    if (!a) return false;
+    const d = new Date(a.endDate || a.date),
+      date = [
+        d.getFullYear(),
+        String(d.getMonth() + 1).padStart(2, '0'),
+        String(d.getDate()).padStart(2, '0'),
+      ].join('-');
+    try {
+      return now >= activityDateTime(date + 'T' + (a.endTime || '23:59'));
+    } catch {
+      return false;
+    }
+  });
+}
 
 // One provider contract for organizer requests, admin editing and enrolled access.
 function validateZoomDetails(activity) {
- let url; try { url=new URL(String(activity.zoomUrl||'').trim()); } catch { throw Error('Enter the Zoom meeting link provided by the organizer.'); }
- if(url.protocol!=='https:' || url.username || url.password || !/(^|\.)zoom\.(us|com)$/.test(url.hostname)) throw Error('Use an HTTPS Zoom meeting link.');
- const id=String(activity.zoomMeetingId||'').replace(/\s/g,'');
- if(!/^\d{9,11}$/.test(id)) throw Error('Enter the 9–11 digit Zoom meeting ID.');
- const linked=url.pathname.match(/\/j\/(\d{9,11})(?:\/|$)/);
- if(linked && linked[1]!==id) throw Error('The meeting ID must match the Zoom link.');
- activity.zoomUrl=url.href; activity.zoomMeetingId=id;
- return activity;
+  let url;
+  try {
+    url = new URL(String(activity.zoomUrl || '').trim());
+  } catch {
+    throw Error('Enter the Zoom meeting link provided by the organizer.');
+  }
+  if (
+    url.protocol !== 'https:' ||
+    url.username ||
+    url.password ||
+    !/(^|\.)zoom\.(us|com)$/.test(url.hostname)
+  )
+    throw Error('Use an HTTPS Zoom meeting link.');
+  const id = String(activity.zoomMeetingId || '').replace(/\s/g, '');
+  if (!/^\d{9,11}$/.test(id)) throw Error('Enter the 9–11 digit Zoom meeting ID.');
+  const linked = url.pathname.match(/\/j\/(\d{9,11})(?:\/|$)/);
+  if (linked && linked[1] !== id) throw Error('The meeting ID must match the Zoom link.');
+  activity.zoomUrl = url.href;
+  activity.zoomMeetingId = id;
+  return activity;
 }
 // Preserve local demo bookings while retiring the previous meeting provider.
 function normalizeOnlineActivities() {
- for(const activity of activities) {
-  if(activity.delivery==='online' || /^online/i.test(String(activity.delivery||''))) {
-   activity.onlineProvider='zoom'; activity.delivery='Online (Zoom)';
-   delete activity.jitsiRoomName; delete activity.jitsiMeetingId; delete activity.jitsiPasscode;
+  for (const activity of activities) {
+    if (activity.delivery === 'online' || /^online/i.test(String(activity.delivery || ''))) {
+      activity.onlineProvider = 'zoom';
+      activity.delivery = 'Online (Zoom)';
+      delete activity.jitsiRoomName;
+      delete activity.jitsiMeetingId;
+      delete activity.jitsiPasscode;
+    }
   }
- }
- for(const request of contactMessages) {
-  const a=request.activityRequest;
-  if(a?.delivery==='online') { a.onlineProvider='zoom'; delete a.jitsiRoomName; delete a.jitsiMeetingId; delete a.jitsiPasscode; }
- }
+  for (const request of contactMessages) {
+    const a = request.activityRequest;
+    if (a?.delivery === 'online') {
+      a.onlineProvider = 'zoom';
+      delete a.jitsiRoomName;
+      delete a.jitsiMeetingId;
+      delete a.jitsiPasscode;
+    }
+  }
 }
 normalizeOnlineActivities();
+
+// Read a venue without changing saved organizer data or manufacturing an address.
+function activityVenue(activity) {
+  const clean = value => String(value || '').trim();
+  const supplied = clean(activity.location);
+  if (supplied && supplied !== 'Details provided by organizer') return supplied;
+  const request = contactMessages.find(row => row.id === activity.sourceContactId);
+  const requested = clean(request?.activityRequest?.location);
+  if (requested) return requested;
+  return typeof activityVenueDefaults !== 'undefined' ? clean(activityVenueDefaults[activity.id]) : '';
+}

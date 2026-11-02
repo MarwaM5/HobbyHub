@@ -1,6 +1,13 @@
 /* General enquiries go to the admin inbox. Organizer requests have their own page. */
 document.addEventListener('DOMContentLoaded', () => {
-  mountSharedUi({ active: 'contact' });
+  const loggedIn = isLoggedIn();
+  if (loggedIn) {
+    document.getElementById('contactApp').classList.add('hhUserApp');
+    document.getElementById('contactMain').classList.add('hhUserMain');
+    document.getElementById('hhUserSidebarSlot').hidden = false;
+    document.getElementById('hhUserHeaderSlot').hidden = false;
+  }
+  mountSharedUi({ userApp: loggedIn, active: 'contact', title: 'Contact us', subtitle: 'Talk to the HobbyHub team' });
   const get = (id) => document.getElementById(id),
     form = get('contactForm');
   const fields = [

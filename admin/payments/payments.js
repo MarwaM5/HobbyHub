@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const activityFilter = new URLSearchParams(location.search).get('activity');
   const u = AdminUI,
     m = AdminManager,
     fmt = HobbyHubService.money,
@@ -14,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
           u.panel(
             'Student bookings',
             u.table(
-              s.enrollments.map((row) => {
+              s.enrollments.filter(row => !activityFilter || row.activityId === activityFilter).map((row) => {
                 const a = s.activities.find((a) => a.id === row.activityId),
                   pay = s.payments.find((p) => p.enrollmentId === row.id),
                   split =
@@ -112,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
               ],
               { label: 'settlements' },
             ),
-            'Review the recipient, cancellations and refunds before recording a payout. The frontend preview does not transfer real money.',
+            'Review the recipient and booking amounts before recording a payout. The frontend preview does not transfer real money.',
           ),
       },
     ],

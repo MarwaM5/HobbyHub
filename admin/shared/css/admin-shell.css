@@ -1014,3 +1014,12 @@ body[data-admin-page="activities"] .adminTable .adminWrap { min-width: 0; max-wi
 body[data-admin-page="activities"] .adminTable th:first-child { width: 23%; }
 body[data-admin-page="activities"] .adminRowActions { flex-wrap: wrap; min-width: 0; }
 @media (max-width: 850px) { body[data-admin-page="activities"] .adminTable { table-layout: auto; min-width: 650px; } }
+
+/* Keep settlement text readable when the generic link-button rule follows it. */
+.hhAdmin .adminBtn.link[data-command='payoutPaid'] {
+  color:#fff;background:#c95336;border-color:#c95336;font-weight:700;
+}
+.hhAdmin .adminBtn.link[data-command='payoutPaid']:hover,
+.hhAdmin .adminBtn.link[data-command='payoutPaid']:focus-visible {
+  color:#fff;background:#ac432b;border-color:#ac432b;
+}

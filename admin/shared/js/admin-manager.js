@@ -52,15 +52,6 @@
           choice('categoryId', 'Category', opts(s.categories)),
           text('description', 'Short description', 'textarea'),
           text('emoji', 'Icon / emoji'),
-          ...s.questions
-            .filter((q, i, all) => all.findIndex((x) => x.dimension === q.dimension) === i)
-            .map((q) =>
-              choice(
-                'profile.' + q.dimension,
-                ui.pretty(q.dimension),
-                q.options.map((o) => [o.value, o.label]),
-              ),
-            ),
         ];
       case 'questions':
         return [
@@ -133,14 +124,7 @@
             ['inperson', 'In person'],
             ['online', 'Online'],
           ]),
-          choice(
-            'onlineProvider',
-            'Online provider',
-            [
-              ['zoom', 'Zoom'],
-            ],
-            false,
-          ),
+          choice('onlineProvider', 'Online provider', [['zoom', 'Zoom']], false),
           text('location', 'Venue / address', 'text', false),
           text('zoomUrl', 'Zoom link', 'url', false),
           text('zoomMeetingId', 'Zoom meeting ID', 'text', false),
@@ -216,7 +200,8 @@
     return `<button type="button" class="adminBtn ${command === 'add' ? '' : 'link'}" data-command="${command}" data-kind="${kind}" data-key="${e(id || '')}" ${extra}>${e(label)}</button>`;
   }
   function actions(kind, row) {
-    if (kind === 'activities' && row.status === 'published') return '<span class="adminMuted">Published · view details</span>';
+    if (kind === 'activities' && row.status === 'published')
+      return '<span class="adminMuted">Published · view details</span>';
     let out = action('Edit', 'edit', kind, row.id);
     if (kind === 'users')
       return (
@@ -282,9 +267,15 @@
     );
   }
   function editor(kind, key, refresh, prefill = {}) {
+    if (kind === 'hobbies' && window.DiscoveryEditor) return DiscoveryEditor.editHobby(key, refresh);
     const s = HobbyHubService.snapshot(),
       old = source(s, kind).find((r) => r.id === key);
-    if (kind === 'activities' && old?.status === 'published') { ui.toast('Published details are locked. Agree changes with the organizer before preparing a replacement.'); return; }
+    if (kind === 'activities' && old?.status === 'published') {
+      ui.toast(
+        'Published details are locked. Agree changes with the organizer before preparing a replacement.',
+      );
+      return;
+    }
     const value = { ...prefill, ...(old || {}) };
     if (kind === 'activities') {
       value.date = value.date ? new Date(value.date).toLocaleDateString('en-CA') : '';
@@ -360,7 +351,7 @@
       : '';
     const dialog = ui.dialog(
       (old ? 'Edit ' : 'Add ') + (names[kind] || kind),
-      `<form id="adminEditorForm">${kind === 'organizers' ? '<p class="adminNotice">Save the organization’s contact details here, then select it when adding an activity. This does not publish an activity or create a payment. The optional receiving-account details are used later to pay its share of bookings.</p>' : ''}${kind === 'users' && !old ? '<p class="adminNotice">This creates a user record only. No login credentials or invitation are created. Email account activation requires the backend.</p>' : ''}<div class="adminFormGrid">${fields.map(fieldHtml).join('')}${kind === 'activities' ? '<div class="adminFull adminPanel" id="publicationSummary" role="status"></div>' : ''}${questionOptions}${imagePreview}<p class="adminFormError adminFull" id="editorError" role="alert" hidden></p><div class="adminFormActions adminFull"><button class="adminBtn" type="submit">${kind === 'activities' ? (old?.status === 'published' ? 'Save changes' : 'Save draft') : kind === 'invoices' ? 'Save draft' : 'Save changes'}</button>${kind === 'activities' && (!value.sourceContactId || ['publish', 'published'].includes(requestStage(contactMessages.find((r) => r.id === value.sourceContactId)))) ? '<button type="submit" class="adminBtn secondary" value="publish" id="editorPublish">Publish</button>' : ''}</div></div></form>`,
+      `<form id="adminEditorForm">${kind === 'organizers' ? '<p class="adminNotice">Save the organization’s contact details here, then select it when adding an activity. This does not publish an activity or create a payment. The optional receiving-account details are used later to pay its share of bookings.</p>' : ''}${kind === 'users' && !old ? '<p class="adminNotice">Create the user’s record here. In the future, an account-setup email will let them choose their own password. This frontend does not send that email or create a working login.</p>' : ''}<div class="adminFormGrid">${fields.map(fieldHtml).join('')}${kind === 'activities' ? '<div class="adminFull adminPanel" id="publicationSummary" role="status"></div>' : ''}${questionOptions}${imagePreview}<p class="adminFormError adminFull" id="editorError" role="alert" hidden></p><div class="adminFormActions adminFull"><button class="adminBtn" type="submit">${kind === 'activities' ? (old?.status === 'published' ? 'Save changes' : 'Save draft') : kind === 'invoices' ? 'Save draft' : 'Save changes'}</button>${kind === 'activities' && (!value.sourceContactId || ['publish', 'published'].includes(requestStage(contactMessages.find((r) => r.id === value.sourceContactId)))) ? '<button type="submit" class="adminBtn secondary" value="publish" id="editorPublish">Publish</button>' : ''}</div></div></form>`,
     );
     const form = dialog.querySelector('#adminEditorForm');
     if (kind === 'activities') {
@@ -449,13 +440,7 @@
       form.elements.onlineProvider.value = 'zoom';
       const online = form.elements.delivery.value === 'online',
         zoom = form.elements.onlineProvider.value === 'zoom';
-      for (const field of [
-        'onlineProvider',
-        'zoomUrl',
-        'zoomMeetingId',
-        'zoomPasscode',
-        'location',
-      ]) {
+      for (const field of ['onlineProvider', 'zoomUrl', 'zoomMeetingId', 'zoomPasscode', 'location']) {
         const show =
           field === 'location'
             ? !online

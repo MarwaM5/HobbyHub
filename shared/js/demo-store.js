@@ -18,7 +18,6 @@
     advertisingCampaigns,
     invoices,
     contactMessages,
-    hobbyQuizQuestions,
     faqs,
     platformActivityLog,
     sharedJourneyGoals,

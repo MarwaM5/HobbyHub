@@ -1,0 +1,37 @@
+/* Local administration form layout. */
+.discoveryAdminCheck {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 12px 0;
+  line-height: 1.5;
+}
+.discoveryAdminCheck input {
+  width: 18px !important;
+  height: 18px;
+  accent-color: #ed7052;
+  flex-shrink: 0;
+}
+#discoveryEditorForm {
+  display: grid;
+  gap: 18px;
+}
+#discoveryEditorForm fieldset {
+  padding: 16px;
+  border: 1px solid #efdfd3;
+  border-radius: 14px;
+}
+#discoveryEditorForm legend {
+  float: none;
+  width: auto;
+  font-size: 1rem;
+  font-weight: 700;
+}
+#discoveryEditorError {
+  color: #a13221;
+}
+
+.discoveryAdvanced{padding:16px;border:1px solid #efdfd3;border-radius:14px}
+.discoveryAdvanced summary{cursor:pointer;font-weight:700;color:#ad4e37}
+.discoveryAdvanced[open] summary{margin-bottom:12px}
+.adminTable [data-discovery-edit],.adminTable [data-discovery-move],.adminTable [data-discovery-delete]{margin:3px}

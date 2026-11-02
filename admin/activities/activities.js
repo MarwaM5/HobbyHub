@@ -3,7 +3,15 @@ document.addEventListener('DOMContentLoaded', () => {
     u = AdminUI;
   u.start({
     page: 'activities',
-    bind: m.bind,
+    bind: (host, state, refresh) => {
+      m.bind(host, state, refresh);
+      const id = new URLSearchParams(location.search).get('activity');
+      const activity = state.activities.find(item => item.id === id);
+      if (activity && host.querySelector('[data-kind="activities"]')) {
+        const search = host.querySelector('.adminSearch');
+        if (search) { search.value = activity.title; search.dispatchEvent(new Event('input', { bubbles: true })); }
+      }
+    },
     tabs: [
       {
         id: 'activities',
